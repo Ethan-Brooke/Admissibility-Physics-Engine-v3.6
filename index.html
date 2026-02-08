@@ -55,7 +55,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 /* TOE table */
 .toe-cat{font-family:var(--mn);font-size:13px;font-weight:600;color:var(--br);padding:8px 0 4px;border-bottom:2px solid var(--bdr);margin-top:14px}
 .toe-cat:first-child{margin-top:0}
-.toe-row{display:grid;grid-template-columns:24px minmax(130px,1.2fr) 100px 90px 110px 60px 56px 24px;gap:6px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:12px;cursor:pointer;transition:background .15s}
+.toe-row{display:grid;grid-template-columns:24px minmax(120px,1fr) 95px 80px minmax(140px,1.2fr) 55px 52px 22px;gap:6px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:12px;cursor:pointer;transition:background .15s}
 .toe-row:hover{background:var(--blug)}
 .toe-row .t-q{color:var(--br);font-weight:500}.toe-row .t-v{color:var(--grn)}.toe-row .t-e{text-align:right}
 .toe-row .t-epi{font-size:13px;padding:2px 4px;border-radius:2px;font-weight:700;text-transform:uppercase;text-align:center}
@@ -84,11 +84,11 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .footer{font-family:var(--mn);font-size:13px;color:var(--dm);text-align:center;margin-top:32px;padding-top:14px;border-top:1px solid var(--bdr)}
 .loading{display:flex;align-items:center;justify-content:center;min-height:400px;font-family:var(--mn);font-size:13px;color:var(--grn)}.loading::after{content:'';width:14px;height:14px;border:2px solid var(--grn);border-top-color:transparent;border-radius:50%;margin-left:8px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:400px}.toe-row{grid-template-columns:20px 1fr 70px 60px 80px 40px 44px 20px;font-size:8.5px}}
+@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:400px}.toe-row{grid-template-columns:18px 1fr 65px 55px minmax(80px,1fr) 40px 40px 18px;font-size:8.5px}}
 
-.t-u{color:var(--amb);font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t-u{color:var(--amb);font-style:italic;line-height:1.4}
 .t-obs{color:var(--tx)}
-.toe-hdr{display:grid;grid-template-columns:24px minmax(130px,1.2fr) 100px 90px 110px 60px 56px 24px;gap:6px;padding:6px 10px;font-family:var(--mn);font-size:10px;font-weight:600;color:var(--dm);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);position:sticky;top:0;background:var(--cardbg);z-index:2}
+.toe-hdr{display:grid;grid-template-columns:24px minmax(120px,1fr) 95px 80px minmax(140px,1.2fr) 55px 52px 22px;gap:6px;padding:6px 10px;font-family:var(--mn);font-size:10px;font-weight:600;color:var(--dm);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);position:sticky;top:0;background:var(--cardbg);z-index:2}
 .xr-name{color:var(--br);font-weight:600;font-family:var(--mn);font-size:12px}
 .xr-desc{color:var(--dm);font-family:var(--mn);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .xr-tier{font-family:var(--mn);font-size:11px;font-weight:600}
@@ -524,32 +524,47 @@ function render(d){
 
   h.push('<div class="sec"><div class="sec-t">Dependency Graph — Force-Directed</div>');
   h.push('<div class="sec-intro">Physics-based spring simulation showing theorem clusters and their connections. Tightly coupled theorems cluster together; weakly connected ones drift apart.</div>');
-  h.push('<div class="card" style="position:relative;overflow:hidden"><div id="force-legend"></div><svg id="force-svg" width="100%" height="500" style="background:var(--cardbg)"></svg></div></div>');
+  h.push('<div class="card" style="position:relative;overflow:hidden"><div id="graph-box" style="width:100%;height:520px;background:var(--cardbg)"></div><div id="gtt" class="tt" style="display:none;position:absolute;pointer-events:none;z-index:10"></div></div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Dependency Graph — Layered by Tier</div>');
   h.push('<div class="sec-intro">The same theorem dependencies shown as a layered DAG (directed acyclic graph), organized vertically by proof tier. Higher tiers depend on lower ones.</div>');
-  h.push('<div class="card" style="overflow:auto"><svg id="dag-svg" width="100%" height="700" style="background:var(--cardbg)"></svg></div></div>');
+  h.push('<div class="card" style="overflow:auto"><div id="dag-box" style="width:100%;min-height:600px;background:var(--cardbg)"></div></div></div>');
 
 
   h.push('<div class="sec"><div class="sec-t">Theorem Map</div>');
-  h.push('<div class="sec-intro">Complete listing of all 49 theorems with their epistemic status, tier, and dependencies. Click any row to see the gap analysis.</div>');
+  h.push('<div class="sec-intro">Every theorem in the framework, organized by proof tier. Each row shows the theorem ID, a plain-English summary of what it proves, and its epistemic status. Click any row for the full derivation chain, dependencies, and gap analysis.</div>');
   h.push('<div class="card" style="padding:12px;overflow-x:auto">');
   var allThms=[];
   Object.entries(d.theorems||{}).forEach(function(e){allThms.push(Object.assign({id:e[0]},e[1]))});
   allThms.sort(function(a,b){return (a.tier||0)-(b.tier||0)});
+  var lastTier=-99;
   allThms.forEach(function(t){
+    var tier=t.tier||0;
+    if(tier!==lastTier){
+      lastTier=tier;
+      var tierNames={0:'Axiom Foundations',1:'Gauge Group Selection',2:'Particle Content & Charges',3:'Continuous Constants & RG Flow',4:'Gravity & Cosmology',5:'\u0393 Closure & UV Completion'};
+      h.push('<div style="font-size:13px;font-weight:700;color:'+TC[tier]+';padding:12px 0 4px;border-bottom:2px solid var(--bdr);margin-top:8px">Tier '+tier+': '+(tierNames[tier]||'')+'</div>');
+    }
     var ec2=EPI_COLORS[t.epistemic]||['var(--dm)','var(--bg)'];
+    var summary=t.summary||'';
+    var plainEnglish=t.key_result||summary;
     h.push('<div class="xr"><div class="xr-top" onclick="toggleToe(this.parentNode)">');
     h.push('<div class="xr-dot" style="background:'+ec2[0]+'"></div>');
     h.push('<div class="xr-name">'+(t.id||'')+'</div>');
-    h.push('<div class="xr-desc">'+esc(t.summary||'')+'</div>');
-    h.push('<div class="xr-tier" style="color:'+TC[t.tier||0]+'">T'+(t.tier||0)+'</div>');
+    h.push('<div class="xr-desc" style="white-space:normal">'+esc(summary)+'</div>');
+    h.push('<div class="xr-tier" style="color:'+TC[tier]+'">T'+tier+'</div>');
     h.push('<div><span class="t-epi" style="background:'+ec2[1]+';color:'+ec2[0]+'">'+((t.epistemic||'').replace('P_',''))+'</span></div>');
     h.push('<div class="xr-arrow">\u25bc</div></div>');
     h.push('<div class="toe-expand"><div class="toe-detail">');
     if(t.key_result)h.push('<div class="xd-row"><span class="xd-label">Key result:</span><b style="color:var(--grn)">'+esc(t.key_result)+'</b></div>');
-    if(t.dependencies&&t.dependencies.length)h.push('<div class="xd-row"><span class="xd-label">Dependencies:</span>'+t.dependencies.join(', ')+'</div>');
-    if(t.gap_analysis)h.push('<div class="xd-row"><span class="xd-label">Gap:</span>'+esc(t.gap_analysis)+'</div>');
+    if(summary&&summary!==t.key_result)h.push('<div class="xd-row"><span class="xd-label">Summary:</span>'+esc(summary)+'</div>');
+    if(t.dependencies&&t.dependencies.length)h.push('<div class="xd-row"><span class="xd-label">Depends on:</span>'+t.dependencies.join(', ')+'</div>');
+    var depCount=(t.dependencies||[]).length;
+    h.push('<div class="xd-row"><span class="xd-label">Proof depth:</span>'+depCount+' direct dependencies, Tier '+tier+'</div>');
+    if(t.gap_type)h.push('<div class="xd-row"><span class="xd-label">Gap type:</span><span style="color:'+(t.gap_type==='closed'?'var(--grn)':t.gap_type==='open_physics'?'var(--red)':'var(--amb)')+'">'+esc(t.gap_type)+'</span></div>');
+    if(t.gap_analysis)h.push('<div class="xd-row"><span class="xd-label">Gap analysis:</span>'+esc(t.gap_analysis)+'</div>');
+    if(t.regime)h.push('<div class="xd-row"><span class="xd-label">Regime:</span><span style="color:var(--amb)">'+esc(t.regime)+'</span></div>');
+    h.push('<div class="xd-row"><span class="xd-label">Status:</span><span style="color:'+ec2[0]+'">'+esc(t.epistemic||'')+'</span></div>');
     h.push('</div></div>');
   });
   h.push('</div></div>');
@@ -563,7 +578,13 @@ function render(d){
     var id=e[0],g=e[1];
     var gc=(g.gap_type==='closed'||g.gap_type==='import')?'var(--grn)':(g.gap_type==='reduced'?'var(--amb)':'var(--red)');
     h.push('<div class="xr"><div class="xr-top" onclick="toggleToe(this.parentNode)"><div class="xr-dot" style="background:'+gc+'"></div><div class="xr-name">'+id+'</div><div class="xr-desc">'+esc(g.anchor||'')+'</div><div style="font-family:var(--mn);font-size:12px;color:'+gc+'">'+esc(g.gap_type||'')+'</div><div></div><div class="xr-arrow">\u25bc</div></div>');
-    h.push('<div class="toe-expand"><div class="toe-detail"><div class="xd-row"><span class="xd-label">Gap:</span>'+esc(g.gap||'')+'</div><div class="xd-row"><span class="xd-label">To close:</span>'+esc(g.to_close||'')+'</div></div></div>');
+    h.push('<div class="toe-expand"><div class="toe-detail">');
+    h.push('<div class="xd-row"><span class="xd-label">Anchor:</span>'+esc(g.anchor||'')+'</div>');
+    h.push('<div class="xd-row"><span class="xd-label">Gap:</span>'+esc(g.gap||'')+'</div>');
+    if(g.severity)h.push('<div class="xd-row"><span class="xd-label">Severity:</span><span style="color:'+(g.severity==='high'?'var(--red)':'var(--amb)')+'">'+esc(g.severity)+'</span></div>');
+    h.push('<div class="xd-row"><span class="xd-label">To close:</span>'+esc(g.to_close||'')+'</div>');
+    h.push('<div class="xd-row"><span class="xd-label">Status:</span><span style="color:'+gc+'">'+esc(g.gap_type||'')+'</span></div>');
+    h.push('</div></div>');
   });
   h.push('</div></div>');
 
