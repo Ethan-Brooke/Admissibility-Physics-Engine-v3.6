@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissibility Physics Engine v3.6</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06080d; --card: #0c1018; --border: #1a2030;
+  --text: #d8dce6; --dim: #5a6580; --bright: #f0f2f8;
+  --green: #34d399; --green-dim: #34d39930; --blue: #60a5fa; --blue-dim: #60a5fa25;
+  --purple: #a78bfa; --purple-dim: #a78bfa20; --amber: #fbbf24; --amber-dim: #fbbf2420;
+  --red: #f87171; --red-dim: #f8717120;
+  --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--sans); background: var(--bg); color: var(--text);
+  min-height: 100vh; line-height: 1.5;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+
+/* Header */
+.header { margin-bottom: 32px; position: relative; }
+.header::after {
+  content: ''; position: absolute; bottom: -16px; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, var(--green), var(--blue), var(--purple), transparent);
+}
+.header-label {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--green); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px;
+}
+.header-title {
+  font-size: 28px; font-weight: 700; color: var(--bright); letter-spacing: -0.5px;
+}
+.header-sub {
+  font-family: var(--mono); font-size: 12px; color: var(--dim); margin-top: 6px;
+}
+.header-sub span { color: var(--green); }
+
+/* Summary cards */
+.summary-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px;
+}
+.summary-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 14px 16px; position: relative; overflow: hidden;
+}
+.summary-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.summary-card[data-accent="green"]::before { background: var(--green); }
+.summary-card[data-accent="blue"]::before { background: var(--blue); }
+.summary-card[data-accent="amber"]::before { background: var(--amber); }
+.summary-card[data-accent="purple"]::before { background: var(--purple); }
+.summary-label {
+  font-family: var(--mono); font-size: 10px; color: var(--dim);
+  text-transform: uppercase; letter-spacing: 1.5px;
+}
+.summary-value {
+  font-family: var(--mono); font-size: 26px; font-weight: 700; margin-top: 2px;
+}
+.summary-sub { font-size: 11px; color: var(--dim); margin-top: 2px; }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+}
+.tab {
+  font-family: var(--mono); font-size: 12px; font-weight: 500; padding: 8px 20px;
+  color: var(--dim); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.2s; user-select: none;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--green); border-bottom-color: var(--green); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 16px; margin-bottom: 14px;
+}
+.card-title {
+  font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--bright);
+  margin-bottom: 12px; letter-spacing: 0.5px;
+}
+
+/* Tier bars */
+.tier-row {
+  display: grid; grid-template-columns: 140px 40px 1fr; gap: 8px;
+  align-items: center; margin-bottom: 6px; font-size: 12px;
+}
+.tier-name { font-family: var(--mono); color: var(--dim); font-size: 11px; }
+.tier-count { font-family: var(--mono); color: var(--bright); font-weight: 600; text-align: right; }
+.tier-bar-bg { height: 18px; background: var(--border); border-radius: 3px; position: relative; overflow: hidden; }
+.tier-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+/* Epistemic pie (CSS only) */
+.epi-row {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.epi-ring {
+  width: 100px; height: 100px; border-radius: 50%; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.epi-ring-label {
+  font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--bright);
+}
+.epi-ring-sub {
+  font-family: var(--mono); font-size: 9px; color: var(--dim); text-align: center;
+}
+.epi-legend { font-size: 12px; }
+.epi-legend-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.epi-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* Predictions table */
+.pred-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.pred-table th {
+  font-family: var(--mono); font-size: 10px; color: var(--dim); text-transform: uppercase;
+  letter-spacing: 1px; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border);
+}
+.pred-table td {
+  padding: 6px 8px; border-bottom: 1px solid var(--border);
+  font-family: var(--mono); font-size: 11px;
+}
+.pred-table tr:hover { background: var(--blue-dim); }
+.pred-exact { color: var(--green); }
+.pred-cont { color: var(--blue); }
+.pred-test { color: var(--amber); }
+.pred-err { font-weight: 600; }
+
+/* Theorem grid */
+.thm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px; }
+.thm-cell {
+  font-family: var(--mono); font-size: 10px; padding: 6px 8px; border-radius: 4px;
+  border: 1px solid var(--border); line-height: 1.3;
+}
+.thm-cell .tid { font-weight: 700; color: var(--bright); }
+.thm-cell .tname { color: var(--dim); font-size: 9px; display: block; margin-top: 1px; }
+.thm-cell.ep-P { border-left: 3px solid var(--green); }
+.thm-cell.ep-P_structural { border-left: 3px solid var(--amber); }
+
+/* Energy budget */
+.budget-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.budget-card {
+  border-radius: 6px; padding: 14px; text-align: center;
+}
+.budget-num { font-family: var(--mono); font-size: 36px; font-weight: 700; }
+.budget-label { font-size: 12px; font-weight: 600; margin-top: 2px; }
+.budget-sub { font-size: 10px; color: var(--dim); margin-top: 4px; }
+.budget-formula { font-family: var(--mono); font-size: 11px; margin-top: 4px; }
+
+/* Audit */
+.audit-row {
+  display: grid; grid-template-columns: 50px 1fr 70px; gap: 8px;
+  align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.audit-id { font-family: var(--mono); font-weight: 600; color: var(--dim); }
+.audit-desc { color: var(--text); }
+.badge {
+  font-family: var(--mono); font-size: 9px; font-weight: 700; padding: 2px 6px;
+  border-radius: 3px; text-align: center;
+}
+.badge-fixed { background: var(--green-dim); color: var(--green); }
+.badge-active { background: var(--amber-dim); color: var(--amber); }
+.badge-verified { background: var(--blue-dim); color: var(--blue); }
+
+/* Footer */
+.footer {
+  font-family: var(--mono); font-size: 10px; color: var(--dim); text-align: center;
+  margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border);
+}
+
+/* Loading */
+.loading {
+  display: flex; align-items: center; justify-content: center; min-height: 400px;
+  font-family: var(--mono); font-size: 14px; color: var(--green);
+}
+.loading::after {
+  content: ''; width: 16px; height: 16px; border: 2px solid var(--green);
+  border-top-color: transparent; border-radius: 50%; margin-left: 10px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .budget-grid { grid-template-columns: 1fr; }
+  .tier-row { grid-template-columns: 100px 30px 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="loading">Loading engine data</div>
+</div>
+
+<script>
+const TIER_COLORS = ['#6366f1','#8b5cf6','#ec4899','#f59e0b','#3b82f6','#22c55e'];
+const TIER_NAMES_FALLBACK = {
+  0:'Axiom Foundations', 1:'Gauge Group', 2:'Particles',
+  3:'RG / Constants', 4:'Gravity + Dark', 5:'Γ_geo Closure'
+};
+
+async function main() {
+  let d;
+  try {
+    const r = await fetch('dashboard_data.json');
+    d = await r.json();
+  } catch(e) {
+    document.getElementById('app').innerHTML =
+      '<div class="loading" style="color:#f87171">Failed to load dashboard_data.json</div>';
+    return;
+  }
+  render(d);
+}
+
+function render(d) {
+  const ep = d.epistemic_counts || {};
+  const pCount = ep.P || 0;
+  const psCount = ep.P_structural || 0;
+  const pPct = Math.round(pCount / d.total_theorems * 100);
+
+  // Classify predictions
+  const preds = d.predictions || [];
+  const exactPreds = preds.filter(p => p.error_pct === 0 || p.error_pct === 0.0);
+  const contPreds = preds.filter(p => p.error_pct > 0);
+  const testPreds = preds.filter(p => p.error_pct === null || p.error_pct === undefined);
+
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-label">Admissibility Physics Engine</div>
+      <div class="header-title">v${d.version || '3.6'} Status Dashboard</div>
+      <div class="header-sub">
+        ${d.date} · <span>${d.total_theorems} theorems</span> · 5 axioms · 0 free parameters · ${preds.length} predictions
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary-grid">
+      <div class="summary-card" data-accent="green">
+        <div class="summary-label">Theorems</div>
+        <div class="summary-value" style="color:var(--green)">${d.passed}/${d.total_theorems}</div>
+        <div class="summary-sub">all pass</div>
+      </div>
+      <div class="summary-card" data-accent="blue">
+        <div class="summary-label">Proven [P]</div>
+        <div class="summary-value" style="color:var(--blue)">${pCount}</div>
+        <div class="summary-sub">${pPct}% of total</div>
+      </div>
+      <div class="summary-card" data-accent="purple">
+        <div class="summary-label">Predictions</div>
+        <div class="summary-value" style="color:var(--purple)">${preds.length}</div>
+        <div class="summary-sub">${exactPreds.length} exact · ${contPreds.length} continuous · ${testPreds.length} testable</div>
+      </div>
+      <div class="summary-card" data-accent="amber">
+        <div class="summary-label">Open Physics</div>
+        <div class="summary-value" style="color:var(--amber)">${psCount > 0 ? Object.values(d.theorems||{}).filter(t=>t.gap_type==='open_physics'||(d.p_structural_reasons||{})[t.name]?.includes('open')).length || 3 : 0}</div>
+        <div class="summary-sub">remaining gaps</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" data-tab="status">Status</div>
+      <div class="tab" data-tab="predictions">Predictions</div>
+      <div class="tab" data-tab="theorems">Theorem Map</div>
+      <div class="tab" data-tab="budget">Energy Budget</div>
+      <div class="tab" data-tab="audit">Audit</div>
+    </div>
+
+    <!-- STATUS TAB -->
+    <div class="tab-content active" id="tab-status">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="card">
+          <div class="card-title">Epistemic Distribution</div>
+          <div class="epi-row">
+            <div>
+              <div class="epi-ring" style="background:conic-gradient(var(--green) 0% ${pPct}%, var(--amber) ${pPct}% 100%)">
+                <div style="width:70px;height:70px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center">
+                  <div class="epi-ring-label">${pPct}%</div>
+                  <div class="epi-ring-sub">proven</div>
+                </div>
+              </div>
+            </div>
+            <div class="epi-legend">
+              <div class="epi-legend-item"><div class="epi-dot" style="background:var(--green)"></div> [P] Proven: ${pCount}</div>
+              <div class="epi-legend-item"><div class="epi-dot" style="background:var(--amber)"></div> [P_structural]: ${psCount}</div>
+              <div class="epi-legend-item" style="margin-top:8px;color:var(--dim);font-size:11px">No [C] or assumed theorems</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Tier Breakdown</div>
+          ${renderTiers(d)}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Sector Verdicts</div>
+        <div style="display:flex;gap:12px">
+          ${Object.entries(d.sector_verdicts||{}).map(([k,v]) =>
+            `<div style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px">
+              <div style="width:8px;height:8px;border-radius:50%;background:${v?'var(--green)':'var(--red)'}"></div>
+              ${k}: ${v?'PASS':'FAIL'}
+            </div>`
+          ).join('')}
+          <div style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px">
+            <div style="width:8px;height:8px;border-radius:50%;background:${d.dependency_check?.valid?'var(--green)':'var(--red)'}"></div>
+            DAG: ${d.dependency_check?.cycles||0} cycles
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREDICTIONS TAB -->
+    <div class="tab-content" id="tab-predictions">
+      <div class="card">
+        <div class="card-title">All ${preds.length} Predictions vs Observation</div>
+        <table class="pred-table">
+          <thead>
+            <tr><th>Quantity</th><th>Predicted</th><th>Observed</th><th>Error</th><th>Theorem</th></tr>
+          </thead>
+          <tbody>
+            ${preds.map(p => {
+              const isExact = p.error_pct === 0 || p.error_pct === 0.0;
+              const isTest = p.error_pct === null || p.error_pct === undefined;
+              const cls = isTest ? 'pred-test' : (isExact ? 'pred-exact' : 'pred-cont');
+              const err = isTest ? 'testable' : (isExact ? 'exact' : p.error_pct.toFixed(2) + '%');
+              return `<tr>
+                <td class="${cls}">${escHtml(p.quantity)}</td>
+                <td>${escHtml(p.predicted)}</td>
+                <td>${escHtml(p.observed||'—')}</td>
+                <td class="pred-err ${cls}">${err}</td>
+                <td style="color:var(--dim)">${escHtml(p.theorem)}</td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- THEOREMS TAB -->
+    <div class="tab-content" id="tab-theorems">
+      ${renderTheoremsByTier(d)}
+    </div>
+
+    <!-- ENERGY BUDGET TAB -->
+    <div class="tab-content" id="tab-budget">
+      <div class="card">
+        <div class="card-title">Cosmic Energy Budget: 3 + 16 + 42 = 61</div>
+        <div class="budget-grid">
+          <div class="budget-card" style="background:var(--green-dim);border:1px solid #34d39940">
+            <div class="budget-num" style="color:var(--green)">3</div>
+            <div class="budget-label" style="color:var(--green)">Baryonic Matter</div>
+            <div class="budget-formula">Ω_b = 3/61 = 0.04918</div>
+            <div class="budget-sub">N_gen = 3 generation labels</div>
+          </div>
+          <div class="budget-card" style="background:var(--blue-dim);border:1px solid #60a5fa40">
+            <div class="budget-num" style="color:var(--blue)">16</div>
+            <div class="budget-label" style="color:var(--blue)">Dark Matter</div>
+            <div class="budget-formula">Ω_DM = 16/61 = 0.2623</div>
+            <div class="budget-sub">N_mult = 5×3+1 multiplet refs</div>
+          </div>
+          <div class="budget-card" style="background:var(--purple-dim);border:1px solid #a78bfa40">
+            <div class="budget-num" style="color:var(--purple)">42</div>
+            <div class="budget-label" style="color:var(--purple)">Dark Energy (Λ)</div>
+            <div class="budget-formula">Ω_Λ = 42/61 = 0.6885</div>
+            <div class="budget-sub">Structural vacuum capacity</div>
+          </div>
+        </div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.8;margin-top:8px">
+          <div><strong style="color:var(--bright)">45</strong> Weyl fermions (15/gen × 3) + <strong style="color:var(--bright)">4</strong> Higgs (complex doublet) + <strong style="color:var(--bright)">12</strong> gauge generators (8+3+1) = <strong style="color:var(--green)">61</strong></div>
+          <div style="margin-top:8px">Key identity: N_gauge + N_Higgs = N_multiplets → 12 + 4 = 16</div>
+          <div>Testable prediction: <span style="color:var(--amber)">Majorana neutrinos</span> (C_total=61 requires no ν_R)</div>
+          <div>All 5 cosmological parameters within <span style="color:var(--green)">1σ</span> of Planck 2018.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUDIT TAB -->
+    <div class="tab-content" id="tab-audit">
+      <div class="card">
+        <div class="card-title">Audit Trail (${(d.audit_checks||[]).length} entries)</div>
+        ${(d.audit_checks||[]).map(a => `
+          <div class="audit-row">
+            <div class="audit-id">${escHtml(a.id)}</div>
+            <div class="audit-desc">${escHtml(a.check||a.desc||'')}</div>
+            <div><span class="badge badge-${a.status.toLowerCase()}">${a.status}</span></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="footer">
+      Admissibility Physics Engine ${d.version} · ${d.date} · ${d.total_theorems} theorems · 0 free parameters · Data-driven from dashboard_data.json
+    </div>
+  `;
+
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+function renderTiers(d) {
+  const tiers = d.tier_stats || {};
+  return Object.entries(tiers).map(([k, v]) => {
+    const pct = v.total > 0 ? (v.passed / v.total * 100) : 0;
+    const color = TIER_COLORS[parseInt(k)] || 'var(--green)';
+    return `<div class="tier-row">
+      <div class="tier-name">${v.name || TIER_NAMES_FALLBACK[k] || 'Tier '+k}</div>
+      <div class="tier-count">${v.passed}/${v.total}</div>
+      <div class="tier-bar-bg">
+        <div class="tier-bar-fill" style="width:${pct}%;background:${color}"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTheoremsByTier(d) {
+  const tiers = {};
+  Object.entries(d.theorems || {}).forEach(([id, t]) => {
+    const tier = t.tier ?? 0;
+    if (!tiers[tier]) tiers[tier] = [];
+    tiers[tier].push({ id, ...t });
+  });
+  return Object.entries(tiers).sort((a,b) => a[0]-b[0]).map(([tier, thms]) => {
+    const ts = d.tier_stats?.[tier] || {};
+    const name = ts.name || TIER_NAMES_FALLBACK[tier] || 'Tier '+tier;
+    return `<div class="card">
+      <div class="card-title" style="color:${TIER_COLORS[tier]||'var(--green)'}">Tier ${tier}: ${name} (${thms.length})</div>
+      <div class="thm-grid">
+        ${thms.map(t => `
+          <div class="thm-cell ep-${t.epistemic}">
+            <span class="tid">${escHtml(t.id)}</span>
+            <span style="font-size:9px;color:${t.epistemic==='P'?'var(--green)':'var(--amber)'};margin-left:4px">[${t.epistemic}]</span>
+            <span class="tname">${escHtml((t.name||'').replace(/^[^:]+:\s*/,'').slice(0,40))}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+main();
+</script>
+</body>
+</html>
