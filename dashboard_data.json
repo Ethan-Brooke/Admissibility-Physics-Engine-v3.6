@@ -1,0 +1,1176 @@
+{
+  "version": "v3.6",
+  "date": "2026-02-08",
+  "total_theorems": 49,
+  "passed": 49,
+  "all_pass": true,
+  "epistemic_counts": {
+    "P": 43,
+    "P_structural": 6
+  },
+  "sector_verdicts": {
+    "gauge": true,
+    "gravity": true,
+    "rg_mechanism": true
+  },
+  "dependency_check": {
+    "valid": true,
+    "cycles": 0,
+    "issues": []
+  },
+  "tier_stats": {
+    "0": {
+      "name": "Axiom Foundations",
+      "passed": 9,
+      "total": 9
+    },
+    "1": {
+      "name": "Gauge Group Selection",
+      "passed": 3,
+      "total": 3
+    },
+    "2": {
+      "name": "Particle Content",
+      "passed": 9,
+      "total": 9
+    },
+    "3": {
+      "name": "Continuous Constants / RG",
+      "passed": 14,
+      "total": 14
+    },
+    "4": {
+      "name": "Gravity + Dark Sector",
+      "passed": 8,
+      "total": 8
+    },
+    "5": {
+      "name": "Gamma_geo Closure",
+      "passed": 6,
+      "total": 6
+    }
+  },
+  "predictions": [
+    {
+      "quantity": "sin\u00b2\u03b8_W",
+      "predicted": "3/13 \u2248 0.23077",
+      "observed": "0.23122 \u00b1 0.00003",
+      "error_pct": 0.19,
+      "theorem": "T24",
+      "status": "derived"
+    },
+    {
+      "quantity": "Gauge group",
+      "predicted": "SU(3)\u00d7SU(2)\u00d7U(1)",
+      "observed": "SU(3)\u00d7SU(2)\u00d7U(1)",
+      "error_pct": 0.0,
+      "theorem": "T_gauge",
+      "status": "exact"
+    },
+    {
+      "quantity": "Generations",
+      "predicted": "3",
+      "observed": "3",
+      "error_pct": 0.0,
+      "theorem": "T7",
+      "status": "exact"
+    },
+    {
+      "quantity": "Spacetime dim",
+      "predicted": "4",
+      "observed": "4",
+      "error_pct": 0.0,
+      "theorem": "T8",
+      "status": "exact"
+    },
+    {
+      "quantity": "Higgs exists",
+      "predicted": "Yes (massive scalar)",
+      "observed": "Yes (125 GeV)",
+      "error_pct": 0.0,
+      "theorem": "T_Higgs",
+      "status": "exact"
+    },
+    {
+      "quantity": "DM exists",
+      "predicted": "Yes (geometric)",
+      "observed": "Yes (\u03a9_DM \u2248 0.26)",
+      "error_pct": 0.0,
+      "theorem": "T12",
+      "status": "structural"
+    },
+    {
+      "quantity": "\u039b > 0",
+      "predicted": "Yes (residual capacity)",
+      "observed": "Yes (\u039b \u2248 10\u207b\u00b9\u00b2\u00b2)",
+      "error_pct": 0.0,
+      "theorem": "T11",
+      "status": "structural"
+    },
+    {
+      "quantity": "\u03a9_\u039b",
+      "predicted": "42/61 \u2248 0.6885",
+      "observed": "0.6889",
+      "error_pct": 0.05,
+      "theorem": "T11",
+      "status": "structural"
+    },
+    {
+      "quantity": "\u03a9_m",
+      "predicted": "19/61 \u2248 0.3115",
+      "observed": "0.3111",
+      "error_pct": 0.12,
+      "theorem": "T11+T12E",
+      "status": "structural"
+    },
+    {
+      "quantity": "\u03a9_b",
+      "predicted": "3/61 \u2248 0.04918",
+      "observed": "0.0490",
+      "error_pct": 0.37,
+      "theorem": "T12E",
+      "status": "structural"
+    },
+    {
+      "quantity": "\u03a9_DM",
+      "predicted": "16/61 \u2248 0.2623",
+      "observed": "0.2607",
+      "error_pct": 0.61,
+      "theorem": "T12E",
+      "status": "structural"
+    },
+    {
+      "quantity": "f_b (baryon fraction)",
+      "predicted": "3/19 \u2248 0.15789",
+      "observed": "0.1571",
+      "error_pct": 0.49,
+      "theorem": "T12E",
+      "status": "structural"
+    },
+    {
+      "quantity": "Field content",
+      "predicted": "{Q,L,u,d,e} fundamental",
+      "observed": "{Q,L,u,d,e} fundamental",
+      "error_pct": 0.0,
+      "theorem": "T_field",
+      "status": "exact"
+    },
+    {
+      "quantity": "Q_u (up quark charge)",
+      "predicted": "2/3",
+      "observed": "2/3",
+      "error_pct": 0.0,
+      "theorem": "T_field",
+      "status": "exact"
+    },
+    {
+      "quantity": "Q_e (electron charge)",
+      "predicted": "-1",
+      "observed": "-1",
+      "error_pct": 0.0,
+      "theorem": "T_field",
+      "status": "exact"
+    },
+    {
+      "quantity": "Q_\u03bd (neutrino charge)",
+      "predicted": "0",
+      "observed": "0",
+      "error_pct": 0.0,
+      "theorem": "T_field",
+      "status": "exact"
+    },
+    {
+      "quantity": "Neutral atoms",
+      "predicted": "Q_p + Q_e = 0",
+      "observed": "|Q_p+Q_e| < 10\u207b\u00b2\u00b9",
+      "error_pct": 0.0,
+      "theorem": "T_field",
+      "status": "exact"
+    },
+    {
+      "quantity": "Neutrino mass type",
+      "predicted": "Majorana (C_total=61 requires no \u03bd_R)",
+      "observed": "Unknown (0\u03bd\u03b2\u03b2 experiments ongoing)",
+      "error_pct": null,
+      "theorem": "T11+T12E",
+      "status": "testable_prediction"
+    },
+    {
+      "quantity": "Boson-multiplet identity",
+      "predicted": "N_gauge+N_Higgs = N_mult (12+4=16)",
+      "observed": "12+4=16 \u2713",
+      "error_pct": 0.0,
+      "theorem": "T_gauge+T_field+T_Higgs",
+      "status": "exact"
+    },
+    {
+      "quantity": "N_gen consistency",
+      "predicted": "N_c\u00b2+6 = 5\u00d7N_gen (9+6=15=5\u00d73)",
+      "observed": "3 generations \u2713",
+      "error_pct": 0.0,
+      "theorem": "T_gauge+T4F",
+      "status": "exact"
+    }
+  ],
+  "audit_checks": [
+    {
+      "id": "A01",
+      "check": "Circular imports in theorem chain",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A02",
+      "check": "T26\u2192T27d circular dependency",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A03",
+      "check": "Stale P_structural labels (v3.6 upgrade)",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A04",
+      "check": "L_\u03b5 disambiguation",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A05",
+      "check": "T_sin2theta derivation chain",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A06",
+      "check": "Import-gated C_structural labels",
+      "status": "FIXED",
+      "severity": "medium"
+    },
+    {
+      "id": "A07",
+      "check": "Computational witnesses (V(\u03a6))",
+      "status": "ACTIVE",
+      "severity": "low"
+    },
+    {
+      "id": "A08",
+      "check": "Anomaly scan exhaustiveness",
+      "status": "ACTIVE",
+      "severity": "low"
+    },
+    {
+      "id": "A09",
+      "check": "Exit codes for CI",
+      "status": "ACTIVE",
+      "severity": "low"
+    },
+    {
+      "id": "A10",
+      "check": "JSON export completeness",
+      "status": "FIXED",
+      "severity": "medium"
+    },
+    {
+      "id": "A11",
+      "check": "Standalone module imports",
+      "status": "ACTIVE",
+      "severity": "low"
+    },
+    {
+      "id": "A12",
+      "check": "Unicode gap classifier aliases",
+      "status": "FIXED",
+      "severity": "medium"
+    },
+    {
+      "id": "A13",
+      "check": "Gamma_closure [P] depends on C_structural sub-theorem",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A14",
+      "check": "T6B sin\u00b2\u03b8_W convergence gap (one-loop: 0.285 vs 0.231)",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A15",
+      "check": "T_sin2theta independent of T6 (verified: T6 not in dep chain)",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A16",
+      "check": "C_structural -> P bridge upgrade (Lovelock + HKM pure math)",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A17",
+      "check": "T0 axiom witnesses integrated (superadditivity \u0394=4, record-lock BFS)",
+      "status": "FIXED",
+      "severity": "medium"
+    },
+    {
+      "id": "A18",
+      "check": "T_field [C] -> [P_structural] via anomaly uniqueness derivation",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A19",
+      "check": "T_channels\u2192T_field cycle (dependency arrow flipped)",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A20",
+      "check": "R12.1/R12.2 regime gates closed (singlet \u0394=0 + A5)",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A21",
+      "check": "T12E reclassified: regime_dependent \u2192 open_physics \u2192 structural_step (f_b=3/19 combinatorial)",
+      "status": "FIXED",
+      "severity": "medium"
+    },
+    {
+      "id": "A22",
+      "check": "T6 [P_structural] \u2192 [P]: SU(5) embedding is pure group theory (Georgi-Glashow)",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A23",
+      "check": "T6B reclassified: qft_import \u2192 scale_identification (\u03b2-formula derived, scale map structural)",
+      "status": "FIXED",
+      "severity": "medium"
+    },
+    {
+      "id": "A24",
+      "check": "T_field [P_structural] \u2192 [P]: Landau pole exclusion kills 6/8 reps, CPT kills 3bar, no A5 needed",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A25",
+      "check": "T12E f_b: \u03b3-calibration formula \u2192 combinatorial 3/19 (no free parameters, 0.49% error, removes UV gap dependency)",
+      "status": "FIXED",
+      "severity": "high"
+    },
+    {
+      "id": "A26",
+      "check": "T11 \u039b: open_physics \u2192 structural_step, \u03a9_\u039b=42/61 (0.05% Planck). C_total=61 gives full budget: 3+16+42=61",
+      "status": "FIXED",
+      "severity": "critical"
+    },
+    {
+      "id": "A27",
+      "check": "Majorana prediction: C_total=61 (no \u03bd_R) vs 64 (with \u03bd_R). Majorana gives 0.1% Planck; Dirac gives 10% error. Testable by 0\u03bd\u03b2\u03b2.",
+      "status": "ACTIVE",
+      "severity": "high"
+    },
+    {
+      "id": "A28",
+      "check": "Boson-multiplet identity: N_gauge+N_Higgs=N_mult=16. Second N_gen derivation: N_c\u00b2+6=5\u00d7N_gen consistent with T4F.",
+      "status": "VERIFIED",
+      "severity": "high"
+    }
+  ],
+  "math_imports": {
+    "Kochen-Specker (1967)": {
+      "used_by": [
+        "T1"
+      ],
+      "details": "No noncontextual hidden variable model for dim \u2265 3"
+    },
+    "GNS Construction (1943)": {
+      "used_by": [
+        "T2"
+      ],
+      "details": "Every state on a C*-algebra gives a *-representation on Hilbert space"
+    },
+    "Kadison / Hahn-Banach extension": {
+      "used_by": [
+        "T2"
+      ],
+      "details": "Positive functional on C*-subalgebra extends to full algebra"
+    },
+    "Skolem-Noether": {
+      "used_by": [
+        "T3"
+      ],
+      "details": "Every automorphism of M_n(C) is inner"
+    },
+    "Doplicher-Roberts (1989)": {
+      "used_by": [
+        "T3"
+      ],
+      "details": "Compact group G recovered from its symmetric tensor category"
+    },
+    "Bolzano-Weierstrass (compactness)": {
+      "used_by": [
+        "L_\u03b5*"
+      ],
+      "details": "Bounded sequences in R^n have convergent subsequences"
+    },
+    "Anomaly cancellation (Adler-Bell-Jackiw)": {
+      "used_by": [
+        "T4"
+      ],
+      "details": "Gauge anomalies cancel iff Tr[T_a{T_b,T_c}] = 0 for all generators"
+    },
+    "CPT theorem": {
+      "used_by": [
+        "T_field"
+      ],
+      "details": "Charge conjugation \u00d7 parity \u00d7 time reversal is an exact symmetry of any Lorentz-invariant unitary local QFT. From Lorentz invariance (Gamma_signature [P]) + unitarity (T2 [P]) + locality (T3 [P]). Pure mathematics."
+    },
+    "Symmetric group |S_k| = k!": {
+      "used_by": [
+        "T9"
+      ],
+      "details": "The symmetric group on k elements has exactly k! elements"
+    },
+    "Georgi-Glashow SU(5) embedding (1974)": {
+      "used_by": [
+        "T6"
+      ],
+      "details": "SU(5) is the minimal simple Lie group containing SU(3)\u00d7SU(2)\u00d7U(1) as maximal subgroup. Classification of simple Lie algebras and their maximal regular subalgebras \u2014 pure algebra."
+    },
+    "Polarization identity": {
+      "used_by": [
+        "T7B"
+      ],
+      "details": "Symmetric bilinear form uniquely determined by quadratic form"
+    },
+    "Pigeonhole principle": {
+      "used_by": [
+        "T8"
+      ],
+      "details": "Integer capacity partitioning excludes d<=3 and d>=5"
+    },
+    "Lovelock theorem (1971)": {
+      "used_by": [
+        "T9_grav"
+      ],
+      "details": "Unique 2nd-order divergence-free symmetric (0,2)-tensor in d=4"
+    },
+    "Fundamental Theorem of Riemannian Geometry": {
+      "used_by": [
+        "T9_grav"
+      ],
+      "details": "Unique torsion-free metric-compatible connection"
+    },
+    "Intermediate Value Theorem": {
+      "used_by": [
+        "T_particle"
+      ],
+      "details": "Continuous V(Phi) with V(0)=0, V->-inf ensures minimum exists"
+    },
+    "Second Derivative Test": {
+      "used_by": [
+        "T_particle"
+      ],
+      "details": "d2V/dPhi2 > 0 at minimum confirms mass gap"
+    }
+  },
+  "p_structural_reasons": {
+    "T4G": "open_physics",
+    "T4G_Q31": "open_physics",
+    "T6B": "scale_identification",
+    "T10": "open_physics",
+    "T11": "structural_step",
+    "T12E": "structural_step"
+  },
+  "theorems": {
+    "T0": {
+      "name": "T0: Axiom Witness Certificates (Canonical v4)",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Axiom witnesses: \u0394=4 (superadditivity), record-lock (irreversibility)",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "A2",
+        "A4"
+      ]
+    },
+    "T1": {
+      "name": "T1: Non-Closure \u2192 Measurement Obstruction",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Non-closure \u27f9 \u2203 incompatible observables",
+      "gap_type": "closed",
+      "dependencies": [
+        "A2 (non-closure)"
+      ],
+      "imported_theorems": [
+        "Kochen-Specker (1967)"
+      ]
+    },
+    "T2": {
+      "name": "T2: Non-Closure \u2192 Operator Algebra",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Non-closure \u27f9 C*-algebra on Hilbert space (state existence proved)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T1",
+        "A1 (finite capacity)",
+        "A2 (non-closure)"
+      ],
+      "imported_theorems": [
+        "GNS Construction (1943)",
+        "Kadison / Hahn-Banach extension"
+      ]
+    },
+    "T3": {
+      "name": "T3: Locality \u2192 Gauge Structure",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Locality + operator algebra \u27f9 gauge bundle + connection",
+      "gap_type": "closed",
+      "dependencies": [
+        "T2",
+        "A3 (locality)"
+      ],
+      "imported_theorems": [
+        "Skolem-Noether",
+        "Doplicher-Roberts (1989)"
+      ]
+    },
+    "L_\u03b5*": {
+      "name": "L_\u03b5*: Minimum Enforceable Distinction",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03b5_\u0393 > 0: meaningful distinctions have minimum enforcement cost",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1 (finite capacity)",
+        "meaning = robustness (definitional)"
+      ],
+      "imported_theorems": [
+        "Bolzano-Weierstrass (compactness)"
+      ]
+    },
+    "T_\u03b5": {
+      "name": "T_\u03b5: Enforcement Granularity",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03b5 = min nonzero enforcement cost > 0",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_\u03b5*",
+        "A1 (finite capacity)"
+      ]
+    },
+    "T_\u03b7": {
+      "name": "T_\u03b7: Subordination Bound",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03b7/\u03b5 \u2264 1",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_\u03b5",
+        "T_M",
+        "A1",
+        "A3"
+      ]
+    },
+    "T_\u03ba": {
+      "name": "T_\u03ba: Directed Enforcement Multiplier",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03ba = 2",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_\u03b5",
+        "A4",
+        "A5"
+      ]
+    },
+    "T_M": {
+      "name": "T_M: Interface Monogamy",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Independence \u27fa disjoint anchors",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "A3",
+        "L_\u03b5*"
+      ]
+    },
+    "T4": {
+      "name": "T4: Minimal Anomaly-Free Chiral Gauge Net",
+      "tier": 1,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Gauge structure = SU(N_c) \u00d7 SU(2) \u00d7 U(1)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T3",
+        "A1",
+        "A2"
+      ],
+      "imported_theorems": [
+        "Anomaly cancellation (Adler-Bell-Jackiw)"
+      ]
+    },
+    "T5": {
+      "name": "T5: Minimal Anomaly-Free Matter Completion",
+      "tier": 1,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Hypercharge ratios uniquely determined (quadratic proof)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T4"
+      ]
+    },
+    "T_gauge": {
+      "name": "T_gauge: Gauge Group from Capacity Budget",
+      "tier": 1,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "SU(3)\u00d7SU(2)\u00d7U(1) = capacity-optimal (dim=12)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T4",
+        "T5",
+        "A1"
+      ]
+    },
+    "T_field": {
+      "name": "T_field: Field Content (Anomaly + UV Safety Uniqueness)",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Field content + hypercharges + electric charges uniquely derived (no free parameters)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_gauge",
+        "T4",
+        "T_channels",
+        "T4F",
+        "A1",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "imported_theorems": [
+        "CPT theorem"
+      ]
+    },
+    "T_channels": {
+      "name": "T_channels: Channel Count",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "channels_EW = 4 [P]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_gauge",
+        "T5"
+      ]
+    },
+    "T7": {
+      "name": "T7: Generation Bound",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "N_gen = 3 [P]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_\u03ba",
+        "T_channels",
+        "T_\u03b7"
+      ]
+    },
+    "T4E": {
+      "name": "T4E: Generation Structure (Upgraded)",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "3 generations with hierarchical structure",
+      "gap_type": "closed",
+      "dependencies": [
+        "T7",
+        "T_\u03b7"
+      ]
+    },
+    "T4F": {
+      "name": "T4F: Flavor-Capacity Saturation",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Saturation = 75% (near-full)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T7"
+      ]
+    },
+    "T4G": {
+      "name": "T4G: Yukawa Structure",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P_structural",
+      "key_result": "y_f ~ exp(\u2212E_f/T): mass hierarchy from enforcement cost",
+      "gap_type": "open_physics",
+      "dependencies": [
+        "T4E",
+        "T_\u03b5"
+      ],
+      "ps_reason": "open_physics"
+    },
+    "T4G_Q31": {
+      "name": "T4G-Q31: Neutrino Mass Bound",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P_structural",
+      "key_result": "\u03a3m_\u03bd bounded by capacity constraint",
+      "gap_type": "open_physics",
+      "dependencies": [
+        "T4G",
+        "A1"
+      ],
+      "ps_reason": "open_physics"
+    },
+    "T_Higgs": {
+      "name": "T_Higgs: Massive Scalar from EW Pivot",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Massive Higgs-like scalar required [P_structural]; Coulomb 1/v\u00b2 gives bridge 0.4% from m_H/m_P [W]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_particle",
+        "A4",
+        "A1",
+        "T_gauge",
+        "T_channels"
+      ]
+    },
+    "T9": {
+      "name": "T9: k! Record Sectors",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "3! = 6 orthogonal record sectors",
+      "gap_type": "closed",
+      "dependencies": [
+        "A4",
+        "T7"
+      ],
+      "imported_theorems": [
+        "Symmetric group |S_k| = k!"
+      ]
+    },
+    "T6": {
+      "name": "T6: EW Mixing at Unification",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "sin\u00b2\u03b8_W(M_U) = 3/8 (pure group theory)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_gauge"
+      ],
+      "imported_theorems": [
+        "Georgi-Glashow SU(5) embedding (1974)"
+      ]
+    },
+    "T6B": {
+      "name": "T6B: Capacity RG Running",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P_structural",
+      "key_result": "sin\u00b2\u03b8_W runs from 0.375; one-loop lands ~0.285 (threshold gap acknowledged)",
+      "gap_type": "scale_id",
+      "dependencies": [
+        "T6",
+        "T_field",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "ps_reason": "scale_identification"
+    },
+    "T19": {
+      "name": "T19: Routing Sectors",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "M = 3 routing sectors",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_channels",
+        "T_field"
+      ]
+    },
+    "T20": {
+      "name": "T20: RG = Enforcement Flow",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "RG \u2261 enforcement cost renormalization",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "T3"
+      ]
+    },
+    "T21": {
+      "name": "T21: \u03b2-Function from Saturation",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03b2_i = \u2212\u03b3_i w_i + \u03bb w_i \u03a3_j a_ij w_j",
+      "gap_type": "closed",
+      "dependencies": [
+        "T20",
+        "A2"
+      ]
+    },
+    "T22": {
+      "name": "T22: Competition Matrix",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "a = [[1,0],[0,3]]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T19",
+        "T21"
+      ]
+    },
+    "T23": {
+      "name": "T23: Fixed-Point Formula",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "sin\u00b2\u03b8_W* = r*/(1+r*) [structural formula]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T21",
+        "T22"
+      ]
+    },
+    "T24": {
+      "name": "T24: sin\u00b2\u03b8_W = 3/13",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "sin\u00b2\u03b8_W = 3/13 \u2248 0.2308 (0.19% error)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T23",
+        "T27c",
+        "T27d",
+        "T22"
+      ]
+    },
+    "T25a": {
+      "name": "T25a: Overlap Bounds",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "x \u2208 [1/3, 2/3]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_M",
+        "T_channels"
+      ]
+    },
+    "T25b": {
+      "name": "T25b: Overlap from Saturation",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Saturation pushes x \u2192 1/2",
+      "gap_type": "closed",
+      "dependencies": [
+        "T25a",
+        "T4F"
+      ]
+    },
+    "T26": {
+      "name": "T26: Gamma Ratio Bounds",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03b3\u2082/\u03b3\u2081 \u2265 3, exact = 17/4 (T27d)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T21",
+        "A1"
+      ]
+    },
+    "T27c": {
+      "name": "T27c: x = 1/2",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "x = 1/2",
+      "gap_type": "closed",
+      "dependencies": [
+        "T25a",
+        "T_gauge"
+      ]
+    },
+    "T27d": {
+      "name": "T27d: \u03b3\u2082/\u03b3\u2081 = d + 1/d",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "\u03b3\u2082/\u03b3\u2081 = 17/4",
+      "gap_type": "closed",
+      "dependencies": [
+        "T26",
+        "T_channels",
+        "\u0393_closure"
+      ]
+    },
+    "T_sin2theta": {
+      "name": "T_sin2theta: Weinberg Angle",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "sin\u00b2\u03b8_W = 3/13 [P]",
+      "gap_type": "closed",
+      "dependencies": [
+        "T23",
+        "T27c",
+        "T27d",
+        "T24"
+      ]
+    },
+    "T7B": {
+      "name": "T7B: Gravity from Non-Factorization (Lemma 7B)",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Shared interface -> metric tensor g_uv",
+      "gap_type": "closed",
+      "dependencies": [
+        "T3",
+        "A1",
+        "A4"
+      ],
+      "imported_theorems": [
+        "Polarization identity"
+      ]
+    },
+    "T8": {
+      "name": "T8: Spacetime Dimension d = 4",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "d = 4 spacetime dimensions",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_gauge",
+        "A1",
+        "A5"
+      ],
+      "imported_theorems": [
+        "Pigeonhole principle"
+      ]
+    },
+    "T9_grav": {
+      "name": "T9: Einstein Field Equations",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "G_uv + Lambda*g_uv = kappa*T_uv (Lovelock)",
+      "gap_type": "closed",
+      "dependencies": [
+        "T7B",
+        "T8",
+        "Gamma_closure"
+      ],
+      "imported_theorems": [
+        "Lovelock theorem (1971)",
+        "Fundamental Theorem of Riemannian Geometry"
+      ]
+    },
+    "T10": {
+      "name": "T10: Gravitational Coupling kappa ~ 1/C_*",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P_structural",
+      "key_result": "kappa ~ 1/C_* (structural)",
+      "gap_type": "open_physics",
+      "dependencies": [
+        "T9_grav",
+        "A1"
+      ],
+      "ps_reason": "open_physics"
+    },
+    "T11": {
+      "name": "T11: Cosmological Constant (Capacity Residual Fraction)",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P_structural",
+      "key_result": "\u03a9_\u039b = 42/61 = 0.6885 (obs: 0.6889, error 0.05%)",
+      "gap_type": "reduced",
+      "dependencies": [
+        "T9_grav",
+        "T4F",
+        "T_field",
+        "T_gauge",
+        "T_Higgs",
+        "T12E",
+        "A5"
+      ],
+      "ps_reason": "structural_step"
+    },
+    "T_particle": {
+      "name": "T_particle: Mass Gap & Particle Emergence",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "SSB forced, mass gap from V(Phi), particles = quantum modes",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_e*",
+        "T_M",
+        "A1",
+        "A4",
+        "T1",
+        "T2"
+      ],
+      "imported_theorems": [
+        "Intermediate Value Theorem",
+        "Second Derivative Test"
+      ]
+    },
+    "Gamma_ordering": {
+      "name": "Gamma_ordering: Ledger Ordering (R1-R4)",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "R1-R4 all derived from A4 + L_epsilon*",
+      "gap_type": "closed",
+      "dependencies": [
+        "A4",
+        "L_epsilon*"
+      ]
+    },
+    "Gamma_fbc": {
+      "name": "Gamma_fbc: Fluctuation Bound (Lipschitz)",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "|Delta^2 Phi| <= K/N^2 (Lipschitz + source bound)",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "A4",
+        "L_epsilon*"
+      ]
+    },
+    "Gamma_continuum": {
+      "name": "Gamma_continuum: Continuum Limit (Kolmogorov)",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Lattice -> C^2 metric -> smooth manifold M1",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "A4",
+        "Gamma_ordering",
+        "Gamma_fbc"
+      ]
+    },
+    "Gamma_signature": {
+      "name": "Gamma_signature: Lorentzian Signature (HKM)",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Signature (-,+,+,+) from A4 + HKM + Malament",
+      "gap_type": "closed",
+      "dependencies": [
+        "A4",
+        "A1",
+        "Gamma_continuum"
+      ]
+    },
+    "Gamma_particle": {
+      "name": "Gamma_particle: Particle Emergence (V(Phi))",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "SSB forced, mass gap = 0.53, well at Phi/C ~ 0.01",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_epsilon*",
+        "T_M",
+        "A1",
+        "A4"
+      ]
+    },
+    "Gamma_closure": {
+      "name": "Gamma_closure: Full Closure (10/10 Einstein pre-conditions)",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "10/10 Einstein conditions, 5/5 sub-theorems",
+      "gap_type": "closed",
+      "dependencies": [
+        "Gamma_ordering",
+        "Gamma_fbc",
+        "Gamma_continuum",
+        "Gamma_signature",
+        "Gamma_particle"
+      ]
+    },
+    "T12": {
+      "name": "T12: Dark Matter Existence (Capacity Residual)",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "DM exists: C_ext > 0 is gauge-singlet (proven from A1 + T_gauge)",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "A5",
+        "T_gauge",
+        "T0"
+      ]
+    },
+    "T12E": {
+      "name": "T12E: Baryon Fraction (Minimal Witness Combinatorial)",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P_structural",
+      "key_result": "f_b = 3/19 = 0.157895 (obs: 0.15713, error 0.49%)",
+      "gap_type": "reduced",
+      "dependencies": [
+        "T12",
+        "T4F",
+        "T_field",
+        "T_Higgs",
+        "T4G",
+        "A5"
+      ],
+      "ps_reason": "structural_step"
+    }
+  }
+}
