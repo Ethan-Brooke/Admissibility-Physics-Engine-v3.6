@@ -131,7 +131,11 @@ function render(d){
   h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--dm);line-height:1.7;margin-top:14px;max-width:760px">This dashboard is the live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>\u2014a computational framework that derives the structure of known physics from five information-theoretic axioms (A1\u2013A5) with zero free parameters. Every constant, particle, and force shown below is either <em>derived</em> from these axioms or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations.</div>');
   h.push('</div>');
 
-// ═══ EPISTEMIC KEY ═══
+// Compute epiCount from TOE (needed by multiple sections below)
+  var epiCount={P:0,P_structural:0,C_import:0,testable:0,open:0};
+  TOE.forEach(function(c){epiCount[c.epi]=(epiCount[c.epi]||0)+1});
+
+  // ═══ EPISTEMIC KEY ═══
   h.push('<div class="sec"><div class="sec-t">Epistemic Status Key</div>');
   h.push('<div class="sec-intro">Every result in this framework carries an epistemic badge indicating how it was derived and how confident we are in it. This key explains the color-coded system used throughout the dashboard.</div>');
   h.push('<div class="card" style="padding:16px">');
