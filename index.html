@@ -6,8 +6,9 @@
 <title>Admissibility Physics Engine v3.6</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-:root{--bg:#060810;--c1:#0b0f1a;--c2:#0e1322;--bdr:#171e30;--bdr2:#1f2940;--tx:#c8cedf;--dm:#4a5575;--br:#eef0f8;--grn:#34d399;--grng:#34d39920;--blu:#60a5fa;--blug:#60a5fa18;--pur:#a78bfa;--purg:#a78bfa15;--amb:#fbbf24;--ambg:#fbbf2415;--red:#f87171;--mn:'IBM Plex Mono',monospace;--sn:'IBM Plex Sans',sans-serif}
+:root{--bg:#060810;--c1:#0b0f1a;--bdr:#171e30;--bdr2:#1f2940;--tx:#c8cedf;--dm:#4a5575;--br:#eef0f8;--grn:#34d399;--grng:#34d39920;--blu:#60a5fa;--blug:#60a5fa18;--pur:#a78bfa;--purg:#a78bfa15;--amb:#fbbf24;--ambg:#fbbf2415;--red:#f87171;--mn:'IBM Plex Mono',monospace;--sn:'IBM Plex Sans',sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55}
 .ctr{max-width:1060px;margin:0 auto;padding:28px 20px}::selection{background:var(--grn);color:var(--bg)}
@@ -25,13 +26,15 @@ body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55
 .mini-bar{display:flex;align-items:center;gap:4px;margin-bottom:3px;font-family:var(--mn);font-size:9px}.mini-bar-bg{flex:1;height:10px;background:var(--bdr);border-radius:2px;overflow:hidden}.mini-bar-fill{height:100%;border-radius:2px}
 .pred-row{display:grid;grid-template-columns:100px 80px 1fr 60px;gap:8px;align-items:center;margin-bottom:6px;font-family:var(--mn);font-size:10px}.pred-name{color:var(--br);font-weight:600}.pred-val{color:var(--dm)}.pred-bar-wrap{height:14px;background:var(--bdr);border-radius:3px;overflow:hidden;position:relative}.pred-bar{height:100%;border-radius:3px;position:absolute;left:0;top:0}.pred-err{text-align:right;font-weight:600}
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px}.tc2{font-family:var(--mn);font-size:9px;padding:5px 7px;border-radius:4px;border:1px solid var(--bdr);line-height:1.3}.tc2 .tid{font-weight:700;color:var(--br)}.tc2 .tn2{color:var(--dm);font-size:8px;display:block;margin-top:1px}.tc2.ep-P{border-left:3px solid var(--grn)}.tc2.ep-Ps{border-left:3px solid var(--amb)}
-.graphs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-#graph-box{width:100%;height:420px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden}#graph-box svg{width:100%;height:100%}
-.gtt{position:absolute;pointer-events:none;font-family:var(--mn);font-size:10px;background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:7px 10px;color:var(--br);max-width:240px;line-height:1.4;opacity:0;transition:opacity .15s;box-shadow:0 4px 20px rgba(0,0,0,.5);z-index:10}.gtt.show{opacity:1}.gtt .tt-id{font-weight:700;font-size:11px}.gtt .tt-dm{color:var(--dm);font-size:8px}
-.gl{position:absolute;bottom:8px;left:8px;font-family:var(--mn);font-size:8px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:6px 8px}.gl-r{display:flex;align-items:center;gap:4px;margin-bottom:1px}.gl-d{width:7px;height:7px;border-radius:50%}
-.gc{position:absolute;top:8px;right:8px;display:flex;gap:3px}.gc button{font-family:var(--mn);font-size:9px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:3px 7px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
-#dag-box{width:100%;height:420px;overflow:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:12px}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
-.graph-label{font-family:var(--mn);font-size:9px;color:var(--dm);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
+#graph-box{width:100%;height:520px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden}#graph-box svg{width:100%;height:100%}
+.gtt{position:absolute;pointer-events:none;font-family:var(--mn);font-size:11px;background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:8px 11px;color:var(--br);max-width:260px;line-height:1.5;opacity:0;transition:opacity .15s;box-shadow:0 4px 20px rgba(0,0,0,.5);z-index:10}.gtt.show{opacity:1}.gtt .tt-id{font-weight:700;font-size:12px}.gtt .tt-dm{color:var(--dm);font-size:9px}
+.gl{position:absolute;bottom:10px;left:10px;font-family:var(--mn);font-size:9px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px}.gl-r{display:flex;align-items:center;gap:5px;margin-bottom:2px}.gl-d{width:8px;height:8px;border-radius:50%}
+.gc{position:absolute;top:10px;right:10px;display:flex;gap:4px}.gc button{font-family:var(--mn);font-size:10px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:4px 8px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
+#dag-box{width:100%;overflow-x:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:16px}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
+#crystal-box{width:100%;height:560px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden;cursor:grab}
+#crystal-box:active{cursor:grabbing}
+#crystal-label{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:var(--mn);font-size:9px;color:var(--dm);background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:6px 12px;text-align:center;pointer-events:none}
+#crystal-hover{position:absolute;top:12px;left:12px;font-family:var(--mn);font-size:11px;color:var(--br);background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:8px 11px;max-width:250px;opacity:0;transition:opacity .15s;pointer-events:none}
 .bgg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.bc{border-radius:6px;padding:13px;text-align:center}.bc-n{font-family:var(--mn);font-size:34px;font-weight:700}.bc-l{font-size:11px;font-weight:600;margin-top:1px}.bc-f{font-family:var(--mn);font-size:10px;margin-top:3px}.bc-s{font-size:9px;color:var(--dm);margin-top:3px}
 .ctbl{width:100%;border-collapse:collapse;font-size:11px}.ctbl th{font-family:var(--mn);font-size:9px;color:var(--dm);text-transform:uppercase;letter-spacing:1px;text-align:left;padding:7px 8px;border-bottom:2px solid var(--bdr)}.ctbl td{padding:7px 8px;border-bottom:1px solid var(--bdr);vertical-align:top}.ctbl tr:hover{background:var(--blug)}.ctbl .cq{font-family:var(--mn);font-weight:600;color:var(--br);white-space:nowrap}.ctbl .cv{font-family:var(--mn);color:var(--grn)}.ctbl .ca{font-size:10px;color:var(--dm);line-height:1.5}
 .ar{display:grid;grid-template-columns:44px 1fr 64px;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:11px}.ar-id{font-family:var(--mn);font-weight:600;color:var(--dm)}
@@ -39,7 +42,7 @@ body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55
 .footer{font-family:var(--mn);font-size:9px;color:var(--dm);text-align:center;margin-top:32px;padding-top:14px;border-top:1px solid var(--bdr)}
 .loading{display:flex;align-items:center;justify-content:center;min-height:400px;font-family:var(--mn);font-size:13px;color:var(--grn)}.loading::after{content:'';width:14px;height:14px;border:2px solid var(--grn);border-top-color:transparent;border-radius:50%;margin-left:8px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bgg{grid-template-columns:1fr}.graphs-grid{grid-template-columns:1fr}#graph-box,#dag-box{height:350px}.pred-row{grid-template-columns:80px 60px 1fr 50px}}
+@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bgg{grid-template-columns:1fr}#graph-box{height:400px}#crystal-box{height:400px}.pred-row{grid-template-columns:80px 60px 1fr 50px}}
 </style>
 </head>
 <body>
@@ -51,20 +54,20 @@ const TN={'-1':'Axioms',0:'Axiom Foundations',1:'Gauge Group',2:'Particles',3:'R
 const AXNM={A1:'Finite Capacity',A2:'Non-Closure',A3:'Locality',A4:'Irreversibility',A5:'Minimality'};
 
 const CTBL=[
-{q:'sin²θ_W = 3/13',v:'0.2308',e:'0.19%',a:'Ratio of non-abelian enforcement channels at the capacity fixed point. 3 = dim(SU(2)) adjoint minus identity direction; 13 = total directional cost across all three gauge sectors. Emerges from competition between SU(2) and SU(3) enforcement flows.'},
-{q:'Gauge: SU(3)×SU(2)×U(1)',v:'exact',e:'exact',a:'The unique factorization of the capacity budget C ≥ 12 into enforcement sectors satisfying anomaly cancellation (A2), locality (A3), and minimality (A5). SU(3) handles color confinement, SU(2) chirality, U(1) the residual.'},
-{q:'N_gen = 3',v:'3',e:'exact',a:'Capacity saturation at 75%. Three generations exhaust 45 of 61 Weyl DOF. A fourth would require C ≥ 76, violating A1. Equivalently: N_c² + 6 = 5N gives N = 3 for N_c = 3.'},
-{q:'d = 4 spacetime',v:'4',e:'exact',a:'Unique dimension where the Weyl equation admits 2-component spinors compatible with gauge structure. d < 4 cannot embed the gauge group; d > 4 creates Kaluza-Klein overconsumption violating A1.'},
-{q:'Ω_Λ = 42/61',v:'0.6885',e:'0.05%',a:'42 structural vacuum DOF: 27 fermion gauge-index slots (9/gen × 3) + 3 Higgs internals + 12 gauge generators. No distinguishable labels → uniform vacuum energy = cosmological constant.'},
-{q:'Ω_m = 19/61',v:'0.3115',e:'0.12%',a:'19 matter-sector capacity: 3 generation labels (baryonic) + 16 multiplet enforcement references (dark). Matter = capacity carrying distinguishable information under the enforcement graph.'},
-{q:'Ω_b = 3/61',v:'0.04918',e:'0.37%',a:'Exactly N_gen = 3 units carry flavor quantum numbers — generation labels making matter distinguishable. The stuff that forms atoms: capacity tagged with family identity.'},
-{q:'Ω_DM = 16/61',v:'0.2623',e:'0.61%',a:'16 = 5×3 + 1 enforcement references, one per field multiplet (Q, u, d, L, e × 3 gen + Higgs). No gauge charge — invisible to photons — but gravitationally active. Not a particle; enforcement overhead.'},
-{q:'f_b = 3/19',v:'0.15789',e:'0.49%',a:'Ratio of flavor-labeled to total matter capacity. Pure combinatorics: how much of the matter sector carries distinguishable quantum numbers vs enforcement bookkeeping.'},
-{q:'Field content: {Q,L,u,d,e}',v:'exact',e:'exact',a:'Unique chiral Weyl set cancelling all gauge anomalies (A2), respecting channel structure, avoiding Landau poles (A1). No minimality assumption — UV safety alone selects these 5 types.'},
-{q:'Higgs exists',v:'massive scalar',e:'exact',a:'The EW pivot requires a massive scalar to redistribute capacity between broken/unbroken phases. Not optional — the unique capacity bridge making EW breaking admissible under A1.'},
-{q:'ν type: Majorana',v:'testable',e:'TBD',a:'C_total = 61 (no ν_R) matches Planck within 1σ. Adding 3 ν_R gives C = 64, Ω_m = 0.297 → 2.5σ tension. Capacity budget predicts Majorana. Testable via 0νββ (LEGEND, nEXO, CUPID).'},
-{q:'Charge: Q = e/3 units',v:'exact',e:'exact',a:'Anomaly cancellation (A2) forces hypercharge into a Diophantine system with unique solution Q_u=2/3, Q_d=−1/3, Q_e=−1. Direct consequence of enforcement consistency.'},
-{q:'Neutral atoms: Q_p+Q_e=0',v:'exact',e:'exact',a:'Algebraic from the anomaly solution. Q_p = 2(2/3)+(−1/3) = 1, Q_e = −1. Exact cancellation — the universe is electrically neutral because the enforcement graph demands it.'},
+{q:'sin²θ_W = 3/13',v:'0.2308',e:'0.19%',a:'Ratio of non-abelian enforcement channels at the capacity fixed point. 3 = dim(SU(2)) adjoint minus identity direction; 13 = total directional cost across all three gauge sectors.'},
+{q:'Gauge: SU(3)×SU(2)×U(1)',v:'exact',e:'exact',a:'Unique factorization of C ≥ 12 into enforcement sectors satisfying anomaly cancellation (A2), locality (A3), and minimality (A5).'},
+{q:'N_gen = 3',v:'3',e:'exact',a:'Capacity saturation: three generations exhaust 45 of 61 Weyl DOF. A fourth requires C ≥ 76, violating A1. Equivalently N_c² + 6 = 5N → N = 3.'},
+{q:'d = 4 spacetime',v:'4',e:'exact',a:'Unique dimension where Weyl admits 2-component spinors compatible with gauge structure. d > 4 creates KK overconsumption violating A1.'},
+{q:'Ω_Λ = 42/61',v:'0.6885',e:'0.05%',a:'42 structural vacuum DOF: 27 gauge-index slots + 3 Higgs internals + 12 gauge generators. No distinguishable labels → uniform vacuum energy.'},
+{q:'Ω_m = 19/61',v:'0.3115',e:'0.12%',a:'19 matter-sector capacity: 3 generation labels (baryonic) + 16 multiplet enforcement references (dark). Capacity carrying distinguishable information.'},
+{q:'Ω_b = 3/61',v:'0.04918',e:'0.37%',a:'Exactly N_gen = 3 units carry flavor quantum numbers — generation labels making matter distinguishable. The stuff that forms atoms.'},
+{q:'Ω_DM = 16/61',v:'0.2623',e:'0.61%',a:'16 = 5×3 + 1 enforcement references per field multiplet. No gauge charge — invisible to photons — but gravitationally active. Not a particle; enforcement overhead.'},
+{q:'f_b = 3/19',v:'0.15789',e:'0.49%',a:'Ratio of flavor-labeled to total matter capacity. Pure combinatorics: how much matter carries distinguishable quantum numbers vs enforcement bookkeeping.'},
+{q:'Field content: {Q,L,u,d,e}',v:'exact',e:'exact',a:'Unique chiral Weyl set cancelling all gauge anomalies (A2), respecting channels, avoiding Landau poles (A1). UV safety alone selects these 5 types.'},
+{q:'Higgs exists',v:'scalar',e:'exact',a:'EW pivot requires a massive scalar to redistribute capacity between broken/unbroken phases. The unique capacity bridge making EW breaking admissible under A1.'},
+{q:'ν type: Majorana',v:'testable',e:'TBD',a:'C_total=61 (no ν_R) matches Planck within 1σ. Adding 3 ν_R → C=64, Ω_m=0.297, 2.5σ tension. Testable via 0νββ.'},
+{q:'Charge: Q = e/3 units',v:'exact',e:'exact',a:'Anomaly cancellation forces hypercharge into a Diophantine system with unique solution. Direct consequence of enforcement consistency.'},
+{q:'Neutral atoms',v:'exact',e:'exact',a:'Q_p = 2(2/3)+(−1/3) = 1, Q_e = −1. Exact cancellation — the universe is electrically neutral because the enforcement graph demands it.'},
 ];
 
 async function main(){let d;try{const r=await fetch('dashboard_data.json');d=await r.json()}catch(e){document.getElementById('app').innerHTML='<div class="loading" style="color:var(--red)">Failed to load</div>';return}render(d)}
@@ -78,7 +81,6 @@ const openCount=Object.values(d.theorems||{}).filter(t=>t.gap_type==='open_physi
 const tiers=d.tier_stats||{};
 const tierThms={};
 Object.entries(d.theorems||{}).forEach(([id,t])=>{const tier=t.tier??0;(tierThms[tier]=tierThms[tier]||[]).push({id,...t})});
-
 const contPreds=preds.filter(p=>typeof p.error_pct==='number'&&p.error_pct>0);
 const exactPreds=preds.filter(p=>p.error_pct===0);
 const testPreds=preds.filter(p=>p.error_pct===null||p.error_pct===undefined||p.error_pct==='None');
@@ -97,27 +99,21 @@ document.getElementById('app').innerHTML=`
     ${Object.entries(tiers).map(([k,v])=>`<div class="mini-bar"><span style="width:90px;color:${TC[k]}">${v.name||TN[k]||''}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${v.total>0?v.passed/v.total*100:0}%;background:${TC[k]}"></div></div><span style="color:var(--br);width:28px;text-align:right">${v.passed}/${v.total}</span></div>`).join('')}
     <div style="margin-top:8px;font-family:var(--mn);font-size:9px;color:var(--dm)">Sectors: ${Object.entries(d.sector_verdicts||{}).map(([k,v])=>`<span style="color:${v?'var(--grn)':'var(--red)'}">${k} ${v?'✓':'✗'}</span>`).join(' · ')}</div>
   </div></div></div>
-
   <div class="sc" data-a="b" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Proven [P]</div><div class="sc-v" style="color:var(--blu)">${pC}</div><div class="sc-s">${pPct}% of total</div></div>
   <div class="sc-expand"><div class="sc-inner" style="padding-top:10px">
-    ${Object.entries(tiers).map(([k,v])=>{const th=tierThms[parseInt(k)]||[];const pc=th.filter(t=>t.epistemic==='P').length;return `<div class="mini-bar"><span style="width:90px;color:${TC[k]}">Tier ${k}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${th.length>0?pc/th.length*100:0}%;background:var(--grn)"></div></div><span style="color:var(--grn);width:20px;text-align:right">${pc}</span><span style="color:var(--amb);width:16px;text-align:right">${th.length-pc||''}</span></div>`}).join('')}
-    <div style="margin-top:8px;font-family:var(--mn);font-size:9px;color:var(--dm)">[P_structural]: T6B, T10, T11, T12E, T4G, T4G_Q31</div>
+    ${Object.entries(tiers).map(([k])=>{const th=tierThms[parseInt(k)]||[];const pc=th.filter(t=>t.epistemic==='P').length;return `<div class="mini-bar"><span style="width:90px;color:${TC[k]}">Tier ${k}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${th.length>0?pc/th.length*100:0}%;background:var(--grn)"></div></div><span style="color:var(--grn);width:20px;text-align:right">${pc}</span><span style="color:var(--amb);width:16px;text-align:right">${th.length-pc||''}</span></div>`}).join('')}
   </div></div></div>
-
   <div class="sc" data-a="p" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Predictions</div><div class="sc-v" style="color:var(--pur)">${preds.length}</div><div class="sc-s">all within 1σ</div></div>
   <div class="sc-expand"><div class="sc-inner" style="padding-top:10px">
     <div class="mini-bar"><span style="width:80px;color:var(--grn)">Exact</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${exactPreds.length/preds.length*100}%;background:var(--grn)"></div></div><span style="width:16px;text-align:right;color:var(--br)">${exactPreds.length}</span></div>
     <div class="mini-bar"><span style="width:80px;color:var(--blu)">Continuous</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${contPreds.length/preds.length*100}%;background:var(--blu)"></div></div><span style="width:16px;text-align:right;color:var(--br)">${contPreds.length}</span></div>
     <div class="mini-bar"><span style="width:80px;color:var(--amb)">Testable</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${testPreds.length/preds.length*100}%;background:var(--amb)"></div></div><span style="width:16px;text-align:right;color:var(--br)">${testPreds.length}</span></div>
-    <div style="margin-top:8px;font-family:var(--mn);font-size:9px;color:var(--dm)">Max err: ${Math.max(...contPreds.map(p=>p.error_pct)).toFixed(2)}% · Mean: ${(contPreds.reduce((s,p)=>s+p.error_pct,0)/contPreds.length).toFixed(2)}%</div>
   </div></div></div>
-
   <div class="sc" data-a="a" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Open Physics</div><div class="sc-v" style="color:var(--amb)">${openCount}</div><div class="sc-s">remaining gaps</div></div>
   <div class="sc-expand"><div class="sc-inner" style="padding-top:10px;font-family:var(--mn);font-size:10px;line-height:1.7">
     <div style="color:var(--amb)">T10 <span style="color:var(--dm)">κ — needs C_total in absolute units</span></div>
     <div style="color:var(--amb)">T4G <span style="color:var(--dm)">Yukawa — needs Majorana/Dirac</span></div>
     <div style="color:var(--amb)">T4G_Q31 <span style="color:var(--dm)">ν mass — follows from T4G</span></div>
-    <div style="margin-top:6px;color:var(--dm);font-size:9px">Reduced: T11, T12E, T6B (structurally derived)</div>
   </div></div></div>
 </div></div>
 
@@ -144,24 +140,24 @@ ${testPreds.map(p=>`<span style="font-family:var(--mn);font-size:9px;display:inl
   <div style="color:var(--grn)">All 5 params within 1σ of Planck 2018</div>
 </div></div></div>
 
-<div class="sec"><div class="sec-t">Dependency Graphs</div>
-<div class="graphs-grid">
-<div>
-<div class="graph-label">Force-Directed (drag nodes · hover for details)</div>
+<div class="sec"><div class="sec-t">Enforcement Crystal — 3D Theorem Structure</div>
+<div id="crystal-box">
+  <div id="crystal-hover"></div>
+  <div id="crystal-label">drag to rotate · 54 nodes · 146 edges · axioms crown → closure base</div>
+</div></div>
+
+<div class="sec"><div class="sec-t">Dependency Graph — Force-Directed</div>
 <div id="graph-box">
   <div class="gtt" id="gtt"></div>
-  <div class="gl"><div style="font-weight:600;margin-bottom:2px;color:var(--br)">Legend</div>
+  <div class="gl"><div style="font-weight:600;margin-bottom:3px;color:var(--br)">Legend</div>
     <div class="gl-r"><div class="gl-d" style="background:${AC}"></div> Axioms</div>
     ${Object.entries(TN).filter(([k])=>k!=='-1').map(([k,v])=>`<div class="gl-r"><div class="gl-d" style="background:${TC[k]}"></div> T${k}: ${v}</div>`).join('')}
-    <div style="margin-top:2px;color:var(--dm)">◆ [P_structural] · ● [P]</div></div>
+    <div style="margin-top:3px;color:var(--dm)">◆ [P_structural] · ● [P]</div></div>
   <div class="gc"><button onclick="zoomG(1.3)">+</button><button onclick="zoomG(.77)">−</button><button onclick="resetG()">⟳</button></div>
-</div>
-</div>
-<div>
-<div class="graph-label">Layered by Tier (scroll to explore)</div>
-<div id="dag-box"></div>
-</div>
 </div></div>
+
+<div class="sec"><div class="sec-t">Dependency Graph — Layered by Tier</div>
+<div id="dag-box"></div></div>
 
 <div class="sec"><div class="sec-t">Theorem Map</div>
 ${Object.entries(tierThms).sort((a,b)=>a[0]-b[0]).map(([tier,thms])=>{const ts=tiers[tier]||{};return `<div class="card"><div class="ct" style="color:${TC[tier]||'var(--grn)'}">Tier ${tier}: ${ts.name||TN[tier]||''} (${thms.length})</div><div class="tg">${thms.map(t=>`<div class="tc2 ep-${t.epistemic==='P'?'P':'Ps'}"><span class="tid">${esc(t.id)}</span><span style="font-size:8px;color:${t.epistemic==='P'?'var(--grn)':'var(--amb)'};margin-left:3px">[${t.epistemic}]</span><span class="tn2">${esc((t.name||'').replace(/^[^:]+:\\s*/,'').slice(0,35))}</span></div>`).join('')}</div></div>`}).join('')}
@@ -178,18 +174,288 @@ ${CTBL.map(c=>`<tr><td class="cq">${esc(c.q)}</td><td class="cv">${esc(c.v)}</td
 
 <div class="footer">Admissibility Physics Engine ${d.version} · ${d.date} · ${d.total_theorems} theorems · 0 free parameters · ${preds.length} predictions</div>
 `;
-setTimeout(()=>{buildBudgetPie();buildForceGraph(d);buildDAG(d)},100);
+setTimeout(()=>{buildBudgetPie();buildCrystal(d);buildForceGraph(d);buildDAG(d)},100);
 }
 
+/* ═══════════ BUDGET PIE ═══════════ */
 function buildBudgetPie(){
 const box=document.getElementById('budget-vis');if(!box)return;
 const data=[{v:3,c:'var(--grn)',l:'Baryons (3)'},{v:16,c:'var(--blu)',l:'Dark Matter (16)'},{v:42,c:'var(--pur)',l:'Dark Energy (42)'}];
 const sz=130,r=sz/2-4,cx=sz/2,cy=sz/2;let cum=0;
 const paths=data.map(d=>{const f=d.v/61,s=cum;cum+=f*Math.PI*2;const e=cum;const x1=cx+r*Math.sin(s),y1=cy-r*Math.cos(s),x2=cx+r*Math.sin(e),y2=cy-r*Math.cos(e);return `<path d="M${cx},${cy}L${x1},${y1}A${r},${r},0,${f>.5?1:0},1,${x2},${y2}Z" fill="${d.c}" opacity="0.7"/>`}).join('');
 box.innerHTML=`<svg viewBox="0 0 ${sz} ${sz}" style="width:${sz}px;height:${sz}px">${paths}<text x="${cx}" y="${cy-4}" text-anchor="middle" fill="var(--br)" font-size="17" font-weight="800" font-family="IBM Plex Mono">61</text><text x="${cx}" y="${cy+9}" text-anchor="middle" fill="var(--dm)" font-size="7" font-family="IBM Plex Mono">C_total</text></svg>
-<div style="font-family:var(--mn);font-size:10px">${data.map(dd=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><div style="width:10px;height:10px;border-radius:2px;background:${dd.c}"></div><span style="color:var(--dm)">${dd.v}/61</span> ${dd.l}</div>`).join('')}<div style="margin-top:4px;color:var(--dm);font-size:9px">Predicted vs Planck: all ≤ 1σ</div></div>`;
+<div style="font-family:var(--mn);font-size:10px">${data.map(dd=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><div style="width:10px;height:10px;border-radius:2px;background:${dd.c}"></div><span style="color:var(--dm)">${dd.v}/61</span> ${dd.l}</div>`).join('')}</div>`;
 }
 
+/* ═══════════ 3D ENFORCEMENT CRYSTAL ═══════════ */
+function buildCrystal(d) {
+  const container = document.getElementById('crystal-box');
+  const W = container.clientWidth, H = container.clientHeight;
+  
+  // Scene setup
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 100);
+  camera.position.set(0, 2, 9);
+  camera.lookAt(0, 0, 0);
+  
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x0b0f1a, 1);
+  container.insertBefore(renderer.domElement, container.firstChild);
+  
+  // Lighting
+  const ambLight = new THREE.AmbientLight(0x334466, 0.6);
+  scene.add(ambLight);
+  const ptLight = new THREE.PointLight(0x60a5fa, 1.2, 20);
+  ptLight.position.set(3, 5, 4);
+  scene.add(ptLight);
+  const ptLight2 = new THREE.PointLight(0xa78bfa, 0.6, 20);
+  ptLight2.position.set(-3, -2, 4);
+  scene.add(ptLight2);
+  
+  // Build node data: tiers as rings
+  const tierCfg = [
+    { tier: -1, y: 3.5, radius: 1.6, ids: ['A1','A2','A3','A4','A5'] },
+    { tier: 0, y: 2.2, radius: 2.6 },
+    { tier: 1, y: 1.1, radius: 1.3 },
+    { tier: 2, y: 0.0, radius: 2.6 },
+    { tier: 3, y: -1.3, radius: 3.2 },
+    { tier: 4, y: -2.5, radius: 2.3 },
+    { tier: 5, y: -3.5, radius: 1.8 },
+  ];
+  
+  // Connectivity-aware ordering per tier
+  const allIds = new Set(['A1','A2','A3','A4','A5']);
+  Object.keys(d.theorems||{}).forEach(id=>allIds.add(id));
+  
+  function cleanDep(dep) {
+    let dd=dep.trim();
+    if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();
+    if(dd.startsWith('meaning'))return null;
+    const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','Γ_closure':'Gamma_closure'};
+    return rm[dd]||dd;
+  }
+  
+  // Get parents for ordering
+  const parents = {};
+  Object.entries(d.theorems||{}).forEach(([tid,t])=>{
+    const ps = new Set();
+    (t.dependencies||[]).forEach(dep=>{const cd=cleanDep(dep);if(cd&&allIds.has(cd))ps.add(cd)});
+    parents[tid]=ps;
+  });
+  
+  // Group by tier with connectivity ordering
+  const tierNodes = {};
+  Object.entries(d.theorems||{}).forEach(([tid,t])=>{
+    const tier=t.tier??0;
+    if(!tierNodes[tier])tierNodes[tier]=[];
+    tierNodes[tier].push(tid);
+  });
+  
+  // Greedy nearest-neighbor angular ordering
+  for (const tier of Object.keys(tierNodes)) {
+    const nodes = tierNodes[tier];
+    if (nodes.length <= 2) continue;
+    const ordered = [nodes.reduce((a,b)=>(parents[a]||new Set()).size>(parents[b]||new Set()).size?a:b)];
+    const remaining = new Set(nodes);
+    remaining.delete(ordered[0]);
+    while (remaining.size > 0) {
+      const last = ordered[ordered.length-1];
+      const lp = parents[last]||new Set();
+      let best=null, bestScore=-1;
+      remaining.forEach(n=>{
+        const np=parents[n]||new Set();
+        let overlap=0;lp.forEach(p=>{if(np.has(p))overlap++});
+        if(overlap>bestScore){bestScore=overlap;best=n}
+      });
+      ordered.push(best);
+      remaining.delete(best);
+    }
+    tierNodes[tier] = ordered;
+  }
+  
+  // Place nodes in 3D
+  const nodePos = {};
+  const nodeMeshes = [];
+  const nodeData = {};
+  const colorMap = { '-1': 0xf87171 };
+  TC.forEach((c,i)=>colorMap[String(i)]=parseInt(c.replace('#',''),16));
+  
+  const crystalGroup = new THREE.Group();
+  scene.add(crystalGroup);
+  
+  tierCfg.forEach(cfg => {
+    const ids = cfg.ids || tierNodes[cfg.tier] || [];
+    ids.forEach((id, i) => {
+      const angle = (i / ids.length) * Math.PI * 2 - Math.PI/2;
+      const x = Math.cos(angle) * cfg.radius;
+      const z = Math.sin(angle) * cfg.radius;
+      const y = cfg.y;
+      nodePos[id] = new THREE.Vector3(x, y, z);
+      
+      const tier = cfg.tier;
+      const col = colorMap[String(tier)] || 0x888888;
+      const thm = d.theorems?.[id];
+      const isAxiom = tier === -1;
+      const isPStructural = thm?.epistemic === 'P_structural';
+      const fanout = Object.values(d.theorems||{}).filter(t=>(t.dependencies||[]).some(dep=>{const cd=cleanDep(dep);return cd===id})).length;
+      const sz = isAxiom ? 0.16 : 0.09 + fanout * 0.012;
+      
+      let geom, mat;
+      if (isAxiom) {
+        geom = new THREE.OctahedronGeometry(sz, 0);
+        mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.5, transparent: true, opacity: 0.9 });
+      } else if (isPStructural) {
+        geom = new THREE.BoxGeometry(sz*1.3, sz*1.3, sz*1.3);
+        mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.3, transparent: true, opacity: 0.8, wireframe: false });
+      } else {
+        geom = new THREE.SphereGeometry(sz, 12, 8);
+        mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.35, transparent: true, opacity: 0.85 });
+      }
+      
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.position.copy(nodePos[id]);
+      if (isPStructural) mesh.rotation.set(Math.PI/4, Math.PI/4, 0);
+      mesh.userData = { id, tier, epistemic: thm?.epistemic||'axiom', name: isAxiom?AXNM[id]:(thm?.name||id).replace(/^[^:]+:\s*/,'').slice(0,30), fanout };
+      crystalGroup.add(mesh);
+      nodeMeshes.push(mesh);
+      nodeData[id] = mesh;
+    });
+  });
+  
+  // Tier ring wireframes
+  tierCfg.forEach(cfg => {
+    const ids = cfg.ids || tierNodes[cfg.tier] || [];
+    if (ids.length < 3) return;
+    const ringPts = [];
+    for (let i = 0; i <= 64; i++) {
+      const a = (i/64) * Math.PI * 2;
+      ringPts.push(new THREE.Vector3(Math.cos(a)*cfg.radius, cfg.y, Math.sin(a)*cfg.radius));
+    }
+    const ringGeom = new THREE.BufferGeometry().setFromPoints(ringPts);
+    const col = colorMap[String(cfg.tier)] || 0x888888;
+    const ringMat = new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: 0.12 });
+    crystalGroup.add(new THREE.Line(ringGeom, ringMat));
+  });
+  
+  // Dependency edges
+  const edgeLines = [];
+  Object.entries(d.theorems||{}).forEach(([tid,t])=>{
+    (t.dependencies||[]).forEach(dep=>{
+      const cd = cleanDep(dep);
+      if(cd && nodePos[cd] && nodePos[tid]) {
+        const pts = [nodePos[cd], nodePos[tid]];
+        const geom = new THREE.BufferGeometry().setFromPoints(pts);
+        const sTier = d.theorems?.[cd]?.tier ?? (cd.startsWith('A')?-1:0);
+        const tTier = t.tier ?? 0;
+        const dist = Math.abs(sTier - tTier);
+        const opacity = dist > 2 ? 0.06 : dist > 1 ? 0.1 : 0.15;
+        const col = colorMap[String(tTier)] || 0x888888;
+        const mat = new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: opacity });
+        const line = new THREE.Line(geom, mat);
+        crystalGroup.add(line);
+        edgeLines.push({ line, source: cd, target: tid });
+      }
+    });
+  });
+  
+  // Vertical axis line
+  const axisPts = [new THREE.Vector3(0, 4, 0), new THREE.Vector3(0, -4, 0)];
+  const axisGeom = new THREE.BufferGeometry().setFromPoints(axisPts);
+  crystalGroup.add(new THREE.Line(axisGeom, new THREE.LineBasicMaterial({ color: 0x1a2540, transparent: true, opacity: 0.3 })));
+  
+  // Mouse rotation
+  let isDragging = false, prevX = 0, prevY = 0;
+  let rotY = 0, rotX = 0.15;
+  let autoRotate = true;
+  
+  renderer.domElement.addEventListener('pointerdown', e => {
+    isDragging = true; prevX = e.clientX; prevY = e.clientY; autoRotate = false;
+  });
+  window.addEventListener('pointerup', () => { isDragging = false; });
+  window.addEventListener('pointermove', e => {
+    if (!isDragging) return;
+    rotY += (e.clientX - prevX) * 0.008;
+    rotX += (e.clientY - prevY) * 0.005;
+    rotX = Math.max(-1, Math.min(1, rotX));
+    prevX = e.clientX; prevY = e.clientY;
+  });
+  
+  // Resume auto-rotate after 3s of no interaction
+  let idleTimer;
+  renderer.domElement.addEventListener('pointerup', () => {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { autoRotate = true; }, 3000);
+  });
+  
+  // Hover detection
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  const hoverEl = document.getElementById('crystal-hover');
+  
+  renderer.domElement.addEventListener('pointermove', e => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(nodeMeshes);
+    
+    if (hits.length > 0) {
+      const ud = hits[0].object.userData;
+      const col = TC[ud.tier] || '#f87171';
+      hoverEl.innerHTML = `<div style="font-weight:700;color:${col}">${ud.id}</div><div style="font-size:10px">${ud.name}</div><div style="font-size:9px;color:#4a5575">Tier ${ud.tier===-1?'A':ud.tier} · [${ud.epistemic}] · ${ud.fanout} downstream</div>`;
+      hoverEl.style.opacity = '1';
+      
+      // Highlight connected edges
+      edgeLines.forEach(el => {
+        const connected = el.source === ud.id || el.target === ud.id;
+        el.line.material.opacity = connected ? 0.5 : 0.03;
+      });
+      nodeMeshes.forEach(m => {
+        if (m === hits[0].object) {
+          m.material.emissiveIntensity = 0.9;
+        } else {
+          const connected = edgeLines.some(el => 
+            (el.source === ud.id && el.target === m.userData.id) ||
+            (el.target === ud.id && el.source === m.userData.id)
+          );
+          m.material.opacity = connected ? 0.9 : 0.15;
+        }
+      });
+    } else {
+      hoverEl.style.opacity = '0';
+      edgeLines.forEach(el => {
+        const sTier = d.theorems?.[el.source]?.tier??(el.source.startsWith('A')?-1:0);
+        const tTier = d.theorems?.[el.target]?.tier??0;
+        const dist = Math.abs(sTier-tTier);
+        el.line.material.opacity = dist>2?0.06:dist>1?0.1:0.15;
+      });
+      nodeMeshes.forEach(m => { m.material.opacity = m.userData.tier===-1?0.9:0.85; m.material.emissiveIntensity = m.userData.tier===-1?0.5:0.35; });
+    }
+  });
+  
+  // Animation
+  function animate() {
+    requestAnimationFrame(animate);
+    if (autoRotate) rotY += 0.003;
+    crystalGroup.rotation.y = rotY;
+    crystalGroup.rotation.x = rotX;
+    renderer.render(scene, camera);
+  }
+  animate();
+  
+  // Resize
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth, h = container.clientHeight;
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+}
+
+/* ═══════════ FORCE GRAPH ═══════════ */
 let _sim,_svg,_zb;
 function buildForceGraph(d){
 const box=document.getElementById('graph-box'),W=box.clientWidth,H=box.clientHeight;
@@ -200,15 +466,15 @@ for(const[tid,t]of Object.entries(d.theorems||{})){nodes.push({id:tid,tier:t.tie
 for(const[tid,t]of Object.entries(d.theorems||{}))for(const dep of(t.dependencies||[])){const cd=cD(dep);if(cd&&seen.has(cd))edges.push({source:cd,target:tid})}
 function cD(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','Γ_closure':'Gamma_closure'};return rm[dd]||dd}
 function nC(n){return n.tier===-1?AC:TC[n.tier]||'#888'}
-function nR(n){return n.tier===-1?8+(fanout[n.id]||0)*.5:4+(fanout[n.id]||0)*.9}
+function nR(n){return n.tier===-1?9+(fanout[n.id]||0)*.6:5+(fanout[n.id]||0)*1}
 const svg=d3.select('#graph-box').append('svg').attr('width',W).attr('height',H);_svg=svg;
 const g=svg.append('g');_zb=d3.zoom().scaleExtent([.2,4]).filter(ev=>ev.type!=='wheel').on('zoom',e=>g.attr('transform',e.transform));svg.call(_zb);
 svg.append('defs').append('marker').attr('id','arr').attr('viewBox','0 -3 6 6').attr('refX',10).attr('refY',0).attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto').append('path').attr('d','M0,-2.5L5,0L0,2.5').attr('fill','#2a3452');
-const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(edges).id(d=>d.id).distance(40).strength(.5)).force('charge',d3.forceManyBody().strength(-120)).force('center',d3.forceCenter(W/2,H/2)).force('y',d3.forceY().y(n=>n.tier===-1?H*.06:H*.1+n.tier*(H*.15)).strength(.4)).force('collision',d3.forceCollide().radius(n=>nR(n)+3));_sim=sim;
+const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(edges).id(d=>d.id).distance(50).strength(.45)).force('charge',d3.forceManyBody().strength(-150)).force('center',d3.forceCenter(W/2,H/2)).force('y',d3.forceY().y(n=>n.tier===-1?H*.07:H*.1+n.tier*(H*.15)).strength(.38)).force('collision',d3.forceCollide().radius(n=>nR(n)+3));_sim=sim;
 const link=g.append('g').selectAll('line').data(edges).join('line').attr('stroke','#1a2540').attr('stroke-width',1).attr('marker-end','url(#arr)');
 const node=g.append('g').selectAll('g').data(nodes).join('g').call(d3.drag().on('start',(ev,n)=>{if(!ev.active)sim.alphaTarget(.3).restart();n.fx=n.x;n.fy=n.y}).on('drag',(ev,n)=>{n.fx=ev.x;n.fy=ev.y}).on('end',(ev,n)=>{if(!ev.active)sim.alphaTarget(0);n.fx=null;n.fy=null}));
 node.each(function(n){const el=d3.select(this),r=nR(n),col=nC(n);if(n.tier===-1){const s=r*1.1;el.append('polygon').attr('points',`0,${-s} ${s},0 0,${s} ${-s},0`).attr('fill',col+'30').attr('stroke',col).attr('stroke-width',1.5)}else if(n.epistemic==='P_structural'){const s=r*.85;el.append('rect').attr('x',-s).attr('y',-s).attr('width',s*2).attr('height',s*2).attr('rx',2).attr('transform','rotate(45)').attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','3,2')}else{el.append('circle').attr('r',r).attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5)}});
-node.append('text').text(n=>n.label.replace('Gamma_','Γ_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+9).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>n.tier===-1?8:6.5).attr('font-weight',n=>n.tier===-1?700:500).attr('opacity',.8);
+node.append('text').text(n=>n.label.replace('Gamma_','Γ_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+11).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>n.tier===-1?9:7).attr('font-weight',n=>n.tier===-1?700:500).attr('opacity',.85);
 const tt=document.getElementById('gtt');
 node.on('mouseover',(ev,n)=>{const deps=(d.theorems?.[n.id]?.dependencies||[]).join(', ')||(n.tier===-1?'axiom':'');const fo=fanout[n.id]||0;tt.innerHTML=`<div class="tt-id" style="color:${nC(n)}">${n.label}</div><div>${n.name}</div><div class="tt-dm">Tier ${n.tier===-1?'A':n.tier} · [${n.epistemic}]</div><div class="tt-dm">← ${deps}</div><div class="tt-dm">${fo} downstream</div>`;tt.classList.add('show');link.attr('stroke',l=>(l.source.id===n.id||l.target.id===n.id)?nC(n):'#1a2540').attr('stroke-width',l=>(l.source.id===n.id||l.target.id===n.id)?2:1).attr('opacity',l=>(l.source.id===n.id||l.target.id===n.id)?1:.15);node.attr('opacity',n2=>{if(n2.id===n.id)return 1;return edges.some(e=>(e.source.id===n.id&&e.target.id===n2.id)||(e.target.id===n.id&&e.source.id===n2.id))?1:.12})}).on('mousemove',ev=>{const r=box.getBoundingClientRect();tt.style.left=(ev.clientX-r.left+14)+'px';tt.style.top=(ev.clientY-r.top-10)+'px'}).on('mouseout',()=>{tt.classList.remove('show');link.attr('stroke','#1a2540').attr('stroke-width',1).attr('opacity',1);node.attr('opacity',1)});
 sim.on('tick',()=>{link.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);node.attr('transform',n=>`translate(${n.x},${n.y})`)});
@@ -216,28 +482,29 @@ sim.on('tick',()=>{link.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('
 function zoomG(f){if(_svg&&_zb)_svg.transition().duration(300).call(_zb.scaleBy,f)}
 function resetG(){if(_svg&&_zb)_svg.transition().duration(500).call(_zb.transform,d3.zoomIdentity)}
 
+/* ═══════════ 2D LAYERED DAG ═══════════ */
 function buildDAG(d){
 const box=document.getElementById('dag-box');if(!box)return;
 const tiers={'-1':[]};
 ['A1','A2','A3','A4','A5'].forEach(ax=>tiers['-1'].push({id:ax,epistemic:'axiom'}));
 Object.entries(d.theorems||{}).forEach(([id,t])=>{const tier=String(t.tier??0);if(!tiers[tier])tiers[tier]=[];tiers[tier].push({id,epistemic:t.epistemic||'P'})});
 const tierOrder=['-1','0','1','2','3','4','5'].filter(k=>tiers[k]&&tiers[k].length);
-const colW=56,rowH=56,padL=12,padT=30;
+const colW=68,rowH=68,padL=16,padT=36;
 const maxCols=Math.max(...tierOrder.map(k=>tiers[k].length));
-const W=Math.max(padL*2+maxCols*colW,500);
-const H=padT+tierOrder.length*rowH+16;
+const W=Math.max(padL*2+maxCols*colW,750);
+const H=padT+tierOrder.length*rowH+20;
 const pos={};
 tierOrder.forEach((tier,ri)=>{const nodes=tiers[tier];const totalW=nodes.length*colW;const startX=(W-totalW)/2+colW/2;nodes.forEach((n,ci)=>{pos[n.id]={x:startX+ci*colW,y:padT+ri*rowH+20}})});
 const edgeData=[];const seen=new Set(Object.keys(pos));
 Object.entries(d.theorems||{}).forEach(([tid,t])=>{for(const dep of(t.dependencies||[])){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))continue;const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','Γ_closure':'Gamma_closure'};dd=rm[dd]||dd;if(seen.has(dd)&&seen.has(tid))edgeData.push({s:dd,t:tid})}});
 let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:${W}px;height:${H}px">`;
 tierOrder.forEach((tier,ri)=>{const y=padT+ri*rowH+20;svg+=`<text x="6" y="${y+3}" fill="${tier==='-1'?AC:TC[tier]||'#888'}" font-size="7.5" font-weight="600" opacity=".4">${tier==='-1'?'Axioms':'Tier '+tier}</text>`});
-edgeData.forEach(e=>{const s=pos[e.s],t=pos[e.t];if(s&&t)svg+=`<line x1="${s.x}" y1="${s.y+7}" x2="${t.x}" y2="${t.y-7}" stroke="#1a2540" stroke-width="0.5" opacity="0.35"/>`});
-Object.entries(pos).forEach(([id,p])=>{const isAx=id.startsWith('A')&&id.length<=2;const thm=d.theorems?.[id];const tier=isAx?-1:(thm?.tier??0);const epi=isAx?'axiom':(thm?.epistemic||'P');const col=isAx?AC:TC[tier]||'#888';const r=isAx?6:4.5;
+edgeData.forEach(e=>{const s=pos[e.s],t=pos[e.t];if(s&&t)svg+=`<line x1="${s.x}" y1="${s.y+9}" x2="${t.x}" y2="${t.y-9}" stroke="#1a2540" stroke-width="0.6" opacity="0.4"/>`});
+Object.entries(pos).forEach(([id,p])=>{const isAx=id.startsWith('A')&&id.length<=2;const thm=d.theorems?.[id];const tier=isAx?-1:(thm?.tier??0);const epi=isAx?'axiom':(thm?.epistemic||'P');const col=isAx?AC:TC[tier]||'#888';const r=isAx?7:5.5;
 if(epi==='P_structural'){const s=r*.7;svg+=`<rect x="${p.x-s}" y="${p.y-s}" width="${s*2}" height="${s*2}" rx="1" transform="rotate(45,${p.x},${p.y})" fill="${col}30" stroke="${col}" stroke-width=".8" stroke-dasharray="2,1.5"/>`}
 else if(isAx){svg+=`<polygon points="${p.x},${p.y-r} ${p.x+r},${p.y} ${p.x},${p.y+r} ${p.x-r},${p.y}" fill="${col}30" stroke="${col}" stroke-width="1"/>`}
 else{svg+=`<circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${col}25" stroke="${col}" stroke-width=".8"/>`}
-svg+=`<text x="${p.x}" y="${p.y+r+8}" text-anchor="middle" fill="${col}" font-size="5.5" font-weight="${isAx?700:500}" opacity=".7">${id.replace('Gamma_','Γ_')}</text>`});
+svg+=`<text x="${p.x}" y="${p.y+r+9}" text-anchor="middle" fill="${col}" font-size="6" font-weight="${isAx?700:500}" opacity=".75">${id.replace('Gamma_','Γ_')}</text>`});
 svg+=`</svg>`;box.innerHTML=svg;
 }
 
