@@ -1,0 +1,53 @@
+{
+  "title": "Admissibility Physics: A Constraint-First Framework for Fundamental Physics",
+  "description": "Complete paper series and computational framework deriving the Standard Model, general relativity, and cosmological structure from five information-theoretic axioms. Includes Papers 1-7 (SPINE through ACTION), Evidence papers A-C, and the FCF Model Checker codebase with 67+ theorem verifications.",
+  "upload_type": "publication",
+  "publication_type": "workingpaper",
+  "creators": [
+    {
+      "name": "Brooke, E.",
+      "affiliation": "Independent Researcher"
+    }
+  ],
+  "keywords": [
+    "admissibility physics",
+    "constraint-first physics",
+    "foundational constraint framework",
+    "quantum foundations",
+    "information-theoretic physics",
+    "Standard Model derivation",
+    "gauge group selection",
+    "three generations",
+    "weak mixing angle",
+    "cosmological constant",
+    "dark matter",
+    "finite enforceability"
+  ],
+  "license": {
+    "id": "CC-BY-4.0"
+  },
+  "access_right": "open",
+  "language": "eng",
+  "notes": "February 2026 canonical release. Papers 1-7 updated with formalized cost parameters (ε, κ, η), executable certificates, Δ_geo closure, T4F capacity saturation (N_gen = 3), sin²θ_W = 3/13 derivation, and dark sector identification.",
+  "related_identifiers": [
+    {
+      "identifier": "https://admissibilityphysics.com",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    }
+  ],
+  "subjects": [
+    {
+      "term": "High Energy Physics - Theory",
+      "scheme": "arxiv"
+    },
+    {
+      "term": "Quantum Physics",
+      "scheme": "arxiv"
+    },
+    {
+      "term": "General Relativity and Quantum Cosmology",
+      "scheme": "arxiv"
+    }
+  ]
+}
