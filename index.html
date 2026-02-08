@@ -8,14 +8,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-:root{--bg:#060810;--c1:#0b0f1a;--bdr:#171e30;--bdr2:#1f2940;--tx:#c8cedf;--dm:#4a5575;--br:#eef0f8;--grn:#34d399;--grng:#34d39920;--blu:#60a5fa;--blug:#60a5fa18;--pur:#a78bfa;--purg:#a78bfa15;--amb:#fbbf24;--ambg:#fbbf2415;--red:#f87171;--mn:'IBM Plex Mono',monospace;--sn:'IBM Plex Sans',sans-serif}
+:root{--bg:#060810;--c1:#0b0f1a;--c2:#0e1322;--bdr:#171e30;--bdr2:#1f2940;--tx:#c8cedf;--dm:#4a5575;--br:#eef0f8;--grn:#34d399;--grng:#34d39920;--blu:#60a5fa;--blug:#60a5fa18;--pur:#a78bfa;--purg:#a78bfa15;--amb:#fbbf24;--ambg:#fbbf2415;--red:#f87171;--mn:'IBM Plex Mono',monospace;--sn:'IBM Plex Sans',sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55}
 .ctr{max-width:1060px;margin:0 auto;padding:28px 20px}::selection{background:var(--grn);color:var(--bg)}
 .hdr{margin-bottom:32px;position:relative}.hdr::after{content:'';position:absolute;bottom:-16px;left:0;width:100%;height:1px;background:linear-gradient(90deg,var(--grn),var(--blu),var(--pur),transparent 80%);opacity:.5}
 .hdr-tag{font-family:var(--mn);font-size:10px;font-weight:600;color:var(--grn);letter-spacing:3px;text-transform:uppercase}
 .hdr-t{font-size:28px;font-weight:700;color:var(--br);letter-spacing:-.5px;margin:2px 0 4px}.hdr-s{font-family:var(--mn);font-size:11px;color:var(--dm)}.hdr-s b{color:var(--grn);font-weight:500}
-.sec{margin-bottom:36px}.sec-t{font-family:var(--mn);font-size:11px;font-weight:600;color:var(--dm);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}.sec-t::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.sec{margin-bottom:40px}.sec-t{font-family:var(--mn);font-size:11px;font-weight:600;color:var(--dm);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}.sec-t::after{content:'';flex:1;height:1px;background:var(--bdr)}
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .sc{background:var(--c1);border:1px solid var(--bdr);border-radius:6px;overflow:hidden;cursor:pointer;transition:all .2s}.sc:hover{border-color:var(--bdr2);transform:translateY(-1px)}.sc.open{border-color:var(--bdr2)}
 .sc::before{content:'';display:block;height:2px}.sc[data-a="g"]::before{background:var(--grn)}.sc[data-a="b"]::before{background:var(--blu)}.sc[data-a="p"]::before{background:var(--pur)}.sc[data-a="a"]::before{background:var(--amb)}
@@ -30,27 +30,67 @@ body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55
 .gtt{position:absolute;pointer-events:none;font-family:var(--mn);font-size:11px;background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:8px 11px;color:var(--br);max-width:260px;line-height:1.5;opacity:0;transition:opacity .15s;box-shadow:0 4px 20px rgba(0,0,0,.5);z-index:10}.gtt.show{opacity:1}.gtt .tt-id{font-weight:700;font-size:12px}.gtt .tt-dm{color:var(--dm);font-size:9px}
 .gl{position:absolute;bottom:10px;left:10px;font-family:var(--mn);font-size:9px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px}.gl-r{display:flex;align-items:center;gap:5px;margin-bottom:2px}.gl-d{width:8px;height:8px;border-radius:50%}
 .gc{position:absolute;top:10px;right:10px;display:flex;gap:4px}.gc button{font-family:var(--mn);font-size:10px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:4px 8px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
-#dag-box{width:100%;overflow-x:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:16px}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
+#dag-box{width:100%;overflow-x:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:16px;position:relative}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
 #crystal-box{width:100%;height:560px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden;cursor:grab}
 #crystal-box:active{cursor:grabbing}
-#crystal-label{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:var(--mn);font-size:9px;color:var(--dm);background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:6px 12px;text-align:center;pointer-events:none}
+#crystal-legend{position:absolute;bottom:12px;left:12px;font-family:var(--mn);font-size:8px;background:#0b0f1add;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px;pointer-events:none;line-height:1.6;z-index:5}
+.cl-r{display:flex;align-items:center;gap:5px;margin-bottom:1px}.cl-dot{width:7px;height:7px;border-radius:50%}.cl-head{font-weight:600;color:var(--br);margin-bottom:2px;font-size:9px}
 #crystal-hover{position:absolute;top:12px;left:12px;font-family:var(--mn);font-size:11px;color:var(--br);background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:8px 11px;max-width:280px;opacity:0;transition:opacity .15s;pointer-events:none;z-index:10}
-#crystal-legend{position:absolute;bottom:12px;left:12px;font-family:var(--mn);font-size:8px;background:#0b0f1add;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px;pointer-events:none;line-height:1.6}
-#crystal-legend .cl-r{display:flex;align-items:center;gap:5px;margin-bottom:1px}
-#crystal-legend .cl-dot{width:7px;height:7px;border-radius:50%}
-#crystal-legend .cl-head{font-weight:600;color:var(--br);margin-bottom:2px;font-size:9px}
-#crystal-legend .cl-dim{color:var(--dm)}
-#dag-box svg .dag-node{cursor:pointer}#dag-box svg .dag-node:hover{filter:brightness(1.5)}
-.dof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}.dof-cell{background:var(--bg);border:1px solid var(--bdr);border-radius:4px;padding:8px;text-align:center;font-family:var(--mn)}.dof-num{font-size:20px;font-weight:700}.dof-lbl{font-size:8px;color:var(--dm);margin-top:2px}
-.count-row{display:grid;grid-template-columns:140px 60px 1fr 50px;gap:6px;align-items:center;font-family:var(--mn);font-size:10px;margin-bottom:4px;padding:4px 0;border-bottom:1px solid var(--bdr)}.count-name{color:var(--br)}.count-val{text-align:right}.count-bar-bg{height:10px;background:var(--bdr);border-radius:2px;overflow:hidden}.count-bar{height:100%;border-radius:2px}.count-err{text-align:right;font-size:9px}
-.bgg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.bc{border-radius:6px;padding:13px;text-align:center}.bc-n{font-family:var(--mn);font-size:34px;font-weight:700}.bc-l{font-size:11px;font-weight:600;margin-top:1px}.bc-f{font-family:var(--mn);font-size:10px;margin-top:3px}.bc-s{font-size:9px;color:var(--dm);margin-top:3px}
+/* ── BUDGET PANEL ── */
+.bp{background:var(--c1);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.bp-hdr{padding:28px 24px 18px;background:linear-gradient(135deg,#0b0f1a 0%,#121830 100%);border-bottom:1px solid var(--bdr)}
+.bp-tag{font-family:var(--mn);font-size:9px;color:var(--pur);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.bp-title{font-size:24px;font-weight:700;color:var(--br);line-height:1.2}
+.bp-title em{color:var(--grn);font-style:normal}
+.bp-sub{font-family:var(--mn);font-size:10px;color:var(--dm);margin-top:6px;line-height:1.6}
+.bp-quote{font-family:var(--sn);font-size:13px;font-style:italic;text-align:center;padding:14px 20px;color:var(--tx);border-bottom:1px solid var(--bdr)}
+.bp-quote em{color:var(--grn);font-style:italic}
+.bp-stats{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--bdr)}
+.bp-stat{padding:12px;text-align:center;border-right:1px solid var(--bdr);font-family:var(--mn)}
+.bp-stat:last-child{border-right:none}
+.bp-stat-l{font-size:8px;color:var(--dm);text-transform:uppercase;letter-spacing:1px}
+.bp-stat-v{font-size:18px;font-weight:700;margin:2px 0}
+.bp-stat-s{font-size:8px;color:var(--dm)}
+/* budget tabs */
+.bp-tabs{display:flex;border-bottom:1px solid var(--bdr);overflow-x:auto}
+.bp-tab{font-family:var(--mn);font-size:10px;padding:10px 16px;cursor:pointer;color:var(--dm);border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.bp-tab:hover{color:var(--tx)}.bp-tab.active{color:var(--br);border-bottom-color:var(--grn)}
+.bp-panel{display:none;padding:20px 24px}.bp-panel.active{display:block}
+/* donut */
+.donut-wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.donut-legend{flex:1;min-width:200px}
+.dl-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dl-info{flex:1}
+.dl-name{font-size:13px;font-weight:600;color:var(--br)}
+.dl-tag{font-family:var(--mn);font-size:8px;padding:1px 5px;border-radius:3px;margin-left:6px}
+.dl-desc{font-family:var(--mn);font-size:9px;color:var(--dm);margin-top:1px}
+.dl-pct{font-family:var(--mn);font-size:16px;font-weight:700}
+/* expandable detail rows */
+.xr{border:1px solid var(--bdr);border-radius:6px;margin-bottom:8px;overflow:hidden}
+.xr-top{display:grid;grid-template-columns:24px 130px 70px 1fr 50px 50px 36px;gap:6px;align-items:center;padding:8px 12px;cursor:pointer;font-family:var(--mn);font-size:10px;transition:background .15s}
+.xr-top:hover{background:var(--blug)}
+.xr-dot{width:8px;height:8px;border-radius:50%}
+.xr-q{color:var(--br);font-weight:600}
+.xr-val{color:var(--grn)}
+.xr-bar-wrap{height:10px;background:var(--bdr);border-radius:2px;overflow:hidden;position:relative}
+.xr-bar{height:100%;border-radius:2px;position:absolute;left:0;top:0}
+.xr-obs-tick{position:absolute;top:-1px;width:2px;height:12px;background:var(--br);border-radius:1px}
+.xr-err{text-align:right;font-weight:600}
+.xr-badge{font-size:7px;padding:2px 4px;border-radius:2px;text-align:center;font-weight:700;text-transform:uppercase}
+.xr-arrow{text-align:center;color:var(--dm);font-size:9px;transition:transform .2s}
+.xr.open .xr-arrow{transform:rotate(180deg)}
+.xr-expand{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.xr.open .xr-expand{max-height:500px}
+.xr-detail{padding:10px 12px 14px;border-top:1px solid var(--bdr);font-family:var(--mn);font-size:9px;color:var(--dm);line-height:1.8}
+.xr-detail .xd-row{display:flex;gap:8px;align-items:baseline}.xd-label{color:var(--tx);font-weight:600;min-width:80px}
 .ctbl{width:100%;border-collapse:collapse;font-size:11px}.ctbl th{font-family:var(--mn);font-size:9px;color:var(--dm);text-transform:uppercase;letter-spacing:1px;text-align:left;padding:7px 8px;border-bottom:2px solid var(--bdr)}.ctbl td{padding:7px 8px;border-bottom:1px solid var(--bdr);vertical-align:top}.ctbl tr:hover{background:var(--blug)}.ctbl .cq{font-family:var(--mn);font-weight:600;color:var(--br);white-space:nowrap}.ctbl .cv{font-family:var(--mn);color:var(--grn)}.ctbl .ca{font-size:10px;color:var(--dm);line-height:1.5}
 .ar{display:grid;grid-template-columns:44px 1fr 64px;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:11px}.ar-id{font-family:var(--mn);font-weight:600;color:var(--dm)}
 .badge{font-family:var(--mn);font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;text-align:center;text-transform:uppercase}.b-fixed{background:var(--grng);color:var(--grn)}.b-active{background:var(--ambg);color:var(--amb)}.b-verified{background:var(--blug);color:var(--blu)}
 .footer{font-family:var(--mn);font-size:9px;color:var(--dm);text-align:center;margin-top:32px;padding-top:14px;border-top:1px solid var(--bdr)}
 .loading{display:flex;align-items:center;justify-content:center;min-height:400px;font-family:var(--mn);font-size:13px;color:var(--grn)}.loading::after{content:'';width:14px;height:14px;border:2px solid var(--grn);border-top-color:transparent;border-radius:50%;margin-left:8px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bgg{grid-template-columns:1fr}#graph-box{height:400px}#crystal-box{height:400px}.pred-row{grid-template-columns:80px 60px 1fr 50px}}
+@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:400px}.pred-row{grid-template-columns:80px 60px 1fr 50px}.xr-top{grid-template-columns:20px 90px 55px 1fr 40px 40px 30px;font-size:9px}}
 </style>
 </head>
 <body>
@@ -60,213 +100,341 @@ const EMBEDDED_DATA={"version":"v3.6","date":"2026-02-08","total_theorems":49,"p
 
 const TC=['#818cf8','#a78bfa','#f472b6','#fbbf24','#60a5fa','#34d399'];
 const AC='#f87171';
-const TN={'-1':'Axioms',0:'Axiom Foundations',1:'Gauge Group',2:'Particles',3:'RG / Constants',4:'Gravity + Dark',5:'Γ_geo Closure'};
+const TN={'-1':'Axioms',0:'Axiom Foundations',1:'Gauge Group',2:'Particles',3:'RG / Constants',4:'Gravity + Dark',5:'\u0393_geo Closure'};
 const AXNM={A1:'Finite Capacity',A2:'Non-Closure',A3:'Locality',A4:'Irreversibility',A5:'Minimality'};
 
-const CTBL=[
-{q:'sin²θ_W = 3/13',v:'0.2308',e:'0.19%',a:'Ratio of non-abelian enforcement channels at the capacity fixed point. 3 = dim(SU(2)) adjoint minus identity direction; 13 = total directional cost across all three gauge sectors.'},
-{q:'Gauge: SU(3)×SU(2)×U(1)',v:'exact',e:'exact',a:'Unique factorization of C ≥ 12 into enforcement sectors satisfying anomaly cancellation (A2), locality (A3), and minimality (A5).'},
-{q:'N_gen = 3',v:'3',e:'exact',a:'Capacity saturation: three generations exhaust 45 of 61 Weyl DOF. A fourth requires C ≥ 76, violating A1. Equivalently N_c² + 6 = 5N → N = 3.'},
-{q:'d = 4 spacetime',v:'4',e:'exact',a:'Unique dimension where Weyl admits 2-component spinors compatible with gauge structure. d > 4 creates KK overconsumption violating A1.'},
-{q:'Ω_Λ = 42/61',v:'0.6885',e:'0.05%',a:'42 structural vacuum DOF: 27 gauge-index slots + 3 Higgs internals + 12 gauge generators. No distinguishable labels → uniform vacuum energy.'},
-{q:'Ω_m = 19/61',v:'0.3115',e:'0.12%',a:'19 matter-sector capacity: 3 generation labels (baryonic) + 16 multiplet enforcement references (dark). Capacity carrying distinguishable information.'},
-{q:'Ω_b = 3/61',v:'0.04918',e:'0.37%',a:'Exactly N_gen = 3 units carry flavor quantum numbers — generation labels making matter distinguishable. The stuff that forms atoms.'},
-{q:'Ω_DM = 16/61',v:'0.2623',e:'0.61%',a:'16 = 5×3 + 1 enforcement references per field multiplet. No gauge charge — invisible to photons — but gravitationally active. Not a particle; enforcement overhead.'},
-{q:'f_b = 3/19',v:'0.15789',e:'0.49%',a:'Ratio of flavor-labeled to total matter capacity. Pure combinatorics: how much matter carries distinguishable quantum numbers vs enforcement bookkeeping.'},
-{q:'Field content: {Q,L,u,d,e}',v:'exact',e:'exact',a:'Unique chiral Weyl set cancelling all gauge anomalies (A2), respecting channels, avoiding Landau poles (A1). UV safety alone selects these 5 types.'},
-{q:'Higgs exists',v:'scalar',e:'exact',a:'EW pivot requires a massive scalar to redistribute capacity between broken/unbroken phases. The unique capacity bridge making EW breaking admissible under A1.'},
-{q:'ν type: Majorana',v:'testable',e:'TBD',a:'C_total=61 (no ν_R) matches Planck within 1σ. Adding 3 ν_R → C=64, Ω_m=0.297, 2.5σ tension. Testable via 0νββ.'},
-{q:'Charge: Q = e/3 units',v:'exact',e:'exact',a:'Anomaly cancellation forces hypercharge into a Diophantine system with unique solution. Direct consequence of enforcement consistency.'},
-{q:'Neutral atoms',v:'exact',e:'exact',a:'Q_p = 2(2/3)+(−1/3) = 1, Q_e = −1. Exact cancellation — the universe is electrically neutral because the enforcement graph demands it.'},
+// Structural ratios data with full audit metadata
+const BUDGET_ROWS = [
+  {q:'\u03a9_\u039b',ratio:'42/61',val:0.6885,obs:0.6889,obsErr:0.0056,err:0.05,col:'#a78bfa',
+   status:'P_structural',regime:'R11 (horizon saturation)',sector:'Vacuum ledger',
+   adm:'Fraction of C_total with no distinguishable labels: 27 gauge-index slots + 3 Higgs internals + 12 generators.',
+   indep:'Derived from vacuum capacity residual (T11). Independent of matter-sector counting.',
+   falsify:'If vacuum energy were field-dependent rather than structural, this ratio would run with scale.',
+   proof:'A1 \u2192 T0 (C finite) \u2192 T3 (capacity partition) \u2192 T11 (\u039b = residual). No free parameters.'},
+  {q:'\u03a9_m',ratio:'19/61',val:0.3115,obs:0.3111,obsErr:0.0056,err:0.12,col:'#60a5fa',
+   status:'P_structural',regime:'R11+R12 (matter saturation)',sector:'Matter ledger',
+   adm:'Total capacity carrying distinguishable information: 3 generation labels + 16 multiplet references.',
+   indep:'Sum of baryonic + dark sectors. Cross-checks against \u03a9_\u039b = 1 \u2212 \u03a9_m.',
+   falsify:'If additional light species existed (sterile \u03bd, axions), this sum would shift upward.',
+   proof:'T11 + T12E. Matter = C_total \u2212 C_vacuum = 61 \u2212 42 = 19.'},
+  {q:'\u03a9_b',ratio:'3/61',val:0.04918,obs:0.0490,obsErr:0.0005,err:0.37,col:'#34d399',
+   status:'P_structural',regime:'R12 (baryon counting)',sector:'Baryon ledger',
+   adm:'Capacity units carrying flavor quantum numbers = N_gen = 3 generation labels.',
+   indep:'Derived from generation count (T7/T4F). Independent of dark sector.',
+   falsify:'If a 4th generation existed at any mass, this would become 4/X.',
+   proof:'T4F (N_gen=3) \u2192 T12E. Baryonic = distinguishable flavor labels only.'},
+  {q:'\u03a9_DM',ratio:'16/61',val:0.2623,obs:0.2607,obsErr:0.0053,err:0.61,col:'#818cf8',
+   status:'P_structural',regime:'R12 (dark counting)',sector:'Dark matter ledger',
+   adm:'Enforcement overhead: 5 multiplet types \u00d7 3 generations + 1 Higgs = 16 references. No gauge charge.',
+   indep:'Derived from field content (T_field). Independent of \u039b calculation.',
+   falsify:'If dark matter carried SM gauge charge, it would be baryonic, breaking this partition.',
+   proof:'T_field \u2192 T12E. DM = N_mult = 5\u00d73+1 = 16 capacity bookkeeping entries.'},
+  {q:'f_b',ratio:'3/19',val:0.15789,obs:0.1571,obsErr:0.0013,err:0.49,col:'#f472b6',
+   status:'P_structural',regime:'R12 (fraction)',sector:'Cross-ledger ratio',
+   adm:'Baryon fraction = flavor-labeled / total matter = N_gen / (N_gen + N_mult) = 3/19.',
+   indep:'Redundant cross-check: f_b = \u03a9_b / \u03a9_m. Consistency test, not independent prediction.',
+   falsify:'Same as \u03a9_b and \u03a9_DM \u2014 any change to field content shifts this.',
+   proof:'T12E. Pure ratio of two independently derived quantities.'},
 ];
 
-async function main(){let d;try{const r=await fetch('dashboard_data.json');d=await r.json()}catch(e){if(typeof EMBEDDED_DATA!=='undefined'){d=EMBEDDED_DATA}else{document.getElementById('app').innerHTML='<div class="loading" style="color:var(--red)">Failed to load</div>';return}}render(d)}
+const CTBL=[
+{q:'sin\u00b2\u03b8_W = 3/13',v:'0.2308',e:'0.19%',a:'Ratio of non-abelian enforcement channels at the capacity fixed point. 3 = dim(SU(2)) adjoint minus identity; 13 = total directional cost across all gauge sectors.'},
+{q:'Gauge: SU(3)\u00d7SU(2)\u00d7U(1)',v:'exact',e:'exact',a:'Unique factorization of C \u2265 12 into enforcement sectors satisfying anomaly cancellation (A2), locality (A3), and minimality (A5).'},
+{q:'N_gen = 3',v:'3',e:'exact',a:'Capacity saturation: three generations exhaust 45 of 61 Weyl DOF. A fourth requires C \u2265 76, violating A1.'},
+{q:'d = 4 spacetime',v:'4',e:'exact',a:'Unique dimension where Weyl admits 2-component spinors compatible with gauge structure.'},
+{q:'Field content: {Q,L,u,d,e}',v:'exact',e:'exact',a:'Unique chiral Weyl set cancelling all gauge anomalies (A2), avoiding Landau poles (A1).'},
+{q:'Higgs exists',v:'scalar',e:'exact',a:'EW pivot requires a massive scalar to redistribute capacity. The unique capacity bridge making EW breaking admissible.'},
+{q:'\u03bd type: Majorana',v:'testable',e:'TBD',a:'C_total=61 (no \u03bd_R) matches Planck within 1\u03c3. Adding 3 \u03bd_R \u2192 C=64, 2.5\u03c3 tension. Testable via 0\u03bd\u03b2\u03b2.'},
+{q:'Charge: Q = e/3',v:'exact',e:'exact',a:'Anomaly cancellation forces hypercharge into a Diophantine system with unique solution.'},
+{q:'Neutral atoms',v:'exact',e:'exact',a:'Q_p = 2(2/3)+(-1/3) = 1, Q_e = -1. Exact cancellation from enforcement consistency.'},
+];
+
+async function main(){
+  let d;
+  try { const r = await fetch('dashboard_data.json'); d = await r.json(); }
+  catch(e) { d = (typeof EMBEDDED_DATA !== 'undefined') ? EMBEDDED_DATA : null; }
+  if (!d) { document.getElementById('app').innerHTML = '<div class="loading" style="color:var(--red)">Failed to load data</div>'; return; }
+  render(d);
+}
+
 function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):''}
 function toggleCard(el){el.classList.toggle('open')}
+function switchTab(panel,tab){
+  panel.querySelectorAll('.bp-tab').forEach(t=>t.classList.remove('active'));
+  panel.querySelectorAll('.bp-panel').forEach(p=>p.classList.remove('active'));
+  tab.classList.add('active');
+  panel.querySelector('#'+tab.dataset.panel).classList.add('active');
+}
+function toggleXR(el){el.closest('.xr').classList.toggle('open')}
 
 function render(d){
-const ep=d.epistemic_counts||{},pC=ep.P||0,psC=ep.P_structural||0,pPct=Math.round(pC/d.total_theorems*100);
-const preds=d.predictions||[];
-const openCount=Object.values(d.theorems||{}).filter(t=>t.gap_type==='open_physics').length;
-const tiers=d.tier_stats||{};
-const tierThms={};
-Object.entries(d.theorems||{}).forEach(([id,t])=>{const tier=t.tier??0;(tierThms[tier]=tierThms[tier]||[]).push({id,...t})});
-const contPreds=preds.filter(p=>typeof p.error_pct==='number'&&p.error_pct>0);
-const exactPreds=preds.filter(p=>p.error_pct===0);
-const testPreds=preds.filter(p=>p.error_pct===null||p.error_pct===undefined||p.error_pct==='None');
+  var ep=d.epistemic_counts||{},pC=ep.P||0,pPct=Math.round(pC/d.total_theorems*100);
+  var preds=d.predictions||[];
+  var openCount=0;
+  Object.values(d.theorems||{}).forEach(function(t){if(t.gap_type==='open_physics')openCount++});
+  var tiers=d.tier_stats||{};
+  var tierThms={};
+  Object.entries(d.theorems||{}).forEach(function(e){var id=e[0],t=e[1];var tier=t.tier||0;if(!tierThms[tier])tierThms[tier]=[];tierThms[tier].push(Object.assign({id:id},t))});
+  var contPreds=preds.filter(function(p){return typeof p.error_pct==='number'&&p.error_pct>0});
+  var exactPreds=preds.filter(function(p){return p.error_pct===0});
+  var testPreds=preds.filter(function(p){return p.error_pct===null||p.error_pct===undefined||p.error_pct==='None'});
 
-document.getElementById('app').innerHTML=`
-<div class="hdr">
-  <div class="hdr-tag">Admissibility Physics Engine</div>
-  <div class="hdr-t">${d.version||'v3.6'} — Foundational Constraint Framework</div>
-  <div class="hdr-s">${d.date} · <b>${d.total_theorems} theorems</b> · 5 axioms · 0 free parameters · <b>${preds.length} predictions</b></div>
-</div>
+  // Build HTML using array join to avoid nested template issues
+  var h = [];
+  h.push('<div class="hdr">');
+  h.push('<div class="hdr-tag">Admissibility Physics Engine</div>');
+  h.push('<div class="hdr-t">'+(d.version||'v3.6')+' \u2014 Foundational Constraint Framework</div>');
+  h.push('<div class="hdr-s">'+d.date+' \u00b7 <b>'+d.total_theorems+' theorems</b> \u00b7 5 axioms \u00b7 0 free parameters \u00b7 <b>'+preds.length+' predictions</b></div>');
+  h.push('</div>');
 
-<div class="sec"><div class="sec-t">Framework Status</div>
-<div class="sg">
-  <div class="sc" data-a="g" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Theorems</div><div class="sc-v" style="color:var(--grn)">${d.passed}/${d.total_theorems}</div><div class="sc-s">all pass · 0 cycles</div></div>
-  <div class="sc-expand"><div class="sc-inner" style="padding-top:10px">
-    ${Object.entries(tiers).map(([k,v])=>`<div class="mini-bar"><span style="width:90px;color:${TC[k]}">${v.name||TN[k]||''}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${v.total>0?v.passed/v.total*100:0}%;background:${TC[k]}"></div></div><span style="color:var(--br);width:28px;text-align:right">${v.passed}/${v.total}</span></div>`).join('')}
-    <div style="margin-top:8px;font-family:var(--mn);font-size:9px;color:var(--dm)">Sectors: ${Object.entries(d.sector_verdicts||{}).map(([k,v])=>`<span style="color:${v?'var(--grn)':'var(--red)'}">${k} ${v?'✓':'✗'}</span>`).join(' · ')}</div>
-  </div></div></div>
-  <div class="sc" data-a="b" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Proven [P]</div><div class="sc-v" style="color:var(--blu)">${pC}</div><div class="sc-s">${pPct}% of total</div></div>
-  <div class="sc-expand"><div class="sc-inner" style="padding-top:10px">
-    ${Object.entries(tiers).map(([k])=>{const th=tierThms[parseInt(k)]||[];const pc=th.filter(t=>t.epistemic==='P').length;return `<div class="mini-bar"><span style="width:90px;color:${TC[k]}">Tier ${k}</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${th.length>0?pc/th.length*100:0}%;background:var(--grn)"></div></div><span style="color:var(--grn);width:20px;text-align:right">${pc}</span><span style="color:var(--amb);width:16px;text-align:right">${th.length-pc||''}</span></div>`}).join('')}
-  </div></div></div>
-  <div class="sc" data-a="p" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Predictions</div><div class="sc-v" style="color:var(--pur)">${preds.length}</div><div class="sc-s">all within 1σ</div></div>
-  <div class="sc-expand"><div class="sc-inner" style="padding-top:10px">
-    <div class="mini-bar"><span style="width:80px;color:var(--grn)">Exact</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${exactPreds.length/preds.length*100}%;background:var(--grn)"></div></div><span style="width:16px;text-align:right;color:var(--br)">${exactPreds.length}</span></div>
-    <div class="mini-bar"><span style="width:80px;color:var(--blu)">Continuous</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${contPreds.length/preds.length*100}%;background:var(--blu)"></div></div><span style="width:16px;text-align:right;color:var(--br)">${contPreds.length}</span></div>
-    <div class="mini-bar"><span style="width:80px;color:var(--amb)">Testable</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${testPreds.length/preds.length*100}%;background:var(--amb)"></div></div><span style="width:16px;text-align:right;color:var(--br)">${testPreds.length}</span></div>
-  </div></div></div>
-  <div class="sc" data-a="a" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">▼</span><div class="sc-l">Open Physics</div><div class="sc-v" style="color:var(--amb)">${openCount}</div><div class="sc-s">remaining gaps</div></div>
-  <div class="sc-expand"><div class="sc-inner" style="padding-top:10px;font-family:var(--mn);font-size:10px;line-height:1.7">
-    <div style="color:var(--amb)">T10 <span style="color:var(--dm)">κ — needs C_total in absolute units</span></div>
-    <div style="color:var(--amb)">T4G <span style="color:var(--dm)">Yukawa — needs Majorana/Dirac</span></div>
-    <div style="color:var(--amb)">T4G_Q31 <span style="color:var(--dm)">ν mass — follows from T4G</span></div>
-  </div></div></div>
-</div></div>
+  // ═══ SUMMARY CARDS ═══
+  h.push('<div class="sec"><div class="sec-t">Framework Status</div><div class="sg">');
+  // Theorems card
+  h.push('<div class="sc" data-a="g" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">\u25bc</span><div class="sc-l">Theorems</div><div class="sc-v" style="color:var(--grn)">'+d.passed+'/'+d.total_theorems+'</div><div class="sc-s">all pass</div></div>');
+  h.push('<div class="sc-expand"><div class="sc-inner" style="padding-top:10px">');
+  Object.entries(tiers).forEach(function(e){var k=e[0],v=e[1];h.push('<div class="mini-bar"><span style="width:90px;color:'+TC[k]+'">'+(v.name||'')+'</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:'+(v.total>0?v.passed/v.total*100:0)+'%;background:'+TC[k]+'"></div></div><span style="color:var(--br);width:28px;text-align:right">'+v.passed+'/'+v.total+'</span></div>')});
+  h.push('</div></div></div>');
+  // Proven card
+  h.push('<div class="sc" data-a="b" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">\u25bc</span><div class="sc-l">Proven [P]</div><div class="sc-v" style="color:var(--blu)">'+pC+'</div><div class="sc-s">'+pPct+'% of total</div></div><div class="sc-expand"><div class="sc-inner" style="padding-top:10px">');
+  Object.entries(tiers).forEach(function(e){var k=e[0];var th=tierThms[parseInt(k)]||[];var pc=th.filter(function(t){return t.epistemic==='P'}).length;h.push('<div class="mini-bar"><span style="width:90px;color:'+TC[k]+'">Tier '+k+'</span><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:'+(th.length>0?pc/th.length*100:0)+'%;background:var(--grn)"></div></div><span style="color:var(--grn);width:20px;text-align:right">'+pc+'</span></div>')});
+  h.push('</div></div></div>');
+  // Predictions card
+  h.push('<div class="sc" data-a="p" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">\u25bc</span><div class="sc-l">Predictions</div><div class="sc-v" style="color:var(--pur)">'+preds.length+'</div><div class="sc-s">all within 1\u03c3</div></div><div class="sc-expand"><div class="sc-inner" style="padding-top:10px">');
+  h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--dm)">Exact: '+exactPreds.length+' \u00b7 Continuous: '+contPreds.length+' \u00b7 Testable: '+testPreds.length+'</div>');
+  h.push('</div></div></div>');
+  // Open physics card
+  h.push('<div class="sc" data-a="a" onclick="toggleCard(this)"><div class="sc-top"><span class="sc-arrow">\u25bc</span><div class="sc-l">Open Physics</div><div class="sc-v" style="color:var(--amb)">'+openCount+'</div><div class="sc-s">remaining gaps</div></div><div class="sc-expand"><div class="sc-inner" style="padding-top:10px;font-family:var(--mn);font-size:10px;line-height:1.7">');
+  h.push('<div style="color:var(--amb)">T10 <span style="color:var(--dm)">\u03ba \u2014 needs C_total in absolute units</span></div>');
+  h.push('<div style="color:var(--amb)">T4G <span style="color:var(--dm)">Yukawa \u2014 needs Majorana/Dirac</span></div>');
+  h.push('<div style="color:var(--amb)">T4G_Q31 <span style="color:var(--dm)">\u03bd mass \u2014 follows from T4G</span></div>');
+  h.push('</div></div></div>');
+  h.push('</div></div>');
 
-<div class="sec"><div class="sec-t">Predictions vs Observation</div>
-<div class="card">
-${contPreds.sort((a,b)=>b.error_pct-a.error_pct).map(p=>{const w=Math.min(p.error_pct/.8*100,100);const col=p.error_pct<.2?'var(--grn)':p.error_pct<.5?'var(--blu)':'var(--pur)';return `<div class="pred-row"><div class="pred-name">${esc(p.quantity)}</div><div class="pred-val">${esc(p.predicted.split('≈')[0].trim())}</div><div class="pred-bar-wrap"><div class="pred-bar" style="width:${w}%;background:${col}"></div></div><div class="pred-err" style="color:${col}">${p.error_pct.toFixed(2)}%</div></div>`}).join('')}
-<div style="margin-top:12px;border-top:1px solid var(--bdr);padding-top:8px">
-${exactPreds.map(p=>`<span style="font-family:var(--mn);font-size:9px;display:inline-block;padding:2px 6px;margin:2px;border-radius:3px;background:var(--grng);color:var(--grn)">${esc(p.quantity)}</span>`).join('')}
-${testPreds.map(p=>`<span style="font-family:var(--mn);font-size:9px;display:inline-block;padding:2px 6px;margin:2px;border-radius:3px;background:var(--ambg);color:var(--amb)">${esc(p.quantity)}</span>`).join('')}
-</div></div></div>
+  // ═══ PREDICTIONS ═══
+  h.push('<div class="sec"><div class="sec-t">Structural Ratios vs Observational Inference</div><div class="card">');
+  contPreds.sort(function(a,b){return b.error_pct-a.error_pct}).forEach(function(p){
+    var w=Math.min(p.error_pct/0.8*100,100);
+    var col=p.error_pct<0.2?'var(--grn)':p.error_pct<0.5?'var(--blu)':'var(--pur)';
+    h.push('<div class="pred-row"><div class="pred-name">'+esc(p.quantity)+'</div><div class="pred-val">'+esc(p.predicted.split('\u2248')[0].trim())+'</div><div class="pred-bar-wrap"><div class="pred-bar" style="width:'+w+'%;background:'+col+'"></div></div><div class="pred-err" style="color:'+col+'">'+p.error_pct.toFixed(2)+'%</div></div>');
+  });
+  h.push('<div style="margin-top:10px;border-top:1px solid var(--bdr);padding-top:8px">');
+  exactPreds.forEach(function(p){h.push('<span style="font-family:var(--mn);font-size:9px;display:inline-block;padding:2px 6px;margin:2px;border-radius:3px;background:var(--grng);color:var(--grn)">'+esc(p.quantity)+'</span>')});
+  testPreds.forEach(function(p){h.push('<span style="font-family:var(--mn);font-size:9px;display:inline-block;padding:2px 6px;margin:2px;border-radius:3px;background:var(--ambg);color:var(--amb)">'+esc(p.quantity)+'</span>')});
+  h.push('</div></div></div>');
 
-<div class="sec"><div class="sec-t">Cosmic Energy Budget: 3 + 16 + 42 = 61</div>
-<div class="card">
-<div class="bgg">
-  <div class="bc" style="background:var(--grng);border:1px solid #34d39930"><div class="bc-n" style="color:var(--grn)">3</div><div class="bc-l" style="color:var(--grn)">Baryonic Matter</div><div class="bc-f">Ω_b = 3/61 = 0.04918</div><div class="bc-s">N_gen = 3 generation labels</div></div>
-  <div class="bc" style="background:var(--blug);border:1px solid #60a5fa30"><div class="bc-n" style="color:var(--blu)">16</div><div class="bc-l" style="color:var(--blu)">Dark Matter</div><div class="bc-f">Ω_DM = 16/61 = 0.2623</div><div class="bc-s">N_mult = 5×3+1 enforcement refs</div></div>
-  <div class="bc" style="background:var(--purg);border:1px solid #a78bfa30"><div class="bc-n" style="color:var(--pur)">42</div><div class="bc-l" style="color:var(--pur)">Dark Energy (Λ)</div><div class="bc-f">Ω_Λ = 42/61 = 0.6885</div><div class="bc-s">Structural vacuum capacity</div></div>
-</div>
-<div id="budget-vis" style="display:flex;align-items:center;gap:24px;margin:12px 0;flex-wrap:wrap"></div>
-</div>
+  // ═══ COSMIC ENERGY BUDGET ═══
+  h.push('<div class="sec"><div class="sec-t">Cosmic Energy Budget</div>');
+  h.push('<div class="bp" id="budget-panel">');
+  // Header
+  h.push('<div class="bp-hdr"><div class="bp-tag">Theorem 11 + 12E \u00b7 Admissibility Physics v3.6</div>');
+  h.push('<div class="bp-title">Cosmic Energy Budget<br>from <em>Capacity Accounting</em></div>');
+  h.push('<div class="bp-sub">Dark matter, dark energy, and baryonic matter derived from gauge overhead,<br>infrastructure cost, and ledger partition. No tunable microphysics.</div></div>');
+  // Quote
+  h.push('<div class="bp-quote">\u201cDark matter is what you get when you don\u2019t pay the <em>gauge toll</em>.\u201d</div>');
+  // Stat row
+  h.push('<div class="bp-stats">');
+  h.push('<div class="bp-stat"><div class="bp-stat-l">C_total</div><div class="bp-stat-v" style="color:var(--grn)">61</div><div class="bp-stat-s">DOF budget</div></div>');
+  h.push('<div class="bp-stat"><div class="bp-stat-l">Observed</div><div class="bp-stat-v" style="color:var(--br)">5.33</div><div class="bp-stat-s">DM/baryon ratio</div></div>');
+  h.push('<div class="bp-stat"><div class="bp-stat-l">Mean Error</div><div class="bp-stat-v" style="color:var(--grn)">0.33%</div><div class="bp-stat-s">across 5 params</div></div>');
+  h.push('<div class="bp-stat"><div class="bp-stat-l">Free Params</div><div class="bp-stat-v" style="color:var(--pur)">0</div><div class="bp-stat-s">no tuning</div></div>');
+  h.push('<div class="bp-stat"><div class="bp-stat-l">Planck Check</div><div class="bp-stat-v" style="color:var(--grn)">5/5</div><div class="bp-stat-s">within 1\u03c3</div></div>');
+  h.push('</div>');
+  // Tabs
+  h.push('<div class="bp-tabs">');
+  ['Budget','DOF Breakdown','Planck Comparison','Dark Matter','Majorana Test','Not a Fit','Falsifiability'].forEach(function(t,i){
+    var pid='bp-p'+i;
+    h.push('<div class="bp-tab'+(i===0?' active':'')+'" data-panel="'+pid+'" onclick="switchTab(document.getElementById(\u0027budget-panel\u0027),this)">'+t+'</div>');
+  });
+  h.push('</div>');
 
-<div class="card"><div class="ct">DOF Counting: Why 61?</div>
-<div class="dof-grid">
-  <div class="dof-cell"><div class="dof-num" style="color:var(--pur)">45</div><div class="dof-lbl">Weyl fermions<br>15 per gen × 3</div></div>
-  <div class="dof-cell"><div class="dof-num" style="color:var(--blu)">4</div><div class="dof-lbl">Higgs DOF<br>complex doublet</div></div>
-  <div class="dof-cell"><div class="dof-num" style="color:var(--amb)">12</div><div class="dof-lbl">Gauge generators<br>8+3+1</div></div>
-  <div class="dof-cell" style="border-color:var(--grn)"><div class="dof-num" style="color:var(--grn)">61</div><div class="dof-lbl">C_total<br>pre-EWSB</div></div>
-</div>
-<div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.8;margin-top:8px">
-  <div><b style="color:var(--br)">Weyl 45:</b> Each gen has Q_L(6) + u_R(3) + d_R(3) + L_L(2) + e_R(1) = 15 Weyl spinors. ×3 gen = 45.</div>
-  <div><b style="color:var(--br)">Higgs 4:</b> One complex SU(2) doublet → 4 real DOF. After EWSB: 3 become W±/Z masses, 1 physical Higgs.</div>
-  <div><b style="color:var(--br)">Gauge 12:</b> SU(3): 8 gluons + SU(2): 3 bosons + U(1): 1 boson = 12 generators.</div>
-  <div><b style="color:var(--br)">Key identity:</b> <span style="color:var(--grn)">N_gauge + N_Higgs = N_multiplets → 12 + 4 = 16 = Ω_DM budget</span></div>
-</div></div>
+  // Panel 0: Budget (donut + expandable rows)
+  h.push('<div class="bp-panel active" id="bp-p0">');
+  h.push('<div class="donut-wrap"><canvas id="donut-canvas" width="180" height="180" style="width:180px;height:180px"></canvas>');
+  h.push('<div class="donut-legend">');
+  var sectors=[{n:'Dark Energy (\u039b)',tag:'T11',tagC:'var(--pur)',desc:'Globally locked capacity residual',pct:'68.9%',col:'#a78bfa'},{n:'Dark Matter',tag:'T12',tagC:'var(--blu)',desc:'Gauge-singlet committed capacity',pct:'25.9%',col:'#60a5fa'},{n:'Baryonic Matter',tag:'T3+T4E',tagC:'var(--grn)',desc:'Gauge-charged committed capacity',pct:'4.9%',col:'#34d399'}];
+  sectors.forEach(function(s){h.push('<div class="dl-row"><div class="dl-dot" style="background:'+s.col+'"></div><div class="dl-info"><span class="dl-name">'+s.n+'</span><span class="dl-tag" style="background:'+s.tagC+'20;color:'+s.tagC+'">'+s.tag+'</span><div class="dl-desc">'+s.desc+'</div></div><div class="dl-pct" style="color:'+s.col+'">'+s.pct+'</div></div>')});
+  h.push('</div></div>');
+  // Expandable quantity rows
+  h.push('<div style="margin-top:16px">');
+  BUDGET_ROWS.forEach(function(r){
+    var barW = Math.min(r.err / 0.8 * 100, 100);
+    var obsPos = 50; // center the obs tick
+    var statusCol = r.status==='P_structural'?'var(--grn)':'var(--amb)';
+    var statusBg = r.status==='P_structural'?'var(--grng)':'var(--ambg)';
+    h.push('<div class="xr" onclick="toggleXR(event.target)">');
+    h.push('<div class="xr-top" onclick="toggleXR(event.target)">');
+    h.push('<div class="xr-dot" style="background:'+r.col+'"></div>');
+    h.push('<div class="xr-q">'+r.q+'</div>');
+    h.push('<div class="xr-val">'+r.ratio+'</div>');
+    h.push('<div class="xr-bar-wrap"><div class="xr-bar" style="width:'+barW+'%;background:'+r.col+'"></div></div>');
+    h.push('<div class="xr-err" style="color:'+r.col+'">'+r.err.toFixed(2)+'%</div>');
+    h.push('<div><span class="xr-badge" style="background:'+statusBg+';color:'+statusCol+'">'+r.status.replace('P_','')+'</span></div>');
+    h.push('<div class="xr-arrow">\u25bc</div>');
+    h.push('</div>');
+    h.push('<div class="xr-expand"><div class="xr-detail">');
+    h.push('<div class="xd-row"><span class="xd-label">Admissibility:</span>'+r.adm+'</div>');
+    h.push('<div class="xd-row"><span class="xd-label">Regime:</span><span style="color:var(--amb)">'+r.regime+'</span></div>');
+    h.push('<div class="xd-row"><span class="xd-label">Sector:</span>'+r.sector+'</div>');
+    h.push('<div class="xd-row"><span class="xd-label">Independence:</span>'+r.indep+'</div>');
+    h.push('<div class="xd-row"><span class="xd-label">Proof chain:</span>'+r.proof+'</div>');
+    h.push('<div class="xd-row"><span class="xd-label">Falsifiable by:</span><span style="color:var(--red)">'+r.falsify+'</span></div>');
+    h.push('<div class="xd-row"><span class="xd-label">Error method:</span>|derived \u2212 observed| / observed, Planck 2018 \u039bCDM flat central values</div>');
+    h.push('</div></div></div>');
+  });
+  h.push('</div></div>');
 
-<div class="card"><div class="ct">What Is Dark Matter? (Not a Particle)</div>
-<div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.8">
-  <div>In FCF, dark matter is <span style="color:var(--blu)">enforcement overhead</span> — the capacity cost of maintaining 16 field multiplets.</div>
-  <div style="margin:6px 0">The 16 = 5 multiplet types × 3 generations + 1 Higgs doublet:</div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:6px 0">
-    <div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">Q_L</span> <span style="color:var(--dm)">×3</span></div>
-    <div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">u_R</span> <span style="color:var(--dm)">×3</span></div>
-    <div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">d_R</span> <span style="color:var(--dm)">×3</span></div>
-    <div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">L_L</span> <span style="color:var(--dm)">×3</span></div>
-    <div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">e_R</span> <span style="color:var(--dm)">×3</span></div>
-    <div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">H</span> <span style="color:var(--dm)">×1</span></div>
-  </div>
-  <div>These carry <span style="color:var(--red)">no gauge charge</span> — invisible to photons, hence dark. But they couple gravitationally</div>
-  <div>because gravity = non-factorization of the capacity graph (T9_grav). No new particle species needed.</div>
-</div></div>
+  // Panel 1: DOF Breakdown
+  h.push('<div class="bp-panel" id="bp-p1"><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.9">');
+  h.push('<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">');
+  [{n:45,l:'Weyl fermions',s:'15/gen \u00d7 3',c:'var(--pur)'},{n:4,l:'Higgs DOF',s:'complex doublet',c:'var(--blu)'},{n:12,l:'Gauge generators',s:'8+3+1',c:'var(--amb)'},{n:61,l:'C_total',s:'pre-EWSB',c:'var(--grn)'}].forEach(function(x){
+    h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:5px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:700;color:'+x.c+'">'+x.n+'</div><div style="font-size:8px;color:var(--dm);margin-top:2px">'+x.l+'</div><div style="font-size:8px;color:var(--dm)">'+x.s+'</div></div>');
+  });
+  h.push('</div>');
+  h.push('<div><b style="color:var(--br)">Weyl 45:</b> Each gen: Q_L(6)+u_R(3)+d_R(3)+L_L(2)+e_R(1)=15. \u00d73 gen = 45.</div>');
+  h.push('<div><b style="color:var(--br)">Higgs 4:</b> One complex SU(2) doublet \u2192 4 real DOF. After EWSB: 3\u2192W\u00b1/Z, 1 physical Higgs.</div>');
+  h.push('<div><b style="color:var(--br)">Gauge 12:</b> SU(3):8 + SU(2):3 + U(1):1 = 12 generators.</div>');
+  h.push('<div><b style="color:var(--br)">Key:</b> <span style="color:var(--grn)">N_gauge + N_Higgs = N_mult \u2192 12+4=16 = \u03a9_DM budget</span></div>');
+  h.push('</div></div>');
 
-<div class="card"><div class="ct">Planck 2018 Comparison</div>
-<div class="count-row" style="border-bottom:2px solid var(--bdr)"><div class="count-name" style="color:var(--dm)">Parameter</div><div class="count-val" style="color:var(--dm)">FCF</div><div style="text-align:center;color:var(--dm)">Planck</div><div style="color:var(--dm)">Δ</div></div>
-<div class="count-row"><div class="count-name">Ω_Λ</div><div class="count-val" style="color:var(--grn)">42/61</div><div class="count-bar-bg"><div class="count-bar" style="width:5%;background:var(--grn)"></div></div><div class="count-err" style="color:var(--grn)">0.05%</div></div>
-<div class="count-row"><div class="count-name">Ω_m</div><div class="count-val" style="color:var(--grn)">19/61</div><div class="count-bar-bg"><div class="count-bar" style="width:15%;background:var(--grn)"></div></div><div class="count-err" style="color:var(--grn)">0.12%</div></div>
-<div class="count-row"><div class="count-name">Ω_b</div><div class="count-val" style="color:var(--blu)">3/61</div><div class="count-bar-bg"><div class="count-bar" style="width:46%;background:var(--blu)"></div></div><div class="count-err" style="color:var(--blu)">0.37%</div></div>
-<div class="count-row"><div class="count-name">Ω_DM</div><div class="count-val" style="color:var(--pur)">16/61</div><div class="count-bar-bg"><div class="count-bar" style="width:76%;background:var(--pur)"></div></div><div class="count-err" style="color:var(--pur)">0.61%</div></div>
-<div class="count-row"><div class="count-name">f_b = Ω_b/Ω_m</div><div class="count-val" style="color:var(--pur)">3/19</div><div class="count-bar-bg"><div class="count-bar" style="width:61%;background:var(--pur)"></div></div><div class="count-err" style="color:var(--pur)">0.49%</div></div>
-<div style="font-family:var(--mn);font-size:9px;color:var(--grn);margin-top:8px;text-align:center">All 5 parameters within 1σ of Planck 2018 · max error 0.61% · mean error 0.33%</div>
-</div>
+  // Panel 2: Planck Comparison
+  h.push('<div class="bp-panel" id="bp-p2"><div style="font-family:var(--mn);font-size:10px">');
+  h.push('<div style="display:grid;grid-template-columns:100px 60px 60px 1fr 50px;gap:6px;align-items:center;padding:6px 0;border-bottom:2px solid var(--bdr);color:var(--dm);font-size:9px"><div>Quantity</div><div>FCF</div><div>Planck</div><div></div><div style="text-align:right">\u0394</div></div>');
+  BUDGET_ROWS.forEach(function(r){
+    var barW=Math.min(r.err/0.8*100,100);
+    h.push('<div style="display:grid;grid-template-columns:100px 60px 60px 1fr 50px;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bdr)"><div style="color:var(--br);font-weight:600">'+r.q+'</div><div style="color:var(--grn)">'+r.ratio+'</div><div style="color:var(--dm)">'+r.obs+'</div><div style="height:8px;background:var(--bdr);border-radius:2px;overflow:hidden"><div style="width:'+barW+'%;height:100%;background:'+r.col+';border-radius:2px"></div></div><div style="text-align:right;color:'+r.col+';font-weight:600">'+r.err.toFixed(2)+'%</div></div>');
+  });
+  h.push('<div style="text-align:center;color:var(--grn);margin-top:10px;font-size:9px">All 5 parameters within 1\u03c3 of Planck 2018 \u039bCDM (flat) central values</div>');
+  h.push('</div></div>');
 
-<div class="card"><div class="ct" style="color:var(--amb)">Testable Prediction: Majorana Neutrinos</div>
-<div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.8">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px">
-    <div style="background:var(--grng);border:1px solid #34d39920;border-radius:5px;padding:10px;text-align:center">
-      <div style="font-size:16px;font-weight:700;color:var(--grn)">C = 61</div>
-      <div style="font-size:9px;margin-top:2px">No ν_R (Majorana)</div>
-      <div style="font-size:9px;color:var(--grn)">Ω_m = 0.3115 ✓</div>
-      <div style="font-size:8px;color:var(--dm)">within 0.12% of Planck</div>
-    </div>
-    <div style="background:var(--ambg);border:1px solid #fbbf2420;border-radius:5px;padding:10px;text-align:center">
-      <div style="font-size:16px;font-weight:700;color:var(--amb)">C = 64</div>
-      <div style="font-size:9px;margin-top:2px">With 3 ν_R (Dirac)</div>
-      <div style="font-size:9px;color:var(--red)">Ω_m = 0.297 ✗</div>
-      <div style="font-size:8px;color:var(--dm)">2.5σ tension with Planck</div>
-    </div>
-  </div>
-  <div>Adding 3 right-handed neutrinos shifts C from 61 → 64, pushing Ω_m = 22/64 = 0.344 → rebalances to</div>
-  <div>Ω_m ≈ 0.297. Planck measures 0.3111 ± 0.0056. The 64-DOF model sits at 2.5σ tension.</div>
-  <div style="margin-top:4px">Experiments: <span style="color:var(--amb)">LEGEND-200</span>, <span style="color:var(--amb)">nEXO</span>, <span style="color:var(--amb)">CUPID</span> — searching for neutrinoless double beta decay.</div>
-  <div>Detection confirms Majorana. Non-detection at full sensitivity would challenge FCF's DOF count.</div>
-</div></div>
-</div>
+  // Panel 3: Dark Matter
+  h.push('<div class="bp-panel" id="bp-p3"><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.9">');
+  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:8px">Dark matter is not a particle. It is enforcement overhead.</div>');
+  h.push('<div>In FCF, dark matter = the <span style="color:var(--blu)">16 capacity references</span> needed to maintain the Standard Model\u2019s field multiplets:</div>');
+  h.push('<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0">');
+  ['Q_L','u_R','d_R','L_L','e_R','H'].forEach(function(f){
+    h.push('<div style="background:var(--blug);padding:5px 8px;border-radius:4px;text-align:center"><span style="color:var(--blu)">'+f+'</span> <span style="color:var(--dm)">\u00d7'+(f==='H'?'1':'3')+'</span></div>');
+  });
+  h.push('</div>');
+  h.push('<div>= 5\u00d73 + 1 = <b style="color:var(--blu)">16</b> enforcement entries. These carry <span style="color:var(--red)">no gauge charge</span>:</div>');
+  h.push('<div>\u2022 Invisible to photons (dark) \u2022 Gravitationally active (capacity couples to geometry via T9_grav)</div>');
+  h.push('<div>\u2022 Not produced at colliders (no SM production channel) \u2022 Exactly 16/61 of total budget</div>');
+  h.push('<div style="margin-top:8px;color:var(--amb)">Prediction: No WIMP detection. No annihilation signal. DM \u201cparticle\u201d searches find nothing \u2014 because there is no particle.</div>');
+  h.push('</div></div>');
 
-<div class="sec"><div class="sec-t">Enforcement Crystal — 3D Theorem Structure</div>
-<div id="crystal-box">
-  <div id="crystal-hover"></div>
-  <div id="crystal-legend">
-    <div class="cl-head">Node Color = Tier</div>
-    <div class="cl-r"><div class="cl-dot" style="background:${AC}"></div> Axioms (A1–A5)</div>
-    ${Object.entries(TN).filter(([k])=>k!=='-1').map(([k,v])=>`<div class="cl-r"><div class="cl-dot" style="background:${TC[k]}"></div> T${k}: ${v}</div>`).join('')}
-    <div class="cl-head" style="margin-top:6px">Node Shape = Status</div>
-    <div class="cl-r"><div style="width:7px;height:7px;border-radius:50%;background:#60a5fa"></div> ● Proven [P]</div>
-    <div class="cl-r"><div style="width:7px;height:7px;background:#fbbf24;transform:rotate(45deg)"></div> ◆ Structural [P_s]</div>
-    <div class="cl-r"><div style="width:9px;height:9px;background:none;border:1.5px solid #f87171;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)"></div> ◇ Axiom</div>
-    <div class="cl-dim" style="margin-top:4px">Size = downstream impact</div>
-    <div class="cl-dim">Hover to trace dependencies</div>
-  </div>
-  <div id="crystal-label" style="left:auto;right:12px;transform:none">drag to rotate · hover to trace</div>
-</div></div>
+  // Panel 4: Majorana Test
+  h.push('<div class="bp-panel" id="bp-p4"><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.9">');
+  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:8px">The capacity budget discriminates Majorana vs Dirac</div>');
+  h.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0">');
+  h.push('<div style="background:var(--grng);border:1px solid #34d39920;border-radius:6px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:700;color:var(--grn)">C = 61</div><div style="font-size:10px;margin-top:3px;color:var(--br)">No \u03bd_R (Majorana)</div><div style="font-size:10px;color:var(--grn)">\u03a9_m = 19/61 = 0.3115</div><div style="font-size:9px;color:var(--dm)">0.12% from Planck \u2714</div></div>');
+  h.push('<div style="background:var(--ambg);border:1px solid #fbbf2420;border-radius:6px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:700;color:var(--amb)">C = 64</div><div style="font-size:10px;margin-top:3px;color:var(--br)">With 3 \u03bd_R (Dirac)</div><div style="font-size:10px;color:var(--red)">\u03a9_m = 22/64 = 0.297</div><div style="font-size:9px;color:var(--dm)">2.5\u03c3 tension \u2718</div></div>');
+  h.push('</div>');
+  h.push('<div>Adding 3 right-handed neutrinos shifts C: 61\u219264. \u03a9_m moves from 0.3115 to ~0.297.</div>');
+  h.push('<div>Planck measures 0.3111 \u00b1 0.0056. The 64-DOF model sits at 2.5\u03c3 tension.</div>');
+  h.push('<div style="margin-top:6px;color:var(--amb)">Experiments: LEGEND-200, nEXO, CUPID \u2014 searching for 0\u03bd\u03b2\u03b2 decay.</div>');
+  h.push('<div>Detection confirms Majorana + validates C=61. Non-detection at full sensitivity challenges FCF.</div>');
+  h.push('</div></div>');
 
-<div class="sec"><div class="sec-t">Dependency Graph — Force-Directed</div>
-<div id="graph-box">
-  <div class="gtt" id="gtt"></div>
-  <div class="gl"><div style="font-weight:600;margin-bottom:3px;color:var(--br)">Legend</div>
-    <div class="gl-r"><div class="gl-d" style="background:${AC}"></div> Axioms</div>
-    ${Object.entries(TN).filter(([k])=>k!=='-1').map(([k,v])=>`<div class="gl-r"><div class="gl-d" style="background:${TC[k]}"></div> T${k}: ${v}</div>`).join('')}
-    <div style="margin-top:3px;color:var(--dm)">◆ [P_structural] · ● [P]</div></div>
-  <div class="gc"><button onclick="zoomG(1.3)">+</button><button onclick="zoomG(.77)">−</button><button onclick="resetG()">⟳</button></div>
-</div></div>
+  // Panel 5: Not a Fit
+  h.push('<div class="bp-panel" id="bp-p5"><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:2">');
+  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:8px">Why this is not curve-fitting</div>');
+  [{i:'\u2460',t:'All values are <b style="color:var(--grn)">rational ratios</b> fixed before comparison',d:'3/61, 16/61, 42/61, 3/19 \u2014 no decimals were adjusted. The fractions come from integer DOF counting.'},
+   {i:'\u2461',t:'<b style="color:var(--grn)">Zero</b> continuous parameters were tuned',d:'No coupling constants, masses, or coefficients were fit. The only inputs are the 5 axioms A1\u2013A5.'},
+   {i:'\u2462',t:'Each quantity derives from a <b style="color:var(--grn)">different constraint sector</b>',d:'\u03a9_\u039b from vacuum ledger (T11), \u03a9_DM from multiplet count (T12E), \u03a9_b from generation count (T4F). Independent derivation chains.'},
+   {i:'\u2463',t:'Removing any axiom <b style="color:var(--red)">breaks</b> at least one row',d:'Drop A1: no finite capacity \u2192 no DOF count. Drop A2: no anomaly cancellation \u2192 no field content. Drop A5: gauge group not unique.'},
+   {i:'\u2464',t:'The <b style="color:var(--grn)">same framework</b> derives gauge group, generations, and charges',d:'sin\u00b2\u03b8_W, N_gen=3, SU(3)\u00d7SU(2)\u00d7U(1) all come from the same 5 axioms. Not a cosmology-only model.'}
+  ].forEach(function(x){
+    h.push('<div style="margin-bottom:8px"><span style="color:var(--pur);font-size:14px;margin-right:6px">'+x.i+'</span> '+x.t+'<div style="margin-left:24px;font-size:9px;color:var(--dm)">'+x.d+'</div></div>');
+  });
+  h.push('</div></div>');
 
-<div class="sec"><div class="sec-t">Dependency Graph — Layered by Tier</div>
-<div id="dag-box"></div></div>
+  // Panel 6: Falsifiability
+  h.push('<div class="bp-panel" id="bp-p6"><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.9">');
+  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:8px">What would falsify this?</div>');
+  [{q:'\u03a9_DM',f:'If dark matter carried SM gauge charge, the partition into labeled/unlabeled capacity breaks.',c:'var(--blu)'},{q:'\u03a9_\u039b',f:'If vacuum energy were field-dependent (quintessence), this structural ratio would run with redshift.',c:'var(--pur)'},{q:'\u03a9_b',f:'Discovery of a 4th generation at any mass would change 3/61 \u2192 4/X.',c:'var(--grn)'},{q:'f_b',f:'Any new light species (sterile \u03bd, axion) contributing to \u03a9_m but not \u03a9_b would shift this ratio.',c:'var(--pnk)'},{q:'C_total=61',f:'Detection of Dirac neutrinos (no 0\u03bd\u03b2\u03b2) would require C=64, shifting all \u03a9 ratios by ~5%.',c:'var(--amb)'},{q:'All ratios',f:'If Planck+BAO+BBN central values move by >3\u03c3 from current positions, integer ratios become implausible.',c:'var(--red)'}].forEach(function(x){
+    h.push('<div style="border-left:3px solid '+x.c+';padding:6px 10px;margin-bottom:6px;border-radius:0 4px 4px 0;background:var(--bg)"><span style="color:var(--br);font-weight:600">'+x.q+':</span> '+x.f+'</div>');
+  });
+  h.push('</div></div>');
 
-<div class="sec"><div class="sec-t">Theorem Map</div>
-${Object.entries(tierThms).sort((a,b)=>a[0]-b[0]).map(([tier,thms])=>{const ts=tiers[tier]||{};return `<div class="card"><div class="ct" style="color:${TC[tier]||'var(--grn)'}">Tier ${tier}: ${ts.name||TN[tier]||''} (${thms.length})</div><div class="tg">${thms.map(t=>`<div class="tc2 ep-${t.epistemic==='P'?'P':'Ps'}"><span class="tid">${esc(t.id)}</span><span style="font-size:8px;color:${t.epistemic==='P'?'var(--grn)':'var(--amb)'};margin-left:3px">[${t.epistemic}]</span><span class="tn2">${esc((t.name||'').replace(/^[^:]+:\\s*/,'').slice(0,35))}</span></div>`).join('')}</div></div>`}).join('')}
-</div>
+  h.push('</div></div>'); // close bp + sec
 
-<div class="sec"><div class="sec-t">Physical Constants in the Language of Admissibility</div>
-<div class="card" style="overflow-x:auto">
-<table class="ctbl"><thead><tr><th>Quantity</th><th>Value</th><th>Error</th><th>Admissibility Interpretation</th></tr></thead><tbody>
-${CTBL.map(c=>`<tr><td class="cq">${esc(c.q)}</td><td class="cv">${esc(c.v)}</td><td style="font-family:var(--mn);color:${c.e==='exact'?'var(--grn)':c.e==='TBD'?'var(--amb)':'var(--blu)'};font-size:10px">${esc(c.e)}</td><td class="ca">${esc(c.a)}</td></tr>`).join('')}
-</tbody></table></div></div>
+  // ═══ CRYSTAL ═══
+  h.push('<div class="sec"><div class="sec-t">Enforcement Crystal \u2014 3D Theorem Structure</div>');
+  h.push('<div id="crystal-box"><div id="crystal-hover"></div>');
+  h.push('<div id="crystal-legend"><div class="cl-head">Color = Tier</div>');
+  h.push('<div class="cl-r"><div class="cl-dot" style="background:#f87171"></div> Axioms (A1\u2013A5)</div>');
+  var tierLabels=['T0: Foundations','T1: Gauge','T2: Particles','T3: Constants','T4: Gravity','T5: \u0393 Closure'];
+  tierLabels.forEach(function(l,i){h.push('<div class="cl-r"><div class="cl-dot" style="background:'+TC[i]+'"></div> '+l+'</div>')});
+  h.push('<div class="cl-head" style="margin-top:5px">Shape = Status</div>');
+  h.push('<div class="cl-r"><div style="width:7px;height:7px;border-radius:50%;background:#60a5fa"></div> Proven [P]</div>');
+  h.push('<div class="cl-r"><div style="width:7px;height:7px;background:#fbbf24;transform:rotate(45deg)"></div> Structural [P_s]</div>');
+  h.push('<div class="cl-r"><div style="width:9px;height:9px;border:1.5px solid #f87171;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)"></div> Axiom</div>');
+  h.push('<div style="color:var(--dm);margin-top:3px">Hover: trace full chain</div>');
+  h.push('</div>');
+  h.push('<div style="position:absolute;bottom:12px;right:12px;font-family:var(--mn);font-size:9px;color:var(--dm);background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:6px 10px;pointer-events:none">drag to rotate</div>');
+  h.push('</div></div>');
 
-<div class="sec"><div class="sec-t">Audit Trail</div>
-<div class="card">${(d.audit_checks||[]).map(a=>`<div class="ar"><div class="ar-id">${esc(a.id)}</div><div>${esc(a.check||a.desc||'')}</div><div><span class="badge b-${a.status.toLowerCase()}">${a.status}</span></div></div>`).join('')}</div></div>
+  // ═══ FORCE GRAPH ═══
+  h.push('<div class="sec"><div class="sec-t">Dependency Graph \u2014 Force-Directed</div>');
+  h.push('<div id="graph-box"><div class="gtt" id="gtt"></div>');
+  h.push('<div class="gl"><div style="font-weight:600;margin-bottom:3px;color:var(--br)">Legend</div>');
+  h.push('<div class="gl-r"><div class="gl-d" style="background:#f87171"></div> Axioms</div>');
+  tierLabels.forEach(function(l,i){h.push('<div class="gl-r"><div class="gl-d" style="background:'+TC[i]+'"></div> '+l+'</div>')});
+  h.push('<div style="margin-top:3px;color:var(--dm)">\u25c6 [P_structural] \u00b7 \u25cf [P]</div></div>');
+  h.push('<div class="gc"><button onclick="zoomG(1.3)">+</button><button onclick="zoomG(.77)">\u2212</button><button onclick="resetG()">\u27f3</button></div>');
+  h.push('</div></div>');
 
-<div class="footer">Admissibility Physics Engine ${d.version} · ${d.date} · ${d.total_theorems} theorems · 0 free parameters · ${preds.length} predictions</div>
-`;
-setTimeout(()=>{buildBudgetPie();buildCrystal(d);buildForceGraph(d);buildDAG(d)},100);
+  // ═══ 2D DAG ═══
+  h.push('<div class="sec"><div class="sec-t">Dependency Graph \u2014 Layered by Tier</div>');
+  h.push('<div id="dag-box"></div></div>');
+
+  // ═══ THEOREM MAP ═══
+  h.push('<div class="sec"><div class="sec-t">Theorem Map</div>');
+  Object.entries(tierThms).sort(function(a,b){return a[0]-b[0]}).forEach(function(e){
+    var tier=e[0],thms=e[1];var ts=tiers[tier]||{};
+    h.push('<div class="card"><div class="ct" style="color:'+(TC[tier]||'var(--grn)')+'">Tier '+tier+': '+(ts.name||'')+ ' ('+thms.length+')</div><div class="tg">');
+    thms.forEach(function(t){
+      var epCls=t.epistemic==='P'?'ep-P':'ep-Ps';
+      var epCol=t.epistemic==='P'?'var(--grn)':'var(--amb)';
+      h.push('<div class="tc2 '+epCls+'"><span class="tid">'+esc(t.id)+'</span><span style="font-size:8px;color:'+epCol+';margin-left:3px">['+t.epistemic+']</span><span class="tn2">'+esc((t.name||'').replace(/^[^:]+:\s*/,'').slice(0,35))+'</span></div>');
+    });
+    h.push('</div></div>');
+  });
+  h.push('</div>');
+
+  // ═══ CONSTANTS TABLE ═══
+  h.push('<div class="sec"><div class="sec-t">Physical Constants in the Language of Admissibility</div><div class="card" style="overflow-x:auto"><table class="ctbl"><thead><tr><th>Quantity</th><th>Value</th><th>Error</th><th>Admissibility Interpretation</th></tr></thead><tbody>');
+  CTBL.forEach(function(c){
+    var eCol=c.e==='exact'?'var(--grn)':c.e==='TBD'?'var(--amb)':'var(--blu)';
+    h.push('<tr><td class="cq">'+esc(c.q)+'</td><td class="cv">'+esc(c.v)+'</td><td style="font-family:var(--mn);color:'+eCol+';font-size:10px">'+esc(c.e)+'</td><td class="ca">'+esc(c.a)+'</td></tr>');
+  });
+  h.push('</tbody></table></div></div>');
+
+  // ═══ AUDIT ═══
+  h.push('<div class="sec"><div class="sec-t">Audit Trail</div><div class="card">');
+  (d.audit_checks||[]).forEach(function(a){
+    h.push('<div class="ar"><div class="ar-id">'+esc(a.id)+'</div><div>'+esc(a.check||a.desc||'')+'</div><div><span class="badge b-'+a.status.toLowerCase()+'">'+a.status+'</span></div></div>');
+  });
+  h.push('</div></div>');
+
+  h.push('<div class="footer">Admissibility Physics Engine '+d.version+' \u00b7 '+d.date+' \u00b7 '+d.total_theorems+' theorems \u00b7 0 free parameters \u00b7 '+preds.length+' predictions</div>');
+
+  document.getElementById('app').innerHTML = h.join('\n');
+  setTimeout(function(){drawDonut();buildCrystal(d);buildForceGraph(d);buildDAG(d)},120);
 }
 
-/* ═══════════ BUDGET PIE ═══════════ */
-function buildBudgetPie(){
-const box=document.getElementById('budget-vis');if(!box)return;
-const data=[{v:3,c:'var(--grn)',l:'Baryons (3)'},{v:16,c:'var(--blu)',l:'Dark Matter (16)'},{v:42,c:'var(--pur)',l:'Dark Energy (42)'}];
-const sz=130,r=sz/2-4,cx=sz/2,cy=sz/2;let cum=0;
-const paths=data.map(d=>{const f=d.v/61,s=cum;cum+=f*Math.PI*2;const e=cum;const x1=cx+r*Math.sin(s),y1=cy-r*Math.cos(s),x2=cx+r*Math.sin(e),y2=cy-r*Math.cos(e);return `<path d="M${cx},${cy}L${x1},${y1}A${r},${r},0,${f>.5?1:0},1,${x2},${y2}Z" fill="${d.c}" opacity="0.7"/>`}).join('');
-box.innerHTML=`<svg viewBox="0 0 ${sz} ${sz}" style="width:${sz}px;height:${sz}px">${paths}<text x="${cx}" y="${cy-4}" text-anchor="middle" fill="var(--br)" font-size="17" font-weight="800" font-family="IBM Plex Mono">61</text><text x="${cx}" y="${cy+9}" text-anchor="middle" fill="var(--dm)" font-size="7" font-family="IBM Plex Mono">C_total</text></svg>
-<div style="font-family:var(--mn);font-size:10px">${data.map(dd=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><div style="width:10px;height:10px;border-radius:2px;background:${dd.c}"></div><span style="color:var(--dm)">${dd.v}/61</span> ${dd.l}</div>`).join('')}</div>`;
+function drawDonut(){
+  var c=document.getElementById('donut-canvas');if(!c)return;var ctx=c.getContext('2d');
+  var cx=90,cy=90,r=72,r2=48;
+  var data=[{v:42,c:'#a78bfa'},{v:16,c:'#60a5fa'},{v:3,c:'#34d399'}];
+  var total=61,cum=(-Math.PI/2);
+  data.forEach(function(d){
+    var angle=d.v/total*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,cum,cum+angle);ctx.closePath();ctx.fillStyle=d.c;ctx.globalAlpha=0.75;ctx.fill();cum+=angle;
+  });
+  ctx.globalAlpha=1;ctx.beginPath();ctx.arc(cx,cy,r2,0,Math.PI*2);ctx.fillStyle='#0b0f1a';ctx.fill();
+  ctx.font='600 9px IBM Plex Mono';ctx.fillStyle='#4a5575';ctx.textAlign='center';ctx.fillText('\u03a9_total',cx,cy-6);
+  ctx.font='800 18px IBM Plex Mono';ctx.fillStyle='#eef0f8';ctx.fillText('0.996',cx,cy+12);
 }
 
-/* ═══════════ 3D ENFORCEMENT CRYSTAL ═══════════ */
 function buildCrystal(d) {
   const container = document.getElementById('crystal-box');
   const W = container.clientWidth, H = container.clientHeight;
@@ -576,7 +744,6 @@ function buildCrystal(d) {
   });
 }
 
-/* ═══════════ FORCE GRAPH ═══════════ */
 let _sim,_svg,_zb;
 function buildForceGraph(d){
 const box=document.getElementById('graph-box'),W=box.clientWidth,H=box.clientHeight;
@@ -604,6 +771,8 @@ function zoomG(f){if(_svg&&_zb)_svg.transition().duration(300).call(_zb.scaleBy,
 function resetG(){if(_svg&&_zb)_svg.transition().duration(500).call(_zb.transform,d3.zoomIdentity)}
 
 /* ═══════════ 2D LAYERED DAG (interactive) ═══════════ */
+
+
 function buildDAG(d){
 const box=document.getElementById('dag-box');if(!box)return;
 const tiers={'-1':[]};
@@ -664,6 +833,7 @@ box.querySelectorAll('.dag-node').forEach(el=>{
   });
 });
 }
+
 
 main();
 </script></body></html>
