@@ -25,11 +25,13 @@ body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55
 .mini-bar{display:flex;align-items:center;gap:4px;margin-bottom:3px;font-family:var(--mn);font-size:9px}.mini-bar-bg{flex:1;height:10px;background:var(--bdr);border-radius:2px;overflow:hidden}.mini-bar-fill{height:100%;border-radius:2px}
 .pred-row{display:grid;grid-template-columns:100px 80px 1fr 60px;gap:8px;align-items:center;margin-bottom:6px;font-family:var(--mn);font-size:10px}.pred-name{color:var(--br);font-weight:600}.pred-val{color:var(--dm)}.pred-bar-wrap{height:14px;background:var(--bdr);border-radius:3px;overflow:hidden;position:relative}.pred-bar{height:100%;border-radius:3px;position:absolute;left:0;top:0}.pred-err{text-align:right;font-weight:600}
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px}.tc2{font-family:var(--mn);font-size:9px;padding:5px 7px;border-radius:4px;border:1px solid var(--bdr);line-height:1.3}.tc2 .tid{font-weight:700;color:var(--br)}.tc2 .tn2{color:var(--dm);font-size:8px;display:block;margin-top:1px}.tc2.ep-P{border-left:3px solid var(--grn)}.tc2.ep-Ps{border-left:3px solid var(--amb)}
-#graph-box{width:100%;height:620px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden}#graph-box svg{width:100%;height:100%}
-.gtt{position:absolute;pointer-events:none;font-family:var(--mn);font-size:11px;background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:8px 11px;color:var(--br);max-width:260px;line-height:1.5;opacity:0;transition:opacity .15s;box-shadow:0 4px 20px rgba(0,0,0,.5)}.gtt.show{opacity:1}.gtt .tt-id{font-weight:700;font-size:12px}.gtt .tt-dm{color:var(--dm);font-size:9px}
-.gl{position:absolute;bottom:12px;left:12px;font-family:var(--mn);font-size:9px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px}.gl-r{display:flex;align-items:center;gap:5px;margin-bottom:2px}.gl-d{width:8px;height:8px;border-radius:50%}
-.gc{position:absolute;top:10px;right:10px;display:flex;gap:4px}.gc button{font-family:var(--mn);font-size:10px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:4px 8px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
-#dag-box{width:100%;overflow-x:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:16px}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
+.graphs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#graph-box{width:100%;height:420px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden}#graph-box svg{width:100%;height:100%}
+.gtt{position:absolute;pointer-events:none;font-family:var(--mn);font-size:10px;background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:7px 10px;color:var(--br);max-width:240px;line-height:1.4;opacity:0;transition:opacity .15s;box-shadow:0 4px 20px rgba(0,0,0,.5);z-index:10}.gtt.show{opacity:1}.gtt .tt-id{font-weight:700;font-size:11px}.gtt .tt-dm{color:var(--dm);font-size:8px}
+.gl{position:absolute;bottom:8px;left:8px;font-family:var(--mn);font-size:8px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:6px 8px}.gl-r{display:flex;align-items:center;gap:4px;margin-bottom:1px}.gl-d{width:7px;height:7px;border-radius:50%}
+.gc{position:absolute;top:8px;right:8px;display:flex;gap:3px}.gc button{font-family:var(--mn);font-size:9px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:3px 7px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
+#dag-box{width:100%;height:420px;overflow:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:12px}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
+.graph-label{font-family:var(--mn);font-size:9px;color:var(--dm);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
 .bgg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.bc{border-radius:6px;padding:13px;text-align:center}.bc-n{font-family:var(--mn);font-size:34px;font-weight:700}.bc-l{font-size:11px;font-weight:600;margin-top:1px}.bc-f{font-family:var(--mn);font-size:10px;margin-top:3px}.bc-s{font-size:9px;color:var(--dm);margin-top:3px}
 .ctbl{width:100%;border-collapse:collapse;font-size:11px}.ctbl th{font-family:var(--mn);font-size:9px;color:var(--dm);text-transform:uppercase;letter-spacing:1px;text-align:left;padding:7px 8px;border-bottom:2px solid var(--bdr)}.ctbl td{padding:7px 8px;border-bottom:1px solid var(--bdr);vertical-align:top}.ctbl tr:hover{background:var(--blug)}.ctbl .cq{font-family:var(--mn);font-weight:600;color:var(--br);white-space:nowrap}.ctbl .cv{font-family:var(--mn);color:var(--grn)}.ctbl .ca{font-size:10px;color:var(--dm);line-height:1.5}
 .ar{display:grid;grid-template-columns:44px 1fr 64px;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:11px}.ar-id{font-family:var(--mn);font-weight:600;color:var(--dm)}
@@ -37,7 +39,7 @@ body{font-family:var(--sn);background:var(--bg);color:var(--tx);line-height:1.55
 .footer{font-family:var(--mn);font-size:9px;color:var(--dm);text-align:center;margin-top:32px;padding-top:14px;border-top:1px solid var(--bdr)}
 .loading{display:flex;align-items:center;justify-content:center;min-height:400px;font-family:var(--mn);font-size:13px;color:var(--grn)}.loading::after{content:'';width:14px;height:14px;border:2px solid var(--grn);border-top-color:transparent;border-radius:50%;margin-left:8px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bgg{grid-template-columns:1fr}#graph-box{height:420px}.pred-row{grid-template-columns:80px 60px 1fr 50px}}
+@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bgg{grid-template-columns:1fr}.graphs-grid{grid-template-columns:1fr}#graph-box,#dag-box{height:350px}.pred-row{grid-template-columns:80px 60px 1fr 50px}}
 </style>
 </head>
 <body>
@@ -142,18 +144,24 @@ ${testPreds.map(p=>`<span style="font-family:var(--mn);font-size:9px;display:inl
   <div style="color:var(--grn)">All 5 params within 1σ of Planck 2018</div>
 </div></div></div>
 
-<div class="sec"><div class="sec-t">Dependency Graph — Force-Directed</div>
+<div class="sec"><div class="sec-t">Dependency Graphs</div>
+<div class="graphs-grid">
+<div>
+<div class="graph-label">Force-Directed (drag nodes · hover for details)</div>
 <div id="graph-box">
   <div class="gtt" id="gtt"></div>
-  <div class="gl"><div style="font-weight:600;margin-bottom:3px;color:var(--br)">Legend</div>
+  <div class="gl"><div style="font-weight:600;margin-bottom:2px;color:var(--br)">Legend</div>
     <div class="gl-r"><div class="gl-d" style="background:${AC}"></div> Axioms</div>
     ${Object.entries(TN).filter(([k])=>k!=='-1').map(([k,v])=>`<div class="gl-r"><div class="gl-d" style="background:${TC[k]}"></div> T${k}: ${v}</div>`).join('')}
-    <div style="margin-top:3px;color:var(--dm)">◆ [P_structural] · ● [P]</div></div>
-  <div class="gc"><button onclick="zoomG(1.3)">+</button><button onclick="zoomG(.77)">−</button><button onclick="resetG()">Reset</button></div>
+    <div style="margin-top:2px;color:var(--dm)">◆ [P_structural] · ● [P]</div></div>
+  <div class="gc"><button onclick="zoomG(1.3)">+</button><button onclick="zoomG(.77)">−</button><button onclick="resetG()">⟳</button></div>
+</div>
+</div>
+<div>
+<div class="graph-label">Layered by Tier (scroll to explore)</div>
+<div id="dag-box"></div>
+</div>
 </div></div>
-
-<div class="sec"><div class="sec-t">Dependency Graph — Layered by Tier</div>
-<div id="dag-box"></div></div>
 
 <div class="sec"><div class="sec-t">Theorem Map</div>
 ${Object.entries(tierThms).sort((a,b)=>a[0]-b[0]).map(([tier,thms])=>{const ts=tiers[tier]||{};return `<div class="card"><div class="ct" style="color:${TC[tier]||'var(--grn)'}">Tier ${tier}: ${ts.name||TN[tier]||''} (${thms.length})</div><div class="tg">${thms.map(t=>`<div class="tc2 ep-${t.epistemic==='P'?'P':'Ps'}"><span class="tid">${esc(t.id)}</span><span style="font-size:8px;color:${t.epistemic==='P'?'var(--grn)':'var(--amb)'};margin-left:3px">[${t.epistemic}]</span><span class="tn2">${esc((t.name||'').replace(/^[^:]+:\\s*/,'').slice(0,35))}</span></div>`).join('')}</div></div>`}).join('')}
@@ -192,15 +200,15 @@ for(const[tid,t]of Object.entries(d.theorems||{})){nodes.push({id:tid,tier:t.tie
 for(const[tid,t]of Object.entries(d.theorems||{}))for(const dep of(t.dependencies||[])){const cd=cD(dep);if(cd&&seen.has(cd))edges.push({source:cd,target:tid})}
 function cD(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','Γ_closure':'Gamma_closure'};return rm[dd]||dd}
 function nC(n){return n.tier===-1?AC:TC[n.tier]||'#888'}
-function nR(n){return n.tier===-1?10+(fanout[n.id]||0)*.7:5+(fanout[n.id]||0)*1.1}
+function nR(n){return n.tier===-1?8+(fanout[n.id]||0)*.5:4+(fanout[n.id]||0)*.9}
 const svg=d3.select('#graph-box').append('svg').attr('width',W).attr('height',H);_svg=svg;
-const g=svg.append('g');_zb=d3.zoom().scaleExtent([.2,4]).on('zoom',e=>g.attr('transform',e.transform));svg.call(_zb);
+const g=svg.append('g');_zb=d3.zoom().scaleExtent([.2,4]).filter(ev=>ev.type!=='wheel').on('zoom',e=>g.attr('transform',e.transform));svg.call(_zb);
 svg.append('defs').append('marker').attr('id','arr').attr('viewBox','0 -3 6 6').attr('refX',10).attr('refY',0).attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto').append('path').attr('d','M0,-2.5L5,0L0,2.5').attr('fill','#2a3452');
-const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(edges).id(d=>d.id).distance(55).strength(.4)).force('charge',d3.forceManyBody().strength(-180)).force('center',d3.forceCenter(W/2,H/2)).force('y',d3.forceY().y(n=>n.tier===-1?H*.08:H*.12+n.tier*(H*.14)).strength(.35)).force('collision',d3.forceCollide().radius(n=>nR(n)+4));_sim=sim;
+const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(edges).id(d=>d.id).distance(40).strength(.5)).force('charge',d3.forceManyBody().strength(-120)).force('center',d3.forceCenter(W/2,H/2)).force('y',d3.forceY().y(n=>n.tier===-1?H*.06:H*.1+n.tier*(H*.15)).strength(.4)).force('collision',d3.forceCollide().radius(n=>nR(n)+3));_sim=sim;
 const link=g.append('g').selectAll('line').data(edges).join('line').attr('stroke','#1a2540').attr('stroke-width',1).attr('marker-end','url(#arr)');
 const node=g.append('g').selectAll('g').data(nodes).join('g').call(d3.drag().on('start',(ev,n)=>{if(!ev.active)sim.alphaTarget(.3).restart();n.fx=n.x;n.fy=n.y}).on('drag',(ev,n)=>{n.fx=ev.x;n.fy=ev.y}).on('end',(ev,n)=>{if(!ev.active)sim.alphaTarget(0);n.fx=null;n.fy=null}));
 node.each(function(n){const el=d3.select(this),r=nR(n),col=nC(n);if(n.tier===-1){const s=r*1.1;el.append('polygon').attr('points',`0,${-s} ${s},0 0,${s} ${-s},0`).attr('fill',col+'30').attr('stroke',col).attr('stroke-width',1.5)}else if(n.epistemic==='P_structural'){const s=r*.85;el.append('rect').attr('x',-s).attr('y',-s).attr('width',s*2).attr('height',s*2).attr('rx',2).attr('transform','rotate(45)').attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','3,2')}else{el.append('circle').attr('r',r).attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5)}});
-node.append('text').text(n=>n.label.replace('Gamma_','Γ_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+11).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>n.tier===-1?9:7.5).attr('font-weight',n=>n.tier===-1?700:500).attr('opacity',.85);
+node.append('text').text(n=>n.label.replace('Gamma_','Γ_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+9).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>n.tier===-1?8:6.5).attr('font-weight',n=>n.tier===-1?700:500).attr('opacity',.8);
 const tt=document.getElementById('gtt');
 node.on('mouseover',(ev,n)=>{const deps=(d.theorems?.[n.id]?.dependencies||[]).join(', ')||(n.tier===-1?'axiom':'');const fo=fanout[n.id]||0;tt.innerHTML=`<div class="tt-id" style="color:${nC(n)}">${n.label}</div><div>${n.name}</div><div class="tt-dm">Tier ${n.tier===-1?'A':n.tier} · [${n.epistemic}]</div><div class="tt-dm">← ${deps}</div><div class="tt-dm">${fo} downstream</div>`;tt.classList.add('show');link.attr('stroke',l=>(l.source.id===n.id||l.target.id===n.id)?nC(n):'#1a2540').attr('stroke-width',l=>(l.source.id===n.id||l.target.id===n.id)?2:1).attr('opacity',l=>(l.source.id===n.id||l.target.id===n.id)?1:.15);node.attr('opacity',n2=>{if(n2.id===n.id)return 1;return edges.some(e=>(e.source.id===n.id&&e.target.id===n2.id)||(e.target.id===n.id&&e.source.id===n2.id))?1:.12})}).on('mousemove',ev=>{const r=box.getBoundingClientRect();tt.style.left=(ev.clientX-r.left+14)+'px';tt.style.top=(ev.clientY-r.top-10)+'px'}).on('mouseout',()=>{tt.classList.remove('show');link.attr('stroke','#1a2540').attr('stroke-width',1).attr('opacity',1);node.attr('opacity',1)});
 sim.on('tick',()=>{link.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);node.attr('transform',n=>`translate(${n.x},${n.y})`)});
@@ -214,22 +222,22 @@ const tiers={'-1':[]};
 ['A1','A2','A3','A4','A5'].forEach(ax=>tiers['-1'].push({id:ax,epistemic:'axiom'}));
 Object.entries(d.theorems||{}).forEach(([id,t])=>{const tier=String(t.tier??0);if(!tiers[tier])tiers[tier]=[];tiers[tier].push({id,epistemic:t.epistemic||'P'})});
 const tierOrder=['-1','0','1','2','3','4','5'].filter(k=>tiers[k]&&tiers[k].length);
-const colW=68,rowH=64,padL=16,padT=36;
+const colW=56,rowH=56,padL=12,padT=30;
 const maxCols=Math.max(...tierOrder.map(k=>tiers[k].length));
-const W=Math.max(padL*2+maxCols*colW,750);
-const H=padT+tierOrder.length*rowH+20;
+const W=Math.max(padL*2+maxCols*colW,500);
+const H=padT+tierOrder.length*rowH+16;
 const pos={};
 tierOrder.forEach((tier,ri)=>{const nodes=tiers[tier];const totalW=nodes.length*colW;const startX=(W-totalW)/2+colW/2;nodes.forEach((n,ci)=>{pos[n.id]={x:startX+ci*colW,y:padT+ri*rowH+20}})});
 const edgeData=[];const seen=new Set(Object.keys(pos));
 Object.entries(d.theorems||{}).forEach(([tid,t])=>{for(const dep of(t.dependencies||[])){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))continue;const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','Γ_closure':'Gamma_closure'};dd=rm[dd]||dd;if(seen.has(dd)&&seen.has(tid))edgeData.push({s:dd,t:tid})}});
 let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:${W}px;height:${H}px">`;
 tierOrder.forEach((tier,ri)=>{const y=padT+ri*rowH+20;svg+=`<text x="6" y="${y+3}" fill="${tier==='-1'?AC:TC[tier]||'#888'}" font-size="7.5" font-weight="600" opacity=".4">${tier==='-1'?'Axioms':'Tier '+tier}</text>`});
-edgeData.forEach(e=>{const s=pos[e.s],t=pos[e.t];if(s&&t)svg+=`<line x1="${s.x}" y1="${s.y+9}" x2="${t.x}" y2="${t.y-9}" stroke="#1a2540" stroke-width="0.6" opacity="0.4"/>`});
-Object.entries(pos).forEach(([id,p])=>{const isAx=id.startsWith('A')&&id.length<=2;const thm=d.theorems?.[id];const tier=isAx?-1:(thm?.tier??0);const epi=isAx?'axiom':(thm?.epistemic||'P');const col=isAx?AC:TC[tier]||'#888';const r=isAx?7:5.5;
+edgeData.forEach(e=>{const s=pos[e.s],t=pos[e.t];if(s&&t)svg+=`<line x1="${s.x}" y1="${s.y+7}" x2="${t.x}" y2="${t.y-7}" stroke="#1a2540" stroke-width="0.5" opacity="0.35"/>`});
+Object.entries(pos).forEach(([id,p])=>{const isAx=id.startsWith('A')&&id.length<=2;const thm=d.theorems?.[id];const tier=isAx?-1:(thm?.tier??0);const epi=isAx?'axiom':(thm?.epistemic||'P');const col=isAx?AC:TC[tier]||'#888';const r=isAx?6:4.5;
 if(epi==='P_structural'){const s=r*.7;svg+=`<rect x="${p.x-s}" y="${p.y-s}" width="${s*2}" height="${s*2}" rx="1" transform="rotate(45,${p.x},${p.y})" fill="${col}30" stroke="${col}" stroke-width=".8" stroke-dasharray="2,1.5"/>`}
 else if(isAx){svg+=`<polygon points="${p.x},${p.y-r} ${p.x+r},${p.y} ${p.x},${p.y+r} ${p.x-r},${p.y}" fill="${col}30" stroke="${col}" stroke-width="1"/>`}
 else{svg+=`<circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${col}25" stroke="${col}" stroke-width=".8"/>`}
-svg+=`<text x="${p.x}" y="${p.y+r+9}" text-anchor="middle" fill="${col}" font-size="6" font-weight="${isAx?700:500}" opacity=".75">${id.replace('Gamma_','Γ_')}</text>`});
+svg+=`<text x="${p.x}" y="${p.y+r+8}" text-anchor="middle" fill="${col}" font-size="5.5" font-weight="${isAx?700:500}" opacity=".7">${id.replace('Gamma_','Γ_')}</text>`});
 svg+=`</svg>`;box.innerHTML=svg;
 }
 
