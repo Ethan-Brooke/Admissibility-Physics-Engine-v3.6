@@ -94,6 +94,15 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .xr-tier{font-family:var(--mn);font-size:11px;font-weight:600}
 .xr-top{display:grid;grid-template-columns:10px 90px 1fr 40px 55px 20px;gap:8px;align-items:center;padding:10px 12px;cursor:pointer}
 </style>
+<script>
+MathJax = {
+  tex: {inlineMath: [['$','$'],['\\(','\\)']]},
+  svg: {fontCache:'global'},
+  startup: {typeset: false}
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" async></script>
+
 </head>
 <body>
 <div class="ctr" id="app"><div class="loading">Loading engine data</div></div>
@@ -138,7 +147,7 @@ function render(d){
   h.push('<div class="hdr"><div class="hdr-tag">Admissibility Physics Engine</div>');
   h.push('<div class="hdr-t">'+(d.version||'v3.6')+' \u2014 Foundational Constraint Framework</div>');
   h.push('<div class="hdr-s">Last updated: '+d.date+' at 9:57 PM Pacific \u00b7 <b>'+d.total_theorems+' theorems</b> \u00b7 5 axioms \u00b7 0 free parameters \u00b7 <b>'+preds.length+' predictions</b></div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7;margin-top:14px;max-width:760px">This dashboard is the live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>\u2014a computational framework that derives the structure of known physics from five information-theoretic axioms (A1\u2013A5) with zero free parameters. Every constant, particle, and force shown below is either <em>derived</em> from these axioms or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations.</div>');
+  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7;margin-top:14px;max-width:760px">This dashboard is the live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>\u2014a computational framework that derives the structure of known physics from five information-theoretic axioms (A1\u2013A5) with zero free parameters. Every constant, particle, and force shown below is either <em>derived</em> from these axioms or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations. <a href=\'https://github.com/ethan-brooke/Admissibility-Physics-Engine-v3.6\' style=\'color:var(--grn);text-decoration:underline\'>Run the engine yourself on GitHub \u2192</a></div>');
   h.push('</div>');
 
 // Compute epiCount from TOE (needed by multiple sections below)
@@ -205,7 +214,46 @@ function render(d){
     if(c.indep)h.push('<div class="xd-row"><span class="xd-label">Independence:</span>'+esc(c.indep)+'</div>');
     h.push('<div class="xd-row"><span class="xd-label">Theorem:</span>'+esc(c.thm)+'</div>');
     if(c.falsify&&c.falsify!=='N/A.'&&c.falsify!=='N/A')h.push('<div class="xd-row"><span class="xd-label" style="color:var(--red)">Falsifiable:</span><span style="color:var(--red)">'+esc(c.falsify)+'</span></div>');
-    h.push('</div></div>');
+    
+  // Gauge group derivation chain
+  h.push('<div style="margin-top:20px;font-size:14px;font-weight:700;color:var(--br);padding-top:12px;border-top:1px solid var(--bdr)">Gauge Group: Why $SU(3) \\times SU(2) \\times U(1)$</div>');
+  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.8;margin:8px 0">The gauge group is not assumed\u2014it is selected by solving anomaly cancellation exactly and then minimizing capacity cost.</div>');
+  h.push('<div style="padding:8px 12px;background:var(--bg);border:1px solid var(--bdr);border-radius:6px;margin-bottom:8px;font-size:13px;line-height:2">');
+  h.push('<div style="color:var(--br);font-weight:600;margin-bottom:4px">Step 1: Anomaly equation (solved, not assumed)</div>');
+  h.push('<div style="color:var(--pur)">$[U(1)]^3 = 0 \\;\\Rightarrow\\; z^2 - 2z - (N_c^2 - 1) = 0, \\quad z = Y_u/Y_Q$</div>');
+  h.push('<div style="color:var(--dm);font-size:11px">Discriminant $= 4N_c^2 \\;\\Rightarrow\\; z = 1 \\pm N_c$ (exact rational roots for all $N_c$)</div>');
+  h.push('<div style="color:var(--br);font-weight:600;margin-top:6px">Step 2: Filter by physics constraints</div>');
+  h.push('<div style="color:var(--dm);font-size:11px">Confinement ($N_c \\geq 2$) \\u2714 \\u00b7 Witten anomaly ($N_c$ odd) \\u2714 \\u00b7 Chirality ($z \\neq 1$) \\u2714</div>');
+  h.push('<div style="color:var(--br);font-weight:600;margin-top:6px">Step 3: Capacity optimization (A1)</div>');
+  h.push('<div style="color:var(--grn)">$\\dim(G) = (N_c^2 - 1) + 3 + 1 \\quad\\Rightarrow\\quad N_c = 3: \\; \\dim = 12 \\;\\;\\checkmark \\quad N_c = 5: \\; \\dim = 28 \\;\\; \\text{(excluded by A5)}$</div>');
+  h.push('</div>');
+
+  // Generation count derivation
+  h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-top:16px">Why Exactly 3 Generations</div>');
+  h.push('<div style="padding:8px 12px;background:var(--bg);border:1px solid var(--bdr);border-radius:6px;margin:8px 0;font-size:13px;line-height:2">');
+  h.push('<div style="color:var(--pur)">$E(N) = \\frac{N(N+1)}{2}\\,\\varepsilon \\quad\\text{(cost of } N \\text{ generations in EW capacity)}$</div>');
+  h.push('<div style="color:var(--dm);font-size:11px;margin:4px 0">EW capacity: $C_{\\rm EW} = \\kappa \\cdot d = 2 \\times 4 = 8\\varepsilon$ (from T_\\kappa and T_channels)</div>');
+  h.push('<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0;text-align:center">');
+  [{n:1,e:1,ok:true},{n:2,e:3,ok:true},{n:3,e:6,ok:true},{n:4,e:10,ok:false}].forEach(function(g){
+    h.push('<div style="padding:8px;border-radius:5px;border:1px solid '+(g.ok?'var(--grn)':'var(--red)')+';background:'+(g.ok?'var(--grng)':'rgba(248,113,113,.08)')+'"><div style="font-size:16px;font-weight:700;color:'+(g.ok?'var(--grn)':'var(--red)')+'">$N = '+g.n+'$</div><div style="font-size:11px;color:var(--dm)">$E = '+g.e+(g.ok?' \\leq 8$':' > 8$')+'</div><div style="font-size:10px;color:'+(g.ok?'var(--grn)':'var(--red)')+'">'+(g.ok?'\\u2714 fits':'\\u2718 overflow')+'</div></div>');
+  });
+  h.push('</div>');
+  h.push('<div style="color:var(--grn);font-weight:600;text-align:center">$E(3) = 6 \\leq 8 < 10 = E(4) \\quad\\Rightarrow\\quad N_{\\rm gen} = 3$ exactly</div>');
+  h.push('</div>');
+
+  // sin²θ_W derivation
+  h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-top:16px">$\\sin^2\\theta_W = 3/13$: Full Derivation Chain</div>');
+  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.8;margin:6px 0">Five steps, no free parameters. Each feeds into the next.</div>');
+  h.push('<div style="padding:8px 12px;background:var(--bg);border:1px solid var(--bdr);border-radius:6px;margin:8px 0;font-size:13px;line-height:2">');
+  h.push('<div><span style="color:var(--blu);font-weight:600">T27c:</span> Interface schema invariance $\\Rightarrow\\; x = 1/2$</div>');
+  h.push('<div><span style="color:var(--blu);font-weight:600">T27d:</span> $\\Gamma_{\\rm geo}$ closure $\\Rightarrow\\; \\gamma_2/\\gamma_1 = d + 1/d = 4 + 1/4 = 17/4$</div>');
+  h.push('<div><span style="color:var(--blu);font-weight:600">T22:</span> Competition matrix: $a_{11} = 1,\\; a_{12} = x = 1/2,\\; a_{22} = x^2 + 3 = 13/4$</div>');
+  h.push('<div><span style="color:var(--blu);font-weight:600">T23:</span> Fixed point: $r^* = \\frac{\\gamma_1 a_{22} - \\gamma_2 a_{12}}{\\gamma_2 a_{11} - \\gamma_1 a_{12}} = \\frac{1 \\cdot 13/4 - 17/4 \\cdot 1/2}{17/4 \\cdot 1 - 1 \\cdot 1/2} = \\frac{9/8}{30/8} = \\frac{3}{10}$</div>');
+  h.push('<div style="margin-top:4px"><span style="color:var(--grn);font-weight:700;font-size:15px">T24:</span> <span style="color:var(--grn);font-size:15px">$\\sin^2\\theta_W = \\frac{r^*}{1 + r^*} = \\frac{3/10}{13/10} = \\frac{3}{13} \\approx 0.23077$</span></div>');
+  h.push('<div style="font-size:11px;color:var(--dm);margin-top:2px">Experiment: $0.23122 \\pm 0.00003$ \\u00b7 Deviation: <span style="color:var(--grn)">0.19%</span></div>');
+  h.push('</div>');
+
+h.push('</div></div>');
   });
   h.push('</div></div>');
 
@@ -401,27 +449,33 @@ function render(d){
   h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-bottom:12px">Derivation Chain: A1\u2013A5 \u2192 General Relativity</div>');
   var gchain=[
     {c:'#a78bfa',t:'T7B',n:'Non-factorization \u2192 Metric',b:'P_structural',
-     d:'Subsystems sharing enforcement load have a non-factorizing interface. The external feasibility functional must be quadratic (cost \u221d displacement\u00b2), local (A3), universal (all sectors), and endpoint-symmetric. <b style="color:var(--grn)">The unique such object is a metric tensor g_\u03bc\u03bd.</b>',
-     dep:'A1 + A4',k:'E_mix \u2260 0 \u2192 g_\u03bc\u03bd exists'},
-    {c:'#60a5fa',t:'T8',n:'Spacetime dimension d = 4',b:'P_structural',
-     d:'d \u2264 3 hard-excluded: zero propagating graviton DOF (gravity is topological, no records, violates A4). d = 4 is the <b style="color:var(--grn)">minimum dimension</b> with propagating gravity (2 DOF) + knot stability for bound states. d \u2265 5 disfavored by A5 minimality.',
-     dep:'T_gauge + A1 + A4 + A5',k:'d = 4 (minimum admissible)'},
-    {c:'#34d399',t:'T9',n:'Einstein Field Equations',b:'P_structural + Lovelock',
-     d:'Five conditions derived from \u0393_geo closure: A9.1 locality, A9.2 coordinate invariance, A9.3 conservation, A9.4 \u22642nd derivatives, A9.5 wave propagation. <b style="color:var(--grn)">Lovelock 1971: in d=4, the unique tensor satisfying all five is G_\u03bc\u03bd + \u039bg_\u03bc\u03bd.</b>',
-     dep:'T7B + T8 + \u0393_geo closure',k:'G_\u03bc\u03bd + \u039bg_\u03bc\u03bd = \u03baT_\u03bc\u03bd (unique)'},
-    {c:'#fbbf24',t:'T10',n:'Gravitational Coupling \u03ba ~ 1/C_*',b:'P_structural (scaling)',
-     d:'T_\u03bc\u03bd = committed internal enforcement. Curvature = external feasibility variation. Conversion: \u03ba has dimensions [capacity]\u207b\u00b9, so \u03ba ~ 1/C_*. <span style="color:var(--grn)">Scaling derived</span>. O(1) prefactor requires UV completion.',
-     dep:'T9 + A1',k:'G ~ \u210fc/C_* (structural)'},
-    {c:'#a78bfa',t:'T11',n:'Cosmological Constant \u039b > 0',b:'P_structural',
-     d:'42 of 61 capacity entries are unlabeled vacuum \u2192 \u039b > 0 structurally. Near-saturation explains \u039b/M_P\u2074 ~ 10\u207b\u00b9\u00b2\u2070: an <b style="color:var(--grn)">integer ratio \u00f7 C_*\u00b2</b>, not fine-tuned.',
-     dep:'T3 + T9',k:'\u039b = 42/61 \u00d7 (scale)'}
-  ];
+     d:'Subsystems sharing enforcement load have a non-factorizing interface. The external feasibility functional must be quadratic, local, universal, and endpoint-symmetric.',
+     math:'$\\text{Cost}(\\delta) \\propto \\delta^2 \\;\\Rightarrow\\; \\exists\\, g_{\\mu\\nu}:\\; ds^2 = g_{\\mu\\nu}\\,dx^\\mu dx^\\nu$',
+     dep:'A1 + A4',k:'$E_{\\rm mix} \\neq 0 \\;\\Rightarrow\\; g_{\\mu\\nu}$ exists'},
+    {c:'#60a5fa',t:'T8',n:'Spacetime dimension $d = 4$',b:'P_structural',
+     d:'Graviton DOF $= d(d{-}3)/2$. For $d=3$: 0 DOF (topological, violates A4). $d=4$: 2 DOF (minimum propagating). $d \\geq 5$: extra modes, no A5 benefit.',
+     math:'$\\text{DOF}(d) = \\frac{d(d-3)}{2} \\quad\\Rightarrow\\quad \\text{DOF}(4) = 2 \\;\\;\\checkmark$',
+     dep:'T_gauge + A1 + A4 + A5',k:'$d = 4$ (minimum admissible)'},
+    {c:'#34d399',t:'T9',n:'Einstein Field Equations',b:'P + Lovelock',
+     d:'Five conditions from $\\Gamma_{\\rm geo}$ closure: locality, coordinate invariance, $\\nabla_\\mu T^{\\mu\\nu} = 0$, $\\leq$ 2nd derivatives, wave propagation.',
+     math:'$G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = \\kappa\\, T_{\\mu\\nu} \\quad\\text{(unique in } d=4 \\text{, Lovelock 1971)}$',
+     dep:'T7B + T8 + \u0393_geo',k:'$G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = \\kappa T_{\\mu\\nu}$'},
+    {c:'#fbbf24',t:'T10',n:'Gravitational Coupling',b:'P_structural (scaling)',
+     d:'$T_{\\mu\\nu}$ = committed internal enforcement. Curvature = external feasibility variation. $\\kappa$ has dimensions $[\\text{capacity}]^{-1}$.',
+     math:'$\\kappa \\sim \\frac{1}{C_*} \\quad\\Rightarrow\\quad G_N = \\frac{\\hbar c}{C_*} \\quad\\text{(O(1) prefactor open)}$',
+     dep:'T9 + A1',k:'$G_N \\sim \\hbar c / C_*$'},
+    {c:'#a78bfa',t:'T11',n:'Cosmological Constant $\\Lambda > 0$',b:'P_structural',
+     d:'Of 61 capacity entries, 42 are unlabeled vacuum. Near-saturation: $\\Lambda/M_P^4 \\sim 10^{-120}$ is an integer ratio $\\div\\, C_*^2$, not fine-tuned.',
+     math:'$\\Omega_\\Lambda = \\frac{42}{61} = 0.6885 \\quad\\text{(Planck: } 0.6889 \\pm 0.0056\\text{, 0.05\\% off)}$',
+     dep:'T3 + T9',k:'$\\Lambda = (42/61) \\times \\text{scale}$'}
+  ]
   gchain.forEach(function(g,i){
     if(i>0)h.push('<div style="text-align:center;color:var(--dm);font-size:14px;margin:-4px 0">\u25bc</div>');
     h.push('<div style="border-left:3px solid '+g.c+';padding:8px 12px;margin-bottom:2px;background:var(--bg);border-radius:0 4px 4px 0">');
     h.push('<div style="display:flex;justify-content:space-between;align-items:center"><b style="color:'+g.c+'">'+g.t+': '+g.n+'</b><span class="badge" style="background:'+g.c+'20;color:'+g.c+';font-size:9px">'+g.b+'</span></div>');
     h.push('<div style="margin:4px 0;font-family:var(--mn);font-size:12px;color:var(--dm)">'+g.d+'</div>');
-    h.push('<div style="font-size:10px;color:var(--dm)">Deps: '+g.dep+' \u00b7 Key: <span style="color:var(--br)">'+g.k+'</span></div></div>');
+    if(g.math)h.push('<div style="margin:4px 0 6px;padding:6px 10px;background:var(--bg);border:1px solid var(--bdr);border-radius:4px;font-size:14px;color:var(--grn)">'+g.math+'</div>');
+    h.push('<div style="font-size:11px;color:var(--dm)">Deps: '+g.dep+' \u00b7 Result: <span style="color:var(--grn)">'+g.k+'</span></div></div>');
   });
   h.push('<div style="text-align:center;font-size:11px;color:var(--dm);margin:8px 0 20px;padding:6px;background:var(--bg);border:1px solid var(--bdr);border-radius:4px">Only external import: <b style="color:var(--amb)">Lovelock\u2019s theorem</b> (1971, pure math). Everything else from A1\u2013A5.</div>');
 
@@ -480,18 +534,26 @@ function render(d){
 
   h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-bottom:12px">A2 (Non-Closure) \u2192 Quantum Mechanics</div>');
   var qsteps=[
-    {c:'#a78bfa',t:'Non-closure (A2)',d:'No finite set of checks closes the enforcement ledger. There is always a residual that cannot be reduced to what has already been verified.',b:'axiom'},
-    {c:'#60a5fa',t:'Contextuality',d:'Measurement outcomes depend on which other measurements are performed jointly. This is Kochen-Specker contextuality\u2014a mathematical theorem, not interpretation.',b:'P (theorem)'},
-    {c:'#34d399',t:'Non-Boolean event lattice',d:'The lattice of propositions is orthomodular but not distributive. Classical Boolean logic fails. This is forced by contextuality.',b:'P (theorem)'},
-    {c:'#fbbf24',t:'Hilbert space',d:'Piron-Sol\u00e8r theorem (1995): any orthomodular lattice satisfying weak modularity and a covering property is isomorphic to the lattice of closed subspaces of a Hilbert space over R, C, or H.',b:'P (import)'},
-    {c:'#f87171',t:'Complex C*-algebra',d:'Composition (A3) requires interference phases \u2192 complex field. Gelfand-Naimark: the observable algebra is a non-commutative C*-algebra. Finite capacity (A1) \u2192 Type III\u2081 von Neumann factor.',b:'P_structural'},
-    {c:'#a78bfa',t:'Time from modular flow',d:'Persistence (A4) + KMS condition \u2192 Tomita-Takesaki modular automorphism \u03c3_t as canonical time evolution. No background time needed.',b:'P_structural'}
-  ];
+    {c:'#a78bfa',t:'Non-closure (A2)',d:'No finite set of checks closes the enforcement ledger. Always a residual.',
+     math:'$\\forall\\, S \\subset \\mathcal{O},\\; |S| < \\infty \\;\\Rightarrow\\; \\exists\\, O \\notin \\overline{S}$',b:'axiom'},
+    {c:'#60a5fa',t:'Contextuality (T1)',d:'Measurement outcomes depend on joint context. Kochen-Specker theorem (1967).',
+     math:'$\\nexists\\; v: \\mathcal{O} \\to \\{0,1\\} \\;\\text{s.t.}\\; \\sum_{O \\in B} v(O) = 1 \\;\\;\\forall\\, \\text{basis } B$',b:'P (theorem)'},
+    {c:'#34d399',t:'Non-Boolean Lattice',d:'Propositions form an orthomodular lattice. Classical distributive logic fails.',
+     math:'$\\mathcal{L}(\\mathcal{O}) \\text{ orthomodular but } a \\wedge (b \\vee c) \\neq (a \\wedge b) \\vee (a \\wedge c)$',b:'P (theorem)'},
+    {c:'#fbbf24',t:'Hilbert Space (T2)',d:'Piron-Sol\u00e8r (1995): orthomodular + covering \u2192 closed subspaces of $\\mathcal{H}$ over $\\mathbb{R}, \\mathbb{C},$ or $\\mathbb{H}$.',
+     math:'$\\mathcal{L} \\cong \\mathcal{L}(\\mathcal{H}) \\quad\\text{for some Hilbert space } \\mathcal{H}$',b:'P (import)'},
+    {c:'#f87171',t:'Complex $C^*$-algebra',d:'Composition (A3) requires interference $\\Rightarrow\\, \\mathbb{C}$. GNS: non-commutative $C^*$-algebra. A1 $\\Rightarrow$ Type III$_1$ factor.',
+     math:'$\\mathcal{A} \\text{ is a Type III}_1 \\text{ von Neumann factor on } \\mathcal{H}$',b:'P_structural'},
+    {c:'#a78bfa',t:'Modular Time',d:'A4 + KMS condition $\\Rightarrow$ Tomita-Takesaki modular automorphism as canonical time.',
+     math:'$\\sigma_t(A) = \\Delta^{it} A\\, \\Delta^{-it}, \\quad \\Delta = S^* S \\;\\;\\text{(Tomita 1967)}$',b:'P'}
+  ]
   qsteps.forEach(function(q,i){
     if(i>0)h.push('<div style="text-align:center;color:var(--dm);font-size:12px;margin:-2px 0">\u25bc</div>');
     h.push('<div style="border-left:3px solid '+q.c+';padding:8px 12px;margin-bottom:2px;background:var(--bg);border-radius:0 4px 4px 0">');
     h.push('<div style="display:flex;justify-content:space-between;align-items:center"><b style="color:'+q.c+'">'+q.t+'</b><span class="badge" style="background:'+q.c+'20;color:'+q.c+';font-size:9px">'+q.b+'</span></div>');
-    h.push('<div style="margin:3px 0;font-family:var(--mn);font-size:12px;color:var(--dm)">'+q.d+'</div></div>');
+    h.push('<div style="margin:3px 0;font-family:var(--mn);font-size:12px;color:var(--dm)">'+q.d+'</div>');
+    if(q.math)h.push('<div style="margin:2px 0 4px;padding:5px 10px;background:var(--bg);border:1px solid var(--bdr);border-radius:4px;font-size:14px;color:var(--pur)">'+q.math+'</div>');
+    h.push('</div>');
   });
 
   h.push('<div style="margin-top:16px;font-size:14px;font-weight:700;color:var(--br);margin-bottom:10px;padding-top:8px;border-top:1px solid var(--bdr)">Quantum Gravity Bridge</div>');
@@ -514,6 +576,50 @@ function render(d){
 
   
   // ═══ VISUALIZATIONS ═══
+
+  // ═══ CHANGELOG ═══
+  h.push('<div class="sec"><div class="sec-t">Version History</div>');
+  h.push('<div class="sec-intro">How the framework has evolved. Each version closes gaps, upgrades epistemic status, or adds new derivations.</div>');
+  h.push('<div class="card" style="padding:16px">');
+
+  var versions=[
+    {v:'3.6',d:'2026-02-08',items:[
+      {t:'upgrade',s:'T6 $[P_s] \\to [P]$: $\\sin^2\\theta_W(M_U) = 3/8$ via SU(5) embedding (pure Lie algebra)'},
+      {t:'upgrade',s:'T_field $[P_s] \\to [P]$: field content uniquely derived (Landau pole + CPT)'},
+      {t:'new',s:'T12E: $f_b = 3/19$ (baryon fraction, 0.49% Planck, combinatorial)'},
+      {t:'new',s:'T11: $\\Omega_\\Lambda = 42/61$ (0.05% Planck), cosmological budget $3+16+42=61$'},
+      {t:'new',s:'Majorana neutrino prediction ($C_{\\rm total} = 61 \\Rightarrow$ no $\\nu_R$)'},
+      {t:'new',s:'Boson-multiplet identity: $N_{\\rm gauge} + N_{\\rm Higgs} = N_{\\rm mult} = 16$'},
+      {t:'new',s:'Physical corollaries: charge quantization, neutral atoms from anomaly cancellation'},
+      {t:'bridge',s:'Einstein equations: Lovelock 1971 verified as pure math import $\\to [P]$'},
+      {t:'bridge',s:'Lorentzian signature: HKM 1976 + Malament 1977 bridge $\\to [P]$'}
+    ]},
+    {v:'3.5',d:'2026-02-07',items:[
+      {t:'new',s:'$L_{\\varepsilon^*}$: minimum enforceable distinction (closes finite distinguishability gap)'},
+      {t:'new',s:'Complete gravity closure: $\\Gamma_{\\rm geo}$ engine with A9.1\u2013A9.5 Einstein selectors'},
+      {t:'new',s:'Dark matter = gauge-singlet capacity ($\\Omega_{\\rm DM} = 16/61$)'},
+      {t:'upgrade',s:'T7: $N_{\\rm gen} = 3$ upgraded from $[P_s]$ to $[P]$ via capacity saturation'},
+      {t:'new',s:'67 tests, GitHub Actions CI, comprehensive deployment infrastructure'}
+    ]},
+    {v:'3.4',d:'2026-02-01',items:[
+      {t:'new',s:'sin\u00b2\u03b8_W derivation chain (T19\u2013T27) with competition matrix'},
+      {t:'new',s:'Anomaly scan engine: systematic gauge group selection'},
+      {t:'new',s:'Epistemic verifier with audit trail'},
+      {t:'upgrade',s:'$L_\\varepsilon$ disambiguation across theorem bank'}
+    ]}
+  ];
+  var typeColors={upgrade:'var(--grn)',new:'var(--blu)',bridge:'var(--pur)',fix:'var(--amb)'};
+  var typeLabels={upgrade:'\u2b06 Upgrade',new:'+ New',bridge:'\u2194 Bridge',fix:'\u2699 Fix'};
+  versions.forEach(function(ver){
+    h.push('<div style="margin-bottom:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:16px;font-weight:700;color:var(--grn)">v'+ver.v+'</span><span style="font-size:11px;color:var(--dm)">'+ver.d+'</span></div>');
+    ver.items.forEach(function(item){
+      var tc=typeColors[item.t]||'var(--dm)';
+      h.push('<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:3px;font-family:var(--mn);font-size:12px"><span style="color:'+tc+';font-weight:600;min-width:70px;font-size:10px">'+(typeLabels[item.t]||item.t)+'</span><span style="color:var(--dm)">'+item.s+'</span></div>');
+    });
+    h.push('</div>');
+  });
+  h.push('</div></div>');
+
   h.push('<div class="sec"><div class="sec-t">Enforcement Crystal</div>');
   h.push('<div class="sec-intro">Interactive 3D visualization of the 49-theorem dependency structure. Each node is a theorem colored by tier. Click and drag to rotate; hover for details.</div>');
   h.push('<div id="crystal-box"><div id="crystal-hover"></div>');
@@ -591,7 +697,7 @@ function render(d){
 h.push('<div class="footer">Admissibility Physics Engine '+d.version+' \u00b7 '+d.date+' \u00b7 '+d.total_theorems+' theorems \u00b7 52 constants mapped \u00b7 0 free parameters</div>');
 
   document.getElementById('app').innerHTML=h.join('\n');
-  setTimeout(function(){drawDonut();buildCrystal(d);buildForceGraph(d);buildDAG(d)},120);
+  setTimeout(function(){drawDonut();buildCrystal(d);buildForceGraph(d);buildDAG(d);if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise()},200);
 }
 
 function drawDonut(){
