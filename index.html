@@ -55,9 +55,9 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 /* TOE table */
 .toe-cat{font-family:var(--mn);font-size:13px;font-weight:600;color:var(--br);padding:8px 0 4px;border-bottom:2px solid var(--bdr);margin-top:14px}
 .toe-cat:first-child{margin-top:0}
-.toe-row{display:grid;grid-template-columns:24px minmax(120px,1fr) 95px 80px minmax(140px,1.2fr) 55px 52px 22px;gap:6px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:12px;cursor:pointer;transition:background .15s}
+.toe-row{display:grid;grid-template-columns:24px minmax(120px,1fr) 115px 85px minmax(120px,1.2fr) 55px 52px 22px;gap:6px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:12px;cursor:pointer;transition:background .15s}
 .toe-row:hover{background:var(--blug)}
-.toe-row .t-q{color:var(--br);font-weight:500}.toe-row .t-v{color:var(--grn)}.toe-row .t-e{text-align:right}
+.toe-row .t-q{color:var(--br);font-weight:500}.toe-row .t-v{color:var(--grn);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.toe-row .t-e{text-align:right}
 .toe-row .t-epi{font-size:13px;padding:2px 4px;border-radius:2px;font-weight:700;text-transform:uppercase;text-align:center}
 .toe-row .t-arrow{text-align:center;color:var(--dm);font-size:12px;transition:transform .2s}
 .toe-row.open .t-arrow{transform:rotate(180deg)}
@@ -87,8 +87,8 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 @media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:400px}.toe-row{grid-template-columns:18px 1fr 65px 55px minmax(80px,1fr) 40px 40px 18px;font-size:8.5px}}
 
 .t-u{color:var(--amb);font-style:italic;line-height:1.4}
-.t-obs{color:var(--tx)}
-.toe-hdr{display:grid;grid-template-columns:24px minmax(120px,1fr) 95px 80px minmax(140px,1.2fr) 55px 52px 22px;gap:6px;padding:6px 10px;font-family:var(--mn);font-size:10px;font-weight:600;color:var(--dm);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);position:sticky;top:0;background:var(--cardbg);z-index:2}
+.t-obs{color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toe-hdr{display:grid;grid-template-columns:24px minmax(120px,1fr) 115px 85px minmax(120px,1.2fr) 55px 52px 22px;gap:6px;padding:6px 10px;font-family:var(--mn);font-size:10px;font-weight:600;color:var(--dm);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);position:sticky;top:0;background:var(--cardbg);z-index:2}
 .xr-name{color:var(--br);font-weight:600;font-family:var(--mn);font-size:12px}
 .xr-desc{color:var(--dm);font-family:var(--mn);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .xr-tier{font-family:var(--mn);font-size:11px;font-weight:600}
@@ -154,6 +154,40 @@ function render(d){
 // Compute epiCount from TOE (needed by multiple sections below)
   var epiCount={P:0,P_structural:0,C_import:0,testable:0,open:0};
   TOE.forEach(function(c){epiCount[c.epi]=(epiCount[c.epi]||0)+1});
+
+  // ═══ PAPERS ═══
+  h.push('<div class="sec"><div class="sec-t">Papers</div>');
+  h.push('<div class="sec-intro">The full technical framework, hosted on <a href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest" style="color:var(--blu);text-decoration:underline">Zenodo</a>. Read in order for the derivation chain, or start with Paper 13 for a self-contained summary of the foundational layer.</div>');
+  h.push('<div class="card" style="padding:0;overflow:hidden">');
+
+  var papers=[
+    {n:'Paper\u200a1',t:'The Enforceability of Distinction',tag:'SPINE',url:'https://zenodo.org/records/18528946',
+     desc:'Establishes the foundational principle: physical meaning requires finite enforcement. Derives non-closure, irreversibility, and temporal ordering from a single axiom\u2014no dynamics, probability, or geometry assumed.'},
+    {n:'Paper\u200a2',t:'Finite Admissibility and the Failure of Global Description',tag:'STRUCTURE',url:'https://zenodo.org/records/18528992',
+     desc:'Proves that admissible sets do not compose freely: global descriptions fail generically under finite capacity. Introduces the structural constraints that govern all subsequent derivations.'},
+    {n:'Paper\u200a3',t:'Entropy, Time, and Accumulated Cost',tag:'LEDGERS',url:'https://zenodo.org/records/18528995',
+     desc:'Defines entropy as committed correlation capacity\u2014prior to probability or statistical mechanics. Derives irreversibility and the arrow of time as structural consequences of enforcement accumulation.'},
+    {n:'Paper\u200a4',t:'Admissibility Constraints and Structural Saturation',tag:'CONSTRAINTS',url:'https://zenodo.org/records/18528999',
+     desc:'Derives monogamy bounds, area laws, and cut-set limits from finite enforceability. Characterizes saturation and horizons as regime boundaries where enforcement capacity is exhausted.'},
+    {n:'Paper\u200a5',t:'Quantum Structure from Finite Enforceability',tag:'QUANTUM',url:'https://zenodo.org/records/18529002',
+     desc:'Derives Hilbert space, the Born rule, and unitarity from the constraint structure. Explains measurement as a regime transition, not a dynamical mystery\u2014quantum mechanics emerges rather than being assumed.'},
+    {n:'Paper\u200a6',t:'Dynamics and Geometry as Optimal Admissible Reallocation',tag:'GEOMETRY',url:'https://zenodo.org/records/18529005',
+     desc:'Derives action principles, geodesics, and the Einstein field equations from enforcement cost extremization. General relativity emerges as optimal capacity reallocation; singularities and horizons are predicted regime exits.'},
+    {n:'Paper\u200a7',t:'A Minimal Quantum of Action from Finite Admissibility',tag:'ACTION',url:'https://zenodo.org/records/18529009',
+     desc:'Proves that zero action is structurally excluded for record-forming transitions. The existence of a minimum action scale (connected to \u210f) is derived, not postulated\u2014it follows from finite enforceability.'},
+    {n:'Paper\u200a13',t:'The Minimal Admissibility Core',tag:'CORE v4.0',url:'https://zenodo.org/records/18445266',
+     desc:'Self-contained summary of the foundational layer. Closes the pre-physical axiom set and proves that all subsequent derivations (quantum mechanics, gravity, cosmology) require no additional assumptions beyond A1\u2013A5.'}
+  ];
+
+  papers.forEach(function(p,i){
+    var bdr=i<papers.length-1?'border-bottom:1px solid var(--bdr);':'';
+    h.push('<a href="'+p.url+'" target="_blank" rel="noopener" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:12px 16px;'+bdr+'text-decoration:none;transition:background .15s;cursor:pointer" onmouseover="this.style.background=\\'var(--blug)\\'" onmouseout="this.style.background=\\'transparent\\'">');
+    h.push('<div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--br)">'+p.n+'</div><div style="font-size:10px;color:var(--pur);letter-spacing:1px;margin-top:2px">'+p.tag+'</div></div>');
+    h.push('<div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">'+p.t+'</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">'+p.desc+'</div></div>');
+    h.push('</a>');
+  });
+
+  h.push('</div></div>');
 
   // ═══ EPISTEMIC KEY ═══
   h.push('<div class="sec"><div class="sec-t">Epistemic Status Key</div>');
