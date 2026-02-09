@@ -1083,7 +1083,7 @@ def check_T4F():
             'E(4) = 10 > 8 = C_EW.'
         ),
         key_result=f'Saturation = {saturation:.0%} (near-full)',
-        dependencies=['T7'],
+        dependencies=['T7', 'T_channels'],
         artifacts={'saturation': saturation},
     )
 
