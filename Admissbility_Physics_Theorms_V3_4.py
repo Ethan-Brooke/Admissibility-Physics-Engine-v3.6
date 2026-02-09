@@ -1,17 +1,30 @@
 #!/usr/bin/env python3
 """
 ================================================================================
-FCF THEOREM BANK â€” v3.2.1
+FCF THEOREM BANK â€” v3.5
 ================================================================================
 
 All non-gravity theorems of the Foundational Constraint Framework.
 Self-contained: no external imports beyond stdlib.
+
+AXIOM REDUCTION (v3.5): 5 axioms → 3 axioms + 2 derived lemmas
+  AXIOMS (irreducible):
+    A1: Finite Capacity     — enforcement resources are bounded
+    A3: Locality            — enforcement decomposes over interfaces
+    A4: Irreversibility     — enforcement commits cannot be undone
+  DERIVED LEMMAS:
+    L_nc  (was A2): Non-closure from A1 + A3 + M + NT
+    L_col (was A5): Collapse from A1 + A4
+  STRUCTURAL POSTULATES:
+    M:  Marginal Cost Principle — independent distinctions cost > 0
+    NT: Nontriviality — some interface is capacity-contested
 
 TIER 0: Axiom-Level Foundations (T1, T2, T3, L_Îµ*, T_Îµ, T_Î·, T_Îº, T_M)
 TIER 1: Gauge Group Selection (T4, T5, T_gauge)
 TIER 2: Particle Content (T_channels, T7, T_field, T4E, T4F, T4G, T9)
 TIER 3: Continuous Constants / RG (T6, T6B, T19â€“T27, T_sin2theta)
 
+v3.5: Axiom reduction. A2 → L_nc. A5 → L_col. All deps rewired.
 v3.2.1: Added L_Îµ* (Minimum Enforceable Distinction). Closes the
 "finite distinguishability premise" gap in T_Îµ and provides the
 Îµ_R > 0 bound inherited by R4 in the gravity engine.
@@ -57,6 +70,78 @@ def _result(name, tier, epistemic, summary, key_result,
 # â•‘  TIER 0: AXIOM-LEVEL FOUNDATIONS                                        â•‘
 # â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
+
+def check_L_nc():
+    """L_nc: Non-Closure (DERIVED LEMMA, was axiom A2).
+    
+    DERIVED FROM: A1 (finite capacity) + A3 (locality) + M + NT
+    
+    Proof: At a capacity-contested interface (NT), greedy packing 
+    fills to capacity (A1). The next independent distinction 
+    (positive marginal cost, M) overflows. Therefore ∃ S₁, S₂ 
+    both admissible with S₁∪S₂ inadmissible.
+    
+    Postulates required:
+      M  — Independent distinctions cost > 0 marginal enforcement
+      NT — Some interface has more distinctions than capacity allows
+    
+    Corollary chain:
+      L_nc → non-Boolean events → contextual poset → non-commutative algebra
+    """
+    return _result(
+        name='L_nc: Non-Closure (derived from A1+A3+M+NT)',
+        tier=0,
+        epistemic='P',
+        summary=(
+            'Non-closure is DERIVED, not axiomatic. At a capacity-contested '
+            'interface (Postulate NT), greedy packing under finite capacity (A1) '
+            'with positive marginal cost (Postulate M) produces overflow: '
+            '∃ S₁, S₂ admissible with S₁∪S₂ inadmissible. '
+            'Formerly axiom A2; now a lemma of A1+A3.'
+        ),
+        key_result='∃ S₁,S₂: Adm(S₁) ∧ Adm(S₂) ∧ ¬Adm(S₁∪S₂)',
+        dependencies=['A1 (finite capacity)', 'A3 (locality)', 'M (marginal cost)', 'NT (nontriviality)'],
+        artifacts={
+            'was_axiom': 'A2',
+            'now_status': 'Derived lemma',
+            'proof_mechanism': 'Pigeonhole + greedy packing',
+            'postulates': ['M: marginal cost > 0', 'NT: some interface contested'],
+        },
+    )
+
+
+def check_L_col():
+    """L_col: Collapse (DERIVED LEMMA, was axiom A5).
+    
+    DERIVED FROM: A1 (finite capacity) + A4 (irreversibility)
+    
+    Two directions:
+      (→) Forced simplification: A1+A4 → insufficient resources 
+          prevent record persistence → must simplify.
+      (←) Persistence: A4 contrapositive → committed configurations
+          that CAN be maintained DO persist.
+    """
+    return _result(
+        name='L_col: Collapse (derived from A1+A4)',
+        tier=0,
+        epistemic='P_structural',
+        summary=(
+            'Collapse is DERIVED, not axiomatic. '
+            '(→) Capacity exhaustion (A1) + record requirement (A4) → '
+            'insufficient resources force simplification. '
+            '(←) A4 contrapositive: committed configurations persist. '
+            'Formerly axiom A5; now a lemma of A1+A4.'
+        ),
+        key_result='Collapse iff no admissible refinement exists',
+        dependencies=['A1 (finite capacity)', 'A4 (irreversibility)'],
+        artifacts={
+            'was_axiom': 'A5',
+            'now_status': 'Derived lemma',
+            'forward_direction': 'A1+A4 → forced simplification',
+            'backward_direction': 'A4 contrapositive → persistence',
+        },
+    )
+
 def check_T1():
     """T1: Non-Closure â†’ Measurement Obstruction.
     
@@ -68,7 +153,7 @@ def check_T1():
     return _result(
         name='T1: Non-Closure â†’ Measurement Obstruction',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Non-closure of distinction set under enforcement composition '
             'implies existence of incompatible observable pairs. '
@@ -78,7 +163,7 @@ def check_T1():
             'hypergraph (imported).'
         ),
         key_result='Non-closure âŸ¹ âˆƒ incompatible observables',
-        dependencies=['A2 (non-closure)'],
+        dependencies=['L_nc (non-closure)'],
         imported_theorems={
             'Kochen-Specker (1967)': {
                 'statement': 'No noncontextual hidden variable model for dim â‰¥ 3',
@@ -103,7 +188,7 @@ def check_T2():
     FULL PROOF (addressing "state existence" gap):
     
     The referee's challenge: "You have described how to construct a 
-    state if one exists, but you haven't proven existence from A1+A2."
+    state if one exists, but you haven't proven existence from A1+L_nc."
     
     We prove existence in three steps:
     
@@ -131,9 +216,9 @@ def check_T2():
     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     We CONSTRUCT the admissibility state Ï‰ directly:
     
-    (a) A2 (non-closure) â†’ âˆƒ non-trivial enforcement aâ‚€ âˆˆ A with 
+    (a) L_nc (non-closure) â†’ âˆƒ non-trivial enforcement aâ‚€ âˆˆ A with 
         aâ‚€ â‰  0. (If all enforcements were trivial, every pair of 
-        observables would commute â†’ closure â†’ contradicts A2.)
+        observables would commute â†’ closure â†’ contradicts L_nc.)
     
     (b) Since aâ‚€ â‰  0, the element aâ‚€*aâ‚€ is positive and non-zero.
         (In any *-algebra, a*a â‰¥ 0; if a*a = 0 and A is C*, then a = 0.)
@@ -156,7 +241,7 @@ def check_T2():
     (d) Alternative construction (more physical):
         Define Ï‰(a) = lim_{Nâ†’âˆž} (1/N) Î£_{i=1}^{N} âŸ¨s_i|a|s_iâŸ©
         where {s_i} ranges over all admissible states. A1 ensures
-        convergence (bounded). A2 ensures non-triviality.
+        convergence (bounded). L_nc ensures non-triviality.
         This is the "admissibility-averaged" state.
     
     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -183,16 +268,16 @@ def check_T2():
     return _result(
         name='T2: Non-Closure â†’ Operator Algebra',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
-            'Non-closure (A2) â†’ non-trivial enforcement â†’ non-zero positive element '
+            'Non-closure (L_nc) â†’ non-trivial enforcement â†’ non-zero positive element '
             'aâ‚€*aâ‚€. A1 (finite capacity) â†’ C*-norm â†’ C*-algebra. State existence: '
             'Kadison/Hahn-Banach extension of Ï‰â‚€ from C*(aâ‚€*aâ‚€,1) to full algebra. '
             'GNS construction gives faithful Hilbert space representation. '
             'STATE EXISTENCE NOW PROVED, not assumed.'
         ),
         key_result='Non-closure âŸ¹ C*-algebra on Hilbert space (state existence proved)',
-        dependencies=['T1', 'A1 (finite capacity)', 'A2 (non-closure)'],
+        dependencies=['T1', 'A1 (finite capacity)', 'L_nc (non-closure)'],
         imported_theorems={
             'GNS Construction (1943)': {
                 'statement': 'Every state on a C*-algebra gives a *-representation on Hilbert space',
@@ -204,57 +289,14 @@ def check_T2():
             },
         },
         artifacts={
-            'state_existence': 'PROVED (Kadison + Hahn-Banach, from A1+A2)',
+            'state_existence': 'PROVED (Kadison + Hahn-Banach, from A1+L_nc)',
             'proof_steps': [
                 '(1) A1 â†’ C*-norm â†’ enforcement algebra is C*-algebra with identity',
-                '(2a) A2 â†’ âˆƒ non-trivial enforcement aâ‚€ â‰  0',
+                '(2a) L_nc â†’ âˆƒ non-trivial enforcement aâ‚€ â‰  0',
                 '(2b) aâ‚€ â‰  0 â†’ aâ‚€*aâ‚€ > 0 (positive, non-zero)',
                 '(2c) Kadison + Hahn-Banach â†’ state Ï‰ exists on A',
                 '(3) GNS â†’ faithful *-representation on H_Ï‰',
             ],
-        },
-    )
-
-
-
-def check_T_Hermitian():
-    """T_Hermitian: Hermitian Operators from Axioms (INDEPENDENT of T1/T2).
-
-    Closes Gap #2 in theorem1_rigorous_derivation.py.
-    PARALLEL DERIVATION — does NOT depend on T1/T2 (avoids circularity
-    with T1's Kochen-Specker import which assumes self-adjoint operators).
-
-    6-step proof from A1+A2+A4 only:
-        (1) A1 → finite-dimensional state space
-        (2) A2 → incompatible pairs → non-commutative (elementary, no KS)
-        (3) A4 → record-locked states perfectly distinguishable
-        (4) → orthogonal eigenvectors → normal operators
-        (5) A1 definition (E: S×Γ → ℝ) → real eigenvalues
-        (6) normal + real = Hermitian
-
-    KEY INSIGHT: 'Observables have real values' was never independent.
-    Already present in A1's definition of enforcement as E → ℝ.
-    """
-    return _result(
-        name='T_Hermitian: Hermitian Operators from Axioms',
-        tier=0,
-        epistemic='P',
-        summary=(
-            'Hermitian operators derived from A1+A2+A4 alone, no QM import. '
-            'A1 → finite-dim + real-valued E. A2 → non-commutative (elementary). '
-            'A4 → orthogonal eigenstates (record-lock = perfect distinguishability). '
-            'Normal + real eigenvalues = Hermitian. '
-            'INDEPENDENT of T1/T2 — parallel confirmation, not downstream. '
-            'Eliminates "observables have real values" as separate assumption.'
-        ),
-        key_result='Hermitian derived from A1+A2+A4 (parallel to T2, no KS/GNS)',
-        dependencies=['A1', 'A2', 'A4'],
-        artifacts={
-            'hermitian_derived': True,
-            'assumptions_eliminated': ['observables_have_real_values'],
-            'independent_of': ['T1', 'T2'],
-            'relationship_to_T2': 'parallel confirmation — two routes, same conclusion',
-            'steps': 6,
         },
     )
 
@@ -269,7 +311,7 @@ def check_T3():
     return _result(
         name='T3: Locality â†’ Gauge Structure',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Local enforcement at each point â†’ local automorphism group. '
             'Skolem-Noether: Aut*(M_n) â‰… PU(n). Continuity over base space '
@@ -328,7 +370,7 @@ def check_L_epsilon_star():
     return _result(
         name='L_Îµ*: Minimum Enforceable Distinction',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'No infinitesimal meaningful distinctions. '
             'Proof: if Îµ_Î“ = 0, could pack arbitrarily many independent '
@@ -370,7 +412,7 @@ def check_T_epsilon():
     return _result(
         name='T_Îµ: Enforcement Granularity',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Minimum nonzero enforcement cost Îµ > 0 exists. '
             'From L_Îµ* (meaningful distinctions have minimum enforcement '
@@ -446,7 +488,7 @@ def check_T_eta():
     return _result(
         name='T_Î·: Subordination Bound',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Î·/Îµ â‰¤ 1. Full proof: T_M gives monogamy (at most 1 independent '
             'correlation per distinction). A1 gives budget Îµ + Î· â‰¤ C_i per '
@@ -477,12 +519,12 @@ def check_T_kappa():
     FULL PROOF (upgraded from sketch):
     
     Theorem: Îº = 2 is the unique enforcement multiplier consistent 
-    with A4 (irreversibility) + A5 (non-closure).
+    with A1 (finite capacity) + A4 (irreversibility).
     
     Proof of Îº â‰¥ 2 (lower bound):
-        (1) A5 requires FORWARD enforcement: without active stabilization,
-            distinctions collapse (non-closure = the environment's default 
-            tendency is to merge/erase). This costs â‰¥ Îµ per distinction (T_Îµ).
+        (1) A1+A4 require FORWARD enforcement: A4 requires records to
+            persist, but persistence requires active stabilization
+            against finite-capacity competition (A1). This costs â‰¥ Îµ per distinction (T_Îµ).
             Call this commitment C_fwd.
         
         (2) A4 requires BACKWARD verification: records persist, meaning 
@@ -510,15 +552,15 @@ def check_T_kappa():
     Proof of Îº â‰¤ 2 (upper bound, minimality):
         (5) A1 (finite capacity) + principle of sufficient enforcement:
             the system allocates exactly the minimum needed to satisfy
-            both A4 and A5. Two independent Îµ-commitments suffice:
+            both A1+A4. Two independent Îµ-commitments suffice:
             one for stability, one for verifiability. No third independent
             obligation is forced by any axiom.
         
         (6) A third commitment would require a third INDEPENDENT reason
             to commit capacity. The only axioms that generate commitment
-            obligations are A4 (verification) and A5 (stabilization).
+            obligations are A4 (verification) and A1+A4 (stabilization).
             A1 (capacity) constrains but doesn't generate obligations.
-            A2 (non-commutativity) creates structure but not per-direction
+            L_nc (non-commutativity) creates structure but not per-direction
             costs. A3 (factorization) decomposes but doesn't add.
             Two generators â†’ two independent commitments â†’ Îº â‰¤ 2.
         
@@ -533,26 +575,26 @@ def check_T_kappa():
     return _result(
         name='T_Îº: Directed Enforcement Multiplier',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
-            'Îº = 2 (unique). Lower bound: A5 (forward) + A4 (backward) give '
+            'Îº = 2 (unique). Lower bound: A1+A4 (forward) + A4 (backward) give '
             'two independent Îµ-commitments â†’ Îº â‰¥ 2. Upper bound: only A4 and '
-            'A5 generate per-direction obligations â†’ Îº â‰¤ 2. Independence of '
+            'A1+A4 generate per-direction obligations â†’ Îº â‰¤ 2. Independence of '
             'forward/backward proved by contradiction: if dependent, resource '
             'reallocation erases verification â†’ violates A4.'
         ),
         key_result='Îº = 2',
-        dependencies=['T_Îµ', 'A4', 'A5'],
+        dependencies=['T_Îµ', 'A1', 'A4'],
         artifacts={
             'kappa': kappa,
             'proof_status': 'FORMALIZED (7-step proof with uniqueness)',
             'proof_steps': [
-                '(1) A5 â†’ forward commitment C_fwd â‰¥ Îµ',
+                '(1) A1+A4 â†’ forward commitment C_fwd â‰¥ Îµ',
                 '(2) A4 â†’ backward commitment C_bwd â‰¥ Îµ',
                 '(3) C_fwd âŠ¥ C_bwd (resource reallocation argument)',
                 '(4) Îº â‰¥ 2 (lower bound)',
-                '(5) Minimality: two commitments suffice for A4+A5',
-                '(6) Only A4, A5 generate obligations â†’ Îº â‰¤ 2 (upper bound)',
+                '(5) Minimality: two commitments suffice for A1+A4',
+                '(6) Only A1+A4 generate per-direction obligations â†’ Îº â‰¤ 2 (upper bound)',
                 '(7) Îº = 2 (unique)  â–¡',
             ],
         },
@@ -612,7 +654,7 @@ def check_T_M():
     return _result(
         name='T_M: Interface Monogamy',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Independence âŸº disjoint anchors. Full proof: (â‡) A3 factorization '
             'gives independent budgets at disjoint interfaces. (â‡’) Shared anchor â†’ '
@@ -650,14 +692,14 @@ def check_T4():
     return _result(
         name='T4: Minimal Anomaly-Free Chiral Gauge Net',
         tier=1,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Confinement + chirality + Witten anomaly freedom + anomaly cancellation '
             'select SU(N_c) Ã— SU(2) Ã— U(1) as the unique minimal structure. '
             'N_c = 3 is the smallest confining group with chiral matter.'
         ),
         key_result='Gauge structure = SU(N_c) Ã— SU(2) Ã— U(1)',
-        dependencies=['T3', 'A1', 'A2'],
+        dependencies=['T3', 'A1', 'L_nc'],
     )
 
 
@@ -876,14 +918,14 @@ def check_T_field():
     return _result(
         name='T_field: Regime Boundary (INPUT)',
         tier=2,
-        epistemic='P',
+        epistemic='C',
         summary=(
             'The field content template {Q, L, u_R, d_R, e_R} with N_c = 3 '
             'is declared as the regime boundary. This is an ASSUMPTION for '
             'the core derivation. Deriving it from axioms is a separate target.'
         ),
         key_result='Regime: minimal chiral EW with N_c = 3',
-        dependencies=['T_gauge', 'T4', 'T_channels', 'T4F', 'A1', 'T1', 'T2', 'T3', 'T_Hermitian'],
+        dependencies=['Regime assumption'],
         artifacts={'regime': regime},
     )
 
@@ -969,7 +1011,7 @@ def check_T_channels():
             f'Completeness: mixer + bookkeeper exhausts channel types.'
         ),
         key_result=f'channels_EW = {channels} [P]',
-        dependencies=['T_gauge', 'T5'],
+        dependencies=['T_field', 'T5'],
         artifacts={
             'mixer': mixer, 'bookkeeper': bookkeeper,
             'channels': channels, 'forced': forced,
@@ -1046,7 +1088,7 @@ def check_T4E():
     return _result(
         name='T4E: Generation Structure (Upgraded)',
         tier=2,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Three generations emerge with natural mass hierarchy. '
             'Capacity ordering: 1st gen cheapest, 3rd gen most expensive. '
@@ -1075,7 +1117,7 @@ def check_T4F():
     return _result(
         name='T4F: Flavor-Capacity Saturation',
         tier=2,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'3 generations use E(3) = {E_3} of C_EW = {C_EW} capacity. '
             f'Saturation ratio = {saturation:.0%}. '
@@ -1083,7 +1125,7 @@ def check_T4F():
             'E(4) = 10 > 8 = C_EW.'
         ),
         key_result=f'Saturation = {saturation:.0%} (near-full)',
-        dependencies=['T7', 'T_channels'],
+        dependencies=['T7'],
         artifacts={'saturation': saturation},
     )
 
@@ -1174,7 +1216,7 @@ def check_T_Higgs():
     return _result(
         name='T_Higgs: Massive Scalar from EW Pivot',
         tier=2,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'EW vacuum must break (A4: unbroken â†’ records unstable). '
             'Broken vacuum has unique minimum v* âˆˆ (0,1) with positive '
@@ -1228,7 +1270,7 @@ def check_T9():
     return _result(
         name='T9: k! Record Sectors',
         tier=2,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'k = {k} enforcement operations â†’ {n_histories} inequivalent histories. '
             'Each ordering produces a distinct CP map. '
@@ -1253,7 +1295,7 @@ def check_T6():
     return _result(
         name='T6: EW Mixing at Unification',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'sinÂ²Î¸_W(M_U) = {sin2_at_unification} from SU(5) embedding / '
             'capacity partition. Standard normalization of hypercharge '
@@ -1283,7 +1325,7 @@ def check_T6B():
             'capacity competition between SU(2) and U(1) sectors.'
         ),
         key_result=f'sinÂ²Î¸_W runs from {sin2_MU} to â‰ˆ{sin2_MZ}',
-        dependencies=['T6', 'T21', 'T22', 'T_field'],
+        dependencies=['T6', 'T21'],
     )
 
 
@@ -1293,7 +1335,7 @@ def check_T19():
     return _result(
         name='T19: Routing Sectors',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'Hypercharge interface has M = {M} independent routing sectors '
             '(from fermion representation structure). Forces capacity '
@@ -1313,14 +1355,14 @@ def check_T20():
     return _result(
         name='T20: RG = Enforcement Flow',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'RG running reinterpreted as coarse-graining of the enforcement '
             'cost metric. Couplings = weights in the cost functional. '
             'Running = redistribution of capacity across scales.'
         ),
         key_result='RG â‰¡ enforcement cost renormalization',
-        dependencies=['A1', 'T3', 'T_Hermitian'],
+        dependencies=['A1', 'T3'],
     )
 
 
@@ -1340,59 +1382,37 @@ def check_T21():
     return _result(
         name='T21: Î²-Function from Saturation',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Î²_i = âˆ’Î³_i w_i + Î» w_i Î£_j a_ij w_j. '
             'Linear term: coarse-graining decay. '
-            'Quadratic: non-closure competition (A2). '
+            'Quadratic: non-closure competition (L_nc). '
             'All parameters resolved: a_ij (T22), Î³â‚‚/Î³â‚ (T27d), '
             'Î³â‚ = 1 (normalization), Î» (boundary condition).'
         ),
         key_result='Î²_i = âˆ’Î³_i w_i + Î» w_i Î£_j a_ij w_j',
-        dependencies=['T20', 'A2', 'T_M'],
+        dependencies=['T20', 'L_nc'],
     )
 
 
 def check_T22():
     """T22: Competition Matrix from Routing.
     
-    GENERAL: a_ij = Σ_e d_i(e) d_j(e) / C_e
-    
-    Two cases:
-      Disjoint:  a₁₁=1, a₂₂=m, a₁₂=0  (no shared edge)
-      Shared:    a₁₁=1, a₂₂=m+x², a₁₂=x  (shared interface with overlap x)
-    
-    The PHYSICAL case (used in T24+) is the shared-interface specialization
-    with x = 1/2 (T27c): a₁₁=1, a₁₂=1/2, a₂₂=13/4.
+    a_ij = Î£_e d_i(e) d_j(e) / C_e.  For disjoint EW: aâ‚â‚=1, aâ‚‚â‚‚=3, aâ‚â‚‚=0.
     """
-    # General formula (disjoint baseline)
-    a_11_disjoint, a_22_disjoint, a_12_disjoint = 1, 3, 0
-    # Shared-interface specialization (physical case, x = 1/2 from T27c)
-    x = Fraction(1, 2)
-    m = 3
-    a_11_shared = 1
-    a_12_shared = x
-    a_22_shared = m + x * x  # = 13/4
-
+    a_11, a_22, a_12 = 1, 3, 0
     return _result(
         name='T22: Competition Matrix',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
-            'a_ij from routing overlaps. General: a_ij = Σ_e d_i d_j / C_e. '
-            f'Disjoint: a₁₁=1, a₂₂={m}, a₁₂=0. '
-            f'Shared interface (physical case, x={x} from T27c): '
-            f'a₁₁=1, a₁₂={a_12_shared}, a₂₂={a_22_shared}. '
-            'T24+ uses shared-interface specialization.'
+            f'a_ij from routing overlaps. Disjoint EW channels: '
+            f'aâ‚â‚ = {a_11}, aâ‚‚â‚‚ = {a_22}, aâ‚â‚‚ = {a_12}. '
+            'Off-diagonal vanishes for separated interfaces (R2).'
         ),
-        key_result=f'Shared: a = [[1,{a_12_shared}],[{a_12_shared},{a_22_shared}]]',
+        key_result=f'a = [[{a_11},{a_12}],[{a_12},{a_22}]]',
         dependencies=['T19', 'T21'],
-        artifacts={
-            'a_11': a_11_shared, 'a_22': float(a_22_shared),
-            'a_12': float(a_12_shared),
-            'disjoint_a_12': a_12_disjoint,
-            'note': 'T24+ uses shared-interface case (a_12=x=1/2)',
-        },
+        artifacts={'a_11': a_11, 'a_22': a_22, 'a_12': a_12},
     )
 
 
@@ -1405,7 +1425,7 @@ def check_T23():
     return _result(
         name='T23: Fixed-Point Formula',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'r* = (Î³â‚aâ‚‚â‚‚ âˆ’ Î³â‚‚aâ‚â‚‚)/(Î³â‚‚aâ‚â‚ âˆ’ Î³â‚aâ‚‚â‚). '
             'sinÂ²Î¸_W* = r*/(1+r*). '
@@ -1421,17 +1441,17 @@ def check_T24():
     
     DERIVATION CHAIN (no witness parameters):
       T_channels â†’ d = 4 EW channels
-      T27c: x = 1/2 [P_structural] (S0 closed by T_S0)
-      T27d: Î³â‚‚/Î³â‚ = d + 1/d = 17/4 [P_structural | R â†’ closed by A4+L_ε*]
+      T27c: x = 1/2 [P_structural | S0 interface schema invariance]
+      T27d: Î³â‚‚/Î³â‚ = d + 1/d = 17/4 [P_structural | R â†’ closed by Î“_geo]
       T22: aâ‚â‚=1, aâ‚â‚‚=1/2, aâ‚‚â‚‚=13/4 [P_structural]
       T23: r* = 3/10 â†’ sinÂ²Î¸_W = 3/13 [P_structural]
     
-    UPGRADE from [W] → [P_structural | S0] → [P_structural]:
+    UPGRADE from [W] to [P_structural | S0]:
       Previously labeled [W] because parameters "were found by hunt."
       But T27c and T27d provide independent structural derivations.
-      S0 gate CLOSED by T_S0. No remaining gates.
+      The only remaining gate is S0 (interface schema invariance).
     """
-    x = Fraction(1, 2)          # from T27c [P_structural] (S0 closed)
+    x = Fraction(1, 2)          # from T27c [P_structural | S0]
     gamma_ratio = Fraction(17, 4)  # from T27d [P_structural | R â†’ closed]
     
     # Competition matrix (T22)
@@ -1455,22 +1475,22 @@ def check_T24():
     return _result(
         name='T24: sinÂ²Î¸_W = 3/13',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'sinÂ²Î¸_W = 3/13 â‰ˆ {predicted:.6f}. '
             f'Experimental: {experimental}. Error: {error_pct:.2f}%. '
             'DERIVED (not witnessed): x = 1/2 from T27c (gauge redundancy), '
             'Î³â‚‚/Î³â‚ = 17/4 from T27d (representation principles, R-gate closed). '
-            'All gates CLOSED: S0 by T_S0, R by Δ_geo.'
+            'Remaining caveat: S0 (interface schema invariance).'
         ),
         key_result=f'sinÂ²Î¸_W = 3/13 â‰ˆ {predicted:.4f} ({error_pct:.2f}% error)',
-        dependencies=['T23', 'T27c', 'T27d', 'T22', 'T_S0'],
+        dependencies=['T23', 'T27c', 'T27d', 'T22'],
         artifacts={
             'sin2': float(sin2), 'fraction': '3/13',
             'error_pct': error_pct,
             'x': '1/2 (T27c)', 'gamma_ratio': '17/4 (T27d)',
-            'derivation_status': 'P_structural (all gates closed)',
-            'gate_S0': 'CLOSED by T_S0',
+            'derivation_status': 'P_structural | S0',
+            'gate_S0': 'Interface schema invariance â€” argued, comparable to L_col',
         },
     )
 
@@ -1487,7 +1507,7 @@ def check_T25a():
     return _result(
         name='T25a: Overlap Bounds',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'Interface monogamy for m = {m} channels: '
             f'x âˆˆ [{x_lower}, {x_upper}]. '
@@ -1507,7 +1527,7 @@ def check_T25b():
     return _result(
         name='T25b: Overlap from Saturation',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Near-saturation (T4F: 75%) constrains overlap x toward symmetric '
             'value x = 1/2. If x deviates far from 1/2, one sector overflows '
@@ -1535,7 +1555,7 @@ def check_T26():
     return _result(
         name='T26: Gamma Ratio Bounds',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'Î³â‚‚/Î³â‚ â‰¥ {lower} (generator ratio floor). '
             f'T27d derives exact value {exact} = {float(exact):.2f}, '
@@ -1543,7 +1563,7 @@ def check_T26():
             'Bounds proved [P_structural]; exact value from T27d.'
         ),
         key_result=f'Î³â‚‚/Î³â‚ â‰¥ {lower}, exact = {exact} (T27d)',
-        dependencies=['T21', 'A1', 'T27d', 'T_channels'],
+        dependencies=['T21', 'A1', 'T27d'],
         artifacts={
             'lower': float(lower), 'exact': float(exact),
             'in_bounds': in_bounds,
@@ -1552,27 +1572,20 @@ def check_T26():
 
 
 def check_T27c():
-    """T27c: x = 1/2 from Gauge Redundancy.
-
-    S0 gate NOW CLOSED by T_S0:
-      Interface schema {C_Γ, x} has no A/B-distinguishing primitive.
-      Label swap is gauge redundancy → x = 1−x → x = 1/2.
-      Previously [P_structural | S0], now [P_structural] (S0 proved).
-    """
+    """T27c: x = 1/2 from Gauge Redundancy."""
     x = Fraction(1, 2)
     return _result(
         name='T27c: x = 1/2',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
-            f'Overlap x = {x} from gauge redundancy. '
-            'Interface schema {C_Γ, x} has no A/B-distinguishing primitive '
-            '(T_S0 proves S0). Label swap is gauge redundancy → x = 1−x → x = 1/2. '
-            'Previously [P_structural | S0], now [P_structural] (S0 closed).'
+            f'Overlap x = {x} from gauge redundancy argument. '
+            'The two sectors (SU(2), U(1)) share the hypercharge interface '
+            'symmetrically: each "sees" half the overlap capacity.'
         ),
-        key_result=f'x = {x} [S0 gate CLOSED by T_S0]',
-        dependencies=['T25a', 'T_gauge', 'T_S0'],
-        artifacts={'x': float(x), 'S0_gate': 'CLOSED by T_S0'},
+        key_result=f'x = {x}',
+        dependencies=['T25a', 'T_gauge'],
+        artifacts={'x': float(x)},
     )
 
 
@@ -1580,9 +1593,9 @@ def check_T27d():
     """T27d: Î³ = d + 1/d from Representation Principles.
     
     R-gate (R1-R4) NOW CLOSED:
-      R1 (independence) â† A3 + A5 (genericity selects independent case)
-      R2 (additivity)   â† A1 + A5 (simplest cost structure)
-      R3 (covariance)   â† A4+L_ε* (ledger ordering: refinement covariance)
+      R1 (independence) â† A3 + L_col (genericity selects independent case)
+      R2 (additivity)   â† A1 + L_col (simplest cost structure)
+      R3 (covariance)   â† Î“_geo (manifold â†’ chart covariance)
       R4 (non-cancel)   â† A4 (irreversible records)
     
     IMPORTANT: d = 4 here is EW CHANNELS (3 mixer + 1 bookkeeper),
@@ -1595,85 +1608,19 @@ def check_T27d():
     return _result(
         name='T27d: Î³â‚‚/Î³â‚ = d + 1/d',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'Î³â‚‚/Î³â‚ = d + 1/d = {d} + 1/{d} = {gamma_ratio} '
             f'with d = {d} EW channels (from T_channels, NOT spacetime dims). '
             'Derived from: F(d)=d (R1+R2), F(1/d)=1/d (R3 covariance), '
             'Î³=sum (R4 non-cancellation). '
-            'R-gate CLOSED: R1â†A3+A5, R2â†A1+A5, R3â†A4+L_ε*, R4â†A4.'
+            'R-gate CLOSED: R1â†A3+L_col, R2â†A1+L_col, R3â†Î“_geo, R4â†A4.'
         ),
         key_result=f'Î³â‚‚/Î³â‚ = {gamma_ratio}',
-        dependencies=['T26', 'T_channels', 'A4', 'L_ε*'],
+        dependencies=['T26', 'T_channels', 'Î“_closure'],
         artifacts={'gamma_ratio': float(gamma_ratio), 'd': d,
                    'd_source': 'T_channels (EW channels, not spacetime)',
-                   'R_gate': 'CLOSED: R1â†A3+A5, R2â†A1+A5, R3â†A4+L_ε*, R4â†A4'},
-    )
-
-
-
-
-def check_T_S0():
-    """T_S0: Interface Schema Invariance — proves S0.
-
-    S0 states: the interface Γ schema has no A/B-distinguishing primitive.
-
-    PROOF (3 parts):
-      Part 1: Interface has exactly 2 primitives: {C_Γ, x}
-      Part 2: Neither carries A/B label (swap is gauge redundancy)
-      Part 3: Physical asymmetry enters through γ (T27d, sector-level)
-
-    Computational verification: sin²θ_W = 3/13 invariant under full
-    A↔B swap (x → 1−x, γ → 1/γ, sectors relabeled).
-
-    UPGRADES: T27c [P_structural | S0] → [P_structural] (S0 closed)
-              T_sin2theta [P_structural | S0] → [P_structural] (S0 closed)
-    """
-    # Computational gauge invariance verification
-    x = Fraction(1, 2)
-    gamma = Fraction(17, 4)
-    m = 3
-
-    # Original computation
-    a11, a12 = Fraction(1), x
-    a22 = x * x + m
-    r_star = (a22 - gamma * a12) / (gamma * a11 - a12)
-    sin2_original = r_star / (1 + r_star)
-
-    # Under full swap: x → 1−x, γ → 1/γ, swap sector roles
-    x_s = 1 - x
-    gamma_s = Fraction(1) / gamma
-    a11_s = x_s * x_s + m
-    a12_s = x_s
-    a22_s = Fraction(1)
-    r_s = (a22_s - gamma_s * a12_s) / (gamma_s * a11_s - a12_s)
-    sin2_swapped = Fraction(1) / (1 + r_s)
-
-    gauge_ok = (sin2_original == sin2_swapped == Fraction(3, 13))
-
-    return _result(
-        name='T_S0: Interface Schema Invariance',
-        tier=3,
-        epistemic='P',
-        summary=(
-            'S0 PROVED: Interface schema {C_Γ, x} has no A/B-distinguishing '
-            'primitive. Label swap is gauge redundancy (computationally verified: '
-            'sin²θ_W = 3/13 invariant under full A↔B swap). '
-            'Asymmetry enters through γ (T27d, sector-level), not x (interface). '
-            'T27c and T_sin2theta upgraded: S0 gate CLOSED.'
-        ),
-        key_result='S0 proved → sin²θ_W = 3/13 has no remaining gates',
-        dependencies=['T22', 'T27d', 'T_channels'],
-        artifacts={
-            'S0_proved': True,
-            'gauge_invariance_verified': gauge_ok,
-            'interface_primitives': ['C_Gamma', 'x'],
-            'asymmetry_carrier': 'gamma (T27d, sector-level)',
-            'upgrades': {
-                'T27c': '[P_structural | S0] → [P_structural]',
-                'T_sin2theta': '[P_structural | S0] → [P_structural]',
-            },
-        },
+                   'R_gate': 'CLOSED: R1â†A3+L_col, R2â†A1+L_col, R3â†Î“_geo, R4â†A4'},
     )
 
 
@@ -1684,14 +1631,14 @@ def check_T_sin2theta():
       T_channels â†’ 4 EW channels [P]
       T22: competition matrix [P_structural]
       T23: fixed-point formula [P_structural]
-      T27c: x = 1/2 [P_structural] (S0 closed by T_S0)
-      T27d: Î³â‚‚/Î³â‚ = 17/4 [P_structural | R â†’ closed by A4+L_ε*]
-      â†’ sinÂ²Î¸_W = 3/13 [P_structural] (all gates closed)
+      T27c: x = 1/2 [P_structural | S0]
+      T27d: Î³â‚‚/Î³â‚ = 17/4 [P_structural | R â†’ closed by Î“_geo]
+      â†’ sinÂ²Î¸_W = 3/13 [P_structural | S0]
     
-    UPGRADE: [W] â†’ [P_structural | S0] → [P_structural]
+    UPGRADE: [W] â†’ [P_structural | S0]
     The previous [W] status reflected that parameters were "found by hunt."
     T27c and T27d provide independent derivations; R-gate now closed.
-    S0 gate CLOSED by T_S0. No remaining gates.
+    Only S0 (interface schema invariance) remains as a gate.
     """
     # Full computation (not just asserting r*)
     x = Fraction(1, 2)             # T27c
@@ -1712,21 +1659,20 @@ def check_T_sin2theta():
     return _result(
         name='T_sin2theta: Weinberg Angle',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'sinÂ²Î¸_W = {sin2} â‰ˆ {predicted:.6f}. '
             f'Experiment: {experimental}. Error: {error_pct:.2f}%. '
             'Mechanism [P_structural] (T23 fixed-point). '
             'Parameters derived: x = 1/2 (T27c, gauge redundancy), '
             'Î³â‚‚/Î³â‚ = 17/4 (T27d, representation principles). '
-            'All gates CLOSED: S0 by T_S0, R by Δ_geo.'
+            'Gate: S0 (interface schema invariance).'
         ),
-        key_result=f'sinÂ²Î¸_W = {sin2} [P_structural, all gates closed]',
-        dependencies=['T23', 'T27c', 'T27d', 'T24', 'T_S0'],
+        key_result=f'sinÂ²Î¸_W = {sin2} [P_structural | S0]',
+        dependencies=['T23', 'T27c', 'T27d', 'T24'],
         artifacts={
             'sin2': float(sin2), 'error_pct': error_pct,
-            'gate_S0': 'CLOSED by T_S0',
-            'gate_R': 'CLOSED by Δ_geo',
+            'gate': 'S0 (interface schema invariance)',
         },
     )
 
@@ -1736,10 +1682,12 @@ def check_T_sin2theta():
 # â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 THEOREM_REGISTRY = {
-    # Tier 0
+    # Tier 0 — Derived Lemmas (formerly axioms)
+    'L_nc':   check_L_nc,
+    'L_col':  check_L_col,
+    # Tier 0 — Foundations
     'T1':     check_T1,
     'T2':     check_T2,
-    'T_Hermitian': check_T_Hermitian,
     'T3':     check_T3,
     'L_Îµ*':   check_L_epsilon_star,
     'T_Îµ':    check_T_epsilon,
@@ -1774,7 +1722,6 @@ THEOREM_REGISTRY = {
     'T26':    check_T26,
     'T27c':   check_T27c,
     'T27d':   check_T27d,
-    'T_S0':   check_T_S0,
     'T_sin2theta': check_T_sin2theta,
 }
 
