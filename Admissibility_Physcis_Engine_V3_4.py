@@ -330,42 +330,41 @@ def display(master: Dict[str, Any]):
     header("THE HONEST SCORECARD")
 
     print("""
-  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-  â”‚  WHAT IS PROVED [P]                                         â”‚
-  â”‚    â€¢ Gauge group SU(3)Ã—SU(2)Ã—U(1) = unique minimum         â”‚
-  â”‚      (anomaly eqn SOLVED per N_c, capacity selects N_c=3)  â”‚
-  â”‚    â€¢ Hypercharge pattern unique (zÂ²âˆ’2zâˆ’8=0, quadratic)      â”‚
-  â”‚    â€¢ channels_EW = 4 (anomaly scan excludes all below 4)    â”‚
-  â”‚    â€¢ N_gen = 3 (E(3)=6 â‰¤ 8 < 10=E(4))                     â”‚
-  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-  â”‚  WHAT IS STRUCTURALLY DERIVED [P_structural]                â”‚
-  â”‚    â€¢ Non-closure â†’ incompatible observables (imports KS)    â”‚
-  â”‚    â€¢ Non-closure â†’ operator algebra (imports GNS)           â”‚
-  â”‚    â€¢ Locality â†’ gauge bundles (imports Skolem-Noether, DR)  â”‚
-  â”‚    â€¢ L_Îµ*: meaningful â†’ Îµ_Î“ > 0 (compactness argument)     â”‚
-  â”‚    â€¢ Îµ granularity (from L_Îµ*, gap closed)                  â”‚
-  â”‚    â€¢ Î·/Îµ â‰¤ 1, Îº = 2, interface monogamy (proof sketches)   â”‚
-  â”‚    â€¢ Î²-function form + competition matrix                   â”‚
-  â”‚    â€¢ sinÂ²Î¸_W fixed-point mechanism                          â”‚
-  â”‚    â€¢ Smooth manifold M1 from continuum limit                â”‚
-  â”‚    â€¢ Lorentzian signature (âˆ’,+,+,+) from A4                â”‚
-  â”‚    â€¢ All A9.1â€“A9.5 Einstein selectors                      â”‚
-  â”‚    â€¢ Einstein equations G_Î¼Î½ + Î›g_Î¼Î½ = ÎºT_Î¼Î½               â”‚
-  â”‚    â€¢ d = 4, Yukawa hierarchy, neutrino mass bound           â”‚
-  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-  â”‚  WHAT IS WITNESSED [W]                                      â”‚
-  â”‚    â€¢ sinÂ²Î¸_W = 3/13 (0.19% match â€” specific parameters)    â”‚
-  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-  â”‚  WHAT IS ASSUMED [C]                                        â”‚
-  â”‚    â€¢ Field content template {Q, L, u, d, e} (regime input)  â”‚
-  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-  â”‚  IMPORTED EXTERNAL THEOREMS                                 â”‚
-  â”‚    â€¢ Kochen-Specker (1967) â€” contextuality                  â”‚
-  â”‚    â€¢ GNS construction â€” C*-algebra â†’ Hilbert space          â”‚
-  â”‚    â€¢ Skolem-Noether â€” Aut(M_n) structure                    â”‚
-  â”‚    â€¢ Doplicher-Roberts (1989) â€” gauge group recovery        â”‚
-  â”‚  (Required hypotheses listed in each theorem's entry)       â”‚
-  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+  ┌──────────────────────────────────────────────────────────────┐
+  │  WHAT IS PROVED [P]                                         │
+  │    • Gauge group SU(3)×SU(2)×U(1) = unique minimum         │
+  │      (anomaly eqn SOLVED per N_c, capacity selects N_c=3)  │
+  │    • Hypercharge pattern unique (z²−2z−8=0, quadratic)      │
+  │    • channels_EW = 4 (anomaly scan excludes all below 4)    │
+  │    • N_gen = 3 (E(3)=6 ≤ 8 < 10=E(4))                     │
+  │    • Hermitian operators from A1+A2+A4 (T_Hermitian)        │
+  │    • Interface schema invariance S0 (T_S0)                  │
+  ├──────────────────────────────────────────────────────────────┤
+  │  WHAT IS STRUCTURALLY DERIVED [P_structural]                │
+  │    • Non-closure → incompatible observables (imports KS)    │
+  │    • Non-closure → operator algebra (imports GNS)           │
+  │    • Locality → gauge bundles (imports Skolem-Noether, DR)  │
+  │    • L_ε*: meaningful → ε_Γ > 0 (compactness argument)     │
+  │    • ε granularity (from L_ε*, gap closed)                  │
+  │    • η/ε ≤ 1, κ = 2, interface monogamy (proof sketches)   │
+  │    • β-function form + competition matrix                   │
+  │    • sin²θ_W = 3/13 (0.19% — all gates closed)              │
+  │    • Smooth manifold M1 from continuum limit                │
+  │    • Lorentzian signature (−,+,+,+) from A4                │
+  │    • All A9.1–A9.5 Einstein selectors                      │
+  │    • Einstein equations G_μν + Λg_μν = κT_μν               │
+  │    • d = 4, Yukawa hierarchy, neutrino mass bound           │
+  ├──────────────────────────────────────────────────────────────┤
+  │  WHAT IS ASSUMED [C]                                        │
+  │    • Field content template {Q, L, u, d, e} (regime input)  │
+  ├──────────────────────────────────────────────────────────────┤
+  │  IMPORTED EXTERNAL THEOREMS                                 │
+  │    • Kochen-Specker (1967) — contextuality                  │
+  │    • GNS construction — C*-algebra → Hilbert space          │
+  │    • Skolem-Noether — Aut(M_n) structure                    │
+  │    • Doplicher-Roberts (1989) — gauge group recovery        │
+  │  (Required hypotheses listed in each theorem's entry)       │
+  └──────────────────────────────────────────────────────────────┘
 """)
 
     # â”€â”€ Final chain â”€â”€
