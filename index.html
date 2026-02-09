@@ -72,7 +72,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .gl{position:absolute;bottom:10px;left:10px;font-family:var(--mn);font-size:13px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px;z-index:5}.gl-r{display:flex;align-items:center;gap:5px;margin-bottom:2px}.gl-d{width:8px;height:8px;border-radius:50%}
 .gc{position:absolute;top:10px;right:10px;display:flex;gap:4px;z-index:5}.gc button{font-family:var(--mn);font-size:12px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:4px 8px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
 #dag-box{width:100%;overflow-x:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:16px;position:relative}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
-#crystal-box{width:100%;height:560px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden;cursor:grab}#crystal-box:active{cursor:grabbing}
+#crystal-box{width:100%;height:900px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden;cursor:grab}#crystal-box:active{cursor:grabbing}
 #crystal-legend{position:absolute;bottom:12px;left:12px;font-family:var(--mn);font-size:12px;background:#0b0f1add;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px;pointer-events:none;line-height:1.6;z-index:5}
 .cl-r{display:flex;align-items:center;gap:5px;margin-bottom:1px}.cl-dot{width:7px;height:7px;border-radius:50%}.cl-head{font-weight:600;color:var(--br);margin-bottom:2px;font-size:13px}
 #crystal-hover{position:absolute;top:12px;left:12px;font-family:var(--mn);font-size:13px;color:var(--br);background:#111827ee;border:1px solid var(--bdr);border-radius:5px;padding:8px 11px;max-width:280px;opacity:0;transition:opacity .15s;pointer-events:none;z-index:10}
@@ -85,7 +85,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .paper-row{transition:background .15s;cursor:pointer}.paper-row:hover{background:var(--blug)}
 .loading{display:flex;align-items:center;justify-content:center;min-height:400px;font-family:var(--mn);font-size:13px;color:var(--grn)}.loading::after{content:'';width:14px;height:14px;border:2px solid var(--grn);border-top-color:transparent;border-radius:50%;margin-left:8px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:400px}.toe-row{grid-template-columns:18px 1fr 65px 55px minmax(80px,1fr) 40px 40px 18px;font-size:8.5px}}
+@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:650px}.toe-row{grid-template-columns:18px 1fr 65px 55px minmax(80px,1fr) 40px 40px 18px;font-size:8.5px}}
 
 .t-u{color:var(--amb);font-style:italic;line-height:1.4}
 .t-obs{color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -657,12 +657,20 @@ h.push('</div></div>');
   h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Enforcement Crystal</div>');
-  h.push('<div class="sec-intro">Interactive 3D visualization of the 49-theorem dependency structure. Each node is a theorem colored by tier. Click and drag to rotate; hover for details.</div>');
+  h.push('<div class="sec-intro">Interactive 3D visualization of the double-waisted dependency structure. 56 nodes (5 axioms + 51 theorems) laid out by proof depth, revealing the hourglass topology: two width-1 bottlenecks at gauge selection (depth 6) and parameter convergence (depth 12). Drag to rotate; hover for full chain tracing.</div>');
   h.push('<div id="crystal-box"><div id="crystal-hover"></div>');
-  h.push('<div id="crystal-legend"><div class="cl-head">Color = Tier</div>');
-  h.push('<div class="cl-r"><div class="cl-dot" style="background:#f87171"></div> Axioms</div>');
+  h.push('<div id="crystal-legend"><div class="cl-head">Enforcement Crystal</div>');
+  h.push('<div style="color:#4a5575;font-size:11px;margin-bottom:4px">Nodes by proof depth (0\u201317)</div>');
+  h.push('<div class="cl-r"><div class="cl-dot" style="background:#f87171"></div> Axioms (depth 0)</div>');
   ['T0: Foundations','T1: Gauge','T2: Particles','T3: Constants','T4: Gravity','T5: \u0393 Closure'].forEach(function(l,i){h.push('<div class="cl-r"><div class="cl-dot" style="background:'+TC[i]+'"></div> '+l+'</div>')});
+  h.push('<div style="margin-top:4px;border-top:1px solid #1f2940;padding-top:4px">');
+  h.push('<div class="cl-r"><div class="cl-dot" style="background:#fbbf24"></div> Waist (width-1 bottleneck)</div>');
+  h.push('<div class="cl-r"><div style="width:7px;height:7px;transform:rotate(45deg);background:#888;flex-shrink:0"></div> Octahedron = axiom/waist</div>');
+  h.push('<div class="cl-r"><div style="width:7px;height:7px;border-radius:50%;background:#888;flex-shrink:0"></div> Sphere = proved [P]</div>');
+  h.push('<div class="cl-r"><div style="width:7px;height:7px;background:#888;flex-shrink:0"></div> Cube = structural [P<sub>s</sub>]</div>');
   h.push('</div></div></div>');
+  h.push('<div class="card" style="padding:0;overflow:hidden;margin:14px 0 0"><a href="https://zenodo.org/records/18531733" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:12px 16px;text-decoration:none"><div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--br)">Paper\u200a14</div><div style="font-size:10px;color:var(--pur);letter-spacing:1px;margin-top:2px">CRYSTAL</div></div><div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">The Enforcement Crystal: What Proof Architecture Reveals About Physical Structure</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">Graph-theoretic analysis of the 56-node theorem dependency DAG. Identifies the double-waisted topology, two width-1 bottlenecks (gauge selection at depth 6, parameter fixation at depth 12), 1,398 independent axiom-to-prediction paths, and axiom attribution weights for sin\u00b2\u03b8<sub>W</sub> = 3/13.</div></div></a></div>');
+  h.push('</div>');
 
   h.push('<div class="sec"><div class="sec-t">Dependency Graph — Force-Directed</div>');
   h.push('<div class="sec-intro">Physics-based spring simulation showing theorem clusters and their connections. Tightly coupled theorems cluster together; weakly connected ones drift apart.</div>');
@@ -751,11 +759,10 @@ function buildCrystal(d) {
   const container = document.getElementById('crystal-box');
   const W = container.clientWidth, H = container.clientHeight;
   
-  // Scene setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 100);
-  camera.position.set(0, 2, 9);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, 0.5, 13);
+  camera.lookAt(0, -0.5, 0);
   
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(W, H);
@@ -763,28 +770,16 @@ function buildCrystal(d) {
   renderer.setClearColor(0x0b0f1a, 1);
   container.insertBefore(renderer.domElement, container.firstChild);
   
-  // Lighting
   const ambLight = new THREE.AmbientLight(0x334466, 0.6);
   scene.add(ambLight);
-  const ptLight = new THREE.PointLight(0x60a5fa, 1.2, 20);
-  ptLight.position.set(3, 5, 4);
+  const ptLight = new THREE.PointLight(0x60a5fa, 1.2, 25);
+  ptLight.position.set(4, 6, 5);
   scene.add(ptLight);
-  const ptLight2 = new THREE.PointLight(0xa78bfa, 0.6, 20);
-  ptLight2.position.set(-3, -2, 4);
+  const ptLight2 = new THREE.PointLight(0xa78bfa, 0.6, 25);
+  ptLight2.position.set(-4, -3, 5);
   scene.add(ptLight2);
   
-  // Build node data: tiers as rings
-  const tierCfg = [
-    { tier: -1, y: 3.5, radius: 1.6, ids: ['A1','A2','A3','A4','A5'] },
-    { tier: 0, y: 2.2, radius: 2.6 },
-    { tier: 1, y: 1.1, radius: 1.3 },
-    { tier: 2, y: 0.0, radius: 2.6 },
-    { tier: 3, y: -1.3, radius: 3.2 },
-    { tier: 4, y: -2.5, radius: 2.3 },
-    { tier: 5, y: -3.5, radius: 1.8 },
-  ];
-  
-  // Connectivity-aware ordering per tier
+  // Build adjacency
   const allIds = new Set(['A1','A2','A3','A4','A5']);
   Object.keys(d.theorems||{}).forEach(id=>allIds.add(id));
   
@@ -796,26 +791,58 @@ function buildCrystal(d) {
     return rm[dd]||dd;
   }
   
-  // Get parents for ordering
   const parents = {};
   Object.entries(d.theorems||{}).forEach(([tid,t])=>{
     const ps = new Set();
     (t.dependencies||[]).forEach(dep=>{const cd=cleanDep(dep);if(cd&&allIds.has(cd))ps.add(cd)});
     parents[tid]=ps;
   });
+  ['A1','A2','A3','A4','A5'].forEach(a=>{parents[a]=new Set()});
   
-  // Group by tier with connectivity ordering
-  const tierNodes = {};
-  Object.entries(d.theorems||{}).forEach(([tid,t])=>{
-    const tier=t.tier??0;
-    if(!tierNodes[tier])tierNodes[tier]=[];
-    tierNodes[tier].push(tid);
+  // Compute BFS depth from axioms
+  const nodeDepth = {};
+  ['A1','A2','A3','A4','A5'].forEach(a=>{nodeDepth[a]=0});
+  let changed = true;
+  while (changed) {
+    changed = false;
+    allIds.forEach(tid=>{
+      if (tid in nodeDepth) return;
+      const ps = parents[tid] || new Set();
+      if (ps.size > 0 && [...ps].every(p=>p in nodeDepth)) {
+        nodeDepth[tid] = Math.max(...[...ps].map(p=>nodeDepth[p])) + 1;
+        changed = true;
+      }
+    });
+  }
+  
+  // Group by depth
+  const byDepth = {};
+  Object.entries(nodeDepth).forEach(([id,dp])=>{
+    if(!byDepth[dp])byDepth[dp]=[];
+    byDepth[dp].push(id);
   });
+  const maxDepth = Math.max(...Object.keys(byDepth).map(Number));
   
-  // Greedy nearest-neighbor angular ordering
-  for (const tier of Object.keys(tierNodes)) {
-    const nodes = tierNodes[tier];
+  // Hourglass radius profile — creates the double-waisted shape
+  // Width at each depth determines the ring radius
+  function hourglassRadius(dp) {
+    const widths = {};
+    Object.entries(byDepth).forEach(([d,nodes])=>{widths[d]=nodes.length});
+    const w = widths[dp] || 1;
+    // Base radius from node count, with aesthetic shaping
+    if (w === 1) return 0;  // Waist nodes go on axis
+    if (w === 2) return 0.7;
+    if (w === 3) return 1.3;
+    if (w === 4) return 1.8;
+    if (w === 5) return 2.2;
+    return 1.0 + w * 0.35;
+  }
+  
+  // Sort nodes within each depth for best visual connectivity
+  for (const dp of Object.keys(byDepth)) {
+    const nodes = byDepth[dp];
     if (nodes.length <= 2) continue;
+    // Sort by parent overlap for proximity
     const ordered = [nodes.reduce((a,b)=>(parents[a]||new Set()).size>(parents[b]||new Set()).size?a:b)];
     const remaining = new Set(nodes);
     remaining.delete(ordered[0]);
@@ -831,10 +858,10 @@ function buildCrystal(d) {
       ordered.push(best);
       remaining.delete(best);
     }
-    tierNodes[tier] = ordered;
+    byDepth[dp] = ordered;
   }
   
-  // Place nodes in 3D
+  // Place nodes: depth → Y position, hourglass radius → ring
   const nodePos = {};
   const nodeMeshes = [];
   const nodeData = {};
@@ -844,30 +871,50 @@ function buildCrystal(d) {
   const crystalGroup = new THREE.Group();
   scene.add(crystalGroup);
   
-  tierCfg.forEach(cfg => {
-    const ids = cfg.ids || tierNodes[cfg.tier] || [];
+  // Y range: top (depth 0) to bottom (depth maxDepth)
+  const yTop = 4.5, yBot = -4.5;
+  const yStep = (yTop - yBot) / maxDepth;
+  
+  for (let dp = 0; dp <= maxDepth; dp++) {
+    const ids = byDepth[dp] || [];
+    const y = yTop - dp * yStep;
+    const radius = hourglassRadius(dp);
+    
     ids.forEach((id, i) => {
-      const angle = (i / ids.length) * Math.PI * 2 - Math.PI/2;
-      const x = Math.cos(angle) * cfg.radius;
-      const z = Math.sin(angle) * cfg.radius;
-      const y = cfg.y;
+      let x, z;
+      if (ids.length === 1) {
+        // Waist node: on the vertical axis
+        x = 0; z = 0;
+      } else {
+        const angle = (i / ids.length) * Math.PI * 2 - Math.PI/2;
+        x = Math.cos(angle) * radius;
+        z = Math.sin(angle) * radius;
+      }
+      
       nodePos[id] = new THREE.Vector3(x, y, z);
       
-      const tier = cfg.tier;
+      const tier = id.startsWith('A') ? -1 : (d.theorems?.[id]?.tier ?? 0);
       const col = colorMap[String(tier)] || 0x888888;
       const thm = d.theorems?.[id];
-      const isAxiom = tier === -1;
+      const isAxiom = id.startsWith('A') && id.length <= 2;
       const isPStructural = thm?.epistemic === 'P_structural';
+      const isWaist = ids.length === 1 && !isAxiom;
+      
+      // Size: waist nodes bigger, axioms big, others scaled by fanout
       const fanout = Object.values(d.theorems||{}).filter(t=>(t.dependencies||[]).some(dep=>{const cd=cleanDep(dep);return cd===id})).length;
-      const sz = isAxiom ? 0.16 : 0.09 + fanout * 0.012;
+      let sz = isAxiom ? 0.16 : isWaist ? 0.20 : 0.08 + fanout * 0.012;
       
       let geom, mat;
       if (isAxiom) {
         geom = new THREE.OctahedronGeometry(sz, 0);
         mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.5, transparent: true, opacity: 0.9 });
+      } else if (isWaist) {
+        // Waist nodes: diamond shape, glowing
+        geom = new THREE.OctahedronGeometry(sz, 0);
+        mat = new THREE.MeshPhongMaterial({ color: col, emissive: 0xffffff, emissiveIntensity: 0.4, transparent: true, opacity: 0.95 });
       } else if (isPStructural) {
         geom = new THREE.BoxGeometry(sz*1.3, sz*1.3, sz*1.3);
-        mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.3, transparent: true, opacity: 0.8, wireframe: false });
+        mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.3, transparent: true, opacity: 0.8 });
       } else {
         geom = new THREE.SphereGeometry(sz, 12, 8);
         mat = new THREE.MeshPhongMaterial({ color: col, emissive: col, emissiveIntensity: 0.35, transparent: true, opacity: 0.85 });
@@ -875,27 +922,39 @@ function buildCrystal(d) {
       
       const mesh = new THREE.Mesh(geom, mat);
       mesh.position.copy(nodePos[id]);
-      if (isPStructural) mesh.rotation.set(Math.PI/4, Math.PI/4, 0);
-      mesh.userData = { id, tier, epistemic: thm?.epistemic||'axiom', name: isAxiom?AXNM[id]:(thm?.name||id).replace(/^[^:]+:\s*/,'').slice(0,30), fanout };
+      if (isPStructural && !isWaist) mesh.rotation.set(Math.PI/4, Math.PI/4, 0);
+      mesh.userData = { id, tier, depth: dp, epistemic: thm?.epistemic||'axiom', name: isAxiom?AXNM[id]:(thm?.name||id).replace(/^[^:]+:\s*/,'').slice(0,30), fanout, isWaist };
       crystalGroup.add(mesh);
       nodeMeshes.push(mesh);
       nodeData[id] = mesh;
     });
-  });
+    
+    // Depth ring wireframe (skip single-node depths)
+    if (ids.length >= 3) {
+      const ringPts = [];
+      for (let i = 0; i <= 64; i++) {
+        const a = (i/64) * Math.PI * 2;
+        ringPts.push(new THREE.Vector3(Math.cos(a)*radius, yTop - dp*yStep, Math.sin(a)*radius));
+      }
+      const ringGeom = new THREE.BufferGeometry().setFromPoints(ringPts);
+      const tier0 = id => id.startsWith('A') ? -1 : (d.theorems?.[id]?.tier ?? 0);
+      const domTier = ids.length > 0 ? tier0(ids[0]) : 0;
+      const ringCol = colorMap[String(domTier)] || 0x888888;
+      crystalGroup.add(new THREE.Line(ringGeom, new THREE.LineBasicMaterial({ color: ringCol, transparent: true, opacity: 0.10 })));
+    }
+  }
   
-  // Tier ring wireframes
-  tierCfg.forEach(cfg => {
-    const ids = cfg.ids || tierNodes[cfg.tier] || [];
-    if (ids.length < 3) return;
+  // Waist indicator rings (pulsing glow rings at waist depths)
+  [6, 12].forEach(waistDepth => {
+    if (!byDepth[waistDepth] || byDepth[waistDepth].length !== 1) return;
+    const wy = yTop - waistDepth * yStep;
     const ringPts = [];
     for (let i = 0; i <= 64; i++) {
       const a = (i/64) * Math.PI * 2;
-      ringPts.push(new THREE.Vector3(Math.cos(a)*cfg.radius, cfg.y, Math.sin(a)*cfg.radius));
+      ringPts.push(new THREE.Vector3(Math.cos(a)*0.5, wy, Math.sin(a)*0.5));
     }
     const ringGeom = new THREE.BufferGeometry().setFromPoints(ringPts);
-    const col = colorMap[String(cfg.tier)] || 0x888888;
-    const ringMat = new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: 0.12 });
-    crystalGroup.add(new THREE.Line(ringGeom, ringMat));
+    crystalGroup.add(new THREE.Line(ringGeom, new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.35 })));
   });
   
   // Dependency edges
@@ -906,10 +965,11 @@ function buildCrystal(d) {
       if(cd && nodePos[cd] && nodePos[tid]) {
         const pts = [nodePos[cd], nodePos[tid]];
         const geom = new THREE.BufferGeometry().setFromPoints(pts);
-        const sTier = d.theorems?.[cd]?.tier ?? (cd.startsWith('A')?-1:0);
+        const sDp = nodeDepth[cd] ?? 0;
+        const tDp = nodeDepth[tid] ?? 0;
+        const dist = Math.abs(sDp - tDp);
+        const opacity = dist > 4 ? 0.04 : dist > 2 ? 0.07 : dist > 1 ? 0.12 : 0.18;
         const tTier = t.tier ?? 0;
-        const dist = Math.abs(sTier - tTier);
-        const opacity = dist > 2 ? 0.06 : dist > 1 ? 0.1 : 0.15;
         const col = colorMap[String(tTier)] || 0x888888;
         const mat = new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: opacity });
         const line = new THREE.Line(geom, mat);
@@ -920,13 +980,16 @@ function buildCrystal(d) {
   });
   
   // Vertical axis line
-  const axisPts = [new THREE.Vector3(0, 4, 0), new THREE.Vector3(0, -4, 0)];
+  const axisPts = [new THREE.Vector3(0, yTop+0.5, 0), new THREE.Vector3(0, yBot-0.5, 0)];
   const axisGeom = new THREE.BufferGeometry().setFromPoints(axisPts);
-  crystalGroup.add(new THREE.Line(axisGeom, new THREE.LineBasicMaterial({ color: 0x1a2540, transparent: true, opacity: 0.3 })));
+  crystalGroup.add(new THREE.Line(axisGeom, new THREE.LineBasicMaterial({ color: 0x1a2540, transparent: true, opacity: 0.25 })));
+  
+  // Depth labels on axis (waist markers)
+  // (Three.js r128 doesn't have sprite text easily, so we skip text labels)
   
   // Mouse rotation
   let isDragging = false, prevX = 0, prevY = 0;
-  let rotY = 0, rotX = 0.15;
+  let rotY = 0, rotX = 0.12;
   let autoRotate = true;
   
   renderer.domElement.addEventListener('pointerdown', e => {
@@ -992,7 +1055,7 @@ function buildCrystal(d) {
       const directUp = [...(upstream[ud.id]||[])].join(', ') || (ud.tier===-1?'(axiom)':'none');
       const directDown = [...(downstream[ud.id]||[])].slice(0,6).join(', ') + ((downstream[ud.id]||[]).size>6?' …':'');
       
-      hoverEl.innerHTML = `<div style="font-weight:700;color:${col};font-size:12px">${ud.id}</div><div style="font-size:12px;margin:2px 0">${ud.name}</div><div style="font-size:11px;color:#4a5575">Tier ${ud.tier===-1?'A':ud.tier} · [${ud.epistemic}]</div><div style="font-size:11px;color:#60a5fa;margin-top:4px">↑ ancestors: ${upCount} <span style="color:#4a5575">← ${directUp}</span></div><div style="font-size:11px;color:#34d399">↓ descendants: ${downCount} <span style="color:#4a5575">→ ${directDown||'(leaf)'}</span></div>`;
+      hoverEl.innerHTML = `<div style="font-weight:700;color:${col};font-size:12px">${ud.id}${ud.isWaist?' ★ WAIST':''}</div><div style="font-size:12px;margin:2px 0">${ud.name}</div><div style="font-size:11px;color:#4a5575">Tier ${ud.tier===-1?'A':ud.tier} · Depth ${ud.depth} · [${ud.epistemic}]</div><div style="font-size:11px;color:#60a5fa;margin-top:4px">↑ ancestors: ${upCount} <span style="color:#4a5575">← ${directUp}</span></div><div style="font-size:11px;color:#34d399">↓ descendants: ${downCount} <span style="color:#4a5575">→ ${directDown||'(leaf)'}</span></div>`;
       hoverEl.style.opacity = '1';
       
       // Highlight full chain
@@ -1021,10 +1084,11 @@ function buildCrystal(d) {
     } else {
       hoverEl.style.opacity = '0';
       edgeLines.forEach(el => {
-        const sTier = d.theorems?.[el.source]?.tier??(el.source.startsWith('A')?-1:0);
+        const sDp = nodeDepth[el.source] ?? 0;
+        const tDp = nodeDepth[el.target] ?? 0;
+        const dist = Math.abs(sDp-tDp);
+        el.line.material.opacity = dist>4?0.04:dist>2?0.07:dist>1?0.12:0.18;
         const tTier = d.theorems?.[el.target]?.tier??0;
-        const dist = Math.abs(sTier-tTier);
-        el.line.material.opacity = dist>2?0.06:dist>1?0.1:0.15;
         const restoreCol = colorMap[String(tTier)] || 0x888888;
         el.line.material.color.setHex(restoreCol);
       });
