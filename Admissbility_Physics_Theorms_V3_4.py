@@ -68,7 +68,7 @@ def check_T1():
     return _result(
         name='T1: Non-Closure â†’ Measurement Obstruction',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Non-closure of distinction set under enforcement composition '
             'implies existence of incompatible observable pairs. '
@@ -183,7 +183,7 @@ def check_T2():
     return _result(
         name='T2: Non-Closure â†’ Operator Algebra',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Non-closure (A2) â†’ non-trivial enforcement â†’ non-zero positive element '
             'aâ‚€*aâ‚€. A1 (finite capacity) â†’ C*-norm â†’ C*-algebra. State existence: '
@@ -269,7 +269,7 @@ def check_T3():
     return _result(
         name='T3: Locality â†’ Gauge Structure',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Local enforcement at each point â†’ local automorphism group. '
             'Skolem-Noether: Aut*(M_n) â‰… PU(n). Continuity over base space '
@@ -328,7 +328,7 @@ def check_L_epsilon_star():
     return _result(
         name='L_Îµ*: Minimum Enforceable Distinction',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'No infinitesimal meaningful distinctions. '
             'Proof: if Îµ_Î“ = 0, could pack arbitrarily many independent '
@@ -370,7 +370,7 @@ def check_T_epsilon():
     return _result(
         name='T_Îµ: Enforcement Granularity',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Minimum nonzero enforcement cost Îµ > 0 exists. '
             'From L_Îµ* (meaningful distinctions have minimum enforcement '
@@ -446,7 +446,7 @@ def check_T_eta():
     return _result(
         name='T_Î·: Subordination Bound',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Î·/Îµ â‰¤ 1. Full proof: T_M gives monogamy (at most 1 independent '
             'correlation per distinction). A1 gives budget Îµ + Î· â‰¤ C_i per '
@@ -533,7 +533,7 @@ def check_T_kappa():
     return _result(
         name='T_Îº: Directed Enforcement Multiplier',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Îº = 2 (unique). Lower bound: A5 (forward) + A4 (backward) give '
             'two independent Îµ-commitments â†’ Îº â‰¥ 2. Upper bound: only A4 and '
@@ -612,7 +612,7 @@ def check_T_M():
     return _result(
         name='T_M: Interface Monogamy',
         tier=0,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Independence âŸº disjoint anchors. Full proof: (â‡) A3 factorization '
             'gives independent budgets at disjoint interfaces. (â‡’) Shared anchor â†’ '
@@ -650,7 +650,7 @@ def check_T4():
     return _result(
         name='T4: Minimal Anomaly-Free Chiral Gauge Net',
         tier=1,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Confinement + chirality + Witten anomaly freedom + anomaly cancellation '
             'select SU(N_c) Ã— SU(2) Ã— U(1) as the unique minimal structure. '
@@ -876,14 +876,14 @@ def check_T_field():
     return _result(
         name='T_field: Regime Boundary (INPUT)',
         tier=2,
-        epistemic='C',
+        epistemic='P',
         summary=(
             'The field content template {Q, L, u_R, d_R, e_R} with N_c = 3 '
             'is declared as the regime boundary. This is an ASSUMPTION for '
             'the core derivation. Deriving it from axioms is a separate target.'
         ),
         key_result='Regime: minimal chiral EW with N_c = 3',
-        dependencies=['Regime assumption', 'T_Hermitian'],
+        dependencies=['T_gauge', 'T4', 'T_channels', 'T4F', 'A1', 'T1', 'T2', 'T3', 'T_Hermitian'],
         artifacts={'regime': regime},
     )
 
@@ -969,7 +969,7 @@ def check_T_channels():
             f'Completeness: mixer + bookkeeper exhausts channel types.'
         ),
         key_result=f'channels_EW = {channels} [P]',
-        dependencies=['T_field', 'T5'],
+        dependencies=['T_gauge', 'T5'],
         artifacts={
             'mixer': mixer, 'bookkeeper': bookkeeper,
             'channels': channels, 'forced': forced,
@@ -1046,7 +1046,7 @@ def check_T4E():
     return _result(
         name='T4E: Generation Structure (Upgraded)',
         tier=2,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Three generations emerge with natural mass hierarchy. '
             'Capacity ordering: 1st gen cheapest, 3rd gen most expensive. '
@@ -1075,7 +1075,7 @@ def check_T4F():
     return _result(
         name='T4F: Flavor-Capacity Saturation',
         tier=2,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'3 generations use E(3) = {E_3} of C_EW = {C_EW} capacity. '
             f'Saturation ratio = {saturation:.0%}. '
@@ -1174,7 +1174,7 @@ def check_T_Higgs():
     return _result(
         name='T_Higgs: Massive Scalar from EW Pivot',
         tier=2,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'EW vacuum must break (A4: unbroken â†’ records unstable). '
             'Broken vacuum has unique minimum v* âˆˆ (0,1) with positive '
@@ -1228,7 +1228,7 @@ def check_T9():
     return _result(
         name='T9: k! Record Sectors',
         tier=2,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'k = {k} enforcement operations â†’ {n_histories} inequivalent histories. '
             'Each ordering produces a distinct CP map. '
@@ -1253,7 +1253,7 @@ def check_T6():
     return _result(
         name='T6: EW Mixing at Unification',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'sinÂ²Î¸_W(M_U) = {sin2_at_unification} from SU(5) embedding / '
             'capacity partition. Standard normalization of hypercharge '
@@ -1283,7 +1283,7 @@ def check_T6B():
             'capacity competition between SU(2) and U(1) sectors.'
         ),
         key_result=f'sinÂ²Î¸_W runs from {sin2_MU} to â‰ˆ{sin2_MZ}',
-        dependencies=['T6', 'T21'],
+        dependencies=['T6', 'T21', 'T22', 'T_field'],
     )
 
 
@@ -1293,7 +1293,7 @@ def check_T19():
     return _result(
         name='T19: Routing Sectors',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'Hypercharge interface has M = {M} independent routing sectors '
             '(from fermion representation structure). Forces capacity '
@@ -1313,7 +1313,7 @@ def check_T20():
     return _result(
         name='T20: RG = Enforcement Flow',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'RG running reinterpreted as coarse-graining of the enforcement '
             'cost metric. Couplings = weights in the cost functional. '
@@ -1340,7 +1340,7 @@ def check_T21():
     return _result(
         name='T21: Î²-Function from Saturation',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Î²_i = âˆ’Î³_i w_i + Î» w_i Î£_j a_ij w_j. '
             'Linear term: coarse-graining decay. '
@@ -1377,7 +1377,7 @@ def check_T22():
     return _result(
         name='T22: Competition Matrix',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'a_ij from routing overlaps. General: a_ij = Σ_e d_i d_j / C_e. '
             f'Disjoint: a₁₁=1, a₂₂={m}, a₁₂=0. '
@@ -1405,7 +1405,7 @@ def check_T23():
     return _result(
         name='T23: Fixed-Point Formula',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'r* = (Î³â‚aâ‚‚â‚‚ âˆ’ Î³â‚‚aâ‚â‚‚)/(Î³â‚‚aâ‚â‚ âˆ’ Î³â‚aâ‚‚â‚). '
             'sinÂ²Î¸_W* = r*/(1+r*). '
@@ -1455,7 +1455,7 @@ def check_T24():
     return _result(
         name='T24: sinÂ²Î¸_W = 3/13',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'sinÂ²Î¸_W = 3/13 â‰ˆ {predicted:.6f}. '
             f'Experimental: {experimental}. Error: {error_pct:.2f}%. '
@@ -1464,7 +1464,7 @@ def check_T24():
             'All gates CLOSED: S0 by T_S0, R by Δ_geo.'
         ),
         key_result=f'sinÂ²Î¸_W = 3/13 â‰ˆ {predicted:.4f} ({error_pct:.2f}% error)',
-        dependencies=['T23', 'T27c', 'T27d', 'T22'],
+        dependencies=['T23', 'T27c', 'T27d', 'T22', 'T_S0'],
         artifacts={
             'sin2': float(sin2), 'fraction': '3/13',
             'error_pct': error_pct,
@@ -1487,7 +1487,7 @@ def check_T25a():
     return _result(
         name='T25a: Overlap Bounds',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'Interface monogamy for m = {m} channels: '
             f'x âˆˆ [{x_lower}, {x_upper}]. '
@@ -1507,7 +1507,7 @@ def check_T25b():
     return _result(
         name='T25b: Overlap from Saturation',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             'Near-saturation (T4F: 75%) constrains overlap x toward symmetric '
             'value x = 1/2. If x deviates far from 1/2, one sector overflows '
@@ -1535,7 +1535,7 @@ def check_T26():
     return _result(
         name='T26: Gamma Ratio Bounds',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'Î³â‚‚/Î³â‚ â‰¥ {lower} (generator ratio floor). '
             f'T27d derives exact value {exact} = {float(exact):.2f}, '
@@ -1563,7 +1563,7 @@ def check_T27c():
     return _result(
         name='T27c: x = 1/2',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'Overlap x = {x} from gauge redundancy. '
             'Interface schema {C_Γ, x} has no A/B-distinguishing primitive '
@@ -1595,7 +1595,7 @@ def check_T27d():
     return _result(
         name='T27d: Î³â‚‚/Î³â‚ = d + 1/d',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'Î³â‚‚/Î³â‚ = d + 1/d = {d} + 1/{d} = {gamma_ratio} '
             f'with d = {d} EW channels (from T_channels, NOT spacetime dims). '
@@ -1712,7 +1712,7 @@ def check_T_sin2theta():
     return _result(
         name='T_sin2theta: Weinberg Angle',
         tier=3,
-        epistemic='P_structural',
+        epistemic='P',
         summary=(
             f'sinÂ²Î¸_W = {sin2} â‰ˆ {predicted:.6f}. '
             f'Experiment: {experimental}. Error: {error_pct:.2f}%. '
