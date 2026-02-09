@@ -883,7 +883,7 @@ def check_T_field():
             'the core derivation. Deriving it from axioms is a separate target.'
         ),
         key_result='Regime: minimal chiral EW with N_c = 3',
-        dependencies=['Regime assumption'],
+        dependencies=['Regime assumption', 'T_Hermitian'],
         artifacts={'regime': regime},
     )
 
@@ -1320,7 +1320,7 @@ def check_T20():
             'Running = redistribution of capacity across scales.'
         ),
         key_result='RG â‰¡ enforcement cost renormalization',
-        dependencies=['A1', 'T3'],
+        dependencies=['A1', 'T3', 'T_Hermitian'],
     )
 
 
@@ -1349,7 +1349,7 @@ def check_T21():
             'Î³â‚ = 1 (normalization), Î» (boundary condition).'
         ),
         key_result='Î²_i = âˆ’Î³_i w_i + Î» w_i Î£_j a_ij w_j',
-        dependencies=['T20', 'A2'],
+        dependencies=['T20', 'A2', 'T_M'],
     )
 
 
@@ -1422,7 +1422,7 @@ def check_T24():
     DERIVATION CHAIN (no witness parameters):
       T_channels â†’ d = 4 EW channels
       T27c: x = 1/2 [P_structural] (S0 closed by T_S0)
-      T27d: Î³â‚‚/Î³â‚ = d + 1/d = 17/4 [P_structural | R â†’ closed by Î“_geo]
+      T27d: Î³â‚‚/Î³â‚ = d + 1/d = 17/4 [P_structural | R â†’ closed by A4+L_ε*]
       T22: aâ‚â‚=1, aâ‚â‚‚=1/2, aâ‚‚â‚‚=13/4 [P_structural]
       T23: r* = 3/10 â†’ sinÂ²Î¸_W = 3/13 [P_structural]
     
@@ -1543,7 +1543,7 @@ def check_T26():
             'Bounds proved [P_structural]; exact value from T27d.'
         ),
         key_result=f'Î³â‚‚/Î³â‚ â‰¥ {lower}, exact = {exact} (T27d)',
-        dependencies=['T21', 'A1', 'T27d'],
+        dependencies=['T21', 'A1', 'T27d', 'T_channels'],
         artifacts={
             'lower': float(lower), 'exact': float(exact),
             'in_bounds': in_bounds,
@@ -1582,7 +1582,7 @@ def check_T27d():
     R-gate (R1-R4) NOW CLOSED:
       R1 (independence) â† A3 + A5 (genericity selects independent case)
       R2 (additivity)   â† A1 + A5 (simplest cost structure)
-      R3 (covariance)   â† Î“_geo (manifold â†’ chart covariance)
+      R3 (covariance)   â† A4+L_ε* (ledger ordering: refinement covariance)
       R4 (non-cancel)   â† A4 (irreversible records)
     
     IMPORTANT: d = 4 here is EW CHANNELS (3 mixer + 1 bookkeeper),
@@ -1601,13 +1601,13 @@ def check_T27d():
             f'with d = {d} EW channels (from T_channels, NOT spacetime dims). '
             'Derived from: F(d)=d (R1+R2), F(1/d)=1/d (R3 covariance), '
             'Î³=sum (R4 non-cancellation). '
-            'R-gate CLOSED: R1â†A3+A5, R2â†A1+A5, R3â†Î“_geo, R4â†A4.'
+            'R-gate CLOSED: R1â†A3+A5, R2â†A1+A5, R3â†A4+L_ε*, R4â†A4.'
         ),
         key_result=f'Î³â‚‚/Î³â‚ = {gamma_ratio}',
-        dependencies=['T26', 'T_channels', 'Î“_closure'],
+        dependencies=['T26', 'T_channels', 'A4', 'L_ε*'],
         artifacts={'gamma_ratio': float(gamma_ratio), 'd': d,
                    'd_source': 'T_channels (EW channels, not spacetime)',
-                   'R_gate': 'CLOSED: R1â†A3+A5, R2â†A1+A5, R3â†Î“_geo, R4â†A4'},
+                   'R_gate': 'CLOSED: R1â†A3+A5, R2â†A1+A5, R3â†A4+L_ε*, R4â†A4'},
     )
 
 
@@ -1663,7 +1663,7 @@ def check_T_S0():
             'T27c and T_sin2theta upgraded: S0 gate CLOSED.'
         ),
         key_result='S0 proved → sin²θ_W = 3/13 has no remaining gates',
-        dependencies=['T22', 'T27c', 'T27d', 'T_channels'],
+        dependencies=['T22', 'T27d', 'T_channels'],
         artifacts={
             'S0_proved': True,
             'gauge_invariance_verified': gauge_ok,
@@ -1685,7 +1685,7 @@ def check_T_sin2theta():
       T22: competition matrix [P_structural]
       T23: fixed-point formula [P_structural]
       T27c: x = 1/2 [P_structural] (S0 closed by T_S0)
-      T27d: Î³â‚‚/Î³â‚ = 17/4 [P_structural | R â†’ closed by Î“_geo]
+      T27d: Î³â‚‚/Î³â‚ = 17/4 [P_structural | R â†’ closed by A4+L_ε*]
       â†’ sinÂ²Î¸_W = 3/13 [P_structural] (all gates closed)
     
     UPGRADE: [W] â†’ [P_structural | S0] → [P_structural]
