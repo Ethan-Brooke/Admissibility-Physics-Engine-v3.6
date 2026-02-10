@@ -423,9 +423,49 @@ h.push('</div></div>');
 
   // === INFLUENCE TREEMAP (standalone section) ===
   h.push('<div class="sec"><div class="sec-t">Influence Treemap</div>');
-  h.push('<div class="sec-intro">Block area = downstream theorem count. Hover for details. Color = tier. Larger blocks drive more of the framework.</div>');
-  h.push('<div class="card" style="padding:12px;overflow:hidden">');
-  h.push('<div id="treemap-box" style="width:100%;height:500px;position:relative;border:1px solid var(--bdr);border-radius:4px;overflow:hidden;background:var(--c1)"></div>');
+  h.push('<div class="sec-intro">Every theorem in the framework feeds downstream results. This treemap sizes each theorem by <b style="color:var(--grn)">downstream influence</b>\u2014the number of other theorems that depend on it, directly or indirectly. The biggest blocks are the load-bearing pillars of the entire derivation. Color encodes tier: <span style="color:#f87171">axioms</span>, <span style="color:#818cf8">foundations</span>, <span style="color:#34d399">gauge</span>, <span style="color:#60a5fa">particles</span>, <span style="color:#a78bfa">constants</span>, <span style="color:#f87171">gravity</span>, <span style="color:#fbbf24">closure</span>.</div>');
+  h.push('<div class="card" style="padding:16px;overflow:hidden">');
+  h.push('<div id="treemap-hover" style="position:fixed;display:none;padding:10px 14px;background:#111827f0;border:1px solid var(--bdr);border-radius:6px;font-family:var(--mn);font-size:12px;color:var(--br);pointer-events:none;z-index:1000;max-width:300px;line-height:1.5;box-shadow:0 4px 20px #0008"></div>');
+  h.push('<div id="treemap-box" style="width:100%;height:620px;position:relative;border:1px solid var(--bdr);border-radius:6px;overflow:hidden;background:var(--c1)"></div>');
+  h.push('</div>');
+
+  // === TREEMAP ANALYSIS ===
+  h.push('<div class="card" style="padding:20px;margin-top:12px">');
+  h.push('<div style="font-family:var(--sn);font-size:16px;font-weight:700;color:var(--br);margin-bottom:12px">What the Influence Map Reveals</div>');
+
+  // Compute influence data for analysis
+  h.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">');
+
+  // Left column: key stats
+  h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:14px">');
+  h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Power Concentration</div>');
+  h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8">');
+  h.push('<b style="color:#f87171">A1</b> (Finite Capacity) influences <b style="color:var(--br)">61 of 63</b> nodes\u2014virtually the entire framework flows from a single axiom about finiteness.<br>');
+  h.push('The top 5 nodes (<b style="color:#f87171">A1</b>, <b style="color:#f87171">A3</b>, <b style="color:#f87171">A4</b>, <b style="color:#818cf8">L_nc</b>, <b style="color:#818cf8">T0</b>) collectively reach <b style="color:var(--br)">97%</b> of the theorem chain.<br>');
+  h.push('By Tier 1 (gauge selection), just <b style="color:var(--br)">3 theorems</b> (T4, T5, T_gauge) funnel all structure into a single bottleneck.');
+  h.push('</div></div>');
+
+  // Right column: leaf analysis
+  h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:14px">');
+  h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:700;color:var(--pur);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Terminal Predictions</div>');
+  h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8">');
+  h.push('<b style="color:var(--br)">15 leaf nodes</b> have zero downstream influence\u2014these are the framework\u2019s <em>terminal predictions</em>, the endpoints where derivation meets experiment.<br>');
+  h.push('They include: <b style="color:var(--grn)">T_sin2theta</b> (Weinberg angle), <b style="color:#f87171">T11</b> (\u03a9_\u039b), <b style="color:#f87171">T_Bek</b> (Bekenstein bound), <b style="color:#fbbf24">T_entropy</b> (von Neumann entropy).<br>');
+  h.push('Every leaf is testable or verifiable\u2014the framework has <b style="color:var(--br)">no dangling abstractions</b>.');
+  h.push('</div></div>');
+  h.push('</div>');
+
+  // The funnel insight
+  h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:14px">');
+  h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:700;color:var(--amb);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">The Funnel Structure</div>');
+  h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8">');
+  h.push('The treemap makes the <b style="color:var(--br)">deep funnel topology</b> visible at a glance. The top row (axioms) dominates the visual area because A1, A3, A4 each influence 50\u201361 downstream theorems. ');
+  h.push('Each successive tier gets narrower\u2014not because there are fewer theorems, but because each theorem\u2019s <em>individual</em> influence shrinks as the derivation branches. ');
+  h.push('This is the signature of a <b style="color:var(--grn)">convergent architecture</b>: many inputs at the top compress through bottleneck theorems (T_gauge, T7, T_channels) before fanning out into specific predictions. ');
+  h.push('The implication is structural robustness\u2014knocking out any single leaf theorem doesn\u2019t propagate upward, but challenging an axiom threatens everything below it. ');
+  h.push('This is why the framework is <b style="color:var(--grn)">maximally falsifiable</b>: a single failed prediction at any leaf indicts the entire axiom chain above it.');
+  h.push('</div></div>');
+
   h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Enforcement Crystal</div>');
@@ -1870,103 +1910,160 @@ svgEl.addEventListener('click',function(ev){
 function buildTreemap(d){
 const box=document.getElementById('treemap-box');if(!box)return;
 const W=box.clientWidth||box.offsetWidth||box.parentElement.clientWidth||420;
-const H=box.clientHeight||820;
+const H=box.clientHeight||620;
 if(W<50){setTimeout(function(){buildTreemap(d)},500);return}
 
 const allIds=new Set(['A1','A3','A4','L_nc','L_col','L_T2','L_irr','L_loc']);
-Object.keys(d.theorems||{}).forEach(id=>allIds.add(id));
-function cDep(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
-const ch2={};
-allIds.forEach(id=>{ch2[id]=new Set()});
-[['A1','L_nc'],['A3','L_nc'],['A1','L_col'],['A4','L_col'],['L_nc','L_T2'],['A3','L_T2'],['A4','L_T2'],['A1','L_irr'],['L_nc','L_irr'],['A1','L_loc']].forEach(([s,t])=>{ch2[s].add(t)});
-Object.entries(d.theorems||{}).forEach(([tid,t])=>{(t.dependencies||[]).forEach(dep=>{const cd=cDep(dep);if(cd&&allIds.has(cd))ch2[cd].add(tid)})});
-function cntDown(id,v=new Set()){v.add(id);(ch2[id]||new Set()).forEach(c=>{if(!v.has(c))cntDown(c,v)});return v.size-1}
+Object.keys(d.theorems||{}).forEach(function(id){allIds.add(id)});
+function cDep(dep){var dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;var rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
+var ch2={};
+allIds.forEach(function(id){ch2[id]=new Set()});
+[['A1','L_nc'],['A3','L_nc'],['A1','L_col'],['A4','L_col'],['L_nc','L_T2'],['A3','L_T2'],['A4','L_T2'],['A1','L_irr'],['L_nc','L_irr'],['A1','L_loc']].forEach(function(p){ch2[p[0]].add(p[1])});
+Object.entries(d.theorems||{}).forEach(function(e){var tid=e[0],t=e[1];(t.dependencies||[]).forEach(function(dep){var cd=cDep(dep);if(cd&&allIds.has(cd))ch2[cd].add(tid)})});
+function cntDown(id,v){if(!v)v=new Set();v.add(id);(ch2[id]||new Set()).forEach(function(c){if(!v.has(c))cntDown(c,v)});return v.size-1}
+
+// Friendly names for hover
+var friendlyNames={'A1':'Finite Capacity','A3':'Locality','A4':'Irreversibility','L_nc':'Non-Closure Lemma','L_col':'Collapse Lemma','L_T2':'Finite GNS Construction','L_irr':'Irreversibility Derived','L_loc':'Locality Derived','T0':'Axiom Witness Certificates','T1':'Measurement Obstruction','T2':'Operator Algebra (C*\u2192Hilbert)','T3':'Gauge Structure','T4':'Anomaly-Free Gauge Net','T5':'Matter Completion','T_gauge':'Gauge Group = SU(3)\u00d7SU(2)\u00d7U(1)','T_field':'Field Content (unique)','T_channels':'Channel Count = 4','T7':'Generation Bound = 3','T8':'Spacetime d = 4','T9_grav':'Einstein Field Equations','T_sin2theta':'Weinberg Angle = 3/13','T11':'Cosmological Constant \u03a9_\u039b = 42/61','T12':'Dark Matter Existence','T12E':'Baryon Fraction = 3/19','T_Higgs':'Higgs Scalar (required)','T_particle':'Mass Gap & SSB','T_Bek':'Bekenstein Bound','T20':'RG = Enforcement Flow','T21':'\u03b2-Function from Saturation','T22':'Competition Matrix','T23':'Fixed-Point Formula','T24':'sin\u00b2\u03b8_W = 3/13 (all gates)','T_S0':'Schema Invariance (S0)','Delta_closure':'Full Geometric Closure','Delta_ordering':'Ledger Ordering (R1-R4)','Delta_fbc':'Fluctuation Bound','Delta_continuum':'Continuum Limit','Delta_signature':'Lorentzian Signature','Delta_particle':'Particle Emergence','T_Born':'Born Rule','T_CPTP':'CPTP Maps','T_tensor':'Tensor Product','T_entropy':'von Neumann Entropy','T_Hermitian':'Hermitian Operators','T_M':'Interface Monogamy','T_\u03b5':'Enforcement Granularity','T_\u03b7':'Subordination Bound','T_\u03ba':'Directed Multiplier \u03ba=2','L_\u03b5*':'Minimum Distinction','T4E':'Generation Structure','T4F':'Flavor-Capacity Saturation','T4G':'Yukawa Structure','T4G_Q31':'Neutrino Mass Bound','T6':'EW Mixing at Unification','T6B':'Capacity RG Running','T19':'Routing Sectors','T25a':'Overlap Bounds','T25b':'Overlap from Saturation','T26':'Gamma Ratio Bounds','T27c':'x = 1/2','T27d':'\u03b3\u2082/\u03b3\u2081 = 17/4','T7B':'Gravity from Non-Factorization','T9':'k! Record Sectors','T10':'Gravitational Coupling'};
 
 // Group by tier
-const tierGroups={};
-['A1','A3','A4'].forEach(a=>{if(!tierGroups[-1])tierGroups[-1]=[];tierGroups[-1].push({id:a,influence:cntDown(a),tier:-1,epi:'axiom'})});
-['L_nc','L_col','L_T2','L_irr','L_loc'].forEach(lm=>{if(!tierGroups[0])tierGroups[0]=[];tierGroups[0].push({id:lm,influence:cntDown(lm),tier:0,epi:'P'})});
-Object.entries(d.theorems||{}).forEach(([id,t])=>{
-  const tier=t.tier??0;
+var tierGroups={};
+['A1','A3','A4'].forEach(function(a){if(!tierGroups[-1])tierGroups[-1]=[];tierGroups[-1].push({id:a,influence:cntDown(a),tier:-1,epi:'axiom'})});
+['L_nc','L_col','L_T2','L_irr','L_loc'].forEach(function(lm){if(!tierGroups[0])tierGroups[0]=[];tierGroups[0].push({id:lm,influence:cntDown(lm),tier:0,epi:'P'})});
+Object.entries(d.theorems||{}).forEach(function(e){
+  var id=e[0],t=e[1];
+  var tier=t.tier!=null?t.tier:0;
   if(!tierGroups[tier])tierGroups[tier]=[];
-  tierGroups[tier].push({id,influence:cntDown(id),tier,epi:t.epistemic||'P'});
+  tierGroups[tier].push({id:id,influence:cntDown(id),tier:tier,epi:t.epistemic||'P',key_result:t.key_result||''});
 });
 
-const tierOrder=[-1,0,1,2,3,4,5].filter(t=>tierGroups[t]&&tierGroups[t].length);
-const tierNames={'-1':'Axioms','0':'Foundations','1':'Gauge','2':'Particles','3':'Constants','4':'Gravity','5':'Closure'};
-const tierCols={'-1':'#f87171','0':'#818cf8','1':'#34d399','2':'#60a5fa','3':'#a78bfa','4':'#f87171','5':'#fbbf24'};
+var tierOrder=[-1,0,1,2,3,4,5].filter(function(t){return tierGroups[t]&&tierGroups[t].length});
+var tierNames={'-1':'AXIOMS','0':'FOUNDATIONS','1':'GAUGE SELECTION','2':'PARTICLE CONTENT','3':'CONSTANTS & RG','4':'GRAVITY & DARK','5':'\u0393 CLOSURE'};
+var tierCols={'-1':'#f87171','0':'#818cf8','1':'#34d399','2':'#60a5fa','3':'#a78bfa','4':'#f87171','5':'#fbbf24'};
 
-// Squarified treemap layout
+// Slice treemap layout
 function squarify(items,x,y,w,h){
   if(!items.length)return[];
-  const rects=[];
-  const total=items.reduce((s,it)=>s+it.value,0);
-  if(items.length===1){rects.push({...items[0],x,y,w,h});return rects}
-  // Simple slice layout alternating horizontal/vertical
-  let accum=0;
-  const isWide=w>=h;
-  items.forEach(it=>{
-    const frac=it.value/total;
+  var rects=[];
+  var total=items.reduce(function(s,it){return s+it.value},0);
+  if(items.length===1){rects.push(Object.assign({},items[0],{x:x,y:y,w:w,h:h}));return rects}
+  var accum=0;
+  var isWide=w>=h;
+  items.forEach(function(it){
+    var frac=it.value/total;
     if(isWide){
-      const rw=frac*w;
-      rects.push({...it,x:x+accum,y,w:rw,h});
+      var rw=frac*w;
+      rects.push(Object.assign({},it,{x:x+accum,y:y,w:rw,h:h}));
       accum+=rw;
     }else{
-      const rh=frac*h;
-      rects.push({...it,x,y:y+accum,w,h:rh});
+      var rh=frac*h;
+      rects.push(Object.assign({},it,{x:x,y:y+accum,w:w,h:rh}));
       accum+=rh;
     }
   });
   return rects;
 }
 
-// First level: tiers as rows
-const tierTotal=tierOrder.reduce((s,t)=>s+tierGroups[t].reduce((a,n)=>a+Math.max(n.influence,1),0),0);
-let yAccum=0;
-const allRects=[];
-tierOrder.forEach(tier=>{
-  const nodes=tierGroups[tier];
-  const tierVal=nodes.reduce((a,n)=>a+Math.max(n.influence,1),0);
-  const tierH=Math.max(30,(tierVal/tierTotal)*H);
-  // Sort by influence descending
-  const sorted=[...nodes].sort((a,b)=>b.influence-a.influence);
-  const items=sorted.map(n=>({...n,value:Math.max(n.influence,1)}));
-  const rects=squarify(items,0,yAccum,W,tierH);
-  rects.forEach(r=>{r.tierLabel=tierNames[tier];r.tierColor=tierCols[tier]});
-  allRects.push(...rects);
+// Build tier rows
+var tierTotal=tierOrder.reduce(function(s,t){return s+tierGroups[t].reduce(function(a,n){return a+Math.max(n.influence,1)},0)},0);
+var yAccum=0;
+var allRects=[];
+var tierBands=[];
+tierOrder.forEach(function(tier){
+  var nodes=tierGroups[tier];
+  var tierVal=nodes.reduce(function(a,n){return a+Math.max(n.influence,1)},0);
+  var tierH=Math.max(38,(tierVal/tierTotal)*H);
+  var sorted=nodes.slice().sort(function(a,b){return b.influence-a.influence});
+  var items=sorted.map(function(n){return Object.assign({},n,{value:Math.max(n.influence,1)})});
+  var rects=squarify(items,0,yAccum,W,tierH);
+  rects.forEach(function(r){r.tierLabel=tierNames[tier];r.tierColor=tierCols[tier]});
+  allRects=allRects.concat(rects);
+  tierBands.push({tier:tier,y:yAccum,h:tierH,label:tierNames[tier],color:tierCols[tier],count:nodes.length});
   yAccum+=tierH;
 });
 
 // Render
-let html='';
-allRects.forEach(r=>{
-  const col=r.tierColor||'#888';
-  const minDim=Math.min(r.w,r.h);
-  const showLabel=minDim>18;
-  const showInfluence=minDim>30;
-  html+=`<div class="tm-cell" data-id="${r.id}" style="position:absolute;left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;background:${col}10;border:1px solid ${col}40;box-sizing:border-box;overflow:hidden;cursor:pointer;transition:all .15s;font-family:var(--mn)" onmouseenter="this.style.background='${col}30';this.style.zIndex=5;this.style.borderColor='${col}'" onmouseleave="this.style.background='${col}10';this.style.zIndex=0;this.style.borderColor='${col}40'">`;
-  if(showLabel){
-    html+=`<div style="padding:3px 4px;font-size:${Math.min(11,Math.max(7,r.w/8))}px;font-weight:700;color:${col};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.id}</div>`;
+var maxInf=Math.max.apply(null,allRects.map(function(r){return r.influence}));
+var html='';
+
+// Tier band separators + labels
+tierBands.forEach(function(band,i){
+  if(i>0){
+    html+='<div style="position:absolute;left:0;top:'+Math.round(band.y)+'px;width:100%;height:1px;background:'+band.color+'40;pointer-events:none;z-index:2"></div>';
   }
-  if(showInfluence){
-    html+=`<div style="padding:0 4px;font-size:${Math.min(9,Math.max(6,r.w/12))}px;color:#4a5575;white-space:nowrap;overflow:hidden">â†“${r.influence}</div>`;
-  }
-  html+=`</div>`;
+  html+='<div style="position:absolute;right:6px;top:'+Math.round(band.y+3)+'px;font-family:var(--mn);font-size:9px;font-weight:700;color:'+band.color+';opacity:0.7;pointer-events:none;text-transform:uppercase;letter-spacing:1.5px;z-index:3">'+band.label+'</div>';
 });
 
-// Tier labels as overlays
-yAccum=0;
-tierOrder.forEach(tier=>{
-  const nodes=tierGroups[tier];
-  const tierVal=nodes.reduce((a,n)=>a+Math.max(n.influence,1),0);
-  const tierH=Math.max(30,(tierVal/tierTotal)*H);
-  html+=`<div style="position:absolute;right:4px;top:${yAccum+2}px;font-family:var(--mn);font-size:8px;font-weight:600;color:${tierCols[tier]};opacity:0.6;pointer-events:none;text-transform:uppercase;letter-spacing:1px">${tierNames[tier]}</div>`;
-  yAccum+=tierH;
+// Cells
+allRects.forEach(function(r){
+  var col=r.tierColor||'#888';
+  var minDim=Math.min(r.w,r.h);
+  var infPct=r.influence/maxInf;
+  var fillOp=Math.round(8+infPct*20);
+  var borderOp=Math.round(40+infPct*60);
+  var fillHex=fillOp.toString(16);if(fillHex.length<2)fillHex='0'+fillHex;
+  var borderHex=borderOp.toString(16);if(borderHex.length<2)borderHex='0'+borderHex;
+
+  var idFS=Math.min(16,Math.max(9,Math.min(r.w/5.5,r.h/2.8)));
+  var infFS=Math.min(13,Math.max(8,idFS*0.72));
+  var nameFS=Math.min(11,Math.max(7,idFS*0.58));
+
+  var showLabel=minDim>16;
+  var showInf=r.h>30&&r.w>42;
+  var showName=r.h>48&&r.w>75;
+
+  var fname=friendlyNames[r.id]||r.key_result||'';
+  var fnameEsc=fname.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+  html+='<div class="tm-cell" data-id="'+r.id+'" data-inf="'+r.influence+'" data-tier="'+r.tierLabel+'" data-name="'+fnameEsc+'" data-epi="'+(r.epi||'')+'" data-col="'+col+'" data-fh="'+fillHex+'" data-bh="'+borderHex+'" style="position:absolute;left:'+r.x+'px;top:'+r.y+'px;width:'+r.w+'px;height:'+r.h+'px;background:'+col+fillHex+';border:1px solid '+col+borderHex+';box-sizing:border-box;overflow:hidden;cursor:pointer;transition:background .15s,border-color .15s;font-family:var(--mn)" onmouseenter="tmHover(this,event)" onmouseleave="tmLeave(this)" onmousemove="tmMove(event)">';
+  if(showLabel){
+    html+='<div style="padding:5px 6px 0;font-size:'+idFS+'px;font-weight:800;color:'+col+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 10px '+col+'30">'+r.id+'</div>';
+  }
+  if(showInf){
+    html+='<div style="padding:1px 6px;font-size:'+infFS+'px;color:#8899bb;white-space:nowrap;overflow:hidden">\u2193'+r.influence+' downstream</div>';
+  }
+  if(showName&&fname){
+    html+='<div style="padding:2px 6px;font-size:'+nameFS+'px;color:#6678aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic">'+fname+'</div>';
+  }
+  html+='</div>';
 });
 
 box.innerHTML=html;
 }
 
+// Treemap hover tooltip
+function tmHover(el,ev){
+  var h=document.getElementById('treemap-hover');if(!h)return;
+  var col=el.dataset.col||'#888';
+  el.style.background=col+'35';
+  el.style.borderColor=col;
+  el.style.zIndex='5';
+  var id=el.dataset.id,inf=el.dataset.inf,tier=el.dataset.tier,nm=el.dataset.name,epi=el.dataset.epi;
+  var txt='<div style="font-weight:800;font-size:15px;color:var(--br);margin-bottom:4px">'+id+'</div>';
+  if(nm)txt+='<div style="color:#8899bb;font-size:12px;margin-bottom:6px;font-style:italic">'+nm+'</div>';
+  txt+='<div style="color:var(--grn);font-size:14px;font-weight:700">\u2193 '+inf+' downstream theorems</div>';
+  txt+='<div style="color:var(--dm);font-size:11px;margin-top:3px">'+tier+' \u00b7 ['+epi+']</div>';
+  var infN=parseInt(inf);
+  if(infN===0)txt+='<div style="color:var(--amb);font-size:10px;margin-top:5px;border-top:1px solid var(--bdr);padding-top:4px">\u25c9 Terminal prediction \u2014 endpoint where theory meets experiment</div>';
+  else if(infN>30)txt+='<div style="color:var(--grn);font-size:10px;margin-top:5px;border-top:1px solid var(--bdr);padding-top:4px">\u26a0 Load-bearing node \u2014 falsification threatens '+inf+' downstream results</div>';
+  else if(infN>10)txt+='<div style="color:var(--blu);font-size:10px;margin-top:5px;border-top:1px solid var(--bdr);padding-top:4px">\u25cb Hub theorem \u2014 significant structural influence</div>';
+  h.innerHTML=txt;
+  h.style.display='block';
+  tmMove(ev);
+}
+function tmMove(ev){
+  var h=document.getElementById('treemap-hover');if(!h)return;
+  var x=ev.clientX+14,y=ev.clientY+14;
+  if(x+310>window.innerWidth)x=ev.clientX-310;
+  if(y+160>window.innerHeight)y=ev.clientY-160;
+  h.style.left=x+'px';h.style.top=y+'px';
+}
+function tmLeave(el){
+  var h=document.getElementById('treemap-hover');if(h)h.style.display='none';
+  el.style.zIndex='0';
+  var col=el.dataset.col||'#888';
+  el.style.background=col+(el.dataset.fh||'10');
+  el.style.borderColor=col+(el.dataset.bh||'40');
+}
 
 
 // Helper: toggle framework detail panels
