@@ -115,7 +115,7 @@ var TC=['#818cf8','#a78bfa','#f472b6','#fbbf24','#60a5fa','#34d399'];
 var AC='#f87171';
 var TN={'-1':'Axioms',0:'Axiom Foundations + Quantum',1:'Gauge Group',2:'Particles',3:'RG / Constants',4:'Gravity + Dark',5:'\u0394_geo Closure'};
 var AXNM={A1:'Finite Capacity',A3:'Locality',A4:'Irreversibility'};
-var LEMMA_NM={L_nc:'Non-Closure (derived)',L_col:'Collapse (derived)',L_T2:'Finite GNS (derived)'};
+var LEMMA_NM={L_nc:'Non-Closure (derived)',L_col:'Collapse (derived)',L_T2:'Finite GNS (derived)',L_irr:'Irreversibility (derived)',L_loc:'Locality (derived)'};
 var POST_NM={M:'Marginal Cost',NT:'Nontriviality'};
 var EPI_COLORS={'P':['var(--grn)','var(--grng)'],'P_structural':['var(--blu)','var(--blug)'],'C_import':['var(--amb)','var(--ambg)'],'testable':['var(--pur)','var(--purg)'],'open':['var(--dm)','var(--bg)']};
 
@@ -146,7 +146,7 @@ function render(d){
 
   var h=[];
 
-  // â•â•â• HEADER + INTRO â•â•â•
+  // ═══ HEADER + INTRO ═══
   h.push('<div class="hdr"><div class="hdr-tag">Admissibility Physics Engine</div>');
   h.push('<div class="hdr-t">'+(d.version||'v3.5')+' \u2014 Foundational Constraint Framework</div>');
   h.push('<div class="hdr-s">Last updated: '+d.date+' at 5:00 AM Pacific \u00b7 <b>'+d.total_theorems+' theorems</b> \u00b7 1 axiom (A1) + 4 derived lemmas \u00b7 0 free parameters \u00b7 <b>'+preds.length+' predictions</b></div>');
@@ -170,7 +170,7 @@ function render(d){
   var epiCount={P:0,P_structural:0,C_import:0,testable:0,open:0};
   TOE.forEach(function(c){epiCount[c.epi]=(epiCount[c.epi]||0)+1});
 
-  // â•â•â• PAPERS â•â•â•
+  // ═══ PAPERS ═══
   h.push('<div class="sec"><div class="sec-t">Papers</div>');
   h.push('<div class="sec-intro">The full technical framework, hosted on <a href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest" style="color:var(--blu);text-decoration:underline">Zenodo</a>. Read in order for the derivation chain, or start with Paper 13 for a self-contained summary of the foundational layer.</div>');
 
@@ -214,7 +214,7 @@ function render(d){
 
   h.push('</div></div>');
 
-  // â•â•â• EPISTEMIC KEY â•â•â•
+  // ═══ EPISTEMIC KEY ═══
   h.push('<div class="sec"><div class="sec-t">Epistemic Status Key</div>');
   h.push('<div class="sec-intro">Every result in this framework carries an epistemic badge indicating how it was derived and how confident we are in it. This key explains the color-coded system used throughout the dashboard.</div>');
   h.push('<div class="card" style="padding:16px">');
@@ -231,7 +231,7 @@ function render(d){
   h.push('<div style="background:var(--bg);border-radius:6px;padding:12px;border:1px solid var(--bdr)"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><div style="width:10px;height:10px;border-radius:50%;background:var(--dm)"></div><b style="color:var(--dm);font-size:12px">Open Gap</b></div><div style="color:var(--dm)">Not yet derived. These are honest gaps\u2014parameters the framework acknowledges it cannot yet produce from first principles. Each is a research target.</div></div>');
   h.push('</div></div></div>');
 
-// â•â•â• COMPLETE CONSTANTS MAP â•â•â•
+// ═══ COMPLETE CONSTANTS MAP ═══
   h.push('<div class="sec"><div class="sec-t">Complete Constants Map</div>');
   h.push('<div class="sec-intro">Every parameter needed for a complete Theory of Everything, mapped to its admissibility derivation status. Click any row to see the full proof chain, falsifiability condition, and admissibility interpretation. The \u201cAdmissibility Unit\u201d column shows what each quantity measures in the language of enforcement capacity.</div>');
   // Summary bar
@@ -367,9 +367,9 @@ h.push('</div></div>');
   h.push('</div></div>');
 
 
-// â•â•â• COSMIC ENERGY BUDGET â•â•â•
+// ═══ COSMIC ENERGY BUDGET ═══
   h.push('<div class="sec"><div class="sec-t">Cosmic Energy Budget</div>');
-  h.push('<div class="sec-intro">The total energy content of the universe, decomposed by the capacity ledger. Every fraction shown here is a ratio of small integers derived from the axiomsâ€”not a fit to CMB data. The comparison with Planck 2018 measurements is a post-hoc check.</div>');
+  h.push('<div class="sec-intro">The total energy content of the universe, decomposed by the capacity ledger. Every fraction shown here is a ratio of small integers derived from the axioms—not a fit to CMB data. The comparison with Planck 2018 measurements is a post-hoc check.</div>');
   h.push('<div class="bp" id="budget-panel">');
   h.push('<div class="bp-hdr"><div class="bp-tag">Theorem 11 + 12E \u00b7 Admissibility Physics v3.7</div>');
   h.push('<div class="bp-title">Cosmic Energy Budget<br>from <em>Capacity Accounting</em></div>');
@@ -606,7 +606,7 @@ h.push('</div></div>');
   h.push('</div></div>');
   h.push('</div></div>');
 
-  // â•â•â• PARTICLES â•â•â•
+  // ═══ PARTICLES ═══
   h.push('<div class="sec"><div class="sec-t">Particle Content</div>');
   h.push('<div class="sec-intro">The Standard Model field content\u2014quarks, leptons, gauge bosons, and the Higgs\u2014derived from capacity constraints. Three generations of matter, anomaly-free charges, and chiral structure all emerge from the requirement that enforcement be finite and consistent.</div>');
   h.push('<div class="card" style="padding:16px">');
@@ -936,7 +936,7 @@ h.push('</div></div>');
   h.push('<div class="card" style="padding:0;overflow:hidden;margin:8px 0 0"><a href="https://zenodo.org/records/18464713" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:12px 16px;text-decoration:none"><div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--br)">Paper\u200a15</div><div style="font-size:10px;color:var(--grn);letter-spacing:1px;margin-top:2px">REDUCTION</div></div><div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">Single-Axiom Reduction: Deriving Locality and Irreversibility from Finite Capacity</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">Proves that the entire admissibility framework reduces to a single axiom A1 (Finite Capacity) plus two postulates (M, NT). L_irr derives A4 via 5-step proof chain (superadditivity \u2192 path dependence \u2192 records \u2192 irreversibility). L_loc derives A3 via capacity overflow forcing distributed enforcement. Verified with finite witness worlds and countermodels.</div></div></a></div>');
   h.push('</div>');
 
-  h.push('<div class="sec"><div class="sec-t">Dependency Graph â€” Force-Directed</div>');
+  h.push('<div class="sec"><div class="sec-t">Dependency Graph — Force-Directed</div>');
   h.push('<div class="sec-intro">Physics-based spring simulation showing theorem clusters and their connections. Tightly coupled theorems cluster together; weakly connected ones drift apart.</div>');
   h.push('<div class="card" style="position:relative;overflow:hidden"><div id="graph-box" style="width:100%;height:520px;background:var(--c1)"></div><div id="gtt" class="tt" style="display:none;position:absolute;pointer-events:none;z-index:10"></div></div></div>');
 
@@ -1116,7 +1116,7 @@ function buildCrystal(d) {
     let dd=dep.trim();
     if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();
     if(dd.startsWith('meaning'))return null;
-    const rm={'L_epsilon*':'L_Îµ*','L_e*':'L_Îµ*','Î“_closure':'Delta_closure'};
+    const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','L_epsilon':'L_ε*'};
     return rm[dd]||dd;
   }
   
@@ -1158,7 +1158,7 @@ nodeDepth['L_loc']=1;
   });
   const maxDepth = Math.max(...Object.keys(byDepth).map(Number));
   
-  // Hourglass radius profile â€” creates the double-waisted shape
+  // Hourglass radius profile — creates the double-waisted shape
   // Width at each depth determines the ring radius
   function hourglassRadius(dp) {
     const widths = {};
@@ -1196,7 +1196,7 @@ nodeDepth['L_loc']=1;
     byDepth[dp] = ordered;
   }
   
-  // Place nodes: depth â†’ Y position, hourglass radius â†’ ring
+  // Place nodes: depth → Y position, hourglass radius → ring
   const nodePos = {};
   const nodeMeshes = [];
   const nodeData = {};
@@ -1228,14 +1228,14 @@ nodeDepth['L_loc']=1;
       
       nodePos[id] = new THREE.Vector3(x, y, z);
       
-      const tier = id.startsWith('A') ? -1 : (d.theorems?.[id]?.tier ?? 0);
-      const col = isT0 ? 0xfbbf24 : (id==='L_nc'||id==='L_col') ? 0xc084fc : colorMap[String(tier)] || 0x888888;
       const thm = d.theorems?.[id];
+      const tier = id.startsWith('A') ? -1 : (thm?.tier ?? 0);
       const isAxiom = id.startsWith('A') && id.length <= 2;
-      const isLemma = id === 'L_nc' || id === 'L_col' || id === 'L_T2';
+      const isLemma = id === 'L_nc' || id === 'L_col' || id === 'L_T2' || id === 'L_irr' || id === 'L_loc';
       const isT0 = id === 'T0';
       const isPStructural = thm?.epistemic === 'P_structural';
       const isWaist = ids.length === 1 && !isAxiom;
+      const col = isT0 ? 0xfbbf24 : isLemma ? 0xc084fc : colorMap[String(tier)] || 0x888888;
       
       // Size: waist nodes bigger, axioms big, others scaled by fanout
       const fanout = Object.values(d.theorems||{}).filter(t=>(t.dependencies||[]).some(dep=>{const cd=cleanDep(dep);return cd===id})).length;
@@ -1296,7 +1296,7 @@ nodeDepth['L_loc']=1;
   
   // Dependency edges
   const edgeLines = [];
-  // Add axiomâ†’lemma edges
+  // Add axiom→lemma edges
   [['A1','L_nc'],['A3','L_nc'],['A1','L_col'],['A4','L_col'],['A1','L_T2'],['L_nc','L_T2']].forEach(([s,t])=>{
     if(nodePos[s]&&nodePos[t]){
       const geom=new THREE.BufferGeometry().setFromPoints([nodePos[s],nodePos[t]]);
@@ -1399,9 +1399,9 @@ nodeDepth['L_loc']=1;
       
       // Get direct deps
       const directUp = [...(upstream[ud.id]||[])].join(', ') || (ud.tier===-1?'(axiom)':'none');
-      const directDown = [...(downstream[ud.id]||[])].slice(0,6).join(', ') + ((downstream[ud.id]||[]).size>6?' â€¦':'');
+      const directDown = [...(downstream[ud.id]||[])].slice(0,6).join(', ') + ((downstream[ud.id]||[]).size>6?' …':'');
       
-      hoverEl.innerHTML = `<div style="font-weight:700;color:${col};font-size:12px">${ud.id}${ud.isWaist?' â˜… WAIST':''}</div><div style="font-size:12px;margin:2px 0">${ud.name}</div><div style="font-size:11px;color:#4a5575">Tier ${ud.tier===-1?'A':ud.tier} Â· Depth ${ud.depth} Â· [${ud.epistemic}]</div><div style="font-size:11px;color:#60a5fa;margin-top:4px">â†‘ ancestors: ${upCount} <span style="color:#4a5575">â† ${directUp}</span></div><div style="font-size:11px;color:#34d399">â†“ descendants: ${downCount} <span style="color:#4a5575">â†’ ${directDown||'(leaf)'}</span></div>`;
+      hoverEl.innerHTML = `<div style="font-weight:700;color:${col};font-size:12px">${ud.id}${ud.isWaist?' ✨ WAIST':''}</div><div style="font-size:12px;margin:2px 0">${ud.name}</div><div style="font-size:11px;color:#4a5575">Tier ${ud.tier===-1?'A':ud.tier} · Depth ${ud.depth} · [${ud.epistemic}]</div><div style="font-size:11px;color:#60a5fa;margin-top:4px">↑ ancestors: ${upCount} <span style="color:#4a5575">← ${directUp}</span></div><div style="font-size:11px;color:#34d399">↓ descendants: ${downCount} <span style="color:#4a5575">→ ${directDown||'(leaf)'}</span></div>`;
       hoverEl.style.opacity = '1';
       
       // Highlight full chain
@@ -1475,8 +1475,8 @@ for(const[lm,nm]of Object.entries(LEMMA_NM)){nodes.push({id:lm,tier:0,epistemic:
 for(const[tid,t]of Object.entries(d.theorems||{}))for(const dep of(t.dependencies||[])){const cd=cD(dep);if(cd)fanout[cd]=(fanout[cd]||0)+1}
 for(const[tid,t]of Object.entries(d.theorems||{})){nodes.push({id:tid,tier:t.tier??0,epistemic:t.epistemic||'P',name:(t.name||tid).replace(/^[^:]+:\s*/,'').slice(0,28),label:tid});seen.add(tid)}
 for(const[tid,t]of Object.entries(d.theorems||{}))for(const dep of(t.dependencies||[])){const cd=cD(dep);if(cd&&seen.has(cd))edges.push({source:cd,target:tid})}
-edges.push({source:'A1',target:'L_nc'},{source:'A3',target:'L_nc'},{source:'A1',target:'L_col'},{source:'A4',target:'L_col'},{source:'A1',target:'L_T2'},{source:'L_nc',target:'L_T2'});
-function cD(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_Îµ*','L_e*':'L_Îµ*','Î“_closure':'Delta_closure'};return rm[dd]||dd}
+edges.push({source:'A1',target:'L_nc'},{source:'A3',target:'L_nc'},{source:'A1',target:'L_col'},{source:'A4',target:'L_col'},{source:'A1',target:'L_T2'},{source:'L_nc',target:'L_T2'},{source:'A1',target:'L_irr'},{source:'L_nc',target:'L_irr'},{source:'A1',target:'L_loc'},{source:'L_nc',target:'L_T2'});
+function cD(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','L_epsilon':'L_ε*'};return rm[dd]||dd}
 function nC(n){if(n.tier===-1)return AC;if(n.id==='L_nc'||n.id==='L_col')return'#c084fc';return TC[n.tier]||'#888'}
 function nR(n){return n.tier===-1?9+(fanout[n.id]||0)*.6:5+(fanout[n.id]||0)*1}
 const svg=d3.select('#graph-box').append('svg').attr('width',W).attr('height',H);_svg=svg;
@@ -1486,9 +1486,9 @@ const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(edges).id(d=>d.id)
 const link=g.append('g').selectAll('line').data(edges).join('line').attr('stroke','#1a2540').attr('stroke-width',1).attr('marker-end','url(#arr)');
 const node=g.append('g').selectAll('g').data(nodes).join('g').call(d3.drag().on('start',(ev,n)=>{if(!ev.active)sim.alphaTarget(.3).restart();n.fx=n.x;n.fy=n.y}).on('drag',(ev,n)=>{n.fx=ev.x;n.fy=ev.y}).on('end',(ev,n)=>{if(!ev.active)sim.alphaTarget(0);n.fx=null;n.fy=null}));
 node.each(function(n){const el=d3.select(this),r=nR(n),col=nC(n);if(n.tier===-1||n.id==='L_nc'||n.id==='L_col'){const s=r*1.1;el.append('polygon').attr('points',`0,${-s} ${s},0 0,${s} ${-s},0`).attr('fill',col+'30').attr('stroke',col).attr('stroke-width',1.5)}else if(n.epistemic==='P_structural'){const s=r*.85;el.append('rect').attr('x',-s).attr('y',-s).attr('width',s*2).attr('height',s*2).attr('rx',2).attr('transform','rotate(45)').attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','3,2')}else{el.append('circle').attr('r',r).attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5)}});
-node.append('text').text(n=>n.label.replace('Gamma_','Î“_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+11).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>(n.tier===-1||n.id==='L_nc'||n.id==='L_col')?9:7).attr('font-weight',n=>(n.tier===-1||n.id==='L_nc'||n.id==='L_col')?700:500).attr('opacity',.85);
+node.append('text').text(n=>n.label.replace('Gamma_','Δ_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+11).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>(n.tier===-1||n.id==='L_nc'||n.id==='L_col')?9:7).attr('font-weight',n=>(n.tier===-1||n.id==='L_nc'||n.id==='L_col')?700:500).attr('opacity',.85);
 const tt=document.getElementById('gtt');
-node.on('mouseover',(ev,n)=>{const deps=(d.theorems?.[n.id]?.dependencies||[]).join(', ')||(n.tier===-1?'axiom':'');const fo=fanout[n.id]||0;tt.innerHTML=`<div class="tt-id" style="color:${nC(n)}">${n.label}</div><div>${n.name}</div><div class="tt-dm">Tier ${n.tier===-1?'A':n.tier} Â· [${n.epistemic}]</div><div class="tt-dm">â† ${deps}</div><div class="tt-dm">${fo} downstream</div>`;tt.classList.add('show');link.attr('stroke',l=>(l.source.id===n.id||l.target.id===n.id)?nC(n):'#1a2540').attr('stroke-width',l=>(l.source.id===n.id||l.target.id===n.id)?2:1).attr('opacity',l=>(l.source.id===n.id||l.target.id===n.id)?1:.15);node.attr('opacity',n2=>{if(n2.id===n.id)return 1;return edges.some(e=>(e.source.id===n.id&&e.target.id===n2.id)||(e.target.id===n.id&&e.source.id===n2.id))?1:.12})}).on('mousemove',ev=>{const r=box.getBoundingClientRect();tt.style.left=(ev.clientX-r.left+14)+'px';tt.style.top=(ev.clientY-r.top-10)+'px'}).on('mouseout',()=>{tt.classList.remove('show');link.attr('stroke','#1a2540').attr('stroke-width',1).attr('opacity',1);node.attr('opacity',1)});
+node.on('mouseover',(ev,n)=>{const deps=(d.theorems?.[n.id]?.dependencies||[]).join(', ')||(n.tier===-1?'axiom':'');const fo=fanout[n.id]||0;tt.innerHTML=`<div class="tt-id" style="color:${nC(n)}">${n.label}</div><div>${n.name}</div><div class="tt-dm">Tier ${n.tier===-1?'A':n.tier} · [${n.epistemic}]</div><div class="tt-dm">← ${deps}</div><div class="tt-dm">${fo} downstream</div>`;tt.classList.add('show');link.attr('stroke',l=>(l.source.id===n.id||l.target.id===n.id)?nC(n):'#1a2540').attr('stroke-width',l=>(l.source.id===n.id||l.target.id===n.id)?2:1).attr('opacity',l=>(l.source.id===n.id||l.target.id===n.id)?1:.15);node.attr('opacity',n2=>{if(n2.id===n.id)return 1;return edges.some(e=>(e.source.id===n.id&&e.target.id===n2.id)||(e.target.id===n.id&&e.source.id===n2.id))?1:.12})}).on('mousemove',ev=>{const r=box.getBoundingClientRect();tt.style.left=(ev.clientX-r.left+14)+'px';tt.style.top=(ev.clientY-r.top-10)+'px'}).on('mouseout',()=>{tt.classList.remove('show');link.attr('stroke','#1a2540').attr('stroke-width',1).attr('opacity',1);node.attr('opacity',1)});
 sim.on('tick',()=>{link.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);node.attr('transform',n=>`translate(${n.x},${n.y})`)});
 }
 function zoomG(f){if(_svg&&_zb)_svg.transition().duration(300).call(_zb.scaleBy,f)}
