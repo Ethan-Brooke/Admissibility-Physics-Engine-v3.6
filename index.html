@@ -40,7 +40,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .donut-wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap}.donut-legend{flex:1;min-width:200px}
 .dl-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bdr)}.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}.dl-info{flex:1}.dl-name{font-size:13px;font-weight:600;color:var(--br)}.dl-tag{font-family:var(--mn);font-size:12px;padding:1px 5px;border-radius:3px;margin-left:6px}.dl-desc{font-family:var(--mn);font-size:13px;color:var(--dm);margin-top:1px}.dl-pct{font-family:var(--mn);font-size:16px;font-weight:700}
 /* Expandable rows */
-.xr{border:1px solid var(--bdr);border-radius:6px;margin-bottom:6px;overflow:hidden;transition:border-color .2s}
+.xr{border:1px solid var(--bdr);border-radius:6px;margin-bottom:6px;overflow:hidden;transition:border-color .2s;background:var(--c1)}
 .xr:hover{border-color:var(--bdr2)}
 .xr-top{display:grid;grid-template-columns:24px 1fr 70px 50px 50px 28px;gap:6px;align-items:center;padding:8px 12px;cursor:pointer;font-family:var(--mn);font-size:12px}
 .xr-dot{width:8px;height:8px;border-radius:50%}.xr-q{color:var(--br);font-weight:600}.xr-val{color:var(--grn);text-align:right}
@@ -50,7 +50,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .xr-expand{max-height:0;overflow:hidden;transition:max-height .3s ease}.xr.open .xr-expand{max-height:500px}
 .xr.open>.toe-expand{max-height:400px}
 .xr.open .xr-arrow{transform:rotate(180deg)}
-.xr-detail{padding:10px 12px 14px;border-top:1px solid var(--bdr);font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8}
+.xr-detail{padding:10px 12px 14px;border-top:1px solid var(--bdr);font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8;background:var(--bg)}
 .xd-row{display:flex;gap:8px;align-items:baseline}.xd-label{color:var(--tx);font-weight:600;min-width:85px;flex-shrink:0}
 /* TOE table */
 .toe-cat{font-family:var(--mn);font-size:13px;font-weight:600;color:var(--br);padding:8px 0 4px;border-bottom:2px solid var(--bdr);margin-top:14px}
@@ -89,7 +89,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 
 .t-u{color:var(--amb);font-style:italic;line-height:1.4;overflow:hidden;text-overflow:ellipsis;font-size:10px}
 .t-obs{color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.toe-hdr{display:grid;grid-template-columns:24px minmax(120px,1fr) 105px 85px minmax(100px,1fr) 55px 52px 22px;gap:6px;padding:6px 10px;font-family:var(--mn);font-size:10px;font-weight:600;color:var(--dm);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);position:sticky;top:0;background:var(--cardbg);z-index:2}
+.toe-hdr{display:grid;grid-template-columns:24px minmax(120px,1fr) 105px 85px minmax(100px,1fr) 55px 52px 22px;gap:6px;padding:6px 10px;font-family:var(--mn);font-size:10px;font-weight:600;color:var(--dm);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);position:sticky;top:0;background:var(--c1);z-index:2}
 .xr-name{color:var(--br);font-weight:600;font-family:var(--mn);font-size:12px}
 .xr-desc{color:var(--dm);font-family:var(--mn);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .xr-tier{font-family:var(--mn);font-size:11px;font-weight:600}
@@ -162,8 +162,8 @@ function render(d){
   var sectors=[['Gauge',secV.gauge],['Gravity',secV.gravity],['RG',secV.rg_mechanism]];
   sectors.forEach(function(s){if(s[1]!==undefined){h.push('<span style="font-family:var(--mn);font-size:12px;padding:3px 10px;border-radius:4px;border:1px solid '+(s[1]?'var(--blu)':'var(--red)')+';color:'+(s[1]?'var(--blu)':'var(--red)')+';background:'+(s[1]?'var(--blug)':'var(--redg)')+'">'+s[0]+': '+(s[1]?'\u2713':'\u2717')+'</span>')}});
   h.push('</div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:6px">Developed by <a href=\"https://www.linkedin.com/in/ethanbrooke/\" style=\"color:var(--grn);text-decoration:underline\">Ethan S. Brooke</a> \u00b7 <a href=\"https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest\" style=\"color:var(--blu);text-decoration:underline\">Preprint Archive</a> \u00b7 <a href=\"https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.5\" style=\"color:var(--pur);text-decoration:underline\">GitHub Repository</a></div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7;margin-top:14px;max-width:760px">This dashboard is the live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>\u2014a computational framework that derives the structure of known physics from <b style="color:var(--grn)">a single information-theoretic axiom (A1: Finite Capacity)</b> plus two postulates (M, NT), from which locality (A3) and irreversibility (A4) are themselves derived as lemmas L_loc and L_irr. The framework operates with zero free parameters. Every constant, particle, and force shown below is either <em>derived</em> from these axioms or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations. <a href=\'https://github.com/ethan-brooke/Admissibility-Physics-Engine-v3.5\' style=\'color:var(--grn);text-decoration:underline\'>Run the engine yourself on GitHub \u2192</a></div>');
+  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:6px">Developed by <a href=\"https://www.linkedin.com/in/ethanbrooke/\" style=\"color:var(--grn);text-decoration:underline\">Ethan S. Brooke</a> \u00b7 <a href=\"https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest\" style=\"color:var(--blu);text-decoration:underline\">Preprint Archive</a> \u00b7 <a href=\"https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6\" style=\"color:var(--pur);text-decoration:underline\">GitHub Repository</a></div>');
+  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7;margin-top:14px;max-width:760px">This dashboard is the live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>\u2014a computational framework that derives the structure of known physics from <b style="color:var(--grn)">a single information-theoretic axiom (A1: Finite Capacity)</b> plus two postulates (M, NT), from which locality (A3) and irreversibility (A4) are themselves derived as lemmas L_loc and L_irr. The framework operates with zero free parameters. Every constant, particle, and force shown below is either <em>derived</em> from these axioms or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations. <a href=\'https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6\' style=\'color:var(--grn);text-decoration:underline\'>Run the engine yourself on GitHub \u2192</a></div>');
   h.push('</div>');
 
 // Compute epiCount from TOE (needed by multiple sections below)
@@ -371,7 +371,7 @@ h.push('</div></div>');
   h.push('<div class="sec"><div class="sec-t">Cosmic Energy Budget</div>');
   h.push('<div class="sec-intro">The total energy content of the universe, decomposed by the capacity ledger. Every fraction shown here is a ratio of small integers derived from the axiomsâ€”not a fit to CMB data. The comparison with Planck 2018 measurements is a post-hoc check.</div>');
   h.push('<div class="bp" id="budget-panel">');
-  h.push('<div class="bp-hdr"><div class="bp-tag">Theorem 11 + 12E \u00b7 Admissibility Physics v3.5</div>');
+  h.push('<div class="bp-hdr"><div class="bp-tag">Theorem 11 + 12E \u00b7 Admissibility Physics v3.7</div>');
   h.push('<div class="bp-title">Cosmic Energy Budget<br>from <em>Capacity Accounting</em></div>');
   h.push('<div class="bp-sub">Dark matter, dark energy, and baryonic matter derived from gauge overhead,<br>infrastructure cost, and ledger partition. No tunable microphysics.</div></div>');
   h.push('<div style="padding:20px 24px;text-align:center;border-bottom:1px solid var(--bdr);background:linear-gradient(135deg,rgba(96,165,250,.06) 0%,rgba(167,139,250,.06) 100%)"><div style="font-family:var(--sn);font-size:22px;font-weight:700;color:var(--br);line-height:1.4;letter-spacing:-.3px">Dark matter is not a particle.<br><span style="color:var(--blu)">It is enforcement overhead.</span></div><div style="font-family:var(--mn);font-size:11px;color:var(--dm);margin-top:8px">16 capacity references with no gauge charge = gravitationally active, photon-invisible</div></div>');
@@ -670,7 +670,7 @@ h.push('</div></div>');
   h.push('<defs><marker id="ga" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#fbbf24"/></marker>');
   h.push('<filter id="gg"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>');
   // Stage boxes
-  var stages = [{x:15,w:130,l:'RAW CAPACITY',c:'#a78bfa',s:'No structure',h:155},{x:165,w:130,l:'SHARED LOAD',c:'#60a5fa',s:'Non-factorizing',h:125},{x:325,w:130,l:'METRIC g\u03bc\u03bd',c:'#34d399',s:'$ds^2 = g_{\\mu\\nu}dx^\\mu dx^\\nu$',h:95},{x:485,w:180,l:'EINSTEIN EQUATIONS',c:'#34d399',s:'Unique in d=4',h:80}];
+  var stages = [{x:10,w:120,l:'RAW CAPACITY',c:'#a78bfa',s:'No structure',h:155},{x:148,w:120,l:'SHARED LOAD',c:'#60a5fa',s:'Non-factorizing',h:125},{x:286,w:115,l:'METRIC g\u03bc\u03bd',c:'#34d399',s:'ds\u00b2 = g\u03bc\u03bd',h:95},{x:420,w:250,l:'EINSTEIN EQUATIONS',c:'#34d399',s:'',h:120}];
   stages.forEach(function(st,i){
     var y = (180-st.h)/2;
     h.push('<rect x="'+st.x+'" y="'+y+'" width="'+st.w+'" height="'+st.h+'" rx="6" fill="'+st.c+'08" stroke="'+st.c+'" stroke-width="'+(i===3?'2':'1')+'"'+(i===3?' filter="url(#gg)"':'')+'/>');
@@ -684,8 +684,17 @@ h.push('</div></div>');
     }
   });
   // Final equation
-  h.push('<text x="575" y="100" text-anchor="middle" fill="#eef0f8" font-size="13" font-weight="800">$G_{\\mu\\nu} + \\Lambda g_{\\mu\\nu} = \\kappa T_{\\mu\\nu}$</text>');
-  h.push('<text x="575" y="122" text-anchor="middle" fill="#34d399" font-size="8">\u2605 zero free parameters \u2605</text>');
+  h.push('<text x="545" y="80" text-anchor="middle" fill="#eef0f8" font-weight="700" font-family="Georgia,serif" letter-spacing="0.5">');
+  h.push('<tspan font-size="18">G</tspan><tspan font-size="11" dy="4">\u03bc\u03bd</tspan>');
+  h.push('<tspan dy="-4" dx="5" font-size="16"> + </tspan>');
+  h.push('<tspan font-size="18" font-style="italic">\u039b</tspan>');
+  h.push('<tspan dx="3" font-size="16">g</tspan><tspan font-size="11" dy="4">\u03bc\u03bd</tspan>');
+  h.push('<tspan dy="-4" dx="5" font-size="16"> = </tspan>');
+  h.push('<tspan font-size="18" font-style="italic">\u03ba</tspan>');
+  h.push('<tspan dx="3" font-size="16">T</tspan><tspan font-size="11" dy="4">\u03bc\u03bd</tspan>');
+  h.push('</text>');
+  h.push('<text x="545" y="102" text-anchor="middle" fill="#34d399" font-size="8" font-weight="600">\u2605 zero free parameters \u2605</text>');
+  h.push('<text x="545" y="114" text-anchor="middle" fill="#4a5575" font-size="7">Unique in d = 4 (Lovelock 1971)</text>');
   h.push('</svg></div>');
   
   // FIVE CONDITIONS
@@ -716,7 +725,55 @@ h.push('</div></div>');
   h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:5px;padding:6px 12px;text-align:center"><span style="font-size:16px;font-weight:700;color:var(--grn)">2</span><span style="font-size:9px;color:var(--dm);display:block">diffeo</span></div>');
   h.push('<span style="color:var(--grn);font-weight:700">=</span>');
   h.push('<div style="background:var(--grng);border:1px solid var(--grn);border-radius:5px;padding:6px 12px;text-align:center"><span style="font-size:16px;font-weight:700;color:var(--grn)">2</span><span style="font-size:9px;color:var(--dm);display:block">h\u208a h\u00d7</span></div>');
-  h.push('</div></div>');
+  h.push('</div>');
+  // GRAVITON PROOF TREE
+  h.push('<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr)">');
+  h.push('<div style="font-size:12px;font-weight:700;color:var(--br);margin-bottom:8px">\u25c6 Graviton Derivation Tree</div>');
+  h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--dm);margin-bottom:10px">Each property is forced by constraint logic\u2014no assumptions about quantum gravity.</div>');
+  h.push('<svg viewBox="0 0 660 200" style="width:100%;height:200px">');
+  // Root
+  h.push('<rect x="255" y="4" width="150" height="30" rx="6" fill="#34d39915" stroke="#34d399" stroke-width="1.5"/>');
+  h.push('<text x="330" y="24" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">T9_grav: EFE</text>');
+  // Level 1 - three properties
+  h.push('<line x1="290" y1="34" x2="110" y2="60" stroke="#4a5575" stroke-width="0.8"/>');
+  h.push('<line x1="330" y1="34" x2="330" y2="60" stroke="#4a5575" stroke-width="0.8"/>');
+  h.push('<line x1="370" y1="34" x2="550" y2="60" stroke="#4a5575" stroke-width="0.8"/>');
+  // m=0
+  h.push('<rect x="40" y="60" width="140" height="26" rx="5" fill="#34d39910" stroke="#34d399" stroke-width="1"/>');
+  h.push('<text x="110" y="78" text-anchor="middle" fill="#34d399" font-size="9" font-weight="700">m = 0 (massless)</text>');
+  // s=2
+  h.push('<rect x="260" y="60" width="140" height="26" rx="5" fill="#60a5fa10" stroke="#60a5fa" stroke-width="1"/>');
+  h.push('<text x="330" y="78" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="700">s = 2 (spin-2)</text>');
+  // h=+-2
+  h.push('<rect x="480" y="60" width="140" height="26" rx="5" fill="#a78bfa10" stroke="#a78bfa" stroke-width="1"/>');
+  h.push('<text x="550" y="78" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="700">h = \u00b12 (helicities)</text>');
+  // Level 2 - reasons
+  h.push('<line x1="110" y1="86" x2="110" y2="104" stroke="#4a5575" stroke-width="0.6"/>');
+  h.push('<line x1="330" y1="86" x2="330" y2="104" stroke="#4a5575" stroke-width="0.6"/>');
+  h.push('<line x1="550" y1="86" x2="550" y2="104" stroke="#4a5575" stroke-width="0.6"/>');
+  h.push('<rect x="20" y="104" width="180" height="40" rx="4" fill="#0b0f1a" stroke="#1f2940" stroke-width="0.6"/>');
+  h.push('<text x="110" y="120" text-anchor="middle" fill="#34d399" font-size="8" font-weight="600">Diffeomorphism invariance</text>');
+  h.push('<text x="110" y="134" text-anchor="middle" fill="#4a5575" font-size="7">\u0394_signature [P] + Lovelock</text>');
+  h.push('<rect x="240" y="104" width="180" height="40" rx="4" fill="#0b0f1a" stroke="#1f2940" stroke-width="0.6"/>');
+  h.push('<text x="330" y="120" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="600">Symmetric rank-2 tensor</text>');
+  h.push('<text x="330" y="134" text-anchor="middle" fill="#4a5575" font-size="7">T7B: g\u03bc\u03bd from shared interface</text>');
+  h.push('<rect x="460" y="104" width="180" height="40" rx="4" fill="#0b0f1a" stroke="#1f2940" stroke-width="0.6"/>');
+  h.push('<text x="550" y="120" text-anchor="middle" fill="#a78bfa" font-size="8" font-weight="600">SO(2) little group in d=4</text>');
+  h.push('<text x="550" y="134" text-anchor="middle" fill="#4a5575" font-size="7">T8: d=4 from capacity budget</text>');
+  // Level 3 - axiom roots
+  h.push('<line x1="70" y1="144" x2="70" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
+  h.push('<line x1="150" y1="144" x2="150" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
+  h.push('<line x1="290" y1="144" x2="290" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
+  h.push('<line x1="370" y1="144" x2="370" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
+  h.push('<line x1="510" y1="144" x2="510" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
+  h.push('<line x1="590" y1="144" x2="590" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
+  [{x:70,l:'A4'},{x:150,l:'\u0394_closure'},{x:290,l:'A1'},{x:370,l:'A4'},{x:510,l:'T_gauge'},{x:590,l:'A1'}].forEach(function(n){
+    h.push('<rect x="'+(n.x-28)+'" y="162" width="56" height="20" rx="3" fill="#fbbf2408" stroke="#fbbf24" stroke-width="0.8"/>');
+    h.push('<text x="'+n.x+'" y="176" text-anchor="middle" fill="#fbbf24" font-size="7" font-weight="700">'+n.l+'</text>');
+  });
+  h.push('<text x="330" y="196" text-anchor="middle" fill="#4a5575" font-size="7" font-style="italic">Every graviton property traces back to A1 (Finite Capacity)</text>');
+  h.push('</svg></div>');
+  h.push('</div>');
   
   // GAUGE || GRAVITY
   h.push('<div style="padding:20px 24px;border-bottom:1px solid var(--bdr)">');
@@ -881,7 +938,7 @@ h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Dependency Graph â€” Force-Directed</div>');
   h.push('<div class="sec-intro">Physics-based spring simulation showing theorem clusters and their connections. Tightly coupled theorems cluster together; weakly connected ones drift apart.</div>');
-  h.push('<div class="card" style="position:relative;overflow:hidden"><div id="graph-box" style="width:100%;height:520px;background:var(--cardbg)"></div><div id="gtt" class="tt" style="display:none;position:absolute;pointer-events:none;z-index:10"></div></div></div>');
+  h.push('<div class="card" style="position:relative;overflow:hidden"><div id="graph-box" style="width:100%;height:520px;background:var(--c1)"></div><div id="gtt" class="tt" style="display:none;position:absolute;pointer-events:none;z-index:10"></div></div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Proof River — Information Flow by Physical Output</div>');
   h.push('<div class="sec-intro">How axiom capacity flows through the proof architecture into measurable physics. Width encodes theorem count at each stage. Unlike the crystal (which shows depth), this shows <em>what each proof chain produces</em>.</div>');
@@ -930,7 +987,7 @@ h.push('</div></div>');
   h.push('<div class="card" style="padding:12px;overflow:hidden">');
   h.push('<div style="font-family:var(--mn);font-size:13px;font-weight:700;color:var(--br);margin-bottom:8px">Influence Treemap</div>');
   h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--dm);margin-bottom:10px">Block area = downstream theorem count. Hover for details. Color = tier.</div>');
-  h.push('<div id="treemap-box" style="width:100%;height:820px;position:relative;border:1px solid var(--bdr);border-radius:4px;overflow:hidden"></div>');
+  h.push('<div id="treemap-box" style="width:100%;height:820px;position:relative;border:1px solid var(--bdr);border-radius:4px;overflow:hidden;background:var(--c1)"></div>');
   h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Audit Trail</div>');
