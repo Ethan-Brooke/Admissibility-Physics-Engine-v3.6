@@ -72,7 +72,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .gl{position:absolute;bottom:10px;left:10px;font-family:var(--mn);font-size:13px;background:#0b0f1acc;border:1px solid var(--bdr);border-radius:5px;padding:8px 10px;z-index:5}.gl-r{display:flex;align-items:center;gap:5px;margin-bottom:2px}.gl-d{width:8px;height:8px;border-radius:50%}
 .gc{position:absolute;top:10px;right:10px;display:flex;gap:4px;z-index:5}.gc button{font-family:var(--mn);font-size:12px;background:#111827;border:1px solid var(--bdr);color:var(--dm);border-radius:4px;padding:4px 8px;cursor:pointer}.gc button:hover{color:var(--br);border-color:var(--grn)}
 #dag-box{width:100%;overflow-x:auto;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;padding:16px;position:relative}#dag-box svg text{font-family:'IBM Plex Mono',monospace}
-#crystal-box{width:100%;height:2600px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden;cursor:grab}#crystal-box:active{cursor:grabbing}
+#crystal-box{width:100%;height:2100px;background:var(--c1);border:1px solid var(--bdr);border-radius:6px;position:relative;overflow:hidden;cursor:grab}#crystal-box:active{cursor:grabbing}
 #crystal-legend{position:absolute;bottom:12px;right:12px;font-family:var(--mn);font-size:12px;background:#0b0f1af0;border:1px solid var(--bdr);border-radius:5px;padding:10px 12px;line-height:1.7;z-index:5;max-width:320px;cursor:pointer;user-select:none;transition:all .2s}
 #crystal-legend.collapsed .cl-body{display:none}
 #crystal-legend .cl-toggle{position:absolute;top:8px;right:10px;font-size:10px;color:#4a5575}
@@ -93,7 +93,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .loading{display:flex;align-items:center;justify-content:center;min-height:400px;font-family:var(--mn);font-size:13px;color:var(--grn)}.loading::after{content:'';width:14px;height:14px;border:2px solid var(--grn);border-top-color:transparent;border-radius:50%;margin-left:8px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:1600px}.toe-row{grid-template-columns:18px 1fr 65px 55px minmax(80px,1fr) 40px 40px 18px;font-size:8.5px}}
+@media(max-width:700px){.sg{grid-template-columns:repeat(2,1fr)}.bp-stats{grid-template-columns:repeat(3,1fr)}#graph-box{height:400px}#crystal-box{height:1300px}.toe-row{grid-template-columns:18px 1fr 65px 55px minmax(80px,1fr) 40px 40px 18px;font-size:8.5px}}
 
 .t-u{color:var(--amb);font-style:italic;line-height:1.4;overflow:hidden;text-overflow:ellipsis;font-size:10px}
 .t-obs{color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -421,6 +421,12 @@ h.push('</div></div>');
 
   h.push('</div></div>');
 
+  // === INFLUENCE TREEMAP (standalone section) ===
+  h.push('<div class="sec"><div class="sec-t">Influence Treemap</div>');
+  h.push('<div class="sec-intro">Block area = downstream theorem count. Hover for details. Color = tier. Larger blocks drive more of the framework.</div>');
+  h.push('<div class="card" style="padding:12px;overflow:hidden">');
+  h.push('<div id="treemap-box" style="width:100%;height:500px;position:relative;border:1px solid var(--bdr);border-radius:4px;overflow:hidden;background:var(--c1)"></div>');
+  h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Enforcement Crystal</div>');
   h.push('<div class="sec-intro">Interactive 3D visualization of the <b style="color:var(--grn)">single-waisted deep funnel</b> dependency structure. 63 nodes (3 axioms + 5 derived lemmas + 55 theorems) and 197 directed edges, laid out by proof depth (0\u201319). Three width-1 waists: <b>gauge selection</b> (depth 8), <b>Einstein equations</b> (depth 17), and <b>baryon fraction</b> (depth 19). T0 (axiom witness certificates) is the structural root, cascading to 80% of the framework through three independent channels. v2 corrected from theorem bank v3.7. Drag to rotate; hover for chain tracing.</div>');
@@ -1040,7 +1046,7 @@ h.push('</div></div>');
 
 
   h.push('<div class="sec"><div class="sec-t">Theorem Map & Structure</div>');
-  h.push('<div class="sec-intro">Every theorem expandable by tier. Treemap below sized by downstream influenceâ€”larger blocks drive more of the framework.</div>');
+  h.push('<div class="sec-intro">Every theorem expandable by tier. Click any row to see key results, dependencies, and gap analysis.</div>');
   h.push('<div style="display:grid;grid-template-columns:1fr;gap:12px">');
   h.push('<div class="card" style="padding:12px;overflow-y:auto;max-height:900px">');
   var allThms=[];
@@ -1077,11 +1083,6 @@ h.push('</div></div>');
     h.push('</div></div>');
   });
   h.push('</div>');
-  // TREEMAP PANEL
-  h.push('<div class="card" style="padding:12px;overflow:hidden">');
-  h.push('<div style="font-family:var(--mn);font-size:13px;font-weight:700;color:var(--br);margin-bottom:8px">Influence Treemap</div>');
-  h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--dm);margin-bottom:10px">Block area = downstream theorem count. Hover for details. Color = tier.</div>');
-  h.push('<div id="treemap-box" style="width:100%;height:500px;position:relative;border:1px solid var(--bdr);border-radius:4px;overflow:hidden;background:var(--c1)"></div>');
   h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Audit Trail</div>');
@@ -1257,7 +1258,7 @@ function buildCrystal(d) {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 100);
   camera.position.set(0, 0, 21);
-  camera.lookAt(0, -0.5, 0);
+  camera.lookAt(0, -1.2, 0);
   
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(W, H);
