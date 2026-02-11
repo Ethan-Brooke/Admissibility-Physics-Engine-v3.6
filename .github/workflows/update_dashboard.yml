@@ -1,0 +1,58 @@
+# .github/workflows/update_dashboard.yml
+# Auto-generates dashboard_data.json from the theorem bank + crystal analysis
+# Runs on push to main and on a weekly schedule
+
+name: Update Dashboard Data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'fcf_theorem_bank.py'
+      - 'enforcement_crystal_v3.py'
+      - 'run_dashboard_export.py'
+  schedule:
+    - cron: '0 12 * * 0'  # Weekly on Sunday at noon UTC
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run theorem bank
+        run: python3 fcf_theorem_bank.py
+
+      - name: Run crystal analysis
+        run: python3 enforcement_crystal_v3.py
+
+      - name: Export dashboard data
+        run: python3 run_dashboard_export.py
+
+      - name: Verify output
+        run: |
+          python3 -c "
+          import json
+          with open('dashboard_data.json') as f:
+              d = json.load(f)
+          assert d['total_theorems'] >= 60, f'Expected >=60 theorems, got {d[\"total_theorems\"]}'
+          assert d['all_pass'] == True, 'Not all theorems passing'
+          assert d['crystal']['nodes_3ax'] >= 61, f'Expected >=61 crystal nodes'
+          print(f'✓ {d[\"total_theorems\"]} theorems, all pass')
+          print(f'✓ Crystal: {d[\"crystal\"][\"nodes_3ax\"]} nodes, {d[\"crystal\"][\"edges_3ax\"]} edges')
+          print(f'✓ Paths to sin²θ_W: {d[\"crystal\"][\"paths_3ax\"]}')
+          "
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add dashboard_data.json
+          git diff --cached --quiet || git commit -m "Auto-update dashboard_data.json [skip ci]"
+          git push
