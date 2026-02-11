@@ -178,12 +178,12 @@ function render(d){
   
   // LEFT column: intro text
   h.push('<div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7;max-width:760px">This dashboard represents the current status of the <b style="color:var(--br)">Admissibility Physics</b> project\u2014an on-ramp to the program and a live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>, a computational framework that derives the structure of known physics from <b style="color:var(--grn)">a single information-theoretic axiom (A1: Finite Capacity)</b>.</div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7;margin-top:12px;max-width:760px">The framework operates with <b style="color:var(--br)">zero free parameters</b>. Every constant, particle, and force shown below is either <em>derived</em> from the axioms and their implications or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations. <a href=\'https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6\' style=\'color:var(--grn);text-decoration:underline\'>Run the engine yourself on GitHub \u2192</a></div>');
+  h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.7;max-width:760px">This dashboard represents the current status of the <b style="color:var(--br)">Admissibility Physics</b> project\u2014an on-ramp to the program and a live output of the <b style="color:var(--br)">Admissibility Physics Engine</b>, a computational framework that derives the structure of known physics from <b style="color:var(--grn)">a single information-theoretic axiom (A1: Finite Capacity)</b>.</div>');
+  h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.7;margin-top:14px;max-width:760px">The framework operates with <b style="color:var(--br)">zero free parameters</b>. Every constant, particle, and force shown below is either <em>derived</em> from the axioms and their implications or explicitly marked as an open gap. The framework does not fit data: it outputs rational numbers from constraint logic and then compares them to experiment. Scroll down to see the complete constants map, the cosmic energy budget, particle and gravity derivations, and interactive theorem visualizations. <a href=\'https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6\' style=\'color:var(--grn);text-decoration:underline\'>Run the engine yourself on GitHub \u2192</a></div>');
   h.push('</div>');
 
   // RIGHT column: Big Bang geometric callout
-  h.push('<div style="position:relative;padding:24px 20px;background:linear-gradient(160deg,rgba(167,139,250,.08) 0%,rgba(52,211,153,.06) 50%,rgba(96,165,250,.08) 100%);border:1px solid rgba(167,139,250,.25);border-radius:12px;overflow:hidden">');
+  h.push('<div style="position:relative;padding:40px 24px;background:linear-gradient(160deg,rgba(167,139,250,.08) 0%,rgba(52,211,153,.06) 50%,rgba(96,165,250,.08) 100%);border:1px solid rgba(167,139,250,.25);border-radius:12px;overflow:hidden">');
   // Geometric decorations
   h.push('<div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border:2px solid rgba(167,139,250,.15);border-radius:50%;pointer-events:none"></div>');
   h.push('<div style="position:absolute;bottom:-15px;left:-15px;width:50px;height:50px;border:2px solid rgba(52,211,153,.12);border-radius:50%;pointer-events:none"></div>');
@@ -191,9 +191,9 @@ function render(d){
   h.push('<div style="position:absolute;bottom:18px;right:16px;width:4px;height:4px;background:var(--grn);border-radius:50%;opacity:.5"></div>');
   h.push('<div style="position:absolute;top:50%;right:8px;width:3px;height:3px;background:var(--blu);border-radius:50%;opacity:.3"></div>');
   // Diamond icon
-  h.push('<div style="font-size:18px;margin-bottom:10px;opacity:.7">\u25c7</div>');
-  h.push('<div style="font-family:var(--sn);font-size:15px;color:var(--tx);line-height:1.7"><b style="color:var(--grn)">The big bang was a flow event that signaled finite volume.</b></div>');
-  h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--dm);margin-top:10px;line-height:1.6">This has implications when you follow the math. One axiom \u2192 63 theorems \u2192 20 testable predictions \u2192 0 free parameters.</div>');
+  h.push('<div style="font-size:24px;margin-bottom:12px;opacity:.7">\u25c7</div>');
+  h.push('<div style="font-family:var(--sn);font-size:20px;color:var(--tx);line-height:1.6"><b style="color:var(--grn)">The big bang was a flow event that signaled finite volume.</b></div>');
+  h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);margin-top:12px;line-height:1.6">This has implications when you follow the math. One axiom \u2192 63 theorems \u2192 20 testable predictions \u2192 0 free parameters.</div>');
   // Geometric bottom bar
   h.push('<div style="margin-top:14px;display:flex;gap:6px;align-items:center">');
   h.push('<div style="width:24px;height:2px;background:var(--pur);border-radius:1px;opacity:.5"></div>');
@@ -375,7 +375,7 @@ h.push('</div></div>');
 
   // Gauge 1: Pass rate
   h.push('<div style="text-align:center;cursor:pointer;position:relative" onclick="toggleFWDetail(\'fw-detail-pass\')">');
-  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="7"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--grn)" stroke-width="7" stroke-dasharray="'+circ+'" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="0" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--grn)" font-size="18" font-weight="800" font-family="var(--mn)">'+d.passed+'</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">/'+d.total_theorems+'</text></svg>');
+  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="12"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--grn)" stroke-width="12" stroke-dasharray="'+circ+'" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="0" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--grn)" font-size="18" font-weight="800" font-family="var(--mn)">'+d.passed+'</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">/'+d.total_theorems+'</text></svg>');
   h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--br);margin-top:4px;font-weight:600">ALL PASS</div>');
   h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--grn);margin-top:2px;opacity:0.7">\u25bc click for details</div>');
   h.push('</div>');
@@ -383,7 +383,7 @@ h.push('</div></div>');
   // Gauge 2: Proven [P]
   var pDash2 = Math.round(circ*(1-pC/d.total_theorems));
   h.push('<div style="text-align:center;cursor:pointer;position:relative" onclick="toggleFWDetail(\'fw-detail-proven\')">');
-  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="7"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--blu)" stroke-width="7" stroke-dasharray="'+circ+'" stroke-dashoffset="'+pDash2+'" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="'+pDash2+'" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--blu)" font-size="18" font-weight="800" font-family="var(--mn)">'+pC+'</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">proven</text></svg>');
+  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="12"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--blu)" stroke-width="12" stroke-dasharray="'+circ+'" stroke-dashoffset="'+pDash2+'" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="'+pDash2+'" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--blu)" font-size="18" font-weight="800" font-family="var(--mn)">'+pC+'</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">proven</text></svg>');
   h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--br);margin-top:4px;font-weight:600">'+pPct+'% [P]</div>');
   h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--blu);margin-top:2px;opacity:0.7">\u25bc click for details</div>');
   h.push('</div>');
@@ -393,7 +393,7 @@ h.push('</div></div>');
   var cPct = Math.round(cDerived/TOE.length*100);
   var cDash = Math.round(circ*(1-cDerived/TOE.length));
   h.push('<div style="text-align:center;cursor:pointer;position:relative" onclick="toggleFWDetail(\'fw-detail-constants\')">');
-  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="7"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--pur)" stroke-width="7" stroke-dasharray="'+circ+'" stroke-dashoffset="'+cDash+'" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="'+cDash+'" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--pur)" font-size="18" font-weight="800" font-family="var(--mn)">'+cPct+'%</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">of TOE</text></svg>');
+  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="12"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--pur)" stroke-width="12" stroke-dasharray="'+circ+'" stroke-dashoffset="'+cDash+'" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="'+cDash+'" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--pur)" font-size="18" font-weight="800" font-family="var(--mn)">'+cPct+'%</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">of TOE</text></svg>');
   h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--br);margin-top:4px;font-weight:600">'+cDerived+'/'+TOE.length+' DERIVED</div>');
   h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--pur);margin-top:2px;opacity:0.7">\u25bc click for details</div>');
   h.push('</div>');
@@ -403,7 +403,7 @@ h.push('</div></div>');
   var oPct = oGap/TOE.length;
   var oDash = Math.round(circ*(1-oPct));
   h.push('<div style="text-align:center;cursor:pointer;position:relative" onclick="toggleFWDetail(\'fw-detail-gaps\')">');
-  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="7"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--amb)" stroke-width="7" stroke-dasharray="'+circ+'" stroke-dashoffset="'+oDash+'" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="'+oDash+'" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--amb)" font-size="18" font-weight="800" font-family="var(--mn)">'+oGap+'</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">gaps</text></svg>');
+  h.push('<svg viewBox="0 0 100 100" width="110" height="110" style="display:block;margin:0 auto"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--bdr)" stroke-width="12"/><circle cx="50" cy="50" r="46" fill="none" stroke="var(--amb)" stroke-width="12" stroke-dasharray="'+circ+'" stroke-dashoffset="'+oDash+'" stroke-linecap="round" transform="rotate(-90 50 50)"><animate attributeName="stroke-dashoffset" from="'+circ+'" to="'+oDash+'" dur="1.2s" fill="freeze"/></circle><text x="50" y="46" text-anchor="middle" fill="var(--amb)" font-size="18" font-weight="800" font-family="var(--mn)">'+oGap+'</text><text x="50" y="58" text-anchor="middle" fill="var(--dm)" font-size="8" font-family="var(--mn)">gaps</text></svg>');
   h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--br);margin-top:4px;font-weight:600">YUKAWA+SCALE</div>');
   h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--amb);margin-top:2px;opacity:0.7">\u25bc click for details</div>');
   h.push('</div>');
@@ -771,20 +771,20 @@ h.push('</div></div>');
   h.push('<div class="sec-intro">The Standard Model field content\u2014quarks, leptons, gauge bosons, and the Higgs\u2014derived from capacity constraints. Three generations of matter, anomaly-free charges, and chiral structure all emerge from the requirement that enforcement be finite and consistent.</div>');
   h.push('<div class="card" style="padding:16px">');
   // Generation structure
-  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:10px">Three Generations from Capacity Saturation</div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.8;margin-bottom:14px">Each generation of matter (a quark doublet + lepton doublet + right-handed singlets) costs enforcement capacity. The electroweak capacity budget C_EW = 8 admits exactly 3 generations: E(3) = 6 \u2264 8 < 10 = E(4). A 4th generation would overflow the budget.</div>');
+  h.push('<div style="font-size:15px;font-weight:600;color:var(--br);margin-bottom:10px">Three Generations from Capacity Saturation</div>');
+  h.push('<div style="font-family:var(--mn);font-size:14px;color:var(--dm);line-height:1.8;margin-bottom:14px">Each generation of matter (a quark doublet + lepton doublet + right-handed singlets) costs enforcement capacity. The electroweak capacity budget C_EW = 8 admits exactly 3 generations: E(3) = 6 \u2264 8 < 10 = E(4). A 4th generation would overflow the budget.</div>');
   h.push('<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">');
   ['1st: (u, d, e, \u03bd_e)','2nd: (c, s, \u03bc, \u03bd_\u03bc)','3rd: (t, b, \u03c4, \u03bd_\u03c4)'].forEach(function(g,i){
     h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:12px;text-align:center">');
-    h.push('<div style="font-size:14px;font-weight:700;color:var(--grn)">Gen '+(i+1)+'</div>');
-    h.push('<div style="font-size:12px;color:var(--dm);margin-top:2px">'+g+'</div>');
-    h.push('<div style="font-size:10px;color:var(--dm);margin-top:4px">Cost: E = '+((i+1)*2)+' / 8 capacity</div></div>');
+    h.push('<div style="font-size:17px;font-weight:700;color:var(--grn)">Gen '+(i+1)+'</div>');
+    h.push('<div style="font-size:13px;color:var(--dm);margin-top:2px">'+g+'</div>');
+    h.push('<div style="font-size:12px;color:var(--dm);margin-top:4px">Cost: E = '+((i+1)*2)+' / 8 capacity</div></div>');
   });
   h.push('</div>');
   // Charges table
-  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:8px">Charge Assignments from Anomaly Cancellation</div>');
-  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.8;margin-bottom:10px">Charges are not inputs\u2014they are outputs of the requirement that quantum anomalies cancel (T5). The fractional quark charges (2/3, \u22121/3) and integer lepton charges (\u22121, 0) are the unique solution.</div>');
-  h.push('<div style="display:grid;grid-template-columns:90px 60px 60px 60px 1fr;gap:4px;font-family:var(--mn);font-size:11px;margin-bottom:16px">');
+  h.push('<div style="font-size:15px;font-weight:600;color:var(--br);margin-bottom:8px">Charge Assignments from Anomaly Cancellation</div>');
+  h.push('<div style="font-family:var(--mn);font-size:14px;color:var(--dm);line-height:1.8;margin-bottom:10px">Charges are not inputs\u2014they are outputs of the requirement that quantum anomalies cancel (T5). The fractional quark charges (2/3, \u22121/3) and integer lepton charges (\u22121, 0) are the unique solution.</div>');
+  h.push('<div style="display:grid;grid-template-columns:110px 65px 65px 65px 1fr;gap:6px;font-family:var(--mn);font-size:13px;margin-bottom:16px">');
   h.push('<div style="font-weight:600;color:var(--dm);padding:4px 0;border-bottom:1px solid var(--bdr)">Field</div><div style="font-weight:600;color:var(--dm);padding:4px 0;border-bottom:1px solid var(--bdr)">SU(3)</div><div style="font-weight:600;color:var(--dm);padding:4px 0;border-bottom:1px solid var(--bdr)">SU(2)</div><div style="font-weight:600;color:var(--dm);padding:4px 0;border-bottom:1px solid var(--bdr)">Y</div><div style="font-weight:600;color:var(--dm);padding:4px 0;border-bottom:1px solid var(--bdr)">Q = T\u2083 + Y</div>');
   var fields=[
     {n:'Q_L (quark doublet)',c:'\u25a0\u25a0\u25a0',w:'\u25a0\u25a0',y:'+1/6',q:'u: +2/3, d: \u22121/3'},
@@ -799,16 +799,16 @@ h.push('</div></div>');
   });
   h.push('</div>');
   // Gauge bosons
-  h.push('<div style="font-size:13px;font-weight:600;color:var(--br);margin-bottom:8px">Force Carriers</div>');
+  h.push('<div style="font-size:15px;font-weight:600;color:var(--br);margin-bottom:8px">Force Carriers</div>');
   h.push('<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px">');
   [{n:'Gluons',c:'8',g:'SU(3)',cl:'var(--pur)',d:'Color confinement'},{n:'W\u00b1, Z',c:'3',g:'SU(2)',cl:'var(--blu)',d:'Weak force + SSB'},{n:'Photon',c:'1',g:'U(1)',cl:'var(--amb)',d:'Electromagnetic'},{n:'Higgs',c:'1',g:'scalar',cl:'var(--grn)',d:'SSB enforcement'}].forEach(function(b){
     h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:10px;text-align:center">');
-    h.push('<div style="font-size:16px;font-weight:700;color:'+b.cl+'">'+b.c+'</div>');
-    h.push('<div style="font-size:12px;color:var(--br)">'+b.n+'</div>');
-    h.push('<div style="font-size:10px;color:var(--dm)">'+b.g+' \u00b7 '+b.d+'</div></div>');
+    h.push('<div style="font-size:20px;font-weight:700;color:'+b.cl+'">'+b.c+'</div>');
+    h.push('<div style="font-size:14px;color:var(--br)">'+b.n+'</div>');
+    h.push('<div style="font-size:12px;color:var(--dm)">'+b.g+' \u00b7 '+b.d+'</div></div>');
   });
   h.push('</div>');
-  h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--dm);text-align:center;padding:6px;background:var(--bg);border:1px solid var(--bdr);border-radius:4px">Total: 12 gauge bosons + 1 Higgs + 45 Weyl fermions (per generation \u00d7 3) = <b style="color:var(--grn)">61 DOF</b> = C_total capacity budget</div>');
+  h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);text-align:center;padding:8px;background:var(--bg);border:1px solid var(--bdr);border-radius:4px">Total: 12 gauge bosons + 1 Higgs + 45 Weyl fermions (per generation \u00d7 3) = <b style="color:var(--grn)">61 DOF</b> = C_total capacity budget</div>');
   h.push('</div></div>');
 
 // â•â•â• GRAVITY â•â•â•
@@ -870,7 +870,7 @@ h.push('</div></div>');
   
   // GRAVITON
   h.push('<div style="padding:20px 24px;border-bottom:1px solid var(--bdr)">');
-  h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-bottom:10px">Graviton Spectrum</div>');
+  h.push('<div style="font-size:16px;font-weight:700;color:var(--br);margin-bottom:10px">Graviton Spectrum</div>');
   h.push('<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">');
   h.push('<div style="background:linear-gradient(135deg,var(--grng),rgba(52,211,153,.02));border:1px solid var(--grn);border-radius:8px;padding:14px;text-align:center"><div style="font-size:26px;font-weight:800;color:var(--grn)">m = 0</div><div style="font-size:10px;color:var(--dm);margin-top:3px">massless (diffeo inv.)</div></div>');
   h.push('<div style="background:linear-gradient(135deg,var(--blug),rgba(96,165,250,.02));border:1px solid var(--blu);border-radius:8px;padding:14px;text-align:center"><div style="font-size:26px;font-weight:800;color:var(--blu)">s = 2</div><div style="font-size:10px;color:var(--dm);margin-top:3px">spin-2 (sym rank-2)</div></div>');
@@ -886,64 +886,102 @@ h.push('</div></div>');
   h.push('<span style="color:var(--grn);font-weight:700">=</span>');
   h.push('<div style="background:var(--grng);border:1px solid var(--grn);border-radius:5px;padding:6px 12px;text-align:center"><span style="font-size:16px;font-weight:700;color:var(--grn)">2</span><span style="font-size:9px;color:var(--dm);display:block">h\u208a h\u00d7</span></div>');
   h.push('</div>');
-  // GRAVITON PROOF TREE
+  // GRAVITON PROOF TREE - Interactive
   h.push('<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr)">');
-  h.push('<div style="font-size:12px;font-weight:700;color:var(--br);margin-bottom:8px">\u25c6 Graviton Derivation Tree</div>');
-  h.push('<div style="font-family:var(--mn);font-size:9px;color:var(--dm);margin-bottom:10px">Each property is forced by constraint logic\u2014no assumptions about quantum gravity.</div>');
-  h.push('<svg viewBox="0 0 660 200" style="width:100%;height:200px">');
-  // Root
-  h.push('<rect x="255" y="4" width="150" height="30" rx="6" fill="#34d39915" stroke="#34d399" stroke-width="1.5"/>');
-  h.push('<text x="330" y="24" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">T9_grav: EFE</text>');
+  h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-bottom:6px">\u25c6 Graviton Derivation Tree</div>');
+  h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-bottom:12px">Each graviton property is forced by constraint logic\u2014no assumptions about quantum gravity. <b style="color:var(--grn)">Click any node</b> to trace its proof chain back to axioms.</div>');
+  
+  // Interactive tooltip for graviton tree
+  h.push('<div id="grav-tt" style="display:none;position:fixed;z-index:100;pointer-events:none;background:#0b0f1af5;border:1px solid var(--bdr);border-radius:8px;padding:14px 18px;max-width:380px;font-family:var(--mn);box-shadow:0 8px 32px rgba(0,0,0,0.6);line-height:1.6"></div>');
+  
+  h.push('<svg id="grav-tree-svg" viewBox="0 0 700 260" style="width:100%;height:260px;cursor:pointer">');
+  // Defs for glow
+  h.push('<defs><filter id="gt-glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>');
+
+  // Root node
+  h.push('<g class="gt-node" data-id="T9_grav" data-title="T9: Einstein Field Equations" data-detail="G\u03bc\u03bd + \u039bg\u03bc\u03bd = \u03baT\u03bc\u03bd. Unique 2nd-order divergence-free symmetric tensor in d=4 (Lovelock). All 5 preconditions derived from axioms + \u0394_closure. Not assumed\u2014forced by capacity geometry." data-deps="T7B, T8, \u0394_closure" data-epi="[P] Proved" data-tier="Gravity (Tier 4)">');
+  h.push('<rect x="255" y="6" width="190" height="38" rx="8" fill="#34d39918" stroke="#34d399" stroke-width="2"/>');
+  h.push('<text x="350" y="31" text-anchor="middle" fill="#34d399" font-size="14" font-weight="800" font-family="IBM Plex Mono">T9_grav: EFE</text>');
+  h.push('</g>');
+  
+  // Connection lines
+  h.push('<line x1="295" y1="44" x2="120" y2="72" stroke="#4a5575" stroke-width="1.2"/>');
+  h.push('<line x1="350" y1="44" x2="350" y2="72" stroke="#4a5575" stroke-width="1.2"/>');
+  h.push('<line x1="405" y1="44" x2="580" y2="72" stroke="#4a5575" stroke-width="1.2"/>');
+  
   // Level 1 - three properties
-  h.push('<line x1="290" y1="34" x2="110" y2="60" stroke="#4a5575" stroke-width="0.8"/>');
-  h.push('<line x1="330" y1="34" x2="330" y2="60" stroke="#4a5575" stroke-width="0.8"/>');
-  h.push('<line x1="370" y1="34" x2="550" y2="60" stroke="#4a5575" stroke-width="0.8"/>');
-  // m=0
-  h.push('<rect x="40" y="60" width="140" height="26" rx="5" fill="#34d39910" stroke="#34d399" stroke-width="1"/>');
-  h.push('<text x="110" y="78" text-anchor="middle" fill="#34d399" font-size="9" font-weight="700">m = 0 (massless)</text>');
-  // s=2
-  h.push('<rect x="260" y="60" width="140" height="26" rx="5" fill="#60a5fa10" stroke="#60a5fa" stroke-width="1"/>');
-  h.push('<text x="330" y="78" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="700">s = 2 (spin-2)</text>');
-  // h=+-2
-  h.push('<rect x="480" y="60" width="140" height="26" rx="5" fill="#a78bfa10" stroke="#a78bfa" stroke-width="1"/>');
-  h.push('<text x="550" y="78" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="700">h = \u00b12 (helicities)</text>');
-  // Level 2 - reasons
-  h.push('<line x1="110" y1="86" x2="110" y2="104" stroke="#4a5575" stroke-width="0.6"/>');
-  h.push('<line x1="330" y1="86" x2="330" y2="104" stroke="#4a5575" stroke-width="0.6"/>');
-  h.push('<line x1="550" y1="86" x2="550" y2="104" stroke="#4a5575" stroke-width="0.6"/>');
-  h.push('<rect x="20" y="104" width="180" height="40" rx="4" fill="#0b0f1a" stroke="#1f2940" stroke-width="0.6"/>');
-  h.push('<text x="110" y="120" text-anchor="middle" fill="#34d399" font-size="8" font-weight="600">Diffeomorphism invariance</text>');
-  h.push('<text x="110" y="134" text-anchor="middle" fill="#4a5575" font-size="7">\u0394_signature [P] + Lovelock</text>');
-  h.push('<rect x="240" y="104" width="180" height="40" rx="4" fill="#0b0f1a" stroke="#1f2940" stroke-width="0.6"/>');
-  h.push('<text x="330" y="120" text-anchor="middle" fill="#60a5fa" font-size="8" font-weight="600">Symmetric rank-2 tensor</text>');
-  h.push('<text x="330" y="134" text-anchor="middle" fill="#4a5575" font-size="7">T7B: g\u03bc\u03bd from shared interface</text>');
-  h.push('<rect x="460" y="104" width="180" height="40" rx="4" fill="#0b0f1a" stroke="#1f2940" stroke-width="0.6"/>');
-  h.push('<text x="550" y="120" text-anchor="middle" fill="#a78bfa" font-size="8" font-weight="600">SO(2) little group in d=4</text>');
-  h.push('<text x="550" y="134" text-anchor="middle" fill="#4a5575" font-size="7">T8: d=4 from capacity budget</text>');
+  h.push('<g class="gt-node" data-id="m=0" data-title="Massless (m = 0)" data-detail="Gauge invariance (diffeomorphism) forbids a graviton mass term. A mass term m\u00b2h\u03bc\u03bd would break coordinate covariance and introduce a Boulware-Deser ghost (6th DOF, negative energy). Masslessness is forced, not assumed." data-deps="\u0394_signature, Lovelock, A4" data-epi="[P] Proved" data-tier="Gravity property">');
+  h.push('<rect x="30" y="72" width="180" height="34" rx="6" fill="#34d39912" stroke="#34d399" stroke-width="1.5"/>');
+  h.push('<text x="120" y="95" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700">m = 0 (massless)</text>');
+  h.push('</g>');
+  
+  h.push('<g class="gt-node" data-id="s=2" data-title="Spin-2 (s = 2)" data-detail="The metric tensor g\u03bc\u03bd is a symmetric rank-2 tensor. Its perturbation \u03b4g\u03bc\u03bd = h\u03bc\u03bd transforms as spin-2 under the Lorentz group. 10 components minus 4 (Bianchi) minus 4 (gauge) = 2 physical DOF = massless spin-2." data-deps="T7B (metric from shared interface), A1" data-epi="[P] Proved" data-tier="Gravity property">');
+  h.push('<rect x="260" y="72" width="180" height="34" rx="6" fill="#60a5fa12" stroke="#60a5fa" stroke-width="1.5"/>');
+  h.push('<text x="350" y="95" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700">s = 2 (spin-2)</text>');
+  h.push('</g>');
+  
+  h.push('<g class="gt-node" data-id="h=2" data-title="Helicities h = \u00b12" data-detail="In d=4, the massless little group is SO(2). Irreps labeled by helicity h = \u00b1s = \u00b12. Exactly 2 transverse-traceless polarizations: h+ and h\u00d7. LIGO confirms: no scalar/vector modes detected. Only d=4 gives exactly 2 propagating polarizations." data-deps="T8 (d=4), T_gauge (capacity budget)" data-epi="[P] Proved" data-tier="Gravity property">');
+  h.push('<rect x="490" y="72" width="180" height="34" rx="6" fill="#a78bfa12" stroke="#a78bfa" stroke-width="1.5"/>');
+  h.push('<text x="580" y="95" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="700">h = \u00b12 (helicities)</text>');
+  h.push('</g>');
+  
+  // Level 2 - reasons (also clickable)
+  h.push('<line x1="120" y1="106" x2="120" y2="124" stroke="#4a5575" stroke-width="0.8"/>');
+  h.push('<line x1="350" y1="106" x2="350" y2="124" stroke="#4a5575" stroke-width="0.8"/>');
+  h.push('<line x1="580" y1="106" x2="580" y2="124" stroke="#4a5575" stroke-width="0.8"/>');
+  
+  h.push('<g class="gt-node" data-id="diffeo" data-title="Diffeomorphism Invariance" data-detail="The metric must be coordinate-independent (A3 locality at geometric level). Combined with Lorentzian signature (\u0394_signature from A4+HKM+Malament) and Lovelock\u2019s theorem (unique 2nd-order divergence-free tensor in d=4), diffeomorphism invariance forces masslessness. A mass term m\u00b2g\u03bc\u03bd breaks this symmetry." data-deps="\u0394_signature [P], Lovelock (1971)" data-epi="[P] Proved" data-tier="Mathematical backbone">');
+  h.push('<rect x="20" y="124" width="200" height="48" rx="5" fill="#0b0f1a" stroke="#34d39940" stroke-width="1"/>');
+  h.push('<text x="120" y="144" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">Diffeomorphism invariance</text>');
+  h.push('<text x="120" y="162" text-anchor="middle" fill="#4a5575" font-size="9">\u0394_signature [P] + Lovelock</text>');
+  h.push('</g>');
+  
+  h.push('<g class="gt-node" data-id="rank2" data-title="Symmetric Rank-2 Tensor" data-detail="T7B proves: when two subsystems share enforcement capacity (non-factorizing interface), the external feasibility functional must be quadratic, local, universal, and endpoint-symmetric. The unique such object is a metric tensor g\u03bc\u03bd\u2014a symmetric rank-2 tensor. Gravity is the bookkeeping cost of shared enforcement." data-deps="T7B (Polarization identity), A1, A4" data-epi="[P] Proved" data-tier="Mathematical backbone">');
+  h.push('<rect x="250" y="124" width="200" height="48" rx="5" fill="#0b0f1a" stroke="#60a5fa40" stroke-width="1"/>');
+  h.push('<text x="350" y="144" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="700">Symmetric rank-2 tensor</text>');
+  h.push('<text x="350" y="162" text-anchor="middle" fill="#4a5575" font-size="9">T7B: g\u03bc\u03bd from shared interface</text>');
+  h.push('</g>');
+  
+  h.push('<g class="gt-node" data-id="so2" data-title="SO(2) Little Group in d=4" data-detail="T8 proves d=4 from capacity budget (pigeonhole principle). In d dimensions, the massless little group is SO(d\u22122). In d=4: SO(2), giving helicity \u00b12. In d=3: SO(1)\u21920 DOF (topological). In d=5: SO(3)\u21925 DOF. Only d=4 gives exactly 2 propagating GW polarizations compatible with A4 records." data-deps="T8 (d=4 from A1+A4), T_gauge" data-epi="[P] Proved" data-tier="Mathematical backbone">');
+  h.push('<rect x="480" y="124" width="200" height="48" rx="5" fill="#0b0f1a" stroke="#a78bfa40" stroke-width="1"/>');
+  h.push('<text x="580" y="144" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="700">SO(2) little group in d=4</text>');
+  h.push('<text x="580" y="162" text-anchor="middle" fill="#4a5575" font-size="9">T8: d=4 from capacity budget</text>');
+  h.push('</g>');
+  
   // Level 3 - axiom roots
-  h.push('<line x1="70" y1="144" x2="70" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
-  h.push('<line x1="150" y1="144" x2="150" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
-  h.push('<line x1="290" y1="144" x2="290" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
-  h.push('<line x1="370" y1="144" x2="370" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
-  h.push('<line x1="510" y1="144" x2="510" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
-  h.push('<line x1="590" y1="144" x2="590" y2="162" stroke="#fbbf24" stroke-width="0.6"/>');
-  [{x:70,l:'A4'},{x:150,l:'\u0394_closure'},{x:290,l:'A1'},{x:370,l:'A4'},{x:510,l:'T_gauge'},{x:590,l:'A1'}].forEach(function(n){
-    h.push('<rect x="'+(n.x-28)+'" y="162" width="56" height="20" rx="3" fill="#fbbf2408" stroke="#fbbf24" stroke-width="0.8"/>');
-    h.push('<text x="'+n.x+'" y="176" text-anchor="middle" fill="#fbbf24" font-size="7" font-weight="700">'+n.l+'</text>');
+  h.push('<line x1="75" y1="172" x2="75" y2="192" stroke="#fbbf24" stroke-width="0.8"/>');
+  h.push('<line x1="165" y1="172" x2="165" y2="192" stroke="#fbbf24" stroke-width="0.8"/>');
+  h.push('<line x1="305" y1="172" x2="305" y2="192" stroke="#fbbf24" stroke-width="0.8"/>');
+  h.push('<line x1="395" y1="172" x2="395" y2="192" stroke="#fbbf24" stroke-width="0.8"/>');
+  h.push('<line x1="535" y1="172" x2="535" y2="192" stroke="#fbbf24" stroke-width="0.8"/>');
+  h.push('<line x1="625" y1="172" x2="625" y2="192" stroke="#fbbf24" stroke-width="0.8"/>');
+  
+  var gravRoots=[{x:75,l:'A4',t:'Irreversibility',d:'Arrow of time. Causal structure.'},{x:165,l:'\u0394_closure',t:'Full Geometric Closure',d:'10/10 Einstein preconditions met.'},{x:305,l:'A1',t:'Finite Capacity',d:'The sole axiom. All traces back here.'},{x:395,l:'A4',t:'Irreversibility',d:'Lorentzian signature from causality.'},{x:535,l:'T_gauge',t:'Gauge Group',d:'SU(3)\u00d7SU(2)\u00d7U(1) constrains d.'},{x:625,l:'A1',t:'Finite Capacity',d:'Pigeonhole: only d=4 works.'}];
+  gravRoots.forEach(function(n){
+    h.push('<g class="gt-node" data-id="'+n.l+'" data-title="'+n.l+': '+n.t+'" data-detail="'+n.d+'" data-deps="Axiom" data-epi="Axiom / Foundation" data-tier="Root">');
+    h.push('<rect x="'+(n.x-34)+'" y="192" width="68" height="26" rx="4" fill="#fbbf240a" stroke="#fbbf24" stroke-width="1.2"/>');
+    h.push('<text x="'+n.x+'" y="210" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="800">'+n.l+'</text>');
+    h.push('</g>');
   });
-  h.push('<text x="330" y="196" text-anchor="middle" fill="#4a5575" font-size="7" font-style="italic">Every graviton property traces back to A1 (Finite Capacity)</text>');
-  h.push('</svg></div>');
+  
+  h.push('<text x="350" y="242" text-anchor="middle" fill="#4a5575" font-size="10" font-style="italic">Every graviton property traces back to A1 (Finite Capacity)</text>');
+  h.push('<text x="350" y="256" text-anchor="middle" fill="#34d39980" font-size="9" font-weight="600">Click any node for proof details</text>');
+  h.push('</svg>');
+  
+  // Graviton tree interactivity script
+  // Graviton tree interactivity setup in setupGravTree() called from init
+  h.push('</div>');
   h.push('</div>');
   
   // GAUGE || GRAVITY
   h.push('<div style="padding:20px 24px;border-bottom:1px solid var(--bdr)">');
-  h.push('<div style="font-size:14px;font-weight:700;color:var(--br);margin-bottom:10px">\u2194 Two Geometries from One Capacity</div>');
+  h.push('<div style="font-size:16px;font-weight:700;color:var(--br);margin-bottom:10px">\u2194 Two Geometries from One Capacity</div>');
   h.push('<div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:6px;margin-bottom:10px">');
-  h.push('<div style="background:var(--blug);border:1px solid var(--blu);border-radius:8px;padding:12px"><div style="font-size:12px;font-weight:700;color:var(--blu);margin-bottom:6px">Internal \u2192 Gauge</div><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.7"><div>Bundle: G-bundle P\u2192M</div><div>Connection: A\u03bc</div><div>Curvature: F\u03bc\u03bd = cost</div></div></div>');
+  h.push('<div style="background:var(--blug);border:1px solid var(--blu);border-radius:8px;padding:12px"><div style="font-size:14px;font-weight:700;color:var(--blu);margin-bottom:6px">Internal \u2192 Gauge</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7"><div>Bundle: G-bundle P\u2192M</div><div>Connection: A\u03bc</div><div>Curvature: F\u03bc\u03bd = cost</div></div></div>');
   h.push('<div style="display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--dm)">\u2194</div>');
-  h.push('<div style="background:var(--purg);border:1px solid var(--pur);border-radius:8px;padding:12px"><div style="font-size:12px;font-weight:700;color:var(--pur);margin-bottom:6px">External \u2192 Gravity</div><div style="font-family:var(--mn);font-size:10px;color:var(--dm);line-height:1.7"><div>Metric on TM</div><div>Connection: \u0393\u1d68\u03bc\u03bd</div><div>Curvature: R\u1d68\u03c3\u03bc\u03bd</div></div></div>');
+  h.push('<div style="background:var(--purg);border:1px solid var(--pur);border-radius:8px;padding:12px"><div style="font-size:14px;font-weight:700;color:var(--pur);margin-bottom:6px">External \u2192 Gravity</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);line-height:1.7"><div>Metric on TM</div><div>Connection: \u0393\u1d68\u03bc\u03bd</div><div>Curvature: R\u1d68\u03c3\u03bc\u03bd</div></div></div>');
   h.push('</div>');
-  h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:5px;padding:8px;font-family:var(--mn);font-size:10px;color:var(--dm);text-align:center">C(x) = C_spacetime \u00d7 C_internal. More internal structure = less spacetime capacity = <span style="color:var(--grn)">curvature</span></div>');
+  h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:5px;padding:8px;font-family:var(--mn);font-size:12px;color:var(--dm);text-align:center">C(x) = C_spacetime \u00d7 C_internal. More internal structure = less spacetime capacity = <span style="color:var(--grn)">curvature</span></div>');
   h.push('</div>');
   
 // â•â•â• QUANTUM FOUNDATIONS â•â•â•
@@ -1021,7 +1059,7 @@ h.push('</div></div>');
   h.push('<line x1="140" y1="134" x2="560" y2="162" stroke="#4a5575" stroke-width="0.7" marker-end="url(#qt)" opacity="0.4"/>');
   // OUTPUT layer
   h.push('<text x="10" y="215" fill="#4a5575" font-size="8" font-weight="600" font-family="IBM Plex Mono">PHYSICAL OUTPUTS</text>');
-  [{x:60,l:'T_Born',s:'Born rule',c:'#60a5fa',pop:'tborn-popup'},{x:160,l:'T_CPTP',s:'Dynamics',c:'#f87171',pop:'tcptp-popup'},{x:260,l:'T_tensor',s:'\u2297 products',c:'#34d399',pop:'ttensor-popup'},{x:360,l:'T_entropy',s:'S(\u03c1)',c:'#fbbf24',pop:'tentropy-popup'},{x:460,l:'T_\u03b5',s:'Granularity',c:'#818cf8'},{x:560,l:'T_\u03ba',s:'Multiplier',c:'#f472b6'},{x:645,l:'T_M',s:'Monogamy',c:'#a78bfa'}].forEach(function(a){
+  [{x:60,l:'T_Born',s:'Born rule',c:'#60a5fa',pop:'tborn-popup'},{x:160,l:'T_CPTP',s:'Dynamics',c:'#f87171',pop:'tcptp-popup'},{x:260,l:'T_tensor',s:'\u2297 products',c:'#34d399',pop:'ttensor-popup'},{x:360,l:'T_entropy',s:'S(\u03c1)',c:'#fbbf24',pop:'tentropy-popup'},{x:460,l:'T_\u03b5',s:'Granularity',c:'#818cf8',pop:'teps-popup'},{x:560,l:'T_\u03ba',s:'Multiplier',c:'#f472b6',pop:'tkappa-popup'},{x:645,l:'T_M',s:'Monogamy',c:'#a78bfa',pop:'tm-popup'}].forEach(function(a){
     h.push('<rect x="'+(a.x-34)+'" y="222" width="68" height="26" rx="4" fill="'+a.c+'08" stroke="'+a.c+'" stroke-width="0.8" class="tree-node" data-popup="'+(a.pop||'')+'" style="cursor:pointer"/>');
     h.push('<text x="'+a.x+'" y="234" text-anchor="middle" fill="'+a.c+'" font-size="7" font-weight="700" font-family="IBM Plex Mono">'+a.l+'</text>');
     h.push('<text x="'+a.x+'" y="243" text-anchor="middle" fill="#4a5575" font-size="6" font-family="IBM Plex Mono">'+a.s+'</text>');
@@ -1085,35 +1123,6 @@ h.push('</div></div>');
   h.push('<div class="sec-intro">Physics-based spring simulation showing theorem clusters and their connections. Tightly coupled theorems cluster together; weakly connected ones drift apart.</div>');
   h.push('<div class="card" style="position:relative;overflow:hidden"><div id="graph-box" style="width:100%;height:520px;background:var(--c1)"></div><div id="gtt" class="tt" style="display:none;position:absolute;pointer-events:none;z-index:10"></div></div></div>');
 
-
-  // === FEATURED PROOF: sin²θ_W = 3/13 ===
-  h.push('<div class="sec"><div class="sec-t">Featured Proof \u2014 The Weinberg Angle</div>');
-  h.push('<div class="sec-intro">How a single axiom about finite capacity produces the electroweak mixing angle to 0.19% accuracy\u2014with no free parameters.</div>');
-  h.push('<div class="card" style="padding:24px;overflow:hidden">');
-  h.push('<div style="text-align:center;margin-bottom:16px"><div style="font-size:24px;font-weight:800;color:var(--grn);font-family:var(--mn)">sin\u00b2\u03b8<sub>W</sub> = 3/13 \u2248 0.23077</div>');
-  h.push('<div style="font-size:12px;color:var(--dm);margin-top:4px">Observed: 0.23122 \u00b1 0.00003 \u00b7 Error: <span style="color:var(--grn)">0.19%</span></div></div>');
-  // Visual proof chain
-  h.push('<div style="display:flex;flex-direction:column;gap:0;align-items:center">');
-  var sinSteps = [
-    {label:'A1: Finite Capacity',color:'#fbbf24',detail:'The universe can enforce only finitely many distinctions. This is the sole axiom.'},
-    {label:'T3: Gauge Bundles',color:'#34d399',detail:'Locality (derived from A1) forces automorphisms to be inner \u2192 gauge structure emerges with connections on principal G-bundles.'},
-    {label:'T_gauge: SU(3)\u00d7SU(2)\u00d7U(1)',color:'#34d399',detail:'Capacity optimization selects dim=12 as minimal anomaly-free gauge group. No other factorization works.'},
-    {label:'T6: sin\u00b2\u03b8_W(M_U) = 3/8',color:'#a78bfa',detail:'At unification scale, pure group theory (Georgi-Glashow SU(5) embedding) gives the tree-level mixing angle.'},
-    {label:'T20\u2192T21: RG = Enforcement Flow',color:'#a78bfa',detail:'Renormalization group running IS capacity reallocation between enforcement channels. \u03b2-function derived from saturation.'},
-    {label:'T22: Competition Matrix',color:'#a78bfa',detail:'Two gauge sectors compete for shared capacity: a = [[1, 1/2], [1/2, 13/4]]. These entries are topological.'},
-    {label:'T23: Fixed Point Formula',color:'#a78bfa',detail:'r* = (\u03b3\u2081a\u2082\u2082 \u2212 \u03b3\u2082a\u2081\u2082) / (\u03b3\u2082a\u2081\u2081 \u2212 \u03b3\u2081a\u2081\u2082) \u2192 Capacity ratio at infrared fixed point.'},
-    {label:'T24: sin\u00b2\u03b8_W = r*/(1+r*) = 3/13',color:'#34d399',detail:'All gates closed: S0 proved by T_S0 (interface schema invariance), R-gate by \u0394_geo closure. The number 3/13 is forced.'}
-  ];
-  sinSteps.forEach(function(s,idx) {
-    h.push('<div style="width:100%;max-width:500px;padding:12px 16px;background:'+(idx===sinSteps.length-1?'var(--grng)':'var(--bg)')+';border:1px solid '+(idx===sinSteps.length-1?'var(--grn)':s.color+'40')+';border-left:4px solid '+s.color+';border-radius:0 6px 6px 0;margin:0">');
-    h.push('<div style="font-family:var(--mn);font-size:12px;font-weight:700;color:'+s.color+'">'+s.label+'</div>');
-    h.push('<div style="font-family:var(--mn);font-size:11px;color:var(--dm);margin-top:3px;line-height:1.5">'+s.detail+'</div>');
-    h.push('</div>');
-    if(idx < sinSteps.length-1) h.push('<div style="width:2px;height:16px;background:var(--bdr)"></div>');
-  });
-  h.push('</div>');
-  h.push('<div style="text-align:center;margin-top:16px;font-family:var(--mn);font-size:11px;color:var(--dm)">8 steps \u00b7 0 free parameters \u00b7 0 fits to data \u00b7 Pure constraint logic</div>');
-  h.push('</div></div>');
 
 
   h.push('<div class="sec"><div class="sec-t">Proof River — Information Flow by Physical Output</div>');
@@ -1188,8 +1197,7 @@ h.push('</div></div>');
       {t:'new',s:'T21a/T21b/T21c: RG attractor family — Lyapunov stability, global basin of attraction, normalized share flow'},
       {t:'new',s:'Four-pillar connections: T_tensor→T_field, T_CPTP→T21, T_Bek→T10, T9→T19 (eliminates 4 early terminals)'},
       {t:'upgrade',s:'63 theorems, 67 crystal nodes, 202 edges (+6), 5,958 paths to sin²θ_W (+821, +16%)'},
-      {t:'new',s:'Featured Proof section: 8-step visual derivation chain for sin²θ_W = 3/13'},
-      {t:'new',s:'Standalone Influence Treemap with analysis panel (power concentration, terminal predictions, funnel structure)'},
+            {t:'new',s:'Standalone Influence Treemap with analysis panel (power concentration, terminal predictions, funnel structure)'},
       {t:'new',s:'Red Team Audit: 11 solid results / 7 issues found, severity-tagged'},
       {t:'new',s:'Crystal Analysis Notes: full shape profile, BFS depth chart, structural root analysis'},
       {t:'upgrade',s:'Proof River v2: larger fonts, click-for-detail panels, proven-ring markers, upstream/downstream counts'},
@@ -1321,6 +1329,7 @@ h.push('<div class="footer">Admissibility Physics Engine '+d.version+' \u00b7 '+
     try{buildForceGraph(d)}catch(e){console.error('forceGraph:',e)}
     try{buildDAG(d)}catch(e){console.error('dag:',e)}
     try{buildTreemap(d)}catch(e){console.error('treemap:',e)}
+    try{setupGravTree()}catch(e){console.error('gravTree:',e)}
     // Extra delayed retry for treemap (grid may not be sized yet)
     setTimeout(function(){try{var tb=document.getElementById('treemap-box');if(tb&&(!tb.children.length||tb.clientWidth<50)){buildTreemap(d)}}catch(e){}},800);
     if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise().catch(function(e){console.error('mathjax:',e)});
@@ -1329,7 +1338,7 @@ h.push('<div class="footer">Admissibility Physics Engine '+d.version+' \u00b7 '+
 
 function drawDonut(){
   var c=document.getElementById('donut-canvas');if(!c)return;var ctx=c.getContext('2d');
-  var cx=140,cy=140,r=112,r2=72;
+  var cx=140,cy=140,r=118,r2=50;
   var data=[{v:42,c:'#a78bfa'},{v:16,c:'#60a5fa'},{v:3,c:'#34d399'}];
   var cum=-Math.PI/2;
   data.forEach(function(d){var a=d.v/61*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,cum,cum+a);ctx.closePath();ctx.fillStyle=d.c;ctx.globalAlpha=0.75;ctx.fill();cum+=a});
@@ -1855,14 +1864,14 @@ stages.forEach((stage,i)=>{
   svg+=`<rect x="${cx-barW/2}" y="${y+8}" width="${barW}" height="${stageH*0.5}" rx="6" fill="${stage.color}12" stroke="${stage.color}" stroke-width="1.5" opacity="0.9"/>`;
 
   svg+=`<circle cx="${cx+barW/2+26}" cy="${y+stageH*0.25+8}" r="18" fill="${stage.color}25" stroke="${stage.color}" stroke-width="1"/>`;
-  svg+=`<text x="${cx+barW/2+26}" y="${y+stageH*0.25+14}" text-anchor="middle" fill="${stage.color}" font-size="24" font-weight="700" font-family="IBM Plex Mono">${stage.ids.length}</text>`;
+  svg+=`<text x="${cx+barW/2+26}" y="${y+stageH*0.25+14}" text-anchor="middle" fill="${stage.color}" font-size="20" font-weight="700" font-family="IBM Plex Mono">${stage.ids.length}</text>`;
 
   const lines=stage.label.split('\n');
   lines.forEach((ln,li)=>{
-    svg+=`<text x="${cx-barW/2-16}" y="${y+stageH*0.25+10+li*28}" text-anchor="end" fill="${stage.color}" font-size="28" font-weight="800" font-family="IBM Plex Mono">${ln}</text>`;
+    svg+=`<text x="${cx-barW/2-16}" y="${y+stageH*0.25+10+li*28}" text-anchor="end" fill="${stage.color}" font-size="24" font-weight="800" font-family="IBM Plex Mono">${ln}</text>`;
   });
 
-  svg+=`<text x="${cx+barW/2+50}" y="${y+stageH*0.25+10}" text-anchor="start" fill="#99aabb" font-size="16" font-family="IBM Plex Mono">${stage.desc}</text>`;
+  svg+=`<text x="${cx+barW/2+50}" y="${y+stageH*0.25+10}" text-anchor="start" fill="#99aabb" font-size="14" font-family="IBM Plex Mono">${stage.desc}</text>`;
 
   const dotR=5;
   const dotsPerRow=Math.floor(barW/(dotR*3+3));
@@ -1884,14 +1893,14 @@ stages.forEach((stage,i)=>{
 });
 
 const predY=H-padB-30;
-svg+=`<text x="${W/2}" y="${predY}" text-anchor="middle" fill="#eef0f8" font-size="20" font-weight="700" font-family="IBM Plex Mono">\u2193 20 TESTABLE PREDICTIONS \u2193</text>`;
-svg+=`<text x="${W/2}" y="${predY+20}" text-anchor="middle" fill="#6a7a9a" font-size="15" font-family="IBM Plex Mono">sin\u00b2\u03b8_W \u00b7 3 gen \u00b7 d=4 \u00b7 SM gauge group \u00b7 \u03a9_\u039b=42/61 \u00b7 f_b=3/19 \u00b7 Higgs \u00b7 DM \u00b7 \u039b>0 \u00b7 spin-2 graviton</text>`;
+svg+=`<text x="${W/2}" y="${predY}" text-anchor="middle" fill="#eef0f8" font-size="17" font-weight="700" font-family="IBM Plex Mono">\u2193 20 TESTABLE PREDICTIONS \u2193</text>`;
+svg+=`<text x="${W/2}" y="${predY+20}" text-anchor="middle" fill="#6a7a9a" font-size="13" font-family="IBM Plex Mono">sin\u00b2\u03b8_W \u00b7 3 gen \u00b7 d=4 \u00b7 SM gauge group \u00b7 \u03a9_\u039b=42/61 \u00b7 f_b=3/19 \u00b7 Higgs \u00b7 DM \u00b7 \u039b>0 \u00b7 spin-2 graviton</text>`;
 
 // Legend (top-left)
 svg+=`<rect x="12" y="12" width="280" height="82" rx="6" fill="#0b0f1ae0" stroke="#1f2940" stroke-width="0.8"/>`;
-svg+=`<text x="22" y="34" fill="#eef0f8" font-size="26" font-weight="800" font-family="IBM Plex Mono">Proof River (v4.0)</text>`;
-svg+=`<text x="22" y="52" fill="#6a7a9a" font-size="14" font-family="IBM Plex Mono">Bar width = theorem count at stage</text>`;
-svg+=`<text x="22" y="68" fill="#6a7a9a" font-size="14" font-family="IBM Plex Mono">Ribbons = capacity flow between tiers</text>`;
+svg+=`<text x="22" y="34" fill="#eef0f8" font-size="22" font-weight="800" font-family="IBM Plex Mono">Proof River (v4.0)</text>`;
+svg+=`<text x="22" y="52" fill="#6a7a9a" font-size="12" font-family="IBM Plex Mono">Bar width = theorem count at stage</text>`;
+svg+=`<text x="22" y="68" fill="#6a7a9a" font-size="12" font-family="IBM Plex Mono">Ribbons = capacity flow between tiers</text>`;
 svg+=`<text x="22" y="84" fill="#99ddff" font-size="14" font-family="IBM Plex Mono" font-weight="600">Click any dot for theorem details</text>`;
 
 // Dot key (top-right)
@@ -2018,7 +2027,7 @@ var tierBands=[];
 tierOrder.forEach(function(tier){
   var nodes=tierGroups[tier];
   var tierVal=nodes.reduce(function(a,n){return a+Math.max(n.influence,1)},0);
-  var tierH=Math.max(38,(tierVal/tierTotal)*H);
+  var tierH=Math.max(44,(tierVal/tierTotal)*H);
   var sorted=nodes.slice().sort(function(a,b){return b.influence-a.influence});
   var items=sorted.map(function(n){return Object.assign({},n,{value:Math.max(n.influence,1)})});
   var rects=squarify(items,0,yAccum,W,tierH);
@@ -2037,7 +2046,7 @@ tierBands.forEach(function(band,i){
   if(i>0){
     html+='<div style="position:absolute;left:0;top:'+Math.round(band.y)+'px;width:100%;height:1px;background:'+band.color+'40;pointer-events:none;z-index:2"></div>';
   }
-  html+='<div style="position:absolute;right:6px;top:'+Math.round(band.y+3)+'px;font-family:var(--mn);font-size:9px;font-weight:700;color:'+band.color+';opacity:0.7;pointer-events:none;text-transform:uppercase;letter-spacing:1.5px;z-index:3">'+band.label+'</div>';
+  html+='<div style="position:absolute;right:4px;top:'+Math.round(band.y+2)+'px;font-family:var(--mn);font-size:11px;font-weight:700;color:'+band.color+';opacity:0.95;pointer-events:none;text-transform:uppercase;letter-spacing:1.2px;z-index:3;background:#0b0f1aee;padding:2px 6px;border-radius:3px;border:1px solid '+band.color+'30;white-space:nowrap">'+band.label+'</div>';
 });
 
 // Cells
@@ -2050,13 +2059,13 @@ allRects.forEach(function(r){
   var fillHex=fillOp.toString(16);if(fillHex.length<2)fillHex='0'+fillHex;
   var borderHex=borderOp.toString(16);if(borderHex.length<2)borderHex='0'+borderHex;
 
-  var idFS=Math.min(16,Math.max(9,Math.min(r.w/5.5,r.h/2.8)));
-  var infFS=Math.min(13,Math.max(8,idFS*0.72));
-  var nameFS=Math.min(11,Math.max(7,idFS*0.58));
+  var idFS=Math.min(24,Math.max(13,Math.min(r.w/4.5,r.h/2.2)));
+  var infFS=Math.min(17,Math.max(10,idFS*0.72));
+  var nameFS=Math.min(14,Math.max(9,idFS*0.60));
 
   var showLabel=minDim>16;
-  var showInf=r.h>30&&r.w>42;
-  var showName=r.h>48&&r.w>75;
+  var showInf=r.h>38&&r.w>50;
+  var showName=r.h>58&&r.w>85;
 
   var fname=friendlyNames[r.id]||r.key_result||'';
   var fnameEsc=fname.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -2112,6 +2121,37 @@ function tmLeave(el){
   el.style.borderColor=col+(el.dataset.bh||'40');
 }
 
+function setupGravTree(){
+  var tt=document.getElementById('grav-tt');if(!tt)return;
+  document.querySelectorAll('.gt-node').forEach(function(g){
+    g.style.cursor='pointer';
+    var rect=g.querySelector('rect');
+    g.addEventListener('mouseenter',function(ev){
+      if(rect){rect.setAttribute('stroke-width','3');rect.setAttribute('filter','url(#gt-glow)')}
+      var d=g.dataset;
+      var htm='<div style="font-weight:800;font-size:15px;color:var(--br);margin-bottom:4px">'+d.title+'</div>';
+      htm+='<div style="font-size:12px;color:var(--dm);line-height:1.6;margin-bottom:6px">'+d.detail+'</div>';
+      htm+='<div style="font-size:11px;color:var(--grn);margin-top:4px">Dependencies: '+d.deps+'</div>';
+      htm+='<div style="font-size:10px;color:var(--blu);margin-top:2px">'+d.tier+' \u00b7 '+d.epi+'</div>';
+      tt.innerHTML=htm;tt.style.display='block';
+      var x=ev.clientX+16,y=ev.clientY+16;
+      if(x+390>window.innerWidth)x=ev.clientX-390;
+      if(y+200>window.innerHeight)y=ev.clientY-200;
+      tt.style.left=x+'px';tt.style.top=y+'px';
+    });
+    g.addEventListener('mousemove',function(ev){
+      var x=ev.clientX+16,y=ev.clientY+16;
+      if(x+390>window.innerWidth)x=ev.clientX-390;
+      if(y+200>window.innerHeight)y=ev.clientY-200;
+      tt.style.left=x+'px';tt.style.top=y+'px';
+    });
+    g.addEventListener('mouseleave',function(){
+      if(rect){rect.setAttribute('stroke-width',rect.getAttribute('stroke').indexOf('fbbf')>=0?'1.2':'1.5');rect.removeAttribute('filter')}
+      tt.style.display='none';
+    });
+  });
+}
+
 
 // Helper: toggle framework detail panels
 function toggleFWDetail(id) {
@@ -2141,7 +2181,11 @@ var TREE_POPUPS = {
   'tentropy-popup': '<div style="font-size:16px;font-weight:800;color:#fbbf24;margin-bottom:8px">T_entropy: Von Neumann Entropy</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> S(\u03c1) = -Tr(\u03c1 ln \u03c1) is the unique function that always decreases under quantum dynamics (CPTP maps). It measures committed enforcement capacity \u2014 how many distinctions the system has \u201cused up.\u201d Entropy is not disorder; it is bookkeeping.</div>',
   't3-popup': '<div style="font-size:16px;font-weight:800;color:#34d399;margin-bottom:8px">T3: Gauge Structure</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> Locality forces the operator algebra to have internal symmetries. Skolem-Noether says every automorphism is inner. Doplicher-Roberts recovers the symmetry group. The result: gauge fields on principal bundles with connections. This is where forces come from.</div>',
   'therm-popup': '<div style="font-size:16px;font-weight:800;color:#f472b6;margin-bottom:8px">T_Hermitian: Hermitian Operators</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> Physical observables must be represented by Hermitian operators \u2014 operators equal to their own conjugate transpose. This is not assumed; it follows from A1 (finiteness) + L_nc (non-closure) + A4 (irreversibility). A parallel path to T2 that requires no imported theorems.</div>',
-  'lt2-popup': '<div style="font-size:16px;font-weight:800;color:#c084fc;margin-bottom:8px">L_T2: Finite GNS Construction</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> A concrete, finite-dimensional proof that the GNS construction works: take M\u2082(\u2102) (2\u00d72 complex matrices) with the trace state. This yields a faithful Hilbert-space representation with zero imported theorems. The infinite-dimensional case follows by standard extension.</div>'
+  'lt2-popup': '<div style="font-size:16px;font-weight:800;color:#c084fc;margin-bottom:8px">L_T2: Finite GNS Construction</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> A concrete, finite-dimensional proof that the GNS construction works: take M\u2082(\u2102) (2\u00d72 complex matrices) with the trace state. This yields a faithful Hilbert-space representation with zero imported theorems. The infinite-dimensional case follows by standard extension.</div>',
+  'a4-popup': '<div style="font-size:16px;font-weight:800;color:#f87171;margin-bottom:8px">\u2b25 A4: Irreversibility (Derived)</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> Time has a direction. Once a distinction is enforced and recorded, it cannot be undone without exceeding the capacity budget. This gives the arrow of time, the second law of thermodynamics, and causal structure.<br><br><b>Key insight:</b> A4 is NOT an independent axiom. It is derived from A1 via L_irr: superadditivity (\u0394=4) forces path dependence, which forces records, which forces irreversibility. The dashed border in the diagram shows its derived status.<br><br><b>Formally:</b> For any process \u03a6 that erases a recorded distinction d, Cost(\u03a6) > C. Therefore d persists \u2014 irreversibly.</div>',
+  'teps-popup': '<div style="font-size:16px;font-weight:800;color:#818cf8;margin-bottom:8px">T_\u03b5: Enforcement Granularity</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> There is a minimum nonzero cost to enforce any distinction. You cannot make a distinction \u201cinfinitely cheaply.\u201d This means the universe is quantized at its most fundamental level \u2014 not because of a postulate, but because enforcement has a floor.<br><br><b>Formally:</b> \u03b5 = min{c(d) : c(d) > 0} exists and is strictly positive. This follows from L_\u03b5* (minimum enforceable distinction) and A1 (finite capacity).<br><br><b>Downstream:</b> T_\u03b5 feeds into T_\u03b7 (subordination bound), T_\u03ba (multiplier), and ultimately the generation count T7.</div>',
+  'tkappa-popup': '<div style="font-size:16px;font-weight:800;color:#f472b6;margin-bottom:8px">T_\u03ba: Directed Enforcement Multiplier</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> When enforcement flows in a definite direction (irreversibly), it costs exactly twice as much as undirected enforcement. The multiplier \u03ba = 2 is forced by A1 (finiteness) + A4 (irreversibility).<br><br><b>Why \u03ba = 2:</b> A distinction enforced one-way uses the original slot plus one slot for the record of direction. Two slots = twice the cost. This is not a choice \u2014 it is arithmetic.<br><br><b>Downstream:</b> \u03ba = 2 feeds directly into T7 (generation bound: N_gen = 3), making it load-bearing for particle physics.</div>',
+  'tm-popup': '<div style="font-size:16px;font-weight:800;color:#a78bfa;margin-bottom:8px">T_M: Interface Monogamy</div><div style="font-size:13px;color:var(--tx);line-height:1.8"><b>In plain language:</b> Two enforcement interfaces are independent if and only if they use completely separate capacity. No sharing allowed. This is the capacity version of monogamy of entanglement.<br><br><b>Formally:</b> Independence \u21d4 disjoint anchors. If two interfaces overlap in even one capacity slot, they are correlated.<br><br><b>Why it matters:</b> Monogamy constrains how particles can share quantum information and feeds into T25a (overlap bounds) and T21 (\u03b2-function), ultimately shaping the competition matrix that determines sin\u00b2\u03b8_W.</div>'
 };
 
 document.addEventListener('click', function(e) {
