@@ -283,6 +283,7 @@ def main():
     if not dashboard_path:
         # Auto-detect: look for common names
         candidates = [
+            'index.html',
             'thedashboard_v41.html',
             'thedashboard_v38__3_.html',
             'dashboard.html',
