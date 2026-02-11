@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ================================================================================
-ENFORCEMENT CRYSTAL v2 — Post-Reduction Analysis
+ENFORCEMENT CRYSTAL v2 â€” Post-Reduction Analysis
 ================================================================================
 
 Reconstructs the enforcement crystal (dependency DAG) from the current
@@ -18,7 +18,7 @@ Metrics computed:
   3. Betweenness centrality
   4. Cascade failure analysis
   5. Minimum vertex cuts (hourglass detection)
-  6. Path enumeration to sin²θ_W
+  6. Path enumeration to sinÂ²Î¸_W
   7. Axiom fingerprinting
   8. Axiom attribution weights
   9. Shannon entropy measures
@@ -59,22 +59,22 @@ AXIOMS_5 = {'A1', 'A2', 'A3', 'A4', 'A5'}  # Original 5-axiom form (Crystal pape
 
 DEPENDENCY_MAP = {
     # ===== REDUCTION LAYER (how axioms derive from A1) =====
-    # L_loc: A1 + M + NT → A3 (locality)
+    # L_loc: A1 + M + NT â†’ A3 (locality)
     'L_loc':   ['A1', 'L_epsilon*', 'M', 'NT'],
-    # L_irr: A1 + L_nc → A4 (irreversibility)
+    # L_irr: A1 + L_nc â†’ A4 (irreversibility)
     'L_irr':   ['A1', 'L_nc'],
-    # L_nc: non-closure (in 3-axiom form, from A1 + A3; in 5-axiom form, from A1 + A2)
-    'L_nc':    ['A1', 'A3'],
+    # L_nc: non-closure (from A1 + A3, gated by T0 consistency proof)
+    'L_nc':    ['A1', 'A3', 'T0'],
     # L_col: collapse derived (from A1 + A4)
     # (not in the theorem bank as a separate check, but declared in the reduction)
 
     # ===== TIER 0: AXIOM-LEVEL FOUNDATIONS =====
-    'T0':           ['A1', 'A4', 'L_nc'],
+    'T0':           ['A1', 'A3', 'A4'],
     'T1':           ['L_nc', 'T0', 'A3'],
     'L_T2':         ['L_nc', 'A3', 'A4'],
     'T2':           ['A1', 'L_nc', 'T1', 'L_T2'],
     'T3':           ['T2', 'A3'],
-    'L_epsilon*':   ['A1'],
+    'L_epsilon*':   ['A1', 'T0'],
     'T_epsilon':    ['L_epsilon*', 'A1'],
     'T_eta':        ['T_epsilon', 'T_M', 'A1', 'T_kappa'],
     'T_kappa':      ['T_epsilon', 'A1', 'A4'],
@@ -99,10 +99,13 @@ DEPENDENCY_MAP = {
 
     # ===== TIER 3: CONTINUOUS CONSTANTS / RG =====
     'T6':           ['T_gauge'],
-    'T6B':          ['T6', 'T21', 'T22', 'T_field'],
+    'T6B':          ['T6', 'T21', 'T21b', 'T22', 'T_field'],
     'T19':          ['T_channels', 'T_field'],
     'T20':          ['A1', 'T3', 'T_Hermitian'],
     'T21':          ['L_nc', 'T20', 'T_M', 'T27c', 'T27d'],
+    'T21a':         ['T21b'],
+    'T21b':         ['T21', 'T22', 'T24', 'T27d'],
+    'T21c':         ['T21b'],
     'T22':          ['T19', 'T_gauge'],
     'T23':          ['T21', 'T22', 'T27c', 'T27d'],
     'T24':          ['T23', 'T27c', 'T27d', 'T22', 'T_S0'],
@@ -131,7 +134,7 @@ DEPENDENCY_MAP = {
     'T12E':      ['T12', 'T4F', 'T_field', 'T_Higgs', 'T4G', 'A1', 'T20'],
     'T_Bek':     ['A1', 'T_M', 'T_entropy', 'Delta_continuum'],
 
-    # ===== TIER 5: Δ_geo CLOSURE =====
+    # ===== TIER 5: Î”_geo CLOSURE =====
     'Delta_ordering':   ['A4', 'L_epsilon*', 'T0'],
     'Delta_fbc':        ['A4', 'A1', 'L_epsilon*'],
     'Delta_particle':   ['A1', 'A4', 'L_epsilon*', 'T_M', 'T_S0'],
@@ -155,7 +158,7 @@ TIER_MAP = {
     'T_field': 2, 'T_channels': 2, 'T7': 2, 'T4E': 2, 'T4F': 2,
     'T4G': 2, 'T4G_Q31': 2, 'T_Higgs': 2, 'T9': 2,
     # Tier 3
-    'T6': 3, 'T6B': 3, 'T19': 3, 'T20': 3, 'T21': 3, 'T22': 3,
+    'T6': 3, 'T6B': 3, 'T19': 3, 'T20': 3, 'T21': 3, 'T21a': 3, 'T21b': 3, 'T21c': 3, 'T22': 3,
     'T23': 3, 'T24': 3, 'T25a': 3, 'T25b': 3, 'T26': 3,
     'T27c': 3, 'T27d': 3, 'T_sin2theta': 3, 'T_S0': 3,
     # Quantum chain
@@ -173,7 +176,7 @@ SECTOR_MAP = {
     'quantum_spine': ['T1', 'L_T2', 'T2', 'T_Hermitian', 'T_Born', 'T_CPTP', 'T_tensor', 'T_entropy'],
     'gauge_selection': ['T4', 'T5', 'T_gauge', 'T6'],
     'particle_content': ['T_field', 'T_channels', 'T7', 'T4E', 'T4F', 'T4G', 'T4G_Q31', 'T_Higgs', 'T9'],
-    'ew_constants': ['T6B', 'T19', 'T20', 'T21', 'T22', 'T23', 'T24', 'T25a', 'T25b', 'T26', 'T27c', 'T27d', 'T_sin2theta', 'T_S0'],
+    'ew_constants': ['T6B', 'T19', 'T20', 'T21', 'T21a', 'T21b', 'T21c', 'T22', 'T23', 'T24', 'T25a', 'T25b', 'T26', 'T27c', 'T27d', 'T_sin2theta', 'T_S0'],
     'gravity': ['T7B', 'T8', 'T9_grav', 'T10', 'T11', 'T_particle'],
     'dark_sector': ['T12', 'T12E', 'T_Bek'],
     'geo_closure': ['Delta_ordering', 'Delta_fbc', 'Delta_particle', 'Delta_continuum', 'Delta_signature', 'Delta_closure'],
@@ -318,7 +321,7 @@ class EnforcementCrystal:
         if remaining:
             if not hasattr(self, '_cycle_warned'):
                 self._cycle_warned = True
-                print(f"  ⚠ CYCLE DETECTED: {sorted(remaining)} not in topological order")
+                print(f"  âš  CYCLE DETECTED: {sorted(remaining)} not in topological order")
             # Append them anyway so metrics don't crash
             order.extend(sorted(remaining))
         return order
@@ -585,7 +588,7 @@ def run_crystal_analysis(mode='3-axiom') -> Dict[str, Any]:
     crystal = EnforcementCrystal(axiom_mode=mode)
 
     print(f"\n{'='*74}")
-    print(f"  ENFORCEMENT CRYSTAL v2 — {mode.upper()} MODE")
+    print(f"  ENFORCEMENT CRYSTAL v2 â€” {mode.upper()} MODE")
     print(f"{'='*74}")
 
     # 1. Basic counts
@@ -598,11 +601,11 @@ def run_crystal_analysis(mode='3-axiom') -> Dict[str, Any]:
 
     # 2. Width profile
     profile = crystal.width_profile()
-    print(f"\n  WIDTH PROFILE (depth → width):")
+    print(f"\n  WIDTH PROFILE (depth â†’ width):")
     max_depth = max(profile.keys()) if profile else 0
     for d in range(max_depth + 1):
         nodes = profile.get(d, [])
-        bar = '█' * len(nodes)
+        bar = 'â–ˆ' * len(nodes)
         names = ', '.join(sorted(nodes)[:5])
         if len(nodes) > 5:
             names += f", ... (+{len(nodes)-5})"
@@ -618,7 +621,7 @@ def run_crystal_analysis(mode='3-axiom') -> Dict[str, Any]:
     # 4. Cascade failure (top 10)
     cascades = crystal.all_cascades()
     cas_sorted = sorted(cascades.items(), key=lambda x: -x[1])[:10]
-    print(f"\n  CASCADE FAILURE (top 10 — nodes lost if removed):")
+    print(f"\n  CASCADE FAILURE (top 10 â€” nodes lost if removed):")
     for node, count in cas_sorted:
         parents = crystal.radj.get(node, set()) & crystal.nodes
         risk = "HIGH" if len(parents) <= 1 else "low"
@@ -631,11 +634,11 @@ def run_crystal_analysis(mode='3-axiom') -> Dict[str, Any]:
         pct = round(100 * loads[a] / n_theorems) if n_theorems > 0 else 0
         print(f"    {a:6s}: {loads[a]:3d} descendants ({pct}%)")
 
-    # 6. Path counting to sin²θ_W
+    # 6. Path counting to sinÂ²Î¸_W
     if 'T_sin2theta' in crystal.nodes:
         paths = crystal.count_paths('T_sin2theta')
         ancestors = crystal.ancestors('T_sin2theta')
-        print(f"\n  SIN²θ_W PREDICTION FUNNEL:")
+        print(f"\n  SINÂ²Î¸_W PREDICTION FUNNEL:")
         print(f"    Total paths to T_sin2theta: {paths:,}")
         print(f"    Ancestor count: {len(ancestors)}")
 
@@ -648,11 +651,11 @@ def run_crystal_analysis(mode='3-axiom') -> Dict[str, Any]:
     # 7. Hourglass waists
     waists = crystal.find_waists(threshold=3)
     if waists:
-        print(f"\n  HOURGLASS WAISTS (width ≤ 3):")
+        print(f"\n  HOURGLASS WAISTS (width â‰¤ 3):")
         for d, nodes in waists:
             print(f"    Depth {d}: {sorted(nodes)}")
     else:
-        print(f"\n  No hourglass waists found (width ≤ 3)")
+        print(f"\n  No hourglass waists found (width â‰¤ 3)")
 
     # 8. Entropy measures
     out_ent = crystal.degree_entropy('out')
@@ -721,10 +724,10 @@ def run_crystal_analysis(mode='3-axiom') -> Dict[str, Any]:
 
 def compare_crystal_versions():
     """Run analysis for both 3-axiom and original 5-axiom comparison."""
-    print("\n" + "█" * 74)
+    print("\n" + "â–ˆ" * 74)
     print("  ENFORCEMENT CRYSTAL v2: COMPARATIVE ANALYSIS")
     print("  Comparing original (5-axiom) vs current (3-axiom) vs reduced (1-axiom)")
-    print("█" * 74)
+    print("â–ˆ" * 74)
 
     results = {}
     for mode in ['3-axiom', '1-axiom']:
@@ -736,7 +739,7 @@ def compare_crystal_versions():
     print(f"{'='*74}")
 
     print(f"\n  {'Metric':35s}  {'Original (5-ax)':>15s}  {'Current (3-ax)':>15s}  {'Reduced (1-ax)':>15s}")
-    print(f"  {'─'*35}  {'─'*15}  {'─'*15}  {'─'*15}")
+    print(f"  {'â”€'*35}  {'â”€'*15}  {'â”€'*15}  {'â”€'*15}")
 
     r3 = results['3-axiom']
     r1 = results['1-axiom']
@@ -746,12 +749,12 @@ def compare_crystal_versions():
     print(f"  {'Total edges':35s}  {'164':>15s}  {r3['edge_count']:>15d}  {r1['edge_count']:>15d}")
 
     if 'sin2theta' in r3 and 'sin2theta' in r1:
-        print(f"  {'Paths to sin²θ_W':35s}  {'1,398':>15s}  {r3['sin2theta']['paths']:>15,}  {r1['sin2theta']['paths']:>15,}")
-        print(f"  {'sin²θ_W ancestors':35s}  {'32':>15s}  {r3['sin2theta']['ancestors']:>15d}  {r1['sin2theta']['ancestors']:>15d}")
+        print(f"  {'Paths to sinÂ²Î¸_W':35s}  {'1,398':>15s}  {r3['sin2theta']['paths']:>15,}  {r1['sin2theta']['paths']:>15,}")
+        print(f"  {'sinÂ²Î¸_W ancestors':35s}  {'32':>15s}  {r3['sin2theta']['ancestors']:>15d}  {r1['sin2theta']['ancestors']:>15d}")
 
     if r3['betweenness_top15']:
         top3_node = r3['betweenness_top15'][0][0]
-        print(f"  {'Highest betweenness node':35s}  {'L_ε*':>15s}  {top3_node:>15s}  {r1['betweenness_top15'][0][0]:>15s}")
+        print(f"  {'Highest betweenness node':35s}  {'L_Îµ*':>15s}  {top3_node:>15s}  {r1['betweenness_top15'][0][0]:>15s}")
 
     out3 = r3['entropy']['out_degree']
     in3 = r3['entropy']['in_degree']
@@ -768,15 +771,15 @@ def compare_crystal_versions():
     claims = [
         ("Claim 1: Gauge selection is unique bottleneck",
          "Check width profile for single-node waist at gauge tier"),
-        ("Claim 2: sin²θ_W is over-determined",
+        ("Claim 2: sinÂ²Î¸_W is over-determined",
          f"Paths: {r3.get('sin2theta', {}).get('paths', 'N/A')} (was 1,398)"),
         ("Claim 3: QM and GR are structurally parallel",
          f"Independent: {r3['qm_gr_independence']['independent']}, "
          f"Shared: {r3['qm_gr_independence']['shared_non_axiom']} nodes"),
-        ("Claim 4: L_ε* is the structural root",
+        ("Claim 4: L_Îµ* is the structural root",
          f"Top betweenness: {r3['betweenness_top15'][0] if r3['betweenness_top15'] else 'N/A'}"),
         ("Claim 5: Collapse is a refinement",
-         "NOW PROVED (L_col derives A5 from A1+A4) — upgraded from observation to theorem"),
+         "NOW PROVED (L_col derives A5 from A1+A4) â€” upgraded from observation to theorem"),
     ]
 
     for i, (claim, evidence) in enumerate(claims, 1):
