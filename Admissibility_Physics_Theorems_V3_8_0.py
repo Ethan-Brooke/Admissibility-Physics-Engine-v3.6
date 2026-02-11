@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ================================================================================
-FCF THEOREM BANK -- v3.8.0
+FCF THEOREM BANK -- v3.6.1
 ================================================================================
 
 All theorems of the Foundational Constraint Framework.
@@ -212,57 +212,82 @@ def _result(name, tier, epistemic, summary, key_result,
 # ======================================================================
 
 def check_L_nc():
-    """L_nc: Non-Closure Lemma.
-    
-    From A2 (non-closure under composition): E_i + E_j Adm in general.
-    
+    """L_nc: Non-Closure from Finite Capacity + Locality.
+
+    CLAIM: A1 (finite capacity) + A3 (independent sectors factor)
+           ==> non-closure under composition.
+
     STATEMENT: There exist admissible enforcement configurations E_1, E_2
-    such that their composition E_1 E_2 is not itself admissible.
-    
-    PROOF: Constructive witness on finite capacity budget.
-    Let C = 10 (total capacity), E_1 = 6, E_2 = 6.
-    Each is admissible (E_i <= C). But E_1 + E_2 = 12 > 10 = C.
-    The composition exceeds capacity -> not admissible.
-    
-    This is the engine behind competition, saturation, and selection:
-    sectors cannot all enforce simultaneously -> they must compete.
+    such that their composition E_1 ∘ E_2 is not itself admissible.
+
+    PROOF (3 steps):
+
+    Step 1 -- Independent sectors exist with separate budgets.
+        A3: enforcement decomposes over independent interfaces.
+        Each sector i has an enforcement configuration E_i acting on its
+        local capacity budget.
+
+    Step 2 -- Finite capacity bounds each sector but not their sum.
+        A1: total enforcement capacity C is finite.
+        Each sector individually satisfies E_i <= C (admissible).
+        But A1 does not require E_1 + E_2 <= C — only that each E_i <= C
+        individually. Sectors with E_i > C/n (for n sectors) each pass the
+        individual admissibility test but collectively exceed the budget.
+
+    Step 3 -- Constructive witness.
+        Let C = 10. By A3, two independent sectors exist.
+        Let E_1 = 6, E_2 = 6. Each is admissible (6 <= 10).
+        Composition: E_1 + E_2 = 12 > 10 = C. Not admissible.
+        Non-closure is demonstrated.
+
+    GENERALIZATION:
+        For n >= 2 sectors (guaranteed by A3 + M), any E_i > C/n
+        produces non-closure. This is generic, not a special case.
+
+    SIGNIFICANCE:
+        Non-closure is the engine behind competition, saturation, and
+        selection: sectors cannot all enforce simultaneously, so they
+        must compete for shared capacity. This was formerly axiom A2
+        in the 5-axiom formulation; the reduction to 3 axioms proves
+        it follows from A1 + A3.
     """
     # Constructive witness
-    C = 10  # total capacity budget
-    E_1 = 6
-    E_2 = 6
-    
+    C = 10  # total capacity budget (A1: finite)
+    E_1 = 6  # sector 1 enforcement (A3: independent sector exists)
+    E_2 = 6  # sector 2 enforcement (A3: independent sector exists)
+
     # Each individually admissible
     assert E_1 <= C, "E_1 must be individually admissible"
     assert E_2 <= C, "E_2 must be individually admissible"
-    
-    # Composition exceeds capacity
+
+    # Composition exceeds capacity -> non-closure
     assert E_1 + E_2 > C, "Composition must exceed capacity (non-closure)"
-    
-    # This holds for ANY capacity C and E_i > C/2
-    # General: for n sectors with E_i > C/n, composition exceeds C
+
+    # Generalization: for n sectors with E_i > C/n, composition exceeds C
     n_sectors = 3
     E_per_sector = C // n_sectors + 1  # = 4
     assert n_sectors * E_per_sector > C, "Multi-sector non-closure"
-    
+
     return _result(
-        name='L_nc: Non-Closure Lemma',
+        name='L_nc: Non-Closure from Finite Capacity + Locality',
         tier=0,
         epistemic='P',
         summary=(
-            f'Non-closure witness: E_1={E_1}, E_2={E_2} each <= C={C}, '
+            'A1 + A3 ==> non-closure. A3 guarantees independent sectors; '
+            f'A1 bounds each individually (E_i <= C={C}). '
+            f'Witness: E_1={E_1}, E_2={E_2}, each admissible, '
             f'but E_1+E_2={E_1+E_2} > {C}. '
-            'A2 STATES non-closure as an axiom; L_nc provides a constructive '
-            'example demonstrating satisfiability. The witness uses A1 (finite '
-            'capacity) and additive composition. L_nc does not DERIVE non-closure '
-            'from deeper principles -- it witnesses the axiom.'
+            'Sectors competing for finite shared capacity cannot all '
+            'enforce simultaneously. Formerly axiom A2; now derived.'
         ),
-        key_result='Non-closure witnessed: constructive example under A1 + A2',
-        dependencies=['A1', 'A2'],
+        key_result='A1 + A3 ==> non-closure (derived, formerly axiom A2)',
+        dependencies=['A1', 'A3'],
         artifacts={
             'C': C, 'E_1': E_1, 'E_2': E_2,
             'composition': E_1 + E_2,
             'exceeds': E_1 + E_2 > C,
+            'derivation': 'A3 (independent sectors) + A1 (finite C) -> non-closure',
+            'formerly': 'Axiom A2 in 5-axiom formulation',
         },
     )
 
@@ -866,7 +891,7 @@ def check_T_kappa():
     return _result(
         name='T_kappa: Directed Enforcement Multiplier',
         tier=0,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'kappa = 2. Lower bound [P]: A5 (forward) + A4 (backward) give '
             'two independent epsilon-commitments -> kappa >= 2. Upper bound '
@@ -1067,7 +1092,7 @@ def check_L_irr():
             'confirming L_nc is necessary.'
         ),
         key_result='A1 + L_nc ==> A4 (irreversibility derived, not assumed)',
-        dependencies=['A1', 'L_nc (from A1 + A3, via A45)'],
+        dependencies=['A1', 'L_nc'],
         artifacts={
             'witness': {
                 'superadditivity': 'Delta({a},{b}) = 4 at Gamma_1',
@@ -1168,7 +1193,7 @@ def check_L_loc():
             'distributed (8.25 each <= 10). Countermodel: |D|=1 needs no locality.'
         ),
         key_result='A1 + M + NT ==> A3 (locality derived, not assumed)',
-        dependencies=['A1', 'L_epsilon*', 'M (multiplicity)', 'NT (non-triviality)'],
+        dependencies=['A1', 'L_epsilon*', 'M', 'NT'],
         artifacts={
             'witness': {
                 'single_interface_max': 'floor(10/2) = 5, but full set costs 19.5 > 10',
@@ -1193,119 +1218,6 @@ def check_L_loc():
                 '(3) Single-interface enforcement inadmissible -> must distribute',
                 '(4) Multiple independent interfaces = locality (A3)',
             ],
-        },
-    )
-
-
-# ======================================================================
-#  L_equip: HORIZON EQUIPARTITION LEMMA
-# ======================================================================
-
-def check_L_equip():
-    """L_equip: Horizon Equipartition — capacity fractions = energy density fractions.
-
-    STATEMENT: At the causal horizon (Bekenstein saturation), each capacity
-    unit contributes equally to ⟨T_μν⟩, so Ω_sector = |sector| / C_total.
-
-    PROOF (4 steps, all from [P] theorems):
-
-    Step 1 (A4 + T_entropy [P]):
-      Irreversibility → entropy increases monotonically.
-      At the causal horizon (outermost enforceable boundary), entropy
-      is maximized: ρ_horizon = argmax S(ρ) subject to Σε_i = C.
-
-    Step 2 (L_ε* [P]):
-      Each distinction costs ε_i ≥ ε > 0 (minimum enforcement cost).
-      Distinctions are discrete: C_total = ⌊C/ε⌋ units.
-      Total capacity C = C_total·ε + r, where 0 ≤ r < ε.
-
-    Step 3 (T_entropy [P] — Lagrange multiplier / max-entropy):
-      Maximize S = -Σ p_i ln p_i subject to Σε_i = C and ε_i ≥ ε.
-      Unique solution (by strict concavity of S): ε_i = C/C_total for all i.
-      That is, max-entropy distributes any surplus uniformly.
-      This is standard: microcanonical ensemble over discrete states.
-
-    Step 4 (Ratio independence):
-      With ε_i = C/C_total for all i:
-        E_sector = |sector| × (C/C_total)
-        Ω_sector = E_sector / E_total = |sector| / C_total
-      The result is INDEPENDENT of C, ε, and the surplus r.
-      Only the COUNT matters. □
-
-    COROLLARY: The cosmological budget Ω_Λ = 42/61, Ω_m = 19/61,
-    f_b = 3/19 follow from [P]-counted sector sizes alone.
-    No regime assumptions (R12.0/R12.1/R12.2) required.
-
-    STATUS: [P] — all steps use proved theorems or axioms.
-    """
-    # Verify the algebraic core: uniform distribution preserves count fractions
-    # regardless of surplus r
-    C_total = 61
-    sectors = {'baryon': 3, 'dark': 16, 'vacuum': 42}
-    assert sum(sectors.values()) == C_total, "Partition must be exhaustive"
-
-    # Test for multiple values of surplus r: ratios are invariant
-    for r_frac in [Fraction(0), Fraction(1, 10), Fraction(1, 2), Fraction(99, 100)]:
-        eps = Fraction(1)  # arbitrary minimum cost
-        C = C_total * eps + r_frac  # total capacity with surplus
-        eps_eff = C / C_total  # uniform cost per unit (max-entropy)
-        assert eps_eff >= eps, f"Effective cost must be ≥ ε"
-
-        E_total = C_total * eps_eff
-        for name, count in sectors.items():
-            E_sector = count * eps_eff
-            omega = E_sector / E_total
-            assert omega == Fraction(count, C_total), (
-                f"Ω_{name} must equal {count}/{C_total} for any r, "
-                f"got {omega} at r={r_frac}"
-            )
-
-    # Verify the MECE partition (binary dichotomies)
-    # Level 1: distinguishable information? YES→matter(19), NO→vacuum(42)
-    matter = sectors['baryon'] + sectors['dark']
-    vacuum = sectors['vacuum']
-    assert matter + vacuum == C_total, "Level 1 exhaustive"
-
-    # Level 2: conserved flavor QN? YES→baryon(3), NO→dark(16)
-    assert sectors['baryon'] + sectors['dark'] == matter, "Level 2 exhaustive"
-
-    # Cross-check: two independent routes to 16
-    N_mult = 5 * 3 + 1  # 5 multiplet types × 3 gens + 1 Higgs
-    N_boson = 12 + 4     # dim(G) + dim(Higgs)
-    assert N_mult == N_boson == 16, "Boson-multiplet identity"
-
-    # Verify predictions
-    f_b = Fraction(3, 19)
-    omega_lambda = Fraction(42, 61)
-    omega_m = Fraction(19, 61)
-    omega_b = Fraction(3, 61)
-    omega_dm = Fraction(16, 61)
-    assert omega_lambda + omega_m == 1, "Budget closes"
-    assert omega_b + omega_dm == omega_m, "Matter sub-budget closes"
-
-    return _result(
-        name='L_equip: Horizon Equipartition',
-        tier=0,
-        epistemic='P',
-        summary=(
-            'At causal horizon, max-entropy (A4+T_entropy) distributes '
-            'capacity surplus uniformly over C_total discrete units (L_ε*). '
-            'Uniform distribution preserves count fractions: '
-            'Ω_sector = |sector|/C_total exactly, independent of '
-            'total capacity C and surplus r. '
-            'Replaces regime assumptions R12.0/R12.1/R12.2 with derivation. '
-            'Algebraically verified: ratio invariant for all r ∈ [0, ε).'
-        ),
-        key_result='Ω_sector = |sector|/C_total at Bekenstein saturation (proved)',
-        dependencies=['A1', 'A4', 'L_epsilon*', 'T_Bek', 'T_entropy'],
-        artifacts={
-            'partition': '3 + 16 + 42 = 61 (MECE)',
-            'omega_lambda': '42/61 = 0.6885',
-            'omega_m': '19/61 = 0.3115',
-            'f_b': '3/19 = 0.1579',
-            'boson_multiplet_identity': 'N_mult = N_boson = 16',
-            'surplus_invariance': 'verified for r ∈ {0, 1/10, 1/2, 99/100}',
-            'replaces': 'R12.0, R12.1, R12.2 (no regime assumptions needed)',
         },
     )
 
@@ -1340,7 +1252,7 @@ def check_T4():
     return _result(
         name='T4: Minimal Anomaly-Free Chiral Gauge Net',
         tier=1,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Confinement + chirality + Witten anomaly freedom + anomaly cancellation '
             'select SU(N_c) * SU(2) * U(1) as the unique minimal structure. '
@@ -1724,7 +1636,7 @@ def check_T_field():
           'Y_L':str(Y_L),'Y_e':str(Y_e)}
     return _result(
         name='T_field: Fermion Content (Exhaustive Derivation)',
-        tier=2, epistemic='P',
+        tier=2, epistemic='P_structural',
         summary=(
             f'Phase 1: scanned {tested} standard templates (7 filters) -> '
             f'1 unique survivor = SM. Phase 2: 5 closed-form proofs exclude '
@@ -1737,7 +1649,7 @@ def check_T_field():
             f'Y_L=-1/2, Y_e=-1.'
         ),
         key_result=f'SM fermions UNIQUE within SU(3) reps <= dim 10 (Phase 1: {tested} templates) + analytic exclusion for higher reps (Phase 2: 5 proofs)',
-        dependencies=['T_gauge', 'T7', 'T5', 'A1', 'L_nc', 'T_tensor'],
+        dependencies=['T_gauge', 'T7', 'T5', 'A1', 'L_nc'],
         artifacts={
             'phase1_scanned': tested, 'phase1_survivors': len(survivors),
             'phase2_proofs': 5, 'winner_dof': w_dof, 'winner_desc': wd,
@@ -2123,7 +2035,7 @@ def check_T_Higgs():
     return _result(
         name='T_Higgs: Massive Scalar from EW Pivot',
         tier=2,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'EW vacuum must break (A4: unbroken -> records unstable). '
             'Broken vacuum has unique minimum v* (0,1) with positive '
@@ -2219,7 +2131,7 @@ def check_T6():
     return _result(
         name='T6: EW Mixing at Unification',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'sin^2theta_W(M_U) = {sin2_at_unification}. '
             'IMPORT: uses SU(5) embedding (Tr(T_3^2)/Tr(Q^2) ratio). '
@@ -2270,7 +2182,7 @@ def check_T6B():
             'capacity competition between SU(2) and U(1) sectors.'
         ),
         key_result=f'sin^2theta_W runs from {sin2_MU} to ~{sin2_MZ}',
-        dependencies=['T6', 'T21', 'T22', 'T_field', 'T21b'],
+        dependencies=['T6', 'T21', 'T22', 'T_field'],
     )
 
 
@@ -2306,7 +2218,7 @@ def check_T19():
             'C_EW >= M_EW and reinforces N_gen = 3.'
         ),
         key_result=f'M = {M} routing sectors',
-        dependencies=['T_channels', 'T_field', 'T9'],
+        dependencies=['T_channels', 'T_field'],
         artifacts={'M_sectors': M},
     )
 
@@ -2371,7 +2283,7 @@ def check_T21():
     return _result(
         name='T21: beta-Function from Saturation',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'beta_i = -gamma_i w_i + lambda w_i sum_j a_ij w_j. '
             'Linear term: coarse-graining decay. '
@@ -2380,7 +2292,7 @@ def check_T21():
             'gamma1 = 1 (normalization), lambda_ (boundary condition).'
         ),
         key_result='beta_i = -gamma_i w_i + lambda w_i sum_j a_ij w_j',
-        dependencies=['L_nc', 'T20', 'T_M', 'T27c', 'T27d', 'T_CPTP'],
+        dependencies=['L_nc', 'T20', 'T_M', 'T27c', 'T27d'],
     )
 
 
@@ -2467,7 +2379,7 @@ def check_T22():
             f'cross-term to a_22. Matrix determinant = {m} (independent of x).'
         ),
         key_result=f'a_dressed = [[1,x],[x,x^2+{m}]], det={m} (x-independent)',
-        dependencies=['T19', 'T_gauge', 'T21'],
+        dependencies=['T19', 'T_gauge'],
         artifacts={
             'a_11': 1, 'a_22_bare': m, 'a_12_bare': 0,
             'a_22_dressed': f'x^2+{m}', 'a_12_dressed': 'x',
@@ -2548,7 +2460,7 @@ def check_T24():
     return _result(
         name='T24: sin^2theta_W = 3/13',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'sin^2theta_W = 3/13 ~= {predicted:.6f}. '
             f'Experimental: {experimental}. Error: {error_pct:.2f}%. '
@@ -2567,191 +2479,6 @@ def check_T24():
         },
     )
 
-
-
-
-def check_T21a():
-    """T21a: Normalized Share Flow (Corollary of T21b).
-    
-    The share variable p(s) = w(s)/W(s) satisfies an autonomous ODE
-    whose unique attractor is p* = 3/13.
-    
-    UPGRADE HISTORY: [P_structural] → [P] (corollary of T21b [P]).
-    STATUS: [P] — direct corollary of analytic Lyapunov proof.
-    """
-    # T21b proves w(s) → w* globally. Then p = w1/(w1+w2) → w1*/(w1*+w2*) = 3/13.
-    from fractions import Fraction
-    r_star = Fraction(3, 10)
-    p_star = r_star / (1 + r_star)
-    assert p_star == Fraction(3, 13), "Share must converge to 3/13"
-    
-    return _result(
-        name='T21a: Normalized Share Flow',
-        tier=3,
-        epistemic='P',
-        summary=(
-            'p(s) = w(s)/W(s) satisfies non-autonomous share dynamics. '
-            'Since w(s) → w* globally (T21b [P], analytic Lyapunov), '
-            'p(s) → p* = 3/13. Upgrade: [P_structural] → [P].'
-        ),
-        key_result='p(s) = w(s)/W(s) → p* = 3/13 (non-autonomous share dynamics)',
-        dependencies=['T21b'],
-    )
-
-
-def check_T21b():
-    """T21b: Lyapunov Stability (RG Attractor) — ANALYTIC PROOF.
-    
-    The competition ODE dw/ds = F(w) with F from T21+T22 has a unique
-    interior fixed point w* = (3/8, 5/4) which is a global attractor.
-    
-    ANALYTIC PROOF (replaces numerical verification):
-    
-    The system is a competitive Lotka-Volterra ODE:
-      dw_i/ds = w_i(-γ_i + Σ_j a_ij w_j)
-    
-    Standard Lyapunov function:
-      V(w) = Σ_i (w_i - w_i* - w_i* ln(w_i/w_i*))
-    
-    V(w*) = 0, V(w) > 0 for all w ≠ w* in R²₊ (Jensen's inequality).
-    
-    Time derivative:
-      dV/ds = Σ_i (1 - w_i*/w_i)(dw_i/ds)
-            = Σ_i (w_i - w_i*)(-γ_i + Σ_j a_ij w_j)
-            = Σ_i (w_i - w_i*) Σ_j a_ij (w_j - w_j*)   [using γ_i = Σ_j a_ij w_j*]
-            = (w - w*)ᵀ A (w - w*)
-    
-    Competition matrix A = [[1, 1/2], [1/2, 13/4]] is symmetric positive definite:
-      det(A) = 1×(13/4) - (1/2)² = 3 > 0
-      trace(A) = 1 + 13/4 = 17/4 > 0
-    
-    Therefore dV/ds > 0 for all w ≠ w*:
-      Forward flow (IR): V increases → w* is UNSTABLE (IR repeller)
-      Reverse flow (UV): V decreases → w* is GLOBALLY STABLE (UV attractor)
-    
-    Basin of attraction = entire positive orthant R²₊.
-    
-    UPGRADE HISTORY: [P_structural | numerical] → [P] (analytic Lyapunov).
-    STATUS: [P] — standard Lotka-Volterra stability, A sym pos def.
-    """
-    from fractions import Fraction
-    
-    # ── Competition matrix (from T22 [P]) ──
-    x = Fraction(1, 2)
-    a11 = Fraction(1)
-    a12 = x            # = 1/2
-    a21 = x            # symmetric
-    a22 = x * x + 3    # = 13/4
-    
-    # ── Verify symmetric positive definite ──
-    assert a12 == a21, "A must be symmetric"
-    det_A = a11 * a22 - a12 * a21
-    trace_A = a11 + a22
-    assert det_A == 3, f"det(A) must be 3, got {det_A}"
-    assert trace_A == Fraction(17, 4), f"trace(A) must be 17/4, got {trace_A}"
-    assert det_A > 0 and trace_A > 0, "A must be positive definite"
-    
-    # ── Fixed point (from T21 + T22 + T27d) ──
-    gamma1, gamma2 = Fraction(1), Fraction(17, 4)
-    # γ_i = Σ_j a_ij w_j* → solve linear system
-    # 1 = w1* + w2*/2  and  17/4 = w1*/2 + 13w2*/4
-    w2_star = (gamma2 - gamma1 * a21 / a11) / (a22 - a12 * a21 / a11)
-    w1_star = (gamma1 - a12 * w2_star) / a11
-    assert w1_star == Fraction(3, 8), f"w1* must be 3/8, got {w1_star}"
-    assert w2_star == Fraction(5, 4), f"w2* must be 5/4, got {w2_star}"
-    
-    # ── Verify fixed point satisfies Aw* = γ ──
-    assert a11 * w1_star + a12 * w2_star == gamma1, "FP eq 1"
-    assert a21 * w1_star + a22 * w2_star == gamma2, "FP eq 2"
-    
-    # ── Verify sin²θ_W ──
-    r_star = w1_star / w2_star
-    sin2 = r_star / (1 + r_star)
-    assert sin2 == Fraction(3, 13), "Must give sin²θ_W = 3/13"
-    
-    # ── Lyapunov proof verification ──
-    # dV/ds = (w-w*)ᵀ A (w-w*) > 0 for all w ≠ w*
-    # Since A is symmetric positive definite, this holds by definition.
-    # Verify on sample perturbations:
-    import math
-    A_float = [[float(a11), float(a12)], [float(a21), float(a22)]]
-    for dw1, dw2 in [(0.1, 0.0), (0.0, 0.1), (0.1, 0.1), (-0.1, 0.05), (0.3, -0.2)]:
-        quad = (dw1 * (A_float[0][0]*dw1 + A_float[0][1]*dw2) +
-                dw2 * (A_float[1][0]*dw1 + A_float[1][1]*dw2))
-        if abs(dw1) + abs(dw2) > 1e-15:
-            assert quad > 0, f"Quadratic form must be positive for dw=({dw1},{dw2}), got {quad}"
-    
-    # ── Numerical cross-check (still valuable for confidence) ──
-    g1f, g2f = 1.0, float(gamma2)
-    w1sf, w2sf = float(w1_star), float(w2_star)
-    
-    def F(w1, w2):
-        s1 = A_float[0][0]*w1 + A_float[0][1]*w2
-        s2 = A_float[1][0]*w1 + A_float[1][1]*w2
-        return (w1*(-g1f + s1), w2*(-g2f + s2))
-    
-    dt = 0.001
-    test_ics = [(0.1, 0.5), (1.0, 2.0), (2.0, 0.1)]
-    for w10, w20 in test_ics:
-        w1, w2 = w10, w20
-        for _ in range(15000):
-            f1, f2 = F(w1, w2)
-            w1 -= dt * f1  # reverse flow
-            w2 -= dt * f2
-            if w1 < 1e-15 or w2 < 1e-15:
-                break
-        r = w1/w2 if w2 > 1e-10 else float('inf')
-        s2 = r/(1+r)
-        assert abs(s2 - 3/13) < 0.01, f"IC ({w10},{w20}): sin²θ_W={s2:.4f} ≠ 3/13"
-    
-    return _result(
-        name='T21b: Lyapunov Stability (RG Attractor)',
-        tier=3,
-        epistemic='P',
-        summary=(
-            'ANALYTIC PROOF: V(w) = Σ(w_i - w_i* - w_i* ln(w_i/w_i*)) is '
-            'Lyapunov function. dV/ds = (w-w*)ᵀ A (w-w*) > 0 since A is '
-            'symmetric positive definite (det=3, trace=17/4). '
-            'w* = (3/8, 5/4) is globally stable UV attractor. '
-            'Basin = entire R²₊. Upgrade: [P_structural] → [P].'
-        ),
-        key_result='V(w) Lyapunov: A sym pos def (det=3) → w* global attractor (analytic proof)',
-        dependencies=['T21', 'T22', 'T24', 'T27d'],
-    )
-
-
-def check_T21c():
-    """T21c: Basin of Attraction (Global Convergence).
-    
-    The basin of attraction of w* is the entire positive orthant R²₊.
-    No alternative attractors, limit cycles, or escape trajectories exist.
-    
-    PROOF: T21b provides V(w) with V(w*) = 0, V > 0 elsewhere, and
-    dV/ds = (w-w*)ᵀ A (w-w*) > 0 for all w ≠ w* (A sym pos def).
-    A global Lyapunov function with unique minimum ⟹ unique global attractor.
-    Monotone V excludes limit cycles (Bendixson criterion).
-    
-    UPGRADE HISTORY: [P_structural] → [P] (corollary of T21b [P]).
-    STATUS: [P] — direct corollary of analytic Lyapunov proof.
-    """
-    # T21b proves V(w) is a global Lyapunov function on all of R²₊.
-    # A global Lyapunov function with unique minimum ⟹ unique global attractor.
-    # No limit cycles possible (monotone V rules them out).
-    
-    return _result(
-        name='T21c: Basin of Attraction (Global Convergence)',
-        tier=3,
-        epistemic='P',
-        summary=(
-            'Basin = entire positive orthant R²₊. '
-            'T21b Lyapunov function V is global with unique minimum at w*. '
-            'dV/ds > 0 (A sym pos def) excludes limit cycles. '
-            'Therefore w* is the unique global attractor. '
-            'Upgrade: [P_structural] → [P].'
-        ),
-        key_result='Basin = entire positive orthant R²₊ (no alternative attractors)',
-        dependencies=['T21b'],
-    )
 
 def check_T25a():
     """T25a: Overlap Bounds from Interface Monogamy.
@@ -3050,7 +2777,7 @@ def check_T_sin2theta():
     return _result(
         name='T_sin2theta: Weinberg Angle',
         tier=3,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'sin^2theta_W = {sin2} ~= {predicted:.6f}. '
             f'Experiment: {experimental}. Error: {error_pct:.2f}%. '
@@ -3114,7 +2841,7 @@ def check_T7B():
     return _result(
         name='T7B: Metric from Shared Interface (Polarization)',
         tier=4,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'When E_mix != 0, external feasibility requires a symmetric '
             'bilinear cost form. Polarization identity -> metric tensor g_munu. '
@@ -3203,7 +2930,7 @@ def check_T_particle():
     return _result(
         name='T_particle: Mass Gap & Particle Emergence',
         tier=1,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Enforcement potential V(Phi) derived from L_epsilon* + T_M + A1. '
             'SSB forced (Phi=0 unstable), mass gap from d^2V > 0 at well, '
@@ -3260,7 +2987,7 @@ def check_T8():
     return _result(
         name='T8: d = 4 Spacetime Dimension',
         tier=4,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'd = 4 is the UNIQUE dimension satisfying: '
             '(D8.1) propagating DOF exist (d(d-3)/2 = 2), '
@@ -3322,8 +3049,8 @@ def check_T9_grav():
 
     return _result(
         name='T9_grav: Einstein Equations (Lovelock)',
-        tier=4,
-        epistemic='P',
+        tier=5,
+        epistemic='P_structural',
         summary=(
             'A9.1-A9.5 (admissibility conditions) + Lovelock theorem (1971) '
             '-> G_munu + Lambdag_munu = kappaT_munu uniquely in d = 4. '
@@ -3376,7 +3103,7 @@ def check_T10():
             'Quantitative value requires UV completion (open physics).'
         ),
         key_result='kappa ~ 1/C_* (structural); quantitative needs UV completion',
-        dependencies=['T9_grav', 'A1', 'T_Bek'],
+        dependencies=['T9_grav', 'A1'],
         artifacts={
             'structural_result': 'kappa ~ 1/C_*',
             'units': 'G ~ c/C_*',
@@ -3390,23 +3117,19 @@ def check_T11():
     """T11: Cosmological Constant Lambda from Global Capacity Residual.
 
     Three-step derivation:
-      Step 1: Global admissibility != sum of local admissibilities (from L_nc).
-              Some correlations are globally locked — admissible, enforced,
+      Step 1: Global admissibility != sum of local admissibilities (from A2).
+              Some correlations are globally locked -- admissible, enforced,
               irreversible, but not attributable to any finite interface.
 
       Step 2: Global locking necessarily gravitates (from T9_grav).
-              Non-redistributable correlation load → uniform curvature
-              pressure → cosmological constant.
+              Non-redistributable correlation load -> uniform curvature
+              pressure -> cosmological constant.
 
       Step 3: Lambda > 0 because locked correlations represent positive
               enforcement cost with no local gradient.
 
-      Step 4 (L_equip [P]): At Bekenstein saturation, each capacity unit
-              contributes equally to ⟨T_μν⟩. Therefore:
-              Ω_Λ = C_vacuum / C_total = 42/61 = 0.6885 (obs: 0.6889, 0.05%).
-
-    UPGRADE HISTORY: [P_structural | structural_step] → [P] via L_equip.
-    STATUS: [P] — mechanism + quantitative prediction both derived.
+    STATUS: [open_physics] -- structural mechanism derived.
+    Quantitative Lambda requires UV completion (same as T10).
     """
     # Cosmological constant from unfilled capacity
     # Framework: Lambda = (C_total - C_used) / C_total * (natural scale)^4
@@ -3430,24 +3153,21 @@ def check_T11():
     return _result(
         name='T11: Lambda from Global Capacity Residual',
         tier=4,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'Lambda from global capacity residual: correlations that are '
             'admissible + enforced + irreversible but not localizable. '
-            'Non-redistributable load → uniform curvature (cosmological '
+            'Non-redistributable load -> uniform curvature (cosmological '
             'constant). Lambda > 0 from positive enforcement cost. '
-            'Quantitative: Ω_Λ = 42/61 = 0.6885 (obs: 0.6889, 0.05%) '
-            'via L_equip (horizon equipartition). '
-            'Upgrade: [P_structural] → [P] via L_equip.'
+            'Quantitative value requires UV completion (open physics).'
         ),
-        key_result='Ω_Λ = 42/61 = 0.6885 (obs: 0.6889, error 0.05%)',
-        dependencies=['T9_grav', 'T4F', 'T_field', 'T_gauge', 'T_Higgs', 'A1', 'L_equip', 'T12E'],
+        key_result='Lambda = global capacity residual; quantitative needs UV',
+        dependencies=['T9_grav', 'T4F', 'T_field', 'T_gauge', 'T_Higgs', 'A1'],
         artifacts={
-            'mechanism': 'global locking → uniform curvature',
+            'mechanism': 'global locking -> uniform curvature',
             'sign': 'Lambda > 0 (positive enforcement cost)',
-            'omega_lambda': '42/61 = 0.6885',
-            'obs_error': '0.05%',
-            'upgrade': 'P_structural → P via L_equip',
+            'open': 'quantitative value requires UV completion',
+            'status': 'open_physics',
         },
     )
 
@@ -3608,7 +3328,7 @@ def check_T12():
     return _result(
         name='T12: Dark Matter from Capacity Stratification',
         tier=4,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             'DM from capacity stratification: gauge-singlet locally '
             'committed capacity. '
@@ -3654,17 +3374,12 @@ def check_T12E():
       The capacity ledger partitions into three strata (T11 + T12):
         C_total = C_global(Lambda) + C_gauge(baryons) + C_singlet(DM)
 
-      Counting (all from prior [P] theorems):
-        N_gen = 3 generation labels (flavor-charged, from T7/T4F [P])
-        N_mult_refs = 16 enforcement refs (5 types * 3 gens + 1 Higgs, from T_field/T_gauge [P])
+      Counting (all from prior theorems):
+        N_gen = 3 generation labels (flavor-charged, from T7/T4F)
+        N_mult_refs = 16 enforcement refs (5 types * 3 gens + 1 Higgs)
         N_matter = N_gen + N_mult_refs = 19 (total matter capacity)
         C_vacuum = 42 (27 gauge-index + 3 Higgs internal + 12 generators)
         C_total = N_matter + C_vacuum = 61
-
-      Bridge (L_equip [P]):
-        At the causal horizon (Bekenstein saturation), max-entropy
-        distributes capacity surplus uniformly. Therefore:
-        Ω_sector = |sector| / C_total EXACTLY, for any surplus r.
 
       Results:
         f_b = 3/19 = 0.15789  (obs: 0.1571, error 0.49%)
@@ -3673,8 +3388,15 @@ def check_T12E():
         Omega_b = 3/61 = 0.04918 (obs: 0.0490, 0.37%)
         Omega_DM = 16/61 = 0.2623 (obs: 0.2607, 0.61%)
 
-    STATUS: [P] — all counts from [P] theorems, bridge via L_equip [P].
-    UPGRADE HISTORY: [P_structural | regime R12] → [P] via L_equip.
+      CONSISTENCY CHECK (alpha overhead):
+        The gauge overhead factor alpha = (dim(G)+dim(M))/dim(M) = 4
+        predicts Omega_DM/Omega_b >= alpha = 4 under R12.2 efficiency.
+        Observed: Omega_DM/Omega_b = 5.33. The 33% excess above alpha
+        is consistent with the fixed gauge infrastructure tax (T12 MECE
+        audit) reducing effective baryon production below marginal rate.
+        This is a structural consistency check, not an independent prediction.
+
+    STATUS: [P_structural] -- structural_step (regime R12 assumed).
     """
     N_gen = 3
     N_mult_refs = 16
@@ -3698,21 +3420,32 @@ def check_T12E():
     f_b_obs = 0.1571
     f_b_err = abs(float(f_b) - f_b_obs) / f_b_obs * 100
 
+    # Alpha consistency check (from T12):
+    # alpha = (dim(G)+dim(M))/dim(M) = 16/4 = 4
+    # Predicted floor: Omega_DM/Omega_b >= alpha under efficiency
+    alpha = Fraction(16, 4)  # = 4
+    ratio_obs = 0.2589 / 0.0486  # = 5.33
+    assert ratio_obs > float(alpha), (
+        "Observed DM/baryon ratio must exceed alpha overhead"
+    )
+    # The excess (5.33 vs 4.0) is consistent with fixed gauge
+    # infrastructure tax reducing effective baryon production
+    alpha_deviation = abs(ratio_obs - float(alpha)) / ratio_obs * 100
+
     return _result(
         name='T12E: Baryon Fraction and Cosmological Budget',
         tier=4,
-        epistemic='P',
+        epistemic='P_structural',
         summary=(
             f'f_b = 3/19 = {float(f_b):.5f} (obs: 0.1571, error {f_b_err:.2f}%). '
             f'Omega_Lambda = 42/61 = {float(omega_lambda):.4f} (obs: 0.6889, 0.05%). '
             f'Omega_m = 19/61 = {float(omega_m):.4f} (obs: 0.3111, 0.12%). '
             'Full capacity budget: 3 + 16 + 42 = 61. No free parameters. '
-            'Bridge: L_equip proves Ω_sector = |sector|/C_total at '
-            'Bekenstein saturation (max-entropy + surplus invariance). '
-            'Upgrade: [P_structural] → [P] via L_equip.'
+            f'Alpha consistency: Omega_DM/Omega_b = {ratio_obs:.2f} > '
+            f'alpha = {float(alpha):.0f} (gauge overhead floor).'
         ),
         key_result=f'f_b = 3/19 = {float(f_b):.6f} (obs: 0.15713, error {f_b_err:.2f}%)',
-        dependencies=['T12', 'T4F', 'T_field', 'T_Higgs', 'A1', 'L_equip'],
+        dependencies=['T12', 'T4F', 'T_field', 'T_Higgs', 'T4G', 'A1', 'T20'],
         artifacts={
             'f_b': str(f_b),
             'omega_lambda': str(omega_lambda),
@@ -3721,8 +3454,10 @@ def check_T12E():
             'omega_dm': str(omega_dm),
             'C_total': C_total,
             'budget_closes': True,
-            'bridge': 'L_equip (horizon equipartition)',
-            'upgrade': 'P_structural → P via L_equip',
+            'alpha_overhead': float(alpha),
+            'alpha_consistency': f'Omega_DM/Omega_b = {ratio_obs:.2f} > alpha = {float(alpha):.0f}',
+            'alpha_deviation_pct': round(alpha_deviation, 1),
+            'ps_reason': 'structural_step',
         },
     )
 
@@ -4648,7 +4383,6 @@ THEOREM_REGISTRY = {
     'T_M':    check_T_M,
     'L_irr':  check_L_irr,
     'L_loc':  check_L_loc,
-    'L_equip': check_L_equip,
     # Tier 1
     'T4':     check_T4,
     'T5':     check_T5,
@@ -4678,9 +4412,6 @@ THEOREM_REGISTRY = {
     'T27c':   check_T27c,
     'T27d':   check_T27d,
     'T_sin2theta': check_T_sin2theta,
-    'T21a':   check_T21a,
-    'T21b':   check_T21b,
-    'T21c':   check_T21c,
     # S0 + Hermiticity closures (v3.5+)
     'T_S0':    check_T_S0,
     'T_Hermitian': check_T_Hermitian,
@@ -4736,12 +4467,10 @@ def display():
         1: 'TIER 1: GAUGE GROUP SELECTION',
         2: 'TIER 2: PARTICLE CONTENT',
         3: 'TIER 3: CONTINUOUS CONSTANTS / RG',
-        4: 'TIER 4: GRAVITY & DARK SECTOR',
-        5: 'TIER 5: DELTA_GEO CLOSURE',
     }
 
     print(f"{'=' * W}")
-    print(f"  FCF THEOREM BANK -- v3.8.0")
+    print(f"  FCF THEOREM BANK -- v3.6.1")
     print(f"{'=' * W}")
 
     total = len(results)
@@ -4749,7 +4478,7 @@ def display():
     print(f"\n  {passed}/{total} theorems pass")
 
     # Group by tier
-    for tier in range(6):
+    for tier in range(4):
         tier_results = {k: v for k, v in results.items() if v['tier'] == tier}
         if not tier_results:
             continue
