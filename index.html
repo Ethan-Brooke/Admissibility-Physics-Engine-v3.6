@@ -144,6 +144,131 @@ var AC='#f87171';
 var TN={'-1':'Axioms',0:'Axiom Foundations + Quantum',1:'Gauge Group',2:'Particles',3:'RG / Constants',4:'Gravity + Dark',5:'\u0394_geo Closure'};
 var AXNM={A1:'Finite Capacity',A3:'Locality',A4:'Irreversibility'};
 var LEMMA_NM={L_nc:'Non-Closure (derived)',L_col:'Collapse (derived)',L_T2:'Finite GNS (derived)',L_irr:'Irreversibility (derived)',L_loc:'Locality (derived)'};
+
+// AUTO-COMPUTED CRYSTAL METRICS (derived from var D at load time)
+var CM = (function(d) {
+  function cDep(dep) {
+    var dd = dep.trim();
+    if (dd.indexOf('(') >= 0) dd = dd.split('(')[0].trim();
+    else if (dd.indexOf(' ') >= 0) dd = dd.split(' ')[0].trim();
+    if (dd.indexOf('meaning') === 0) return null;
+    var rm = {'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','L_epsilon':'L_\u03b5*'};
+    return rm[dd] || dd;
+  }
+  var AXIOMS = ['A1','A3','A4'];
+  var LEMMA_SEEDS = ['L_nc','L_col','L_T2','L_irr','L_loc'];
+  var SEEDS = AXIOMS.concat(LEMMA_SEEDS);
+  var allIds = {};
+  SEEDS.forEach(function(s){ allIds[s] = 1; });
+  Object.keys(d.theorems || {}).forEach(function(t){ allIds[t] = 1; });
+  var ids = Object.keys(allIds);
+  var parents = {};
+  Object.keys(d.theorems || {}).forEach(function(tid) {
+    var ps = {};
+    (d.theorems[tid].dependencies || []).forEach(function(dep) {
+      var cd = cDep(dep);
+      if (cd && allIds[cd]) ps[cd] = 1;
+    });
+    parents[tid] = ps;
+  });
+  AXIOMS.forEach(function(a){ parents[a] = {}; });
+  parents['L_nc'] = {A1:1,A3:1,T0:1};
+  parents['L_col'] = {A1:1,A4:1};
+  parents['L_T2'] = {A1:1,L_nc:1};
+  parents['L_irr'] = {A1:1,L_nc:1};
+  parents['L_loc'] = {A1:1,T0:1};
+  var depth = {};
+  AXIOMS.forEach(function(a){ depth[a] = 0; });
+  depth['L_nc'] = 1; depth['L_col'] = 1;
+  depth['L_T2'] = 2; depth['L_irr'] = 2; depth['L_loc'] = 2;
+  var changed = true;
+  while (changed) {
+    changed = false;
+    ids.forEach(function(tid) {
+      if (depth[tid] !== undefined) return;
+      var ps = Object.keys(parents[tid] || {});
+      if (ps.length > 0 && ps.every(function(p){ return depth[p] !== undefined; })) {
+        depth[tid] = Math.max.apply(null, ps.map(function(p){ return depth[p]; })) + 1;
+        changed = true;
+      }
+    });
+  }
+  var cycleFixed = 0;
+  changed = true;
+  while (changed) {
+    changed = false;
+    ids.forEach(function(tid) {
+      if (depth[tid] !== undefined) return;
+      var ps = Object.keys(parents[tid] || {});
+      var rp = ps.filter(function(p){ return depth[p] !== undefined; });
+      if (rp.length > 0) {
+        depth[tid] = Math.max.apply(null, rp.map(function(p){ return depth[p]; })) + 1;
+        changed = true; cycleFixed++;
+      }
+    });
+  }
+  var mx = 0;
+  ids.forEach(function(t){ if (depth[t] !== undefined && depth[t] > mx) mx = depth[t]; });
+  ids.forEach(function(t){ if (depth[t] === undefined) { depth[t] = mx + 1; cycleFixed++; } });
+  var byDepth = {};
+  ids.forEach(function(id) { var dp = depth[id]; if (!byDepth[dp]) byDepth[dp] = []; byDepth[dp].push(id); });
+  var maxDepth = 0;
+  Object.keys(byDepth).forEach(function(k){ var n = Number(k); if (n > maxDepth) maxDepth = n; });
+  var edgeCount = 0;
+  ids.forEach(function(t){ edgeCount += Object.keys(parents[t] || {}).length; });
+  var nAxioms = AXIOMS.length;
+  var lemmaIds = {};
+  LEMMA_SEEDS.forEach(function(l){ lemmaIds[l] = 1; });
+  ids.forEach(function(id){ if (id.indexOf('L_') === 0 && !lemmaIds[id] && d.theorems[id]) lemmaIds[id] = 1; });
+  var nLemmas = Object.keys(lemmaIds).length;
+  var nTheorems = ids.length - nAxioms - nLemmas;
+  var children = {};
+  ids.forEach(function(tid) {
+    Object.keys(parents[tid] || {}).forEach(function(p) {
+      if (!children[p]) children[p] = [];
+      children[p].push(tid);
+    });
+  });
+  function countDesc(id) {
+    var vis = {}; var stk = [id];
+    while (stk.length) { var n = stk.pop(); if (vis[n]) continue; vis[n] = 1; (children[n] || []).forEach(function(c){ if (!vis[c]) stk.push(c); }); }
+    delete vis[id]; return Object.keys(vis).length;
+  }
+  // Funnel waists: narrowest depth levels after seed region (d>2), local minima
+  var waistDepths=[];
+  for(var wd=3;wd<=maxDepth;wd++){
+    var ww=(byDepth[wd]||[]).length;
+    var wp=(byDepth[wd-1]||[]).length;
+    var wn=wd<maxDepth?(byDepth[wd+1]||[]).length:99;
+    if(ww<=wp&&ww<=wn&&ww<5)waistDepths.push({d:wd,w:ww});
+  }
+  waistDepths.sort(function(a,b){return a.w-b.w||a.d-b.d});
+  var bottlenecks=waistDepths.slice(0,3).map(function(wd){
+    var nodes=byDepth[wd.d]||[];
+    return nodes.map(function(id){return{id:id,desc:countDesc(id),depth:depth[id]}})
+      .sort(function(a,b){return b.desc-a.desc})[0];
+  }).filter(Boolean);
+  var shapeData = [];
+  for (var dp = 0; dp <= maxDepth; dp++) {
+    var bids = (byDepth[dp] || []).sort();
+    var label = bids.join(', ');
+    if (label.length > 55) label = bids.slice(0, 4).join(', ') + ' +' + (bids.length - 4) + ' more';
+    var hasBn = bids.some(function(id){ return bottlenecks.some(function(b){ return b.id === id; }); });
+    if (hasBn) label = '\u2b50 ' + label;
+    shapeData.push({d: dp, w: bids.length, l: label});
+  }
+  var leDesc = countDesc('L_\u03b5*');
+  return {
+    nodeCount: ids.length, edgeCount: edgeCount, maxDepth: maxDepth,
+    nAxioms: nAxioms, nLemmas: nLemmas, nTheorems: nTheorems,
+    bottlenecks: bottlenecks, cycleFixed: cycleFixed,
+    shapeData: shapeData, byDepth: byDepth, depth: depth,
+    parents: parents, children: children,
+    leDesc: leDesc, leDescPct: Math.round(leDesc / ids.length * 100),
+    allIds: ids, countDesc: countDesc
+  };
+})(D);
+
 var POST_NM={M:'Marginal Cost',NT:'Nontriviality'};
 var EPI_COLORS={'P':['var(--grn)','var(--grng)'],'P_structural':['var(--blu)','var(--blug)'],'C_import':['var(--amb)','var(--ambg)'],'testable':['var(--pur)','var(--purg)'],'open':['var(--dm)','var(--bg)']};
 
@@ -517,25 +642,23 @@ h.push('</div></div>');
   h.push('</div></div>');
 
   h.push('<div class="sec"><div class="sec-t">Enforcement Crystal</div>');
-  h.push('<div class="sec-intro">Interactive 3D visualization of the <b style="color:var(--grn)">single-waisted deep funnel</b> dependency structure. 67 nodes (3 axioms + 5 derived lemmas + 59 theorems) and 202 directed edges, laid out by proof depth (0\u201319). Three width-1 waists: <b>gauge selection</b> (depth 8), <b>Einstein equations</b> (depth 17), and <b>baryon fraction</b> (depth 19). T0 (axiom witness certificates) is the structural root, cascading to 95% of the framework through three independent channels. v2 corrected from theorem bank v4.0. Drag to rotate; hover for chain tracing.</div>');
+  h.push('<div class="sec-intro">Interactive 3D visualization of the <b style="color:var(--grn)">deep funnel</b> dependency structure. '+CM.nodeCount+' nodes ('+CM.nAxioms+' axioms + '+CM.nLemmas+' lemmas + '+CM.nTheorems+' theorems) and '+CM.edgeCount+' edges, depth 0\u2013'+CM.maxDepth+'. Bottlenecks: '+CM.bottlenecks.map(function(b){return '<b>'+b.id+'</b> (d'+b.depth+')'}).join(', ')+'. '+(CM.cycleFixed>0?CM.cycleFixed+' cycle-resolved. ':'')+'Drag to rotate; hover for chain tracing.</div>');
   h.push('<div id="crystal-box"><div id="crystal-hover"></div>');
   h.push('<div id="crystal-legend" onclick="this.classList.toggle(\'collapsed\')"><div class="cl-head">Enforcement Crystal v3 <span class="cl-toggle">\u25BC click to collapse</span></div>');
   h.push('<div class="cl-body">');
-  h.push('<div style="color:#4a5575;font-size:11px;margin-bottom:4px">67 nodes \u00b7 202 edges \u00b7 depth 0\u201319 \u00b7 3 waists</div>');
+  h.push('<div style="color:#4a5575;font-size:11px;margin-bottom:4px">'+CM.nodeCount+' nodes \u00b7 '+CM.edgeCount+' edges \u00b7 depth 0\u2013'+CM.maxDepth+' \u00b7 '+CM.bottlenecks.length+' bottlenecks</div>');
   h.push('<div class="cl-r"><div class="cl-dot" style="background:#f87171"></div> A1, A3, A4 (3 axioms, depth 0)</div>');
   h.push('<div class="cl-r"><div class="cl-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24"></div> <b style="color:#fbbf24">T0: Structural Root</b> (depth 2, 95% cascade)</div>');
   h.push('<div class="cl-r"><div class="cl-dot" style="background:#c084fc"></div> L<sub>nc</sub>, L<sub>col</sub>, L<sub>T2</sub>, L<sub>irr</sub>, L<sub>loc</sub> (5 derived lemmas)</div>');
   ['T0: Foundations + Quantum','T1: Gauge','T2: Particles','T3: Constants','T4: Gravity + Dark','T5: \u0394_geo Closure'].forEach(function(l,i){h.push('<div class="cl-r"><div class="cl-dot" style="background:'+TC[i]+'"></div> '+l+'</div>')});
   h.push('<div style="margin-top:4px;border-top:1px solid #1f2940;padding-top:4px">');
-  h.push('<div class="cl-r"><div class="cl-dot" style="background:#fbbf24"></div> Waist 1: T_gauge (depth 8) \u2014 gauge selection</div>');
-  h.push('<div class="cl-r"><div class="cl-dot" style="background:#fbbf24"></div> Waist 2: T9_grav (depth 17) \u2014 Einstein equations</div>');
-  h.push('<div class="cl-r"><div class="cl-dot" style="background:#fbbf24"></div> Waist 3: T12E (depth 19) \u2014 baryon fraction</div>');
+  CM.bottlenecks.forEach(function(b,i){ var nm=(D.theorems[b.id]||{}).name||b.id; nm=nm.replace(/^[^:]+:\s*/,'').slice(0,40); h.push('<div class="cl-r"><div class="cl-dot" style="background:#fbbf24"></div> Bottleneck '+(i+1)+': '+b.id+' (depth '+b.depth+') \u2014 '+nm+'</div>'); });
   h.push('<div class="cl-r"><div style="width:7px;height:7px;transform:rotate(45deg);background:#888;flex-shrink:0"></div> Octahedron = axiom / lemma / waist</div>');
   h.push('<div class="cl-r"><div style="width:7px;height:7px;border-radius:50%;background:#888;flex-shrink:0"></div> Sphere = proved [P]</div>');
   h.push('<div class="cl-r"><div style="width:7px;height:7px;background:#888;flex-shrink:0"></div> Cube = structural [P<sub>s</sub>]</div>');
-  h.push('<div style="margin-top:4px;font-size:10px;color:#4a5575;border-top:1px solid #1f2940;padding-top:4px">T0 = structural root (95% cascade, 3 channels). 5,958 paths to sin\u00b2\u03b8<sub>W</sub>. Axiom load evenness: 1.00 (max).</div>');
+  h.push('<div style="margin-top:4px;font-size:10px;color:#4a5575;border-top:1px solid #1f2940;padding-top:4px">Auto-computed from '+D.version+'. '+CM.nodeCount+' nodes, '+CM.edgeCount+' edges, depth 0\u2013'+CM.maxDepth+'. L_\u03b5* cascade: '+CM.leDesc+' ('+CM.leDescPct+'%).</div>');
   h.push('</div></div></div></div>');
-  h.push('<div class="card" style="padding:0;overflow:hidden;margin:14px 0 0"><a href="https://zenodo.org/records/18531733" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:12px 16px;text-decoration:none"><div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--br)">Paper\u200a14</div><div style="font-size:10px;color:var(--pur);letter-spacing:1px;margin-top:2px">CRYSTAL v2</div></div><div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">The Enforcement Crystal: What Proof Architecture Reveals About Physical Structure (v2 Corrected)</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">Graph-theoretic analysis of the 67-node, 202-edge theorem dependency DAG. Single-waisted deep funnel topology with three width-1 waists: gauge selection (depth 8), Einstein equations (depth 17), baryon fraction (depth 19). T0 structural root cascading to 95% of framework. 5,958 independent paths to sin\u00b2\u03b8<sub>W</sub> = 3/13. Axiom attribution: A1 47%, A3 42%, A4 11%. Load evenness 1.00 (theoretical max).</div></div></a></div>');
+  h.push('<div class="card" style="padding:0;overflow:hidden;margin:14px 0 0"><a href="https://zenodo.org/records/18531733" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:12px 16px;text-decoration:none"><div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--br)">Paper\u200a14</div><div style="font-size:10px;color:var(--pur);letter-spacing:1px;margin-top:2px">CRYSTAL v2</div></div><div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">The Enforcement Crystal: What Proof Architecture Reveals About Physical Structure (v2 Corrected)</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">Graph-theoretic analysis of the theorem dependency DAG. Deep funnel topology with auto-detected bottlenecks. All metrics computed at runtime from theorem bank. See Crystal Analysis Notes for live data.</div></div></a></div>');
   h.push('<div class="card" style="padding:0;overflow:hidden;margin:8px 0 0"><a href="https://zenodo.org/records/18464713" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:12px 16px;text-decoration:none"><div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--br)">Theorem Zero</div><div style="font-size:10px;color:var(--grn);letter-spacing:1px;margin-top:2px">FOUNDATION</div></div><div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">Theorem Zero: Information-Constrained Axiomatics for Physical Structure</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">The foundational result of the entire program. Proves that all of physics\u2014quantum mechanics, gravity, particle content, cosmological fractions\u2014flows from a single axiom: Finite Capacity (A1). Locality and irreversibility are not assumed but derived as lemmas L_loc and L_irr. Two definitional postulates (M, NT) say only that the universe contains distinguishable stuff and is not degenerate. Everything else is mathematics. Verified with constructive finite-world witnesses and countermodels establishing necessity of each premise.</div></div></a></div>');
   h.push('</div>');
 
@@ -1208,6 +1331,7 @@ h.push('</div></div>');
     {v:'4.0',d:'2026-02-10',items:[
       {t:'new',s:'T21a/T21b/T21c: RG attractor family — Lyapunov stability, global basin of attraction, normalized share flow'},
       {t:'new',s:'Four-pillar connections: T_tensor→T_field, T_CPTP→T21, T_Bek→T10, T9→T19 (eliminates 4 early terminals)'},
+      {t:'upgrade',s:'v4.1: Crystal metrics auto-computed from D.theorems at runtime (CM module). Zero hardcoded counts.'},
       {t:'upgrade',s:'63 theorems, 67 crystal nodes, 202 edges (+6), 5,958 paths to sin²θ_W (+821, +16%)'},
             {t:'new',s:'Standalone Influence Treemap with analysis panel (power concentration, terminal predictions, funnel structure)'},
       {t:'new',s:'Red Team Audit: 11 solid results / 7 issues found, severity-tagged'},
@@ -1285,25 +1409,25 @@ h.push('</div></div>');
 
   // === CRYSTAL ANALYSIS NOTES (from Enforcement Crystal v2 paper) ===
   h.push('<div class="sec"><div class="sec-t">Crystal Analysis Notes</div>');
-  h.push('<div class="sec-intro">Key structural findings from the Enforcement Crystal v2 paper. Graph-theoretic analysis of the 67-node, 202-edge theorem dependency DAG.</div>');
+  h.push('<div class="sec-intro">Key structural findings (auto-computed). Graph-theoretic analysis of the '+CM.nodeCount+'-node, '+CM.edgeCount+'-edge theorem dependency DAG.</div>');
   h.push('<div class="card" style="padding:24px">');
 
   // Shape profile
-  h.push('<div style="font-size:15px;font-weight:700;color:var(--br);margin-bottom:12px">Shape: Single-Waisted Deep Funnel (v2 Corrected)</div>');
+  h.push('<div style="font-size:15px;font-weight:700;color:var(--br);margin-bottom:12px">Shape: Deep Funnel (depth 0\u2013'+CM.maxDepth+', '+CM.nodeCount+' nodes)</div>');
   h.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">');
   
   // Left: shape profile
   h.push('<div>');
   h.push('<div style="font-size:12px;font-weight:600;color:var(--pur);margin-bottom:8px">BFS Depth Profile (width at each depth)</div>');
-  var shapeData=[{d:0,w:3,l:'AXIOMS: A1, A3, A4'},{d:1,w:2,l:'SEED LEMMAS: L_\u03b5*, L_nc'},{d:2,w:8,l:'ALGEBRA: T0, T_Hermitian, T_M, T_\u03b5, L_T2, L_irr, L_loc, \u0394_fbc'},{d:3,w:3,l:'OBSTRUCTION: T1, T_\u03ba, \u0394_ordering'},{d:4,w:3,l:'HILBERT: T2, T_\u03b7, \u0394_continuum'},{d:5,w:5,l:'GEOMETRY: T3, T_Born, T_particle, T_tensor, \u0394_signature'},{d:6,w:5,l:'CHIRALITY: T4, T20, T7B, T_CPTP, T_entropy'},{d:7,w:3,l:'COMPETITION: T5, T21, T_Bek'},{d:8,w:1,l:'\u2b50 GAUGE WAIST: T_gauge'},{d:9,w:3,l:'SECTORS: T6, T8, T_channels'},{d:10,w:4,l:'FINE STRUCTURE: T7, T25a, T26, T_Higgs'},{d:11,w:6,l:'FIELD CONTENT: T_field, T4E, T4F, T9, T27d, T_S0'},{d:12,w:3,l:'CONVERGENCE: T19, T25b, T4G'},{d:13,w:2,l:'MASS: T22, T4G_Q31'},{d:14,w:3,l:'FIXED POINT: T23, T6B, T27c'},{d:15,w:2,l:'PARAMETERS: T24, \u0394_particle'},{d:16,w:2,l:'CLOSURE: T_sin2\u03b8, \u0394_closure'},{d:17,w:1,l:'\u2b50 GRAVITY WAIST: T9_grav (EFE)'},{d:18,w:3,l:'DARK: T10, T11, T12'},{d:19,w:1,l:'\u2b50 BARYON WAIST: T12E (f_b=3/19)'}];
+  var shapeData = CM.shapeData;
   shapeData.forEach(function(s){
     var barPct=Math.round(s.w/8*100);
-    var isWaist=s.w===1&&s.d>0;
+    var isWaist=CM.bottlenecks.some(function(b){return CM.depth[b.id]===s.d});
     var col=isWaist?'var(--amb)':'var(--pur)';
     h.push('<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;font-family:var(--mn);font-size:9px">');
     h.push('<span style="width:18px;text-align:right;color:#4a5575">'+s.d+'</span>');
     h.push('<div style="width:'+barPct+'%;max-width:200px;height:8px;background:'+col+(isWaist?'':'40')+';border-radius:2px"></div>');
-    h.push('<span style="color:'+(isWaist?'var(--amb)':'#6a7a9a')+'">'+s.w+(isWaist?' \u2190 waist':'')+' '+s.l+'</span>');
+    h.push('<span style="color:'+(isWaist?'var(--amb)':'#6a7a9a')+'">'+s.w+(isWaist?' \u2190 bottleneck':'')+' '+s.l+'</span>');
     h.push('</div>');
   });
   h.push('</div>');
@@ -1319,14 +1443,14 @@ h.push('</div></div>');
   h.push('</div>');
   
   h.push('<div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">');
-  [{l:'Total paths to sin\u00b2\u03b8_W',v:'5,958',c:'var(--pur)'},{l:'Axiom load evenness',v:'1.00 (max)',c:'var(--grn)'},{l:'A1 attribution',v:'47.0%',c:'#fbbf24'},{l:'A3 attribution',v:'41.9%',c:'#818cf8'},{l:'A4 attribution',v:'11.1%',c:'#f87171'},{l:'Self-consistency cycles',v:'2 (EW sector)',c:'var(--amb)'},{l:'L_\u03b5* cascade',v:'39 (65%)',c:'#4a5575'},{l:'Total edges',v:'202',c:'#4a5575'}].forEach(function(m){
+  [{l:'Total nodes',v:CM.nodeCount+'',c:'var(--pur)'},{l:'Total edges',v:CM.edgeCount+'',c:'var(--grn)'},{l:'Max BFS depth',v:CM.maxDepth+'',c:'#fbbf24'},{l:'Bottleneck 1',v:CM.bottlenecks[0]?CM.bottlenecks[0].id+' (d'+CM.bottlenecks[0].depth+')':'—',c:'#818cf8'},{l:'Bottleneck 2',v:CM.bottlenecks[1]?CM.bottlenecks[1].id+' (d'+CM.bottlenecks[1].depth+')':'—',c:'#f87171'},{l:'Bottleneck 3',v:CM.bottlenecks[2]?CM.bottlenecks[2].id+' (d'+CM.bottlenecks[2].depth+')':'—',c:'var(--amb)'},{l:'L_\u03b5* descendants',v:CM.leDesc+' ('+CM.leDescPct+'%)',c:'#4a5575'},{l:'Cycle-resolved',v:CM.cycleFixed+'',c:'#4a5575'}].forEach(function(m){
     h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:4px;padding:6px 8px;font-family:var(--mn)"><div style="font-size:9px;color:#4a5575">'+m.l+'</div><div style="font-size:14px;font-weight:700;color:'+m.c+'">'+m.v+'</div></div>');
   });
   h.push('</div>');
 
   // Comparative summary
   h.push('<div style="margin-top:12px;padding:8px;border:1px dashed var(--bdr);border-radius:4px;font-family:var(--mn);font-size:10px;color:#6a7a9a">');
-  h.push('<b style="color:var(--br)">v2 vs v1:</b> Nodes 67 (was 64) \u00b7 Edges 202 (was 197) \u00b7 Depth 19 (was ~17) \u00b7 Waists 3 (was 2) \u00b7 Paths 5,958 (was 1,398, 1.9\u00d7) \u00b7 Root: T0 95% (was L_\u03b5* 71%)');
+  h.push('<b style="color:var(--br)">Live metrics:</b> '+CM.nodeCount+' nodes \u00b7 '+CM.edgeCount+' edges \u00b7 depth 0\u2013'+CM.maxDepth+' \u00b7 '+CM.bottlenecks.length+' bottlenecks \u00b7 '+CM.cycleFixed+' cycle-resolved \u00b7 L_\u03b5* cascade '+CM.leDesc+' ('+CM.leDescPct+'%)');
   h.push('</div>');
 
   h.push('</div></div>');
@@ -1383,55 +1507,21 @@ function buildCrystal(d) {
   ptLight2.position.set(-4, -3, 5);
   scene.add(ptLight2);
   
-  // Build adjacency
-  const allIds = new Set(['A1','A3','A4','L_nc','L_col','L_T2','L_irr','L_loc']);
-  Object.keys(d.theorems||{}).forEach(id=>allIds.add(id));
-  
+  // Reuse pre-computed crystal metrics from CM
+  const allIds = new Set(CM.allIds);
+  const parents = {};
+  CM.allIds.forEach(function(tid) { parents[tid] = new Set(Object.keys(CM.parents[tid] || {})); });
   function cleanDep(dep) {
-    let dd=dep.trim();
-    if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();
-    if(dd.startsWith('meaning'))return null;
-    const rm={'L_epsilon*':'L_Îµ*','L_e*':'L_Îµ*','L_epsilon':'L_Îµ*'};
+    var dd=dep.trim();
+    if(dd.indexOf('(')>=0)dd=dd.split('(')[0].trim();
+    else if(dd.indexOf(' ')>=0)dd=dd.split(' ')[0].trim();
+    if(dd.indexOf('meaning')===0)return null;
+    var rm={'L_epsilon*':'L_ε*','L_e*':'L_ε*','L_epsilon':'L_ε*'};
     return rm[dd]||dd;
   }
-  
-  const parents = {};
-  Object.entries(d.theorems||{}).forEach(([tid,t])=>{
-    const ps = new Set();
-    (t.dependencies||[]).forEach(dep=>{const cd=cleanDep(dep);if(cd&&allIds.has(cd))ps.add(cd)});
-    parents[tid]=ps;
-  });
-  ['A1','A3','A4'].forEach(a=>{parents[a]=new Set()});
-parents['L_nc']=new Set(['A1','A3','T0']);parents['L_col']=new Set(['A1','A4']);parents['L_T2']=new Set(['A1','L_nc']);
-parents['L_irr']=new Set(['A1','L_nc']);parents['L_loc']=new Set(['A1','T0']);
-  
-  // Compute BFS depth from axioms
-  const nodeDepth = {};
-  ['A1','A3','A4'].forEach(a=>{nodeDepth[a]=0});
-['L_nc','L_col'].forEach(a=>{nodeDepth[a]=1});
-nodeDepth['L_T2']=2;
-nodeDepth['L_irr']=2;
-nodeDepth['L_loc']=2;
-  let changed = true;
-  while (changed) {
-    changed = false;
-    allIds.forEach(tid=>{
-      if (tid in nodeDepth) return;
-      const ps = parents[tid] || new Set();
-      if (ps.size > 0 && [...ps].every(p=>p in nodeDepth)) {
-        nodeDepth[tid] = Math.max(...[...ps].map(p=>nodeDepth[p])) + 1;
-        changed = true;
-      }
-    });
-  }
-  
-  // Group by depth
-  const byDepth = {};
-  Object.entries(nodeDepth).forEach(([id,dp])=>{
-    if(!byDepth[dp])byDepth[dp]=[];
-    byDepth[dp].push(id);
-  });
-  const maxDepth = Math.max(...Object.keys(byDepth).map(Number));
+  const nodeDepth = CM.depth;
+  const byDepth = CM.byDepth;
+  const maxDepth = CM.maxDepth;
   
   // Single-waisted deep funnel profile (v2 corrected)
   // Width at each depth determines the ring radius
@@ -1509,7 +1599,7 @@ nodeDepth['L_loc']=2;
       const isLemma = id === 'L_nc' || id === 'L_col' || id === 'L_T2' || id === 'L_irr' || id === 'L_loc';
       const isT0 = id === 'T0';
       const isPStructural = thm?.epistemic === 'P_structural';
-      const isWaist = ids.length === 1 && !isAxiom;
+      const isWaist = CM.bottlenecks.some(function(b){return b.id===id});
       const col = isT0 ? 0xfbbf24 : isLemma ? 0xc084fc : colorMap[String(tier)] || 0x888888;
       
       // Size: T0 is structural root (95% cascade), waist nodes special, axioms big
@@ -1576,17 +1666,18 @@ nodeDepth['L_loc']=2;
     }
   }
   
-  // Waist indicator rings at the three v2-confirmed waists
-  [8, 17, 19].forEach(waistDepth => {
-    if (!byDepth[waistDepth] || byDepth[waistDepth].length !== 1) return;
-    const wy = yTop - waistDepth * yStep;
-    const ringPts = [];
-    for (let i = 0; i <= 64; i++) {
-      const a = (i/64) * Math.PI * 2;
-      ringPts.push(new THREE.Vector3(Math.cos(a)*0.6, wy, Math.sin(a)*0.6));
+  // Bottleneck indicator rings (auto from CM)
+  CM.bottlenecks.forEach(function(bn) {
+    var bnDepth = CM.depth[bn.id];
+    if (bnDepth === undefined) return;
+    var wy = yTop - bnDepth * yStep;
+    var rp = [];
+    for (var ri = 0; ri <= 64; ri++) {
+      var ra = (ri/64) * Math.PI * 2;
+      rp.push(new THREE.Vector3(Math.cos(ra)*0.6, wy, Math.sin(ra)*0.6));
     }
-    const ringGeom = new THREE.BufferGeometry().setFromPoints(ringPts);
-    crystalGroup.add(new THREE.Line(ringGeom, new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.4, linewidth: 2 })));
+    var rg = new THREE.BufferGeometry().setFromPoints(rp);
+    crystalGroup.add(new THREE.Line(rg, new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.4, linewidth: 2 })));
   });
   
   // Dependency edges
@@ -1780,7 +1871,7 @@ for(const[tid,t]of Object.entries(d.theorems||{}))for(const dep of(t.dependencie
 for(const[tid,t]of Object.entries(d.theorems||{})){nodes.push({id:tid,tier:t.tier??0,epistemic:t.epistemic||'P',name:(t.name||tid).replace(/^[^:]+:\s*/,'').slice(0,28),label:tid});seen.add(tid)}
 for(const[tid,t]of Object.entries(d.theorems||{}))for(const dep of(t.dependencies||[])){const cd=cD(dep);if(cd&&seen.has(cd))edges.push({source:cd,target:tid})}
 edges.push({source:'A1',target:'L_nc'},{source:'A3',target:'L_nc'},{source:'T0',target:'L_nc'},{source:'A1',target:'L_col'},{source:'A4',target:'L_col'},{source:'A1',target:'L_T2'},{source:'L_nc',target:'L_T2'},{source:'A1',target:'L_irr'},{source:'L_nc',target:'L_irr'},{source:'A1',target:'L_loc'},{source:'T0',target:'L_loc'});
-function cD(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_Îµ*','L_e*':'L_Îµ*','L_epsilon':'L_Îµ*'};return rm[dd]||dd}
+function cD(dep){let dd=dep.trim();if(dd.includes('('))dd=dd.split('(')[0].trim();else if(dd.includes(' '))dd=dd.split(' ')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_Îµ*','L_e*':'L_Îµ*','L_epsilon':'L_Îµ*'};return rm[dd]||dd}
 function nC(n){if(n.tier===-1)return AC;if(n.id==='L_nc'||n.id==='L_col')return'#c084fc';return TC[n.tier]||'#888'}
 function nR(n){return n.tier===-1?9+(fanout[n.id]||0)*.6:5+(fanout[n.id]||0)*1}
 const svg=d3.select('#graph-box').append('svg').attr('width',W).attr('height',H);_svg=svg;
@@ -1806,7 +1897,7 @@ const box=document.getElementById('dag-box');if(!box)return;
 const allIds=new Set(['A1','A3','A4','L_nc','L_col','L_T2','L_irr','L_loc']);
 Object.keys(d.theorems||{}).forEach(id=>allIds.add(id));
 
-function cDep(dep){let dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
+function cDep(dep){let dd=dep.trim();if(dd.includes('('))dd=dd.split('(')[0].trim();else if(dd.includes(' '))dd=dd.split(' ')[0].trim();if(dd.startsWith('meaning'))return null;const rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
 
 const children={},parents2={};
 allIds.forEach(id=>{children[id]=new Set();parents2[id]=new Set()});
@@ -1983,7 +2074,7 @@ if(W<50){setTimeout(function(){buildTreemap(d)},500);return}
 
 const allIds=new Set(['A1','A3','A4','L_nc','L_col','L_T2','L_irr','L_loc']);
 Object.keys(d.theorems||{}).forEach(function(id){allIds.add(id)});
-function cDep(dep){var dd=dep.trim();if(dd.startsWith('A')&&dd.includes(' '))dd=dd.split(' ')[0].split('(')[0].trim();if(dd.startsWith('meaning'))return null;var rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
+function cDep(dep){var dd=dep.trim();if(dd.includes('('))dd=dd.split('(')[0].trim();else if(dd.includes(' '))dd=dd.split(' ')[0].trim();if(dd.startsWith('meaning'))return null;var rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
 var ch2={};
 allIds.forEach(function(id){ch2[id]=new Set()});
 [['A1','L_nc'],['A3','L_nc'],['T0','L_nc'],['A1','L_col'],['A4','L_col'],['A1','L_T2'],['L_nc','L_T2'],['A1','L_irr'],['L_nc','L_irr'],['A1','L_loc'],['T0','L_loc']].forEach(function(p){ch2[p[0]].add(p[1])});
