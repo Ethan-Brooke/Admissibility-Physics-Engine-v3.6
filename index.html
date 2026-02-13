@@ -1619,12 +1619,9 @@ function buildCrystal(d) {
   const W = container.clientWidth, H = container.clientHeight;
   
   const scene = new THREE.Scene();
-  const legendW = 260;
-  const halfFovTan = Math.tan(25 * Math.PI / 180); // tan(FOV/2)
-  const camX = -(legendW * 10 * halfFovTan / W) * 0.5; // negative = camera left = crystal right on screen
   const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 100);
-  camera.position.set(camX, 0.3, 10);
-  camera.lookAt(camX, -0.3, 0);
+  camera.position.set(0, 0.3, 10);
+  camera.lookAt(0, -0.3, 0);
   
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(W, H);
@@ -1703,6 +1700,11 @@ function buildCrystal(d) {
   TC.forEach((c,i)=>colorMap[String(i)]=parseInt(c.replace('#',''),16));
   
   const crystalGroup = new THREE.Group();
+  // Shift crystal left so it centers in visible area (excluding 260px legend on right)
+  const legendPx = 260;
+  const visibleWorldW = 2 * 10 * Math.tan(25 * Math.PI / 180); // total world width at z=10
+  const shiftLeft = (legendPx / W) * visibleWorldW * 0.5;
+  crystalGroup.position.x = -shiftLeft;
   scene.add(crystalGroup);
   
   // Y range: top (depth 0) to bottom (depth maxDepth)
