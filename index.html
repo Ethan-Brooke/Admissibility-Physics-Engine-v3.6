@@ -221,10 +221,7 @@ var CM = (function(d) {
   var edgeCount = 0;
   ids.forEach(function(t){ edgeCount += Object.keys(parents[t] || {}).length; });
   var nAxioms = AXIOMS.length;
-  var lemmaIds = {};
-  LEMMA_SEEDS.forEach(function(l){ lemmaIds[l] = 1; });
-  ids.forEach(function(id){ if (id.indexOf('L_') === 0 && !lemmaIds[id] && d.theorems[id]) lemmaIds[id] = 1; });
-  var nLemmas = Object.keys(lemmaIds).length;
+  var nLemmas = LEMMA_SEEDS.length;
   var nTheorems = ids.length - nAxioms - nLemmas;
   var children = {};
   ids.forEach(function(tid) {
@@ -781,7 +778,7 @@ h.push('</div></div>');
 
 
   h.push('<div class="sec"><div class="sec-t">Enforcement Crystal</div>');
-  h.push('<div class="sec-intro">Interactive 3D visualization of the <b style="color:var(--grn)">deep funnel</b> dependency structure. '+CM.nodeCount+' nodes ('+CM.nAxioms+' axioms + '+CM.nLemmas+' lemmas + '+CM.nTheorems+' theorems) and '+CM.edgeCount+' edges, depth 0\u2013'+CM.maxDepth+'. Bottlenecks: '+CM.bottlenecks.map(function(b){return '<b>'+b.id+'</b> (d'+b.depth+')'}).join(', ')+'. '+(CM.cycleFixed>0?CM.cycleFixed+' cycle-resolved. ':'')+'Drag to rotate; hover for chain tracing.</div>');
+  h.push('<div class="sec-intro">Interactive 3D visualization of the <b style="color:var(--grn)">deep funnel</b> dependency structure. '+CM.nodeCount+' DAG nodes drawn from the <b>'+d.total_theorems+' theorems</b>, 1 axiom (A1), and 5 derived lemmas. '+CM.edgeCount+' edges, depth 0\u2013'+CM.maxDepth+'. Bottlenecks: '+CM.bottlenecks.map(function(b){return '<b>'+b.id+'</b> (d'+b.depth+')'}).join(', ')+'. '+(CM.cycleFixed>0?CM.cycleFixed+' cycle-resolved. ':'')+'Drag to rotate; hover for chain tracing.</div>');
   h.push('<div id="crystal-box"><div id="crystal-hover"></div>');
   h.push('<div id="crystal-legend"><div class="cl-toggle" onclick="event.stopPropagation();this.parentNode.classList.toggle(\'collapsed\')" title="Toggle legend">\u25C0</div><div class="cl-head"><span class="cl-head-text">Enforcement Crystal v3</span></div>');
   h.push('<div class="cl-body">');
