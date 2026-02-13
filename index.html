@@ -324,7 +324,7 @@ function render(d){
   // Hero intro — full-width, two-column on desktop, stacked on mobile
   h.push('<div id="hero-intro" style="margin-top:24px;padding:32px 28px;background:linear-gradient(135deg,rgba(52,211,153,0.06) 0%,rgba(96,165,250,0.04) 50%,rgba(192,132,252,0.06) 100%);border:1px solid rgba(52,211,153,0.15);border-radius:12px;position:relative;overflow:hidden">');
   h.push('<div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(52,211,153,0.08) 0%,transparent 70%);pointer-events:none"></div>');
-  h.push('<div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;position:relative">');
+  h.push('<div style="display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;position:relative">');
 
   // LEFT: text
   h.push('<div>');
@@ -337,9 +337,9 @@ function render(d){
   h.push('</div>');
 
   // RIGHT: video
-  h.push('<div class="vid-card" id="vid-card" onclick="playVid(this)" style="height:auto;flex-shrink:0">');
+  h.push('<div class="vid-card" id="vid-card" onclick="playVid(this)" style="height:auto;flex-shrink:0;max-width:220px">');
   h.push('<div class="vid-inner" style="height:auto">');
-  h.push('<div class="vid-aspect" style="flex:none;padding-bottom:56.25%;position:relative">');
+  h.push('<div class="vid-aspect" style="flex:none;padding-bottom:177.78%;position:relative">');
   h.push('<img src="https://img.youtube.com/vi/jMxElppurqY/maxresdefault.jpg" onerror="this.src=\'https://img.youtube.com/vi/jMxElppurqY/sddefault.jpg\'" alt="Framework Overview">');
   h.push('<div class="vid-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 5.14v13.72a1 1 0 001.5.86l11.04-6.86a1 1 0 000-1.72L9.5 4.28A1 1 0 008 5.14z" fill="var(--grn)"/></svg></div>');
   h.push('</div>');
