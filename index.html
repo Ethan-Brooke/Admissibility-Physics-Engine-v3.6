@@ -98,7 +98,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .vid-bar-sub{font-family:var(--mn);font-size:10px;color:var(--dm);margin-left:auto;letter-spacing:.5px}
 .vid-iframe-wrap{position:absolute;inset:0;z-index:3}
 .vid-iframe-wrap iframe{width:100%;height:100%;border:0}
-@media(max-width:700px){#hero-intro>div:nth-child(2){grid-template-columns:1fr!important;gap:20px!important}#vid-card{max-width:100%!important}.vid-card{border-radius:0}#vid-card .vid-inner{margin:2px;border-radius:0}#hero-intro{margin-left:-20px!important;margin-right:-20px!important;border-radius:0!important;padding:24px 20px!important}}
+@media(max-width:700px){#hero-intro>div:nth-child(2){grid-template-columns:1fr!important;gap:20px!important}#vid-card{max-width:100%!important;max-width:280px!important;margin:0 auto}.vid-card{border-radius:8px}#vid-card .vid-inner{margin:2px;border-radius:6px}#hero-intro{margin-left:-20px!important;margin-right:-20px!important;border-radius:0!important;padding:24px 20px!important}#hero-intro .hero-title{font-size:34px!important}}
 /* Audit */
 .ar{display:grid;grid-template-columns:44px 1fr 64px;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:13px}.ar-id{font-family:var(--mn);font-weight:600;color:var(--dm)}
 .badge{font-family:var(--mn);font-size:12px;font-weight:700;padding:2px 5px;border-radius:3px;text-align:center;text-transform:uppercase}.b-fixed{background:var(--grng);color:var(--grn)}.b-active{background:var(--ambg);color:var(--amb)}.b-verified{background:var(--blug);color:var(--blu)}
@@ -326,12 +326,13 @@ function render(d){
   h.push('<div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(52,211,153,0.08) 0%,transparent 70%);pointer-events:none"></div>');
   h.push('<div style="display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;position:relative">');
 
-  // LEFT: text
-  h.push('<div>');
-  h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.8">A single constraint may connect multiple parts of physics:</div>');
-  h.push('<div style="font-family:var(--sn);font-size:28px;font-weight:800;color:var(--grn);line-height:1.3;margin:12px 0 4px;text-shadow:0 0 40px rgba(52,211,153,0.2)">Finite Capacity</div>');
-  h.push('<div style="font-family:var(--mn);font-size:14px;color:var(--dm);line-height:1.7;opacity:0.85">the universe can only keep track of so many differences at once.</div>');
-  h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.8;margin-top:16px">Treating physical law as the bookkeeping of that limit relates quantum behavior, spacetime geometry, singularities, and the early universe within one framework.</div>');
+  // LEFT: text — scaled to fill portrait video height
+  h.push('<div style="display:flex;flex-direction:column;justify-content:center">');
+  h.push('<div style="font-family:var(--sn);font-size:20px;font-weight:300;color:var(--dm);line-height:1.6;letter-spacing:0.3px">A single constraint may connect<br>multiple parts of physics:</div>');
+  h.push('<div class="hero-title" style="font-family:var(--sn);font-size:42px;font-weight:800;color:var(--grn);line-height:1.15;margin:16px 0 8px;text-shadow:0 0 60px rgba(52,211,153,0.25);letter-spacing:-0.5px">Finite<br>Capacity</div>');
+  h.push('<div style="font-family:var(--mn);font-size:16px;color:var(--dm);line-height:1.7;opacity:0.8;font-style:italic">the universe can only keep track of so many differences at once.</div>');
+  h.push('<div style="width:48px;height:2px;background:linear-gradient(90deg,var(--grn),transparent);margin:18px 0;border-radius:1px"></div>');
+  h.push('<div style="font-family:var(--mn);font-size:16px;color:var(--dm);line-height:1.8">Treating physical law as the bookkeeping of that limit relates <span style="color:var(--br)">quantum behavior</span>, <span style="color:var(--br)">spacetime geometry</span>, <span style="color:var(--br)">singularities</span>, and the <span style="color:var(--br)">early universe</span> within one framework.</div>');
   h.push('<div style="font-family:var(--sn);font-size:16px;font-weight:700;color:var(--br);line-height:1.6;margin-top:18px">This project does not start from particles or fields, but from a constraint on what distinctions can coexist, and asks what physical structure must follow.</div>');
   h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.8;margin-top:14px">The <a href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest" style="color:var(--grn);text-decoration:underline;font-weight:600">papers</a> and <a href="https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6" style="color:var(--grn);text-decoration:underline;font-weight:600">code</a> contain the details; this dashboard reports the live state of the program.</div>');
   h.push('</div>');
