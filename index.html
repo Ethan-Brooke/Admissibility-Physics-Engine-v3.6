@@ -106,6 +106,7 @@ body{font-family:var(--sn);font-size:15px;background:var(--bg);color:var(--tx);l
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px}.tc2{font-family:var(--mn);font-size:13px;padding:5px 7px;border-radius:4px;border:1px solid var(--bdr);line-height:1.3}.tc2 .tid{font-weight:700;color:var(--br)}.tc2 .tn2{color:var(--dm);font-size:12px;display:block;margin-top:1px}.tc2.ep-P{border-left:3px solid var(--grn)}.tc2.ep-Ps{border-left:3px solid var(--amb)}
 
 .tree-node{transition:all .2s;cursor:pointer}.tree-node:hover{filter:brightness(1.5);transform:scale(1.05)}
+.cq-row:hover{border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.03)}.cq-open{border-color:rgba(52,211,153,0.25)!important}.cq-open .cq-arrow{transform:rotate(180deg)}.cq-open .cq-detail{max-height:120px!important}
 #tree-popup{backdrop-filter:blur(8px)}
 .river-stage{transition:all .3s}.river-stage:hover{filter:brightness(1.3)}
 .river-dot:hover{filter:brightness(1.6) drop-shadow(0 0 8px currentColor);transform:scale(1.6);transform-box:fill-box;transform-origin:center}
@@ -283,7 +284,7 @@ function switchTab(panel,tab){
 }
 function toggleXR(el){var row=el.closest('.xr');if(row)row.classList.toggle('open')}
 function toggleToe(el){el.classList.toggle('open')}
-function playVid(el){var a=el.querySelector('.vid-aspect');if(!el.classList.contains('playing')){el.classList.add('playing');var d=document.createElement('div');d.className='vid-iframe-wrap';d.innerHTML='<iframe src="https://www.youtube.com/embed/SJPJPz4Id0E?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>';a.appendChild(d);var p=el.querySelector('.vid-play');if(p)p.style.display='none'}}
+function playVid(el){var a=el.querySelector('.vid-aspect');if(!el.classList.contains('playing')){el.classList.add('playing');var d=document.createElement('div');d.className='vid-iframe-wrap';d.innerHTML='<iframe src="https://www.youtube.com/embed/jMxElppurqY?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>';a.appendChild(d);var p=el.querySelector('.vid-play');if(p)p.style.display='none'}}
 
 function main(){
   var d=D;if(!d){document.getElementById('app').innerHTML='<div class="loading" style="color:var(--red)">Failed</div>';return}
@@ -331,6 +332,7 @@ function render(d){
   h.push('<div style="font-family:var(--sn);font-size:28px;font-weight:800;color:var(--grn);line-height:1.3;margin:12px 0 4px;text-shadow:0 0 40px rgba(52,211,153,0.2)">Finite Capacity</div>');
   h.push('<div style="font-family:var(--mn);font-size:14px;color:var(--dm);line-height:1.7;opacity:0.85">the universe can only keep track of so many differences at once.</div>');
   h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.8;margin-top:16px">Treating physical law as the bookkeeping of that limit relates quantum behavior, spacetime geometry, singularities, and the early universe within one framework.</div>');
+  h.push('<div style="font-family:var(--sn);font-size:16px;font-weight:700;color:var(--br);line-height:1.6;margin-top:18px">This project does not start from particles or fields, but from a constraint on what distinctions can coexist, and asks what physical structure must follow.</div>');
   h.push('<div style="font-family:var(--mn);font-size:15px;color:var(--dm);line-height:1.8;margin-top:14px">The <a href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest" style="color:var(--grn);text-decoration:underline;font-weight:600">papers</a> and <a href="https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6" style="color:var(--grn);text-decoration:underline;font-weight:600">code</a> contain the details; this dashboard reports the live state of the program.</div>');
   h.push('</div>');
 
@@ -338,7 +340,7 @@ function render(d){
   h.push('<div class="vid-card" id="vid-card" onclick="playVid(this)" style="height:auto;flex-shrink:0">');
   h.push('<div class="vid-inner" style="height:auto">');
   h.push('<div class="vid-aspect" style="flex:none;padding-bottom:56.25%;position:relative">');
-  h.push('<img src="https://img.youtube.com/vi/SJPJPz4Id0E/maxresdefault.jpg" onerror="this.src=\'https://img.youtube.com/vi/SJPJPz4Id0E/sddefault.jpg\'" alt="Framework Overview">');
+  h.push('<img src="https://img.youtube.com/vi/jMxElppurqY/maxresdefault.jpg" onerror="this.src=\'https://img.youtube.com/vi/jMxElppurqY/sddefault.jpg\'" alt="Framework Overview">');
   h.push('<div class="vid-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 5.14v13.72a1 1 0 001.5.86l11.04-6.86a1 1 0 000-1.72L9.5 4.28A1 1 0 008 5.14z" fill="var(--grn)"/></svg></div>');
   h.push('</div>');
   h.push('<div class="vid-bar"><div class="vid-bar-dot"></div><div class="vid-bar-label">Watch Overview</div><div class="vid-bar-sub">YouTube</div></div>');
@@ -347,6 +349,42 @@ function render(d){
 
   h.push('</div>'); // close grid
   h.push('</div>'); // close hero
+
+  // Interactive "What follows" component
+  h.push('<div style="margin-top:16px">');
+  h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:600;color:var(--dm);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">If the universe can only keep track of a limited number of differences at once \u2014</div>');
+  var conseqs = [
+    {plain:'Some properties cannot all be well-defined at the same time',
+     axiom:'L\u2009nc',aname:'Non-Closure Lemma',color:'var(--grn)',
+     detail:'Finite capacity forces enforcement trade-offs. Not all observables can be simultaneously sharp \u2014 this is the structural origin of quantum incompatibility (T1).'},
+    {plain:'Different mathematical descriptions can represent the same physical situation',
+     axiom:'T3',aname:'Locality \u2192 Gauge Structure',color:'var(--blu)',
+     detail:'Local enforcement (L_loc) means patches overlap. Equivalent descriptions of the same enforcement state form a gauge bundle with connection (Doplicher\u2013Roberts).'},
+    {plain:'The extra bookkeeping needed to avoid double-counting looks like gauge symmetry',
+     axiom:'T_gauge',aname:'Gauge Group from Capacity Budget',color:'var(--pur)',
+     detail:'The capacity-optimal factorization of 12 enforcement dimensions uniquely selects SU(3)\u00d7SU(2)\u00d7U(1). No other product group is admissible under A1.'},
+    {plain:'When too many possibilities compete, the system settles on a single stable outcome',
+     axiom:'T24',aname:'sin\u00b2\u03b8_W = 3/13',color:'var(--amb)',
+     detail:'Capacity competition between gauge channels has a unique attractor. The fixed-point ratio 3/13 matches the measured Weinberg angle to 0.19% \u2014 with zero fitted parameters.'},
+    {plain:'Keeping distant things coordinated becomes costly, and that cost behaves like distance and curvature',
+     axiom:'T7B',aname:'Gravity from Non-Factorization',color:'#f87171',
+     detail:'When subsystems share enforcement load, the feasibility cost is quadratic, local, and universal. The unique such object is a metric tensor g_\u03bc\u03bd \u2014 gravity is not postulated but derived.'}
+  ];
+  conseqs.forEach(function(c,i){
+    h.push('<div class="cq-row" onclick="this.classList.toggle(\'cq-open\')" style="cursor:pointer;margin-bottom:6px;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;transition:all .25s;background:var(--c1)">');
+    h.push('<div style="display:flex;align-items:center;gap:12px;padding:11px 14px">');
+    h.push('<div style="width:7px;height:7px;border-radius:50%;background:'+c.color+';flex-shrink:0;box-shadow:0 0 6px '+c.color+'"></div>');
+    h.push('<div style="flex:1;font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.5">'+c.plain+'</div>');
+    h.push('<div class="cq-tag" style="flex-shrink:0;font-family:var(--mn);font-size:10px;font-weight:700;color:'+c.color+';background:rgba(0,0,0,0.3);padding:3px 8px;border-radius:4px;letter-spacing:.5px">'+c.axiom+'</div>');
+    h.push('<div class="cq-arrow" style="flex-shrink:0;font-size:10px;color:var(--dm);transition:transform .2s">\u25BC</div>');
+    h.push('</div>');
+    h.push('<div class="cq-detail" style="max-height:0;overflow:hidden;transition:max-height .3s ease">');
+    h.push('<div style="padding:0 14px 12px 33px;font-family:var(--mn);font-size:12px;line-height:1.7">');
+    h.push('<span style="color:'+c.color+';font-weight:700">'+c.aname+'</span><span style="color:var(--dm)"> \u2014 '+c.detail+'</span>');
+    h.push('</div></div>');
+    h.push('</div>');
+  });
+  h.push('</div>');
 
   h.push('</div>');
 
@@ -465,7 +503,7 @@ function render(d){
 
   // sin²θ_W derivation paper - featured
   h.push('<div class="card" style="padding:0;overflow:hidden;border-color:var(--amb);margin-bottom:16px">');
-  h.push('<a href="https://zenodo.org/records/18614776" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:14px 16px;text-decoration:none;background:var(--ambg)">');
+  h.push('<a href="https://zenodo.org/records/18603209" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:14px 16px;text-decoration:none;background:var(--ambg)">');
   h.push('<div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--amb)">\u2b06 New</div><div style="font-size:10px;color:var(--amb);letter-spacing:1px;margin-top:2px">DERIVATION</div></div>');
   h.push('<div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">The Weak Mixing Angle as a Capacity Equilibrium</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">If this derivation is correct, it means that the weak mixing angle \u2014 a fundamental constant of the Standard Model, measured to five decimal places across decades of experiment \u2014 is not a free parameter of nature but a mathematical consequence of finite capacity. A single axiom, with zero fitted parameters, produces a rational number (3/13) that matches the measured value to 0.19%. This is, to our knowledge, the first derivation of sin\u00b2\u03b8<sub>W</sub> from a single structural principle.</div></div>');
   h.push('</a></div>');
@@ -522,7 +560,7 @@ function render(d){
 
 // â•â•â• COMPLETE CONSTANTS MAP â•â•â•
   h.push('<div class="sec"><div class="sec-t">Complete Constants Map</div>');
-  h.push('<div class="sec-intro">Every parameter needed for a complete Theory of Everything, mapped to its admissibility derivation status. Click any row to see the full proof chain, falsifiability condition, and admissibility interpretation. The \u201cAdmissibility Unit\u201d column shows what each quantity measures in the language of enforcement capacity.</div>');
+  h.push('<div class="sec-intro"><b style="color:var(--br)">Below is not assumed structure \u2014 it is the current list of consequences the model attempts to reproduce.</b> Every parameter needed for a complete Theory of Everything, mapped to its admissibility derivation status. Click any row to see the full proof chain, falsifiability condition, and admissibility interpretation. The \u201cAdmissibility Unit\u201d column shows what each quantity measures in the language of enforcement capacity.</div>');
   // Summary bar
   h.push('<div class="toe-summary">');
   h.push('<div class="ts" style="background:var(--grng)"><span style="color:var(--grn);font-weight:700">'+epiCount.P+'</span><span style="color:var(--dm)"> proven</span></div>');
