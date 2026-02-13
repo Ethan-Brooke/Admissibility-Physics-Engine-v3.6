@@ -654,7 +654,7 @@ h.push('</div></div>');
   h.push('<div class="sec-intro">Every theorem in the framework feeds downstream results. This treemap sizes each theorem by <b style="color:var(--grn)">downstream influence</b>\u2014the number of other theorems that depend on it, directly or indirectly. The biggest blocks are the load-bearing pillars of the entire derivation. Color encodes tier: <span style="color:#f87171">axioms</span>, <span style="color:#818cf8">foundations</span>, <span style="color:#34d399">gauge</span>, <span style="color:#60a5fa">particles</span>, <span style="color:#a78bfa">constants</span>, <span style="color:#f87171">gravity</span>, <span style="color:#fbbf24">closure</span>.</div>');
   h.push('<div class="card" style="padding:16px;overflow:hidden">');
   h.push('<div id="treemap-hover" style="position:fixed;display:none;padding:10px 14px;background:#111827f0;border:1px solid var(--bdr);border-radius:6px;font-family:var(--mn);font-size:12px;color:var(--br);pointer-events:none;z-index:1000;max-width:300px;line-height:1.5;box-shadow:0 4px 20px #0008"></div>');
-  h.push('<div id="treemap-box" style="width:100%;min-height:620px;position:relative;border:1px solid var(--bdr);border-radius:6px;overflow:hidden;background:var(--c1)"></div>');
+  h.push('<div id="treemap-box" style="width:100%;min-height:780px;position:relative;border:1px solid var(--bdr);border-radius:6px;overflow:hidden;background:var(--c1)"></div>');
   h.push('</div>');
 
   // === TREEMAP ANALYSIS ===
@@ -693,6 +693,81 @@ h.push('</div></div>');
   h.push('The implication is structural robustness\u2014knocking out any single leaf theorem doesn\u2019t propagate upward, but challenging an axiom threatens everything below it. ');
   h.push('This is why the framework is <b style="color:var(--grn)">maximally falsifiable</b>: a single failed prediction at any leaf indicts the entire axiom chain above it.');
   h.push('</div></div>');
+
+  // === TERMINAL THEOREMS TABLE ===
+  h.push('<div class="card" style="padding:20px;margin-top:12px">');
+  h.push('<div style="font-family:var(--sn);font-size:16px;font-weight:700;color:var(--br);margin-bottom:6px">Terminal Nodes &amp; Structural Endpoints</div>');
+  h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.7;margin-bottom:14px">These are the <b style="color:var(--pur)">leaf theorems</b> of the framework\u2014theorems with <b style="color:var(--br)">zero downstream dependents</b>. Every derivation chain that starts from A1 terminates at one of these nodes. They are where abstract axioms become concrete, testable physics. If any terminal prediction fails experimentally, the failure propagates <em>upward</em> through the entire proof chain, indicting every theorem above it.</div>');
+
+  // Build children map to find terminals
+  var termAllIds2=new Set(['A1','L_nc','L_col','L_T2','L_irr','L_loc','L_equip']);
+  Object.keys(d.theorems||{}).forEach(function(id){termAllIds2.add(id)});
+  var termChildren2={};
+  termAllIds2.forEach(function(id){termChildren2[id]=new Set()});
+  function termCDep(dep){var dd=dep.trim();if(dd.includes('('))dd=dd.split('(')[0].trim();else if(dd.includes(' '))dd=dd.split(' ')[0].trim();if(dd.startsWith('meaning'))return null;var rm={'L_epsilon*':'L_\u03b5*','L_e*':'L_\u03b5*','\u0394_closure':'Delta_closure'};return rm[dd]||dd}
+  [['A1','L_nc'],['L_loc','L_nc'],['T0','L_nc'],['A1','L_col'],['L_irr','L_col'],['A1','L_T2'],['L_nc','L_T2'],['A1','L_irr'],['L_nc','L_irr'],['A1','L_loc'],['T0','L_loc']].forEach(function(p){if(termChildren2[p[0]])termChildren2[p[0]].add(p[1])});
+  Object.entries(d.theorems||{}).forEach(function(e){var tid=e[0],t=e[1];(t.dependencies||[]).forEach(function(dep){var cd=termCDep(dep);if(cd&&termAllIds2.has(cd)&&termChildren2[cd])termChildren2[cd].add(tid)})});
+
+  // Count upstream ancestors
+  var termParents2={};
+  termAllIds2.forEach(function(id){termParents2[id]=new Set()});
+  [['A1','L_nc'],['L_loc','L_nc'],['T0','L_nc'],['A1','L_col'],['L_irr','L_col'],['A1','L_T2'],['L_nc','L_T2'],['A1','L_irr'],['L_nc','L_irr'],['A1','L_loc'],['T0','L_loc']].forEach(function(p){if(termParents2[p[1]])termParents2[p[1]].add(p[0])});
+  Object.entries(d.theorems||{}).forEach(function(e){var tid=e[0],t=e[1];(t.dependencies||[]).forEach(function(dep){var cd=termCDep(dep);if(cd&&termAllIds2.has(cd)&&termParents2[tid])termParents2[tid].add(cd)})});
+  function termCountUp2(id,vis){if(!vis)vis=new Set();vis.add(id);(termParents2[id]||new Set()).forEach(function(p){if(!vis.has(p))termCountUp2(p,vis)});return vis.size-1}
+
+  // Find all terminals (0 downstream children)
+  var terminals=[];
+  termAllIds2.forEach(function(id){
+    if(!termChildren2[id]||termChildren2[id].size===0){
+      var thm=d.theorems?d.theorems[id]:null;
+      if(thm){
+        var tier=thm.tier!=null?thm.tier:0;
+        var upstream=termCountUp2(id);
+        terminals.push({id:id,thm:thm,tier:tier,upstream:upstream});
+      }
+    }
+  });
+  terminals.sort(function(a,b){return a.tier-b.tier||b.upstream-a.upstream});
+
+  var tierN2={0:'Foundations',1:'Gauge',2:'Particles',3:'Constants',4:'Gravity',5:'Closure'};
+  var tierC2={0:'#818cf8',1:'#34d399',2:'#60a5fa',3:'#a78bfa',4:'#f87171',5:'#fbbf24'};
+  var epiC2={'P':'var(--grn)','P_structural':'var(--blu)'};
+
+  // Match terminals to TOE predictions for falsification info
+  var toeFalsify={};
+  TOE.forEach(function(t){if(t.falsify&&t.thm){var k=t.thm.split('+')[0].trim();if(!toeFalsify[k])toeFalsify[k]=t.falsify}});
+
+  h.push('<div style="overflow-x:auto">');
+  h.push('<table style="width:100%;border-collapse:collapse;font-family:var(--mn);font-size:12px">');
+  h.push('<thead><tr style="border-bottom:2px solid var(--bdr)">');
+  h.push('<th style="text-align:left;padding:8px 10px;color:var(--pur);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px">Theorem</th>');
+  h.push('<th style="text-align:left;padding:8px 10px;color:var(--pur);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px">What It Produces</th>');
+  h.push('<th style="text-align:center;padding:8px 10px;color:var(--pur);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px">Tier</th>');
+  h.push('<th style="text-align:center;padding:8px 10px;color:var(--pur);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px">Status</th>');
+  h.push('<th style="text-align:center;padding:8px 10px;color:var(--pur);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px">\u2191 Depth</th>');
+  h.push('<th style="text-align:left;padding:8px 10px;color:var(--pur);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px">Falsified By</th>');
+  h.push('</tr></thead><tbody>');
+
+  terminals.forEach(function(t,i){
+    var bgC=i%2===0?'transparent':'rgba(255,255,255,0.015)';
+    var keyRes=(t.thm.key_result||'').replace(/</g,'&lt;');
+    var epi=t.thm.epistemic||'P';
+    var falsify=toeFalsify[t.id]||'';
+    if(falsify.length>100)falsify=falsify.slice(0,97)+'\u2026';
+    falsify=falsify.replace(/</g,'&lt;');
+    h.push('<tr style="border-bottom:1px solid var(--bdr);background:'+bgC+'">');
+    h.push('<td style="padding:8px 10px;white-space:nowrap"><b style="color:'+(tierC2[t.tier]||'#888')+'">'+t.id+'</b></td>');
+    h.push('<td style="padding:8px 10px;color:var(--dm);line-height:1.5">'+keyRes+'</td>');
+    h.push('<td style="padding:8px 10px;text-align:center"><span style="font-size:10px;padding:2px 6px;border-radius:3px;background:'+(tierC2[t.tier]||'#888')+'18;color:'+(tierC2[t.tier]||'#888')+';font-weight:600">'+(tierN2[t.tier]||'T'+t.tier)+'</span></td>');
+    h.push('<td style="padding:8px 10px;text-align:center"><span style="font-size:10px;padding:2px 6px;border-radius:3px;background:'+(epiC2[epi]||'var(--dm)')+'18;color:'+(epiC2[epi]||'var(--dm)')+';font-weight:600">['+epi+']</span></td>');
+    h.push('<td style="padding:8px 10px;text-align:center;color:var(--dm)">\u2191'+t.upstream+'</td>');
+    h.push('<td style="padding:8px 10px;color:#6a7a9a;font-size:11px;font-style:italic;max-width:280px">'+falsify+'</td>');
+    h.push('</tr>');
+  });
+
+  h.push('</tbody></table></div>');
+  h.push('<div style="margin-top:10px;font-family:var(--mn);font-size:11px;color:#4a5575;line-height:1.6"><b>\u2191 Depth</b> = total ancestor theorems in the proof chain above this node. Higher counts mean a longer derivation from A1, making the prediction more tightly constrained. Every row is a point where the framework can be experimentally killed.</div>');
+  h.push('</div>');
 
   h.push('</div></div>');
 
@@ -1544,9 +1619,12 @@ function buildCrystal(d) {
   const W = container.clientWidth, H = container.clientHeight;
   
   const scene = new THREE.Scene();
+  const legendW = 260;
+  const halfFovTan = Math.tan(25 * Math.PI / 180); // tan(FOV/2)
+  const camX = -(legendW * 10 * halfFovTan / W) * 0.5; // negative = camera left = crystal right on screen
   const camera = new THREE.PerspectiveCamera(50, W/H, 0.1, 100);
-  camera.position.set(3.0, 0.3, 10);
-  camera.lookAt(3.0, -0.3, 0);
+  camera.position.set(camX, 0.3, 10);
+  camera.lookAt(camX, -0.3, 0);
   
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(W, H);
@@ -2098,7 +2176,7 @@ svgEl.addEventListener('click',function(ev){
 function buildTreemap(d){
 const box=document.getElementById('treemap-box');if(!box)return;
 const W=box.clientWidth||box.offsetWidth||box.parentElement.clientWidth||420;
-const H=box.clientHeight||620;
+const H=Math.max(box.clientHeight||780,780);
 if(W<50){setTimeout(function(){buildTreemap(d)},500);return}
 
 const allIds=new Set(['A1','L_nc','L_col','L_T2','L_irr','L_loc']);
@@ -2159,7 +2237,7 @@ var tierBands=[];
 tierOrder.forEach(function(tier){
   var nodes=tierGroups[tier];
   var tierVal=nodes.reduce(function(a,n){return a+Math.max(n.influence,1)},0);
-  var tierH=Math.max(44,(Math.sqrt(tierVal)/tierTotalSqrt)*H);
+  var tierH=Math.max(68,(Math.sqrt(tierVal)/tierTotalSqrt)*H);
   var sorted=nodes.slice().sort(function(a,b){return b.influence-a.influence});
   var items=sorted.map(function(n){return Object.assign({},n,{value:Math.max(n.influence,1)})});
   var rects=squarify(items,0,yAccum,W,tierH);
