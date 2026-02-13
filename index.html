@@ -1455,19 +1455,33 @@ h.push('</div></div>');
   h.push('<div class="card" style="padding:16px">');
 
   var versions=[
+    {v:'4.1',d:'2026-02-12',items:[
+      {t:'upgrade',s:'Trust calibration pass: header badges ("Verification suite: ALL PASS (internal checks)"), TOE gauge ("tracked" not "of TOE"), EFE precision ("matches precision tests of GR"), version count sync (64 theorems across all references)'},
+      {t:'upgrade',s:'Hook scope graduated: "relates quantum behavior and spacetime geometry\u2014and then asks what this implies for singularities and the early universe"'},
+      {t:'new',s:'Zero-free-parameters safety sentence: "Where an external theorem or regime assumption is used, it is explicitly labeled"'},
+      {t:'new',s:'Terminal Nodes & Structural Endpoints table: all leaf theorems with key result, tier, epistemic status, upstream depth, and falsification condition'},
+      {t:'new',s:'Enforcement Crystal legend redesigned as collapsible right sidebar (260px panel, \u25C0 toggle button, starts open on desktop, collapsed on mobile)'},
+      {t:'upgrade',s:'Crystal centering: crystalGroup shifted left to center in visible area accounting for legend panel width'},
+      {t:'upgrade',s:'Influence Treemap: min tier height 44\u219268px, base height 620\u2192780px, dynamic box sizing. Bottom tiers (Gravity, Closure) now fully visible'},
+      {t:'upgrade',s:'Proof River: padding reduced (padT 100\u219250, padB 80\u219240), SVG height 1200\u2192980px, eliminates top/bottom dead space'},
+      {t:'upgrade',s:'Interactive consequence ladder: font scaling (row text 13\u219215px, header 11\u219214px, detail 12\u219213px), "Each line links to the exact theorem" footnote'},
+      {t:'fix',s:'Crystal intro auto-pluralization and count alignment with header (uses d.total_theorems directly)'},
+      {t:'fix',s:'Consequence ladder wording: "Different"\u2192"Multiple", "looks like"\u2192"takes the form of"'},
+      {t:'fix',s:'Papers section version sync note: "Dashboard v4.1 is synced to theorem bank v4.1 (64 theorems)"'}
+    ]},
     {v:'4.0',d:'2026-02-10',items:[
       {t:'new',s:'T21a/T21b/T21c: RG attractor family — Lyapunov stability, global basin of attraction, normalized share flow'},
       {t:'new',s:'Four-pillar connections: T_tensor→T_field, T_CPTP→T21, T_Bek→T10, T9→T19 (eliminates 4 early terminals)'},
-      {t:'upgrade',s:'v4.1: Crystal metrics auto-computed from D.theorems at runtime (CM module). Zero hardcoded counts.'},
-      {t:'upgrade',s:'63 theorems, 67 crystal nodes, 202 edges (+6), 5,958 paths to sin²θ_W (+821, +16%)'},
-            {t:'new',s:'Standalone Influence Treemap with analysis panel (power concentration, terminal predictions, funnel structure)'},
+      {t:'upgrade',s:'Crystal metrics auto-computed from D.theorems at runtime (CM module). Zero hardcoded counts.'},
+      {t:'upgrade',s:'64 theorems, 66 crystal nodes, 203 edges, depth 0\u201316'},
+      {t:'new',s:'Standalone Influence Treemap with analysis panel (power concentration, terminal predictions, funnel structure)'},
       {t:'new',s:'Red Team Audit: 11 solid results / 7 issues found, severity-tagged'},
       {t:'new',s:'Crystal Analysis Notes: full shape profile, BFS depth chart, structural root analysis'},
-      {t:'upgrade',s:'Proof River v2: larger fonts, click-for-detail panels, proven-ring markers, upstream/downstream counts'},
-      {t:'fix',s:'Crystal shifted left to avoid legend overlap; all mojibake characters resolved'}
+      {t:'new',s:'Proof River v2: click-for-detail panels, proven-ring markers, upstream/downstream counts'},
+      {t:'new',s:'Epistemic Status Key: [P], [P_s], [testable], [open] classification system with visual legend'}
     ]},
     {v:'3.7',d:'2026-02-09',items:[
-      {t:'upgrade',s:'Dashboard v4.1: framework status moved under intro, treemap sqrt-dampened tier heights, proof river after treemap, T0 crystal formatting normalized, section reorder for narrative flow.'},
+      {t:'upgrade',s:'Section reorder for narrative flow: framework status under intro, treemap sqrt-dampened tier heights, proof river after treemap.'},
       {t:'new',s:'Single axiom reduction complete: entire framework derived from A1 (Finite Capacity) alone. Dashboard synced to v4.0 bank (64 theorems, L_equip added).'},
       {t:'new',s:'L_irr: A4 (irreversibility) derived from A1+L_nc (5-step proof with countermodel)'},
       {t:'new',s:'L_loc: A3 (locality) derived from A1+M+NT (4-step proof with countermodel)'},
