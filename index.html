@@ -411,7 +411,11 @@ function render(d){
 
 // Compute epiCount from TOE (needed by multiple sections below)
   var epiCount={P:0,P_structural:0,C_import:0,testable:0,open:0};
-  TOE.forEach(function(c){epiCount[c.epi]=(epiCount[c.epi]||0)+1});
+  TOE.forEach(function(c){
+    var e=c.epi;
+    if(e==='P_structural | open')e='P_structural';
+    epiCount[e]=(epiCount[e]||0)+1;
+  });
 
   // === FRAMEWORK STATUS (Interactive Doughnuts) ===
   h.push('<div class="sec"><div class="sec-t">Framework Status</div>');
@@ -480,7 +484,7 @@ function render(d){
   // Constants details
   h.push('<div id="fw-detail-constants" style="display:none;padding:16px;background:var(--bg);border:1px solid var(--pur);border-radius:6px;margin-bottom:12px;animation:fadeIn .3s">');
   h.push('<div style="font-size:13px;font-weight:700;color:var(--pur);margin-bottom:8px">'+cDerived+'/'+TOE.length+' Constants Derived ('+cPct+'% of tracked quantities constrained, by current accounting)</div>');
-  h.push('<div style="font-size:12px;color:var(--dm);margin-bottom:6px">The framework derives <b style="color:var(--grn)">'+epiCount.P+' constants as [P]</b> (fully proved), <b style="color:var(--blu)">'+epiCount.P_structural+' as [P_structural]</b> (structural with identified bridges), and identifies <b style="color:var(--amb)">'+epiCount.open+' open gaps</b> (primarily Yukawa sector\u2014quark/lepton masses, mixing angles).</div>');
+  h.push('<div style="font-size:12px;color:var(--dm);margin-bottom:6px">The framework derives <b style="color:var(--grn)">'+epiCount.P+' constants as [P]</b> (fully proved), <b style="color:var(--blu)">'+epiCount.P_structural+' as [P_structural]</b> (structural with identified bridges), and identifies <b style="color:var(--amb)">'+epiCount.open+' open gaps</b> (primarily Yukawa sector\u2014absolute mass values and gravitational scale).</div>');
   h.push('<div style="font-size:12px;color:var(--dm)">The '+predsCount+' numerical predictions include: sin\u00b2\u03b8_W = 3/13 (0.19% error), \u03a9_\u039b = 42/61 (0.05% error), N_gen = 3 (exact), d = 4 (exact), SU(3)\u00d7SU(2)\u00d7U(1) (exact), and the full CKM matrix (6/6 within 5%, zero free parameters).</div>');
   h.push('</div>');
 
@@ -600,7 +604,7 @@ function render(d){
   TOE.forEach(function(c){
     if(c.cat!==lastCat){
       lastCat=c.cat;
-      var catIcon={'Gauge Structure':'\u2699','Spacetime':'\u2b25','Matter Content':'\u2b24','Charges':'\u26a1','Electroweak':'\u2b50','Cosmology':'\ud83c\udf0c','Consistency':'\u2714','Couplings':'\u03b1','Testable':'\ud83d\udd2c','TOE Gap':'\u2753','Gravity':'\ud83c\udf0d','Quantum Gravity':'\u269b'}[c.cat]||'\u25cf';
+      var catIcon={'Gauge Structure':'\u2699','Spacetime':'\u2b25','Matter Content':'\u2b24','Charges':'\u26a1','Electroweak':'\u2b50','Cosmology':'\ud83c\udf0c','Consistency':'\u2714','Couplings':'\u03b1','Testable':'\ud83d\udd2c','TOE Gap':'\u2753','Gravity':'\ud83c\udf0d','Quantum Gravity':'\u269b','Flavor Mixing':'\ud83c\udf00'}[c.cat]||'\u25cf';
       h.push('<div class="toe-cat">'+catIcon+' '+c.cat+'</div>');
     }
     var ec=EPI_COLORS[c.epi]||['var(--dm)','var(--bg)'];
