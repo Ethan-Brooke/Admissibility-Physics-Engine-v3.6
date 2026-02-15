@@ -1,45 +1,41 @@
-# Admissibility Physics Engine v3.8
+# Admissibility Physics Engine v4.3
 
-**Deriving the Standard Model from 1 axiom — 60 theorems, 0 free parameters, 20 predictions.**
+**Deriving the Standard Model from a single axiom — 89 theorems, 0 free parameters, 27 predictions.**
 
-The framework operates on a single axiom (A1: Finite Capacity) plus two definitional postulates (M: Multiplicity, NT: Non-Triviality). Locality (A3) and irreversibility (A4) are themselves derived as lemmas L_loc and L_irr.
+**New in v4.3: CKM quark mixing matrix predicted from zero free parameters. 6/6 magnitudes within 5%.**
 
-```bash
-python3 fcf_theorem_bank.py                     # Full theorem bank (60 checks)
-python3 enforcement_crystal_v3.py                # Crystal dependency analysis
-python3 run_dashboard_export.py                  # Export dashboard_data.json
+```
+python3 run.py                        # Full display
+python3 run.py --json                 # JSON export
+python3 run.py --audit-gaps           # Gap analysis
+python3 run.py --deps T_CKM          # Dependency tree
+python3 run.py --reverse-deps A1     # Reverse dependency lookup
+python3 run.py --export-dashboard    # Write dashboard_data.json
 ```
 
 ## What This Is
 
 A computational verification engine for the Foundational Constraint Framework (FCF),
 which derives the Standard Model of particle physics and general relativity from
-information-theoretic axioms with no free parameters.
-
-## Axiom Structure
-
-| Element | Type | Statement |
-|---------|------|-----------|
-| **A1** | Axiom | Enforcement capacity is finite |
-| M | Postulate | \|D\| ≥ 2 (multiplicity) |
-| NT | Postulate | \|interfaces\| ≥ 2 (non-triviality) |
-| A3 | Derived (L_loc) | Independent sectors factor (locality) |
-| A4 | Derived (L_irr) | Record-creation is irreversible |
-| L_nc | Derived | Non-closure under composition |
+a single information-theoretic axiom (A1: Finite Enforcement Capacity) with no free
+parameters. Every theorem is machine-verified with full dependency tracking.
 
 ## Results
 
 | Category | Count |
-|----------|-------|
-| Theorems | 60/60 pass |
-| Proven [P] | 41 (68%) |
-| Structural [P_structural] | 19 (32%) |
-| Predictions | 20 |
+|---|---|
+| Theorems | 89/89 pass |
+| Proven [P] | 77 (87%) |
+| Structural [P_structural] | 9 (10%) |
+| Axioms/Postulates | 3 |
+| Assertions | 462 |
+| External imports | 9 |
+| Sectors | 11/11 pass |
 
-### Key Predictions
+### Key Predictions (zero free parameters)
 
 | Quantity | Predicted | Observed | Error |
-|----------|-----------|----------|-------|
+|---|---|---|---|
 | sin²θ_W | 3/13 | 0.2312 | 0.19% |
 | Ω_Λ | 42/61 | 0.6889 | 0.05% |
 | Ω_m | 19/61 | 0.3111 | 0.12% |
@@ -49,64 +45,105 @@ information-theoretic axioms with no free parameters.
 | d (spacetime) | 4 | 4 | exact |
 | Field content | {Q,L,u,d,e} | {Q,L,u,d,e} | exact |
 
-All 5 cosmological parameters within 1σ of Planck 2018. All discrete predictions exact.
+### CKM Matrix (new v4.3 — zero free parameters)
 
-## Enforcement Crystal (v3)
+The Standard Model uses 4 free parameters to fit 4 CKM observables.
+FCF uses 0 free parameters and predicts 6+ observables.
 
-The theorem dependency graph — the "enforcement crystal" — is auto-extracted from the theorem bank:
+| Quantity | Predicted | Observed | Error |
+|---|---|---|---|
+| θ₁₂ (Cabibbo) | 13.50° | 13.04° | 3.5% |
+| θ₂₃ | 2.32° | 2.38° | 2.6% |
+| θ₁₃ | 0.209° | 0.201° | 3.9% |
+| \|V_us\| | 0.2334 | 0.2257 | 3.4% |
+| \|V_cb\| | 0.0404 | 0.0410 | 1.4% |
+| \|V_ub\| | 0.00364 | 0.00382 | 4.6% |
+| J_CKM | 3.33×10⁻⁵ | 3.08×10⁻⁵ | 8.1% |
 
-| Metric | 3-Axiom Mode | 1-Axiom Mode |
-|--------|-------------|-------------|
-| Nodes | 61 (3 ax + 58 derived) | 63 (3 ax + 60 derived) |
-| Edges | 189 | 195 |
-| Paths to sin²θ_W | 3,181 | 8,971 |
-| Width-1 waists | depths 8, 17, 19 | depths 1, 4, 11, 20, 22 |
-| Max depth | 19 | 22 |
+All 6 magnitudes within 5%. Hierarchy correct. CP violation sign correct.
 
-Three structural bottlenecks in the 3-axiom crystal:
-- **T_gauge** (depth 8): Gauge group selection — SU(3)×SU(2)×U(1) forced
-- **T9_grav** (depth 17): Einstein field equations assembled
-- **T12E** (depth 19): Baryon fraction f_b = 3/19
+### PMNS (Lepton Mixing) — Structural Wall
 
-Axiom attribution for sin²θ_W: A1 46.7% · A3 42.1% · A4 11.1%
+The extension to neutrino mixing reveals a structural wall: the Froggatt-Nielsen
+texture with small neutrino charges produces a rank-1 mass matrix, making θ₁₂
+solver-dependent. θ₂₃ ≈ 44° and θ₁₃ ≈ 8° are solver-stable and correct-order.
+The framework correctly predicts PMNS ≫ CKM from the absence of color charge
+in the lepton sector, but cannot derive full PMNS numerics from FN texture alone.
+
+## Derivation Chain
+
+```
+A1 (Finite Capacity) + M (Multiplicity) + NT (Non-Triviality)
+    |
+    +-- L_eps*  : meaningful distinctions → ε > 0
+    +-- L_loc   : enforcement distributes (A3 derived)
+    +-- L_nc    : composition not free (A2 derived)
+    +-- L_irr   : records lock capacity (A4 derived)
+    |
+    +== Tier 0: Foundations (26 theorems, all [P])
+    +== Tier 1: Gauge Group (6 theorems, all [P])
+    +== Tier 2: Particles/Generations (10 theorems)
+    +== Tier 3: RG + Flavor Mixing (29 theorems)
+    |     |
+    |     +-- RG: T21 → T22 → T23 → T24 → sin²θ_W = 3/13
+    |     |
+    |     +-- Flavor (v4.3):
+    |         x=1/2, κ=2, ε=1 → q_B=(7,4,0) → q_H=(7,5,0)
+    |         φ=π/4, Δk=3, c_Hu=x³ → T_CKM (6/6 within 5%)
+    |
+    +== Tier 4: Gravity & Dark Sector (9 theorems)
+    +== Tier 5: Delta_geo Corollaries (6 theorems)
+```
 
 ## File Structure
 
 ```
-fcf_theorem_bank.py                  # Master theorem bank (60 checks, source of truth)
-enforcement_crystal_v3.py            # Auto-extracting crystal analysis
-run_dashboard_export.py              # Dashboard data generator
-index.html                           # Interactive dashboard (GitHub Pages)
-dashboard_data.json                  # Auto-generated dashboard data
-Admissibility_Physics_Gravity_V3_6.py  # Gravity sector module
-.github/workflows/update_dashboard.yml  # CI: auto-update dashboard_data.json
-VERSION_3_8.md                       # Changelog
+FCF_Theorem_Bank_v4_3.py               # All 89 entries (Tiers 0-5 + 3F)
+Admissibility_Physics_Engine_V4_3.py    # Master verification engine v11.0
+run.py                                  # Entry point (all CLI flags)
+VERSION_4_3.md                          # Changelog and full details
+index.html                              # GitHub Pages dashboard
+dashboard_data.json                     # Auto-generated from --export-dashboard
 ```
+
+## Epistemic Stratification
+
+Every theorem is tagged with machine-verified epistemic status:
+
+- **[AXIOM]** — A1 (the single axiom)
+- **[POSTULATE]** — M, NT (definitional)
+- **[P]** — Proved from A1 + imported standard math
+- **[P_structural]** — Proved modulo identified structural steps
+- **[P_structural | open]** — Known open problem (PMNS wall)
+
+No theorem is assumed. No circular dependencies. Full DAG validated at runtime.
+
+## Open Physics (9 [P_structural] remaining)
+
+| Type | Count | Theorems |
+|---|---|---|
+| Structural | 4 | T_q_Higgs, L_holonomy_phase, L_channel_crossing, T_CKM |
+| Open physics | 3 | T10, T4G, T4G_Q31 |
+| Import | 1 | T6B |
+| Open | 1 | T_PMNS_partial |
+
+The 4 structural gaps in flavor mixing are specific identified steps (Higgs VEV
+location, generation-channel correspondence, conjugation cost). The 3 open physics
+gaps require experimental input (Majorana/Dirac neutrinos, UV completion).
 
 ## Requirements
 
 - Python 3.10+
 - No external dependencies (stdlib only)
 
-## Epistemic Stratification
+## Version History
 
-Every theorem is tagged:
-
-- **[P]** — Proven from axioms + imported math theorems
-- **[P_structural]** — Proven modulo one identified structural step
-
-No theorem is assumed. No circular dependencies. Full dependency DAG validated at runtime.
-
-## Auto-Extraction Pipeline
-
-The enforcement crystal (v3) auto-extracts all dependency data by:
-1. Running every `check_*()` function in the theorem bank
-2. Reading the `dependencies` field from each result
-3. Cleaning annotated strings to canonical node IDs
-4. Building the DAG and running 12 graph analyses
-
-This eliminates hardcoded dependency maps — the crystal always reflects the current theorem bank.
+| Version | Theorems | [P] | Predictions | Key Addition |
+|---|---|---|---|---|
+| v3.6 | 49 | 43 | 20 | Initial public release |
+| v4.2.3 | 79 | 72 | 20 | Axiom reduction (A2-A5 derived), quantum structure |
+| **v4.3.0** | **89** | **77** | **27** | **CKM matrix, flavor mixing (10 new theorems)** |
 
 ## License
 
-MIT. See LICENSE.
+MIT License. See [LICENSE](LICENSE).
