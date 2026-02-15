@@ -61,8 +61,8 @@ waists_3ax = [dp for dp in sorted(width_3ax.keys()) if len(width_3ax[dp]) == 1]
 bc_3ax = crystal_3ax.betweenness_centrality()
 
 # Paths to sin2theta
-paths_3ax = crystal_3ax.count_all_paths('T_sin2theta')
-paths_1ax = crystal_1ax.count_all_paths('T_sin2theta')
+paths_3ax = crystal_3ax.count_paths('T_sin2theta')
+paths_1ax = crystal_1ax.count_paths('T_sin2theta')
 
 # Axiom attribution
 axiom_labels_3ax = ['A1', 'A3', 'A4']
