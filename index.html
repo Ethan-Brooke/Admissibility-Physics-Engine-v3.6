@@ -145,7 +145,7 @@ var TOE=[];
 
 var TC=['#818cf8','#a78bfa','#f472b6','#fbbf24','#60a5fa','#34d399'];
 var AC='#f87171';
-var TN={'-1':'Axioms',0:'Axiom Foundations + Quantum',1:'Gauge Group',2:'Particles',3:'RG / Constants',4:'Gravity + Dark',5:'\u0394_geo Closure'};
+var TN={'-1':'Axioms',0:'Axiom Foundations + Quantum',1:'Gauge Group',2:'Particles',3:'RG / Constants / Flavor',4:'Gravity + Dark',5:'\u0394_geo Closure'};
 var AXNM={A1:'Finite Capacity'};
 var LEMMA_NM={L_nc:'Non-Closure (derived)',L_col:'Collapse (derived)',L_T2:'Finite GNS (derived)',L_irr:'Irreversibility (derived)',L_loc:'Locality (derived)'};
 
@@ -272,8 +272,7 @@ function computeCM(d) {
 }
 
 var POST_NM={M:'Marginal Cost',NT:'Nontriviality'};
-var EPI_COLORS={'P':['var(--grn)','var(--grng)'],'P_structural':['var(--blu)','var(--blug)'],'C_import':['var(--amb)','var(--ambg)'],'testable':['var(--pur)','var(--purg)'],'open':['var(--dm)','var(--bg)']};
-
+var EPI_COLORS={'P':['var(--grn)','var(--grng)'],'P_structural':['var(--blu)','var(--blug)'],'P_structural | open':['var(--amb)','var(--ambg)'],'C_import':['var(--amb)','var(--ambg)'],'testable':['var(--pur)','var(--purg)'],'open':['var(--dm)','var(--bg)'],'AXIOM':['var(--red)','var(--redg)'],'POSTULATE':['var(--pur)','var(--purg)']};
 function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):''}
 function toggleCard(el){el.classList.toggle('open')}
 function switchTab(panel,tab){
@@ -312,8 +311,8 @@ async function main(){
 }
 
 function render(d){
-  var ep=d.epistemic_counts||{},pC=ep.P||0,pPct=Math.round(pC/d.total_theorems*100);
-  var preds=d.predictions||[];
+  var ep=d.epistemic_counts||{},pC=ep.P||0,psC=(ep.P_structural||0)+(ep['P_structural | open']||0),pPct=Math.round(pC/d.total_theorems*100);
+  var preds=d.predictions||{};var predsCount=Array.isArray(preds)?preds.length:Object.keys(preds).length;
   var openCount=0;
   Object.values(d.theorems||{}).forEach(function(t){if(t.gap_type==='open_physics')openCount++});
   var tiers=d.tier_stats||{};
@@ -326,7 +325,7 @@ function render(d){
   h.push('<div class="hdr"><div class="hdr-tag">Admissibility Physics Engine</div>');
   h.push('<div class="hdr-t">'+(d.version||'v3.5')+' \u2014 Foundational Constraint Framework</div>');
   var liveDate = (function(){ var n=new Date(); return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+' '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0'); })();
-  h.push('<div class="hdr-s">Last updated: '+liveDate+' \u00b7 <b>'+d.total_theorems+' theorems</b> \u00b7 1 axiom (A1) + 5 derived lemmas \u00b7 0 free parameters \u00b7 <b>'+preds.length+' outputs tagged testable/structural</b></div>');
+  h.push('<div class="hdr-s">Last updated: '+liveDate+' \u00b7 <b>'+d.total_theorems+' theorems</b> \u00b7 1 axiom (A1) + 2 postulates \u00b7 0 free parameters \u00b7 <b>'+predsCount+' numerical predictions</b></div>');
   // Status badges: Framework + Theorem Bank
   var fwOk=d.all_pass;
   var tcD=d.theorem_checker||{};
@@ -336,7 +335,7 @@ function render(d){
   h.push('<span style="font-family:var(--mn);font-size:12px;padding:3px 10px;border-radius:4px;border:1px solid '+(fwOk?'var(--grn)':'var(--red)')+';color:'+(fwOk?'var(--grn)':'var(--red)')+';background:'+(fwOk?'var(--grng)':'var(--redg)')+'">Verification suite: '+(fwOk?'\u2713 ALL PASS (internal checks)':'\u2717 FAILURES')+'</span>');
   if(tcAvail){h.push('<span style="font-family:var(--mn);font-size:12px;padding:3px 10px;border-radius:4px;border:1px solid '+(tcOk?'var(--grn)':'var(--red)')+';color:'+(tcOk?'var(--grn)':'var(--red)')+';background:'+(tcOk?'var(--grng)':'var(--redg)')+'">Theorem Bank: '+(tcOk?'\u2713 ':'\u2717 ')+(tcD.n_pass||0)+'/'+(tcD.total||0)+' verified</span>')}
   var secV=d.sector_verdicts||{};
-  var sectors=[['Gauge',secV.gauge],['Gravity',secV.gravity],['RG',secV.rg_mechanism],['Quantum',secV.quantum_structure],['Particles',secV.particles],['Cosmology',secV.cosmology],['Geometry',secV.geometry]];
+  var sectors=[['Gauge',secV.gauge],['Gravity',secV.gravity],['RG',secV.rg_mechanism],['Flavor',secV.flavor_mixing],['Quantum',secV.quantum_structure],['Particles',secV.particles],['Cosmology',secV.cosmology],['Geometry',secV.geometry]];
   sectors.forEach(function(s){if(s[1]!==undefined){h.push('<span style="font-family:var(--mn);font-size:12px;padding:3px 10px;border-radius:4px;border:1px solid '+(s[1]?'var(--blu)':'var(--red)')+';color:'+(s[1]?'var(--blu)':'var(--red)')+';background:'+(s[1]?'var(--blug)':'var(--redg)')+'">'+s[0]+': '+(s[1]?'\u2713':'\u2717')+'</span>')}});
   h.push('</div>');
   h.push('<div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:6px">Developed by <a href=\"https://www.linkedin.com/in/ethanbrooke/\" style=\"color:var(--grn);text-decoration:underline\">Ethan S. Brooke</a> \u00b7 <a href=\"https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest\" style=\"color:var(--blu);text-decoration:underline\">Preprint Archive</a> \u00b7 <a href=\"https://github.com/Ethan-Brooke/Admissibility-Physics-Engine-v3.6\" style=\"color:var(--pur);text-decoration:underline\">GitHub Repository</a></div>');
@@ -474,7 +473,7 @@ function render(d){
   // Proven details
   h.push('<div id="fw-detail-proven" style="display:none;padding:16px;background:var(--bg);border:1px solid var(--blu);border-radius:6px;margin-bottom:12px;animation:fadeIn .3s">');
   h.push('<div style="font-size:13px;font-weight:700;color:var(--blu);margin-bottom:8px">[P] = Proved from axioms with no remaining gaps</div>');
-  h.push('<div style="font-size:12px;color:var(--dm);margin-bottom:6px">'+pC+' of '+d.total_theorems+' theorems have complete proofs tracing back to A1. The remaining '+(d.total_theorems-pC)+' are <b style="color:var(--blu)">P_structural</b>\u2014structurally derived with identified scale or physics bridges.</div>');
+  h.push('<div style="font-size:12px;color:var(--dm);margin-bottom:6px">'+pC+' of '+d.total_theorems+' theorems have complete proofs tracing back to A1. The remaining '+psC+' are <b style="color:var(--blu)">P_structural</b>\u2014structurally derived with identified bridges. '+(ep.AXIOM||0)+' axiom, '+(ep.POSTULATE||0)+' postulates.</div>');
   h.push('<div style="font-size:12px;color:var(--dm)">Key: <b style="color:var(--grn)">[P]</b> = fully proved \u00b7 <b style="color:var(--blu)">[P_s]</b> = structural step (scale identification needed) \u00b7 <b style="color:var(--pur)">[testable]</b> = awaiting experiment \u00b7 <b style="color:var(--dm)">[open]</b> = not yet derived</div>');
   h.push('</div>');
 
@@ -482,14 +481,14 @@ function render(d){
   h.push('<div id="fw-detail-constants" style="display:none;padding:16px;background:var(--bg);border:1px solid var(--pur);border-radius:6px;margin-bottom:12px;animation:fadeIn .3s">');
   h.push('<div style="font-size:13px;font-weight:700;color:var(--pur);margin-bottom:8px">'+cDerived+'/'+TOE.length+' Constants Derived ('+cPct+'% of tracked quantities constrained, by current accounting)</div>');
   h.push('<div style="font-size:12px;color:var(--dm);margin-bottom:6px">The framework derives <b style="color:var(--grn)">'+epiCount.P+' constants as [P]</b> (fully proved), <b style="color:var(--blu)">'+epiCount.P_structural+' as [P_structural]</b> (structural with identified bridges), and identifies <b style="color:var(--amb)">'+epiCount.open+' open gaps</b> (primarily Yukawa sector\u2014quark/lepton masses, mixing angles).</div>');
-  h.push('<div style="font-size:12px;color:var(--dm)">The 20 testable predictions include: sin\u00b2\u03b8_W = 3/13 (0.19% error), \u03a9_\u039b = 42/61 (0.05% error), N_gen = 3 (exact), d = 4 (exact), SU(3)\u00d7SU(2)\u00d7U(1) (exact).</div>');
+  h.push('<div style="font-size:12px;color:var(--dm)">The '+predsCount+' numerical predictions include: sin\u00b2\u03b8_W = 3/13 (0.19% error), \u03a9_\u039b = 42/61 (0.05% error), N_gen = 3 (exact), d = 4 (exact), SU(3)\u00d7SU(2)\u00d7U(1) (exact), and the full CKM matrix (6/6 within 5%, zero free parameters).</div>');
   h.push('</div>');
 
   // Gaps details
   h.push('<div id="fw-detail-gaps" style="display:none;padding:16px;background:var(--bg);border:1px solid var(--amb);border-radius:6px;margin-bottom:12px;animation:fadeIn .3s">');
   h.push('<div style="font-size:13px;font-weight:700;color:var(--amb);margin-bottom:8px">'+oGap+' Open Gaps: Yukawa Sector + Absolute Scale</div>');
   h.push('<div style="font-size:12px;color:var(--dm);margin-bottom:6px">The framework cannot yet derive individual quark and lepton masses (the Yukawa sector) or the absolute gravitational scale (Planck mass). These require solving the capacity-cost hierarchy problem (T4G) and the curvature-capacity conversion (T10).</div>');
-  h.push('<div style="font-size:12px;color:var(--dm)">What IS derived: the <em>hierarchy structure</em> (why m_t \u226b m_e), the <em>generation count</em> (why 3), and the <em>near-diagonal CKM</em> pattern. The gap is in absolute values, not in structure.</div>');
+  h.push('<div style="font-size:12px;color:var(--dm)">What IS derived: the <em>hierarchy structure</em> (why m_t \u226b m_e), the <em>generation count</em> (why 3), and the <em>full CKM mixing matrix</em> (6/6 within 5%, zero free params). The gap is in absolute mass values, not in structure or mixing.</div>');
   h.push('</div>');
 
   // Epistemic stacked bar
@@ -520,7 +519,7 @@ function render(d){
   h.push('<div class="card" style="padding:0;overflow:hidden;border-color:var(--grn);margin-bottom:16px">');
   h.push('<a href="https://zenodo.org/records/18604548" target="_blank" rel="noopener" class="paper-row" style="display:grid;grid-template-columns:90px 1fr;gap:0;padding:14px 16px;text-decoration:none;background:var(--grng)">');
   h.push('<div style="font-family:var(--mn)"><div style="font-size:13px;font-weight:700;color:var(--grn)">\u2b06 Latest</div><div style="font-size:10px;color:var(--grn);letter-spacing:1px;margin-top:2px">v9.2</div></div>');
-  h.push('<div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">Admissibility Physics: Unified Theorem Bank &amp; Verification Engine '+(d.meta&&d.meta.engine_version||'')+'</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">Complete computational backbone of the framework. '+d.total_theorems+' theorems, '+(d.meta&&d.meta.n_assertions||'248')+' mechanically verified assertions, zero free parameters. Includes the full quantum derivation chain (L_T2 finite GNS, Born rule, CPTP dynamics, tensor products, von Neumann entropy), the sin\u00b2\u03b8<sub>W</sub> = 3/13 chain with all gates closed, T12 dark matter stratification with MECE audit, and the cosmological budget C<sub>total</sub> = 61. Three-mode operation: display, audit-gaps, and JSON export. Stdlib-only Python, zero external dependencies.</div></div>');
+  h.push('<div><div style="font-family:var(--sn);font-size:14px;font-weight:600;color:var(--br);line-height:1.3">Admissibility Physics: Unified Theorem Bank &amp; Verification Engine '+(d.engine_version||'')+'</div><div style="font-family:var(--mn);font-size:12px;color:var(--dm);margin-top:3px;line-height:1.5">Complete computational backbone of the framework. '+d.total_theorems+' theorems, '+(d.n_assertions||462)+' mechanically verified assertions, zero free parameters. Includes the full quantum derivation chain, the sin\u00b2\u03b8<sub>W</sub> = 3/13 chain with all gates closed, the CKM mixing matrix (6/6 within 5%), T12 dark matter stratification, and the cosmological budget C<sub>total</sub> = 61. Five-mode operation: display, audit-gaps, deps, reverse-deps, and JSON export. Stdlib-only Python, zero external dependencies.</div></div>');
   h.push('</a></div>');
 
   // sin²θ_W derivation paper - featured
@@ -686,8 +685,9 @@ h.push('</div></div>');
   h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:14px">');
   h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Power Concentration</div>');
   h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8">');
-  h.push('<b style="color:#f87171">A1</b> (Finite Capacity) influences <b style="color:var(--br)">62 of 64</b> nodes\u2014virtually the entire framework flows from a single axiom about finiteness.<br>');
-  h.push('The top 5 nodes (<b style="color:#f87171">A1</b>, <b style="color:#818cf8">L_nc</b>, <b style="color:#818cf8">T0</b>) collectively reach <b style="color:var(--br)">97%</b> of the theorem chain.<br>');
+  var a1Desc=CM?CM.countDesc('A1'):0;
+  h.push('<b style="color:#f87171">A1</b> (Finite Capacity) influences <b style="color:var(--br)">'+a1Desc+' of '+CM.nodeCount+'</b> nodes\u2014virtually the entire framework flows from a single axiom about finiteness.<br>');
+  h.push('The top 5 nodes (<b style="color:#f87171">A1</b>, <b style="color:#818cf8">L_nc</b>, <b style="color:#818cf8">T0</b>) collectively reach <b style="color:var(--br)">&gt;95%</b> of the theorem chain.<br>');
   h.push('By Tier 1 (gauge selection), just <b style="color:var(--br)">3 theorems</b> (T4, T5, T_gauge) funnel all structure into a single bottleneck.');
   h.push('</div></div>');
 
@@ -695,8 +695,9 @@ h.push('</div></div>');
   h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:14px">');
   h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:700;color:var(--pur);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Terminal Predictions</div>');
   h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8">');
-  h.push('<b style="color:var(--br)">15 leaf nodes</b> have zero downstream influence\u2014these are the framework\u2019s <em>terminal predictions</em>, the endpoints where derivation meets experiment.<br>');
-  h.push('They include: <b style="color:var(--grn)">T_sin2theta</b> (Weinberg angle), <b style="color:#f87171">T11</b> (\u03a9_\u039b), <b style="color:#f87171">T_Bek</b> (Bekenstein bound), <b style="color:#fbbf24">T_entropy</b> (von Neumann entropy).<br>');
+  var leafCount=0;if(CM){CM.allIds.forEach(function(id){if(!CM.children[id]||!CM.children[id].length)leafCount++})}
+  h.push('<b style="color:var(--br)">'+leafCount+' leaf nodes</b> have zero downstream influence\u2014these are the framework\u2019s <em>terminal predictions</em>, the endpoints where derivation meets experiment.<br>');
+  h.push('They include: <b style="color:var(--grn)">T_sin2theta</b> (Weinberg angle), <b style="color:var(--grn)">T_CKM</b> (CKM matrix), <b style="color:#f87171">T11</b> (\u03a9_\u039b), <b style="color:#f87171">T_Bek</b> (Bekenstein bound).<br>');
   h.push('Every leaf is testable or verifiable\u2014the framework has <b style="color:var(--br)">no dangling abstractions</b>.');
   h.push('</div></div>');
   h.push('</div>');
@@ -705,7 +706,7 @@ h.push('</div></div>');
   h.push('<div style="background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:14px">');
   h.push('<div style="font-family:var(--mn);font-size:11px;font-weight:700;color:var(--amb);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">The Funnel Structure</div>');
   h.push('<div style="font-family:var(--mn);font-size:13px;color:var(--dm);line-height:1.8">');
-  h.push('The treemap makes the <b style="color:var(--br)">deep funnel topology</b> visible at a glance. The top row (axioms) dominates the visual area because A1 influences 62 downstream theorems. ');
+  h.push('The treemap makes the <b style="color:var(--br)">deep funnel topology</b> visible at a glance. The top row (axioms) dominates the visual area because A1 influences '+(CM?CM.countDesc('A1'):'')+' downstream theorems. ');
   h.push('Each successive tier gets narrower\u2014not because there are fewer theorems, but because each theorem\u2019s <em>individual</em> influence shrinks as the derivation branches. ');
   h.push('This is the signature of a <b style="color:var(--grn)">convergent architecture</b>: many inputs at the top compress through bottleneck theorems (T_gauge, T7, T_channels) before fanning out into specific predictions. ');
   h.push('The implication is structural robustness\u2014knocking out any single leaf theorem doesn\u2019t propagate upward, but challenging an axiom threatens everything below it. ');
@@ -747,9 +748,9 @@ h.push('</div></div>');
   });
   terminals.sort(function(a,b){return a.tier-b.tier||b.upstream-a.upstream});
 
-  var tierN2={0:'Foundations',1:'Gauge',2:'Particles',3:'Constants',4:'Gravity',5:'Closure'};
+  var tierN2={0:'Foundations',1:'Gauge',2:'Particles',3:'Constants/Flavor',4:'Gravity',5:'Closure'};
   var tierC2={0:'#818cf8',1:'#34d399',2:'#60a5fa',3:'#a78bfa',4:'#f87171',5:'#fbbf24'};
-  var epiC2={'P':'var(--grn)','P_structural':'var(--blu)'};
+  var epiC2={'P':'var(--grn)','P_structural':'var(--blu)','P_structural | open':'var(--amb)','AXIOM':'var(--red)','POSTULATE':'var(--pur)'};
 
   // Match terminals to TOE predictions for falsification info
   var toeFalsify={};
@@ -1476,6 +1477,15 @@ h.push('</div></div>');
   h.push('<div class="card" style="padding:16px">');
 
   var versions=[
+    {v:'4.3',d:'2026-02-15',items:[
+      {t:'new',s:'Tier 3F: 10 flavor mixing theorems (L_gen_path, T_capacity_ladder, L_D2q, L_H_curv, T_q_Higgs, L_holonomy_phase, L_adjoint_sep, L_channel_crossing, T_CKM, T_PMNS_partial)'},
+      {t:'new',s:'CKM matrix: 6/6 magnitudes within 5% of PDG, zero free parameters. SM uses 4 free params for same observables.'},
+      {t:'new',s:'PMNS structural wall identified: rank-1 neutrino FN texture makes \u03b8\u2081\u2082 solver-dependent. Honest downgrade to [P_structural | open].'},
+      {t:'upgrade',s:'89 theorems (was 79), 462 assertions (was ~380), 11 sectors (was 10), 13 numerical predictions (was 6)'},
+      {t:'new',s:'Pure-Python Hermitian eigensolver (_eigh, Jacobi method) \u2014 zero numpy dependency'},
+      {t:'new',s:'Gap registry: 9 entries (was 4), all P_structural theorems have documented structural gaps'},
+      {t:'upgrade',s:'Engine v11.0: flavor_mixing sector, P_structural|open epistemic variant, extended derivation chain display'}
+    ]},
     {v:'4.1',d:'2026-02-12',items:[
       {t:'upgrade',s:'Trust calibration pass: header badges ("Verification suite: ALL PASS (internal checks)"), TOE gauge ("tracked" not "of TOE"), EFE precision ("matches precision tests of GR"), version count sync (64 theorems across all references)'},
       {t:'upgrade',s:'Hook scope graduated: "relates quantum behavior and spacetime geometry\u2014and then asks what this implies for singularities and the early universe"'},
@@ -1766,7 +1776,7 @@ function buildCrystal(d) {
       const isAxiom = id.startsWith('A') && id.length <= 2;
       const isLemma = id === 'L_nc' || id === 'L_col' || id === 'L_T2' || id === 'L_irr' || id === 'L_loc';
       // T0 renders like any other theorem (no special formatting)
-      const isPStructural = thm?.epistemic === 'P_structural';
+      const isPStructural = thm?.epistemic?.startsWith('P_structural');
       const isWaist = CM.bottlenecks.some(function(b){return b.id===id});
       const col = isLemma ? 0xc084fc : colorMap[String(tier)] || 0x888888;
       
@@ -2021,7 +2031,7 @@ svg.append('defs').append('marker').attr('id','arr').attr('viewBox','0 -3 6 6').
 const sim=d3.forceSimulation(nodes).force('link',d3.forceLink(edges).id(d=>d.id).distance(50).strength(.45)).force('charge',d3.forceManyBody().strength(-150)).force('center',d3.forceCenter(W/2,H/2)).force('y',d3.forceY().y(n=>n.tier===-1?H*.07:H*.1+n.tier*(H*.15)).strength(.38)).force('collision',d3.forceCollide().radius(n=>nR(n)+3));_sim=sim;
 const link=g.append('g').selectAll('line').data(edges).join('line').attr('stroke','#1a2540').attr('stroke-width',1).attr('marker-end','url(#arr)');
 const node=g.append('g').selectAll('g').data(nodes).join('g').call(d3.drag().on('start',(ev,n)=>{if(!ev.active)sim.alphaTarget(.3).restart();n.fx=n.x;n.fy=n.y}).on('drag',(ev,n)=>{n.fx=ev.x;n.fy=ev.y}).on('end',(ev,n)=>{if(!ev.active)sim.alphaTarget(0);n.fx=null;n.fy=null}));
-node.each(function(n){const el=d3.select(this),r=nR(n),col=nC(n);if(n.tier===-1||n.id==='L_nc'||n.id==='L_col'){const s=r*1.1;el.append('polygon').attr('points',`0,${-s} ${s},0 0,${s} ${-s},0`).attr('fill',col+'30').attr('stroke',col).attr('stroke-width',1.5)}else if(n.epistemic==='P_structural'){const s=r*.85;el.append('rect').attr('x',-s).attr('y',-s).attr('width',s*2).attr('height',s*2).attr('rx',2).attr('transform','rotate(45)').attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','3,2')}else{el.append('circle').attr('r',r).attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5)}});
+node.each(function(n){const el=d3.select(this),r=nR(n),col=nC(n);if(n.tier===-1||n.id==='L_nc'||n.id==='L_col'){const s=r*1.1;el.append('polygon').attr('points',`0,${-s} ${s},0 0,${s} ${-s},0`).attr('fill',col+'30').attr('stroke',col).attr('stroke-width',1.5)}else if(n.epistemic&&n.epistemic.indexOf('P_structural')===0){const s=r*.85;el.append('rect').attr('x',-s).attr('y',-s).attr('width',s*2).attr('height',s*2).attr('rx',2).attr('transform','rotate(45)').attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','3,2')}else{el.append('circle').attr('r',r).attr('fill',col+'25').attr('stroke',col).attr('stroke-width',1.5)}});
 node.append('text').text(n=>n.label.replace('Gamma_','Î”_')).attr('text-anchor','middle').attr('dy',n=>nR(n)+11).attr('fill',n=>nC(n)).attr('font-family','IBM Plex Mono').attr('font-size',n=>(n.tier===-1||n.id==='L_nc'||n.id==='L_col')?9:7).attr('font-weight',n=>(n.tier===-1||n.id==='L_nc'||n.id==='L_col')?700:500).attr('opacity',.85);
 const tt=document.getElementById('gtt');
 node.on('mouseover',(ev,n)=>{const deps=(d.theorems?.[n.id]?.dependencies||[]).join(', ')||(n.tier===-1?'axiom':'');const fo=fanout[n.id]||0;tt.innerHTML=`<div class="tt-id" style="color:${nC(n)}">${n.label}</div><div>${n.name}</div><div class="tt-dm">Tier ${n.tier===-1?'A':n.tier} Â· [${n.epistemic}]</div><div class="tt-dm">← ${deps}</div><div class="tt-dm">${fo} downstream</div>`;tt.classList.add('show');link.attr('stroke',l=>(l.source.id===n.id||l.target.id===n.id)?nC(n):'#1a2540').attr('stroke-width',l=>(l.source.id===n.id||l.target.id===n.id)?2:1).attr('opacity',l=>(l.source.id===n.id||l.target.id===n.id)?1:.15);node.attr('opacity',n2=>{if(n2.id===n.id)return 1;return edges.some(e=>(e.source.id===n.id&&e.target.id===n2.id)||(e.target.id===n.id&&e.source.id===n2.id))?1:.12})}).on('mousemove',ev=>{const r=box.getBoundingClientRect();tt.style.left=(ev.clientX-r.left+14)+'px';tt.style.top=(ev.clientY-r.top-10)+'px'}).on('mouseout',()=>{tt.classList.remove('show');link.attr('stroke','#1a2540').attr('stroke-width',1).attr('opacity',1);node.attr('opacity',1)});
