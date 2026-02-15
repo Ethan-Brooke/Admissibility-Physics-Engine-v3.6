@@ -5,7 +5,7 @@ ENFORCEMENT CRYSTAL v3 — Auto-Extracting Analysis
 ================================================================================
 
 KEY CHANGE FROM v2: No hardcoded DEPENDENCY_MAP. Instead, this script:
-  1. Imports and runs the theorem bank (fcf_theorem_bank.py)
+  1. Imports and runs the theorem bank (FCF_Theorem_Bank_v4_2.py)
   2. Extracts the 'dependencies' field from every theorem's check() result
   3. Builds the DAG dynamically
   4. Runs all graph-theoretic analyses
@@ -13,7 +13,7 @@ KEY CHANGE FROM v2: No hardcoded DEPENDENCY_MAP. Instead, this script:
 This means the crystal ALWAYS reflects the current state of the theorem bank.
 No more stale data. If you update a theorem's dependencies, just re-run this.
 
-Source of truth: fcf_theorem_bank.py THEOREM_REGISTRY
+Source of truth: FCF_Theorem_Bank_v4_2.py THEOREM_REGISTRY
   - Every check_*() function returns {'dependencies': [...], ...}
   - The bank speaks in 5-axiom vocabulary (A1, A2, A3, A4, A5)
   - Mode-aware remapping converts to 3-axiom or 1-axiom form
@@ -42,7 +42,10 @@ def extract_dependencies_from_bank() -> Dict[str, List[str]]:
     Run every theorem check in the bank and extract declared dependencies.
     Returns {theorem_id: [dep1, dep2, ...]} in the bank's native vocabulary.
     """
-    from fcf_theorem_bank import THEOREM_REGISTRY, run_all
+    try:
+        from FCF_Theorem_Bank_v4_2 import THEOREM_REGISTRY, run_all
+    except ImportError:
+        from FCF_Theorem_Bank_v4_0_THE_FOUNDATION import THEOREM_REGISTRY, run_all
 
     results = run_all()
     dep_map = {}
@@ -787,7 +790,7 @@ if __name__ == '__main__':
     # Export JSON
     output = {
         'analysis': 'Enforcement Crystal v3 (auto-extracted)',
-        'source': 'fcf_theorem_bank.py THEOREM_REGISTRY',
+        'source': 'FCF_Theorem_Bank_v4_2.py THEOREM_REGISTRY',
         'extracted_theorems': len(dep_map),
         'cycle_breaks': [list(cb) for cb in sorted(KNOWN_CYCLES)],
     }
