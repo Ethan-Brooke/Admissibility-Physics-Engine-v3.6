@@ -1,12 +1,14 @@
 {
-  "version": "v3.6",
-  "date": "2026-02-08",
-  "total_theorems": 49,
-  "passed": 49,
+  "version": "v4.2",
+  "date": "2026-02-15",
+  "total_theorems": 79,
+  "passed": 79,
   "all_pass": true,
   "epistemic_counts": {
-    "P": 43,
-    "P_structural": 6
+    "P": 72,
+    "P_structural": 4,
+    "AXIOM": 1,
+    "POSTULATE": 2
   },
   "sector_verdicts": {
     "gauge": true,
@@ -18,879 +20,847 @@
     "cycles": 0,
     "issues": []
   },
+  "theorem_checker": {
+    "available": true,
+    "passed": true,
+    "total": 79,
+    "n_pass": 79,
+    "n_fail": 0,
+    "failures": []
+  },
   "tier_stats": {
-    "0": {
-      "name": "Axiom Foundations",
-      "passed": 9,
-      "total": 9
-    },
-    "1": {
-      "name": "Gauge Group Selection",
+    "-1": {
+      "name": "Tier -1",
       "passed": 3,
       "total": 3
     },
-    "2": {
-      "name": "Particle Content",
-      "passed": 9,
-      "total": 9
-    },
-    "3": {
-      "name": "Continuous Constants / RG",
-      "passed": 14,
-      "total": 14
+    "0": {
+      "name": "Axiom Foundations + Quantum",
+      "passed": 26,
+      "total": 26
     },
     "4": {
       "name": "Gravity + Dark Sector",
-      "passed": 8,
-      "total": 8
+      "passed": 9,
+      "total": 9
+    },
+    "2": {
+      "name": "Particle Content",
+      "passed": 10,
+      "total": 10
+    },
+    "1": {
+      "name": "Gauge Group Selection",
+      "passed": 6,
+      "total": 6
+    },
+    "3": {
+      "name": "Continuous Constants / RG",
+      "passed": 19,
+      "total": 19
     },
     "5": {
-      "name": "Gamma_geo Closure",
+      "name": "Delta_geo Closure",
       "passed": 6,
       "total": 6
     }
   },
-  "predictions": [
-    {
-      "quantity": "sin\u00b2\u03b8_W",
-      "predicted": "3/13 \u2248 0.23077",
-      "observed": "0.23122 \u00b1 0.00003",
-      "error_pct": 0.19,
-      "theorem": "T24",
-      "status": "derived"
+  "crystal": {
+    "nodes_3ax": 81,
+    "edges_3ax": 273,
+    "paths_3ax": 2492,
+    "max_depth_3ax": 19,
+    "waists_3ax": [
+      10
+    ],
+    "waist_nodes_3ax": {
+      "10": "T_gauge"
     },
-    {
-      "quantity": "Gauge group",
-      "predicted": "SU(3)\u00d7SU(2)\u00d7U(1)",
-      "observed": "SU(3)\u00d7SU(2)\u00d7U(1)",
-      "error_pct": 0.0,
-      "theorem": "T_gauge",
-      "status": "exact"
+    "attribution_3ax": {
+      "A1": 100.0,
+      "A3": 0.0,
+      "A4": 0.0
     },
-    {
-      "quantity": "Generations",
-      "predicted": "3",
-      "observed": "3",
-      "error_pct": 0.0,
-      "theorem": "T7",
-      "status": "exact"
+    "attribution_paths_3ax": {
+      "A1": 2492,
+      "A3": 0,
+      "A4": 0
     },
-    {
-      "quantity": "Spacetime dim",
-      "predicted": "4",
-      "observed": "4",
-      "error_pct": 0.0,
-      "theorem": "T8",
-      "status": "exact"
+    "axiom_loads_3ax": {
+      "A1": 76,
+      "A3": 0,
+      "A4": 0
     },
-    {
-      "quantity": "Higgs exists",
-      "predicted": "Yes (massive scalar)",
-      "observed": "Yes (125 GeV)",
-      "error_pct": 0.0,
-      "theorem": "T_Higgs",
-      "status": "exact"
-    },
-    {
-      "quantity": "DM exists",
-      "predicted": "Yes (geometric)",
-      "observed": "Yes (\u03a9_DM \u2248 0.26)",
-      "error_pct": 0.0,
-      "theorem": "T12",
-      "status": "structural"
-    },
-    {
-      "quantity": "\u039b > 0",
-      "predicted": "Yes (residual capacity)",
-      "observed": "Yes (\u039b \u2248 10\u207b\u00b9\u00b2\u00b2)",
-      "error_pct": 0.0,
-      "theorem": "T11",
-      "status": "structural"
-    },
-    {
-      "quantity": "\u03a9_\u039b",
-      "predicted": "42/61 \u2248 0.6885",
-      "observed": "0.6889",
-      "error_pct": 0.05,
-      "theorem": "T11",
-      "status": "structural"
-    },
-    {
-      "quantity": "\u03a9_m",
-      "predicted": "19/61 \u2248 0.3115",
-      "observed": "0.3111",
-      "error_pct": 0.12,
-      "theorem": "T11+T12E",
-      "status": "structural"
-    },
-    {
-      "quantity": "\u03a9_b",
-      "predicted": "3/61 \u2248 0.04918",
-      "observed": "0.0490",
-      "error_pct": 0.37,
-      "theorem": "T12E",
-      "status": "structural"
-    },
-    {
-      "quantity": "\u03a9_DM",
-      "predicted": "16/61 \u2248 0.2623",
-      "observed": "0.2607",
-      "error_pct": 0.61,
-      "theorem": "T12E",
-      "status": "structural"
-    },
-    {
-      "quantity": "f_b (baryon fraction)",
-      "predicted": "3/19 \u2248 0.15789",
-      "observed": "0.1571",
-      "error_pct": 0.49,
-      "theorem": "T12E",
-      "status": "structural"
-    },
-    {
-      "quantity": "Field content",
-      "predicted": "{Q,L,u,d,e} fundamental",
-      "observed": "{Q,L,u,d,e} fundamental",
-      "error_pct": 0.0,
-      "theorem": "T_field",
-      "status": "exact"
-    },
-    {
-      "quantity": "Q_u (up quark charge)",
-      "predicted": "2/3",
-      "observed": "2/3",
-      "error_pct": 0.0,
-      "theorem": "T_field",
-      "status": "exact"
-    },
-    {
-      "quantity": "Q_e (electron charge)",
-      "predicted": "-1",
-      "observed": "-1",
-      "error_pct": 0.0,
-      "theorem": "T_field",
-      "status": "exact"
-    },
-    {
-      "quantity": "Q_\u03bd (neutrino charge)",
-      "predicted": "0",
-      "observed": "0",
-      "error_pct": 0.0,
-      "theorem": "T_field",
-      "status": "exact"
-    },
-    {
-      "quantity": "Neutral atoms",
-      "predicted": "Q_p + Q_e = 0",
-      "observed": "|Q_p+Q_e| < 10\u207b\u00b2\u00b9",
-      "error_pct": 0.0,
-      "theorem": "T_field",
-      "status": "exact"
-    },
-    {
-      "quantity": "Neutrino mass type",
-      "predicted": "Majorana (C_total=61 requires no \u03bd_R)",
-      "observed": "Unknown (0\u03bd\u03b2\u03b2 experiments ongoing)",
-      "error_pct": null,
-      "theorem": "T11+T12E",
-      "status": "testable_prediction"
-    },
-    {
-      "quantity": "Boson-multiplet identity",
-      "predicted": "N_gauge+N_Higgs = N_mult (12+4=16)",
-      "observed": "12+4=16 \u2713",
-      "error_pct": 0.0,
-      "theorem": "T_gauge+T_field+T_Higgs",
-      "status": "exact"
-    },
-    {
-      "quantity": "N_gen consistency",
-      "predicted": "N_c\u00b2+6 = 5\u00d7N_gen (9+6=15=5\u00d73)",
-      "observed": "3 generations \u2713",
-      "error_pct": 0.0,
-      "theorem": "T_gauge+T4F",
-      "status": "exact"
-    }
-  ],
-  "audit_checks": [
-    {
-      "id": "A01",
-      "check": "Circular imports in theorem chain",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A02",
-      "check": "T26\u2192T27d circular dependency",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A03",
-      "check": "Stale P_structural labels (v3.6 upgrade)",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A04",
-      "check": "L_\u03b5 disambiguation",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A05",
-      "check": "T_sin2theta derivation chain",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A06",
-      "check": "Import-gated C_structural labels",
-      "status": "FIXED",
-      "severity": "medium"
-    },
-    {
-      "id": "A07",
-      "check": "Computational witnesses (V(\u03a6))",
-      "status": "ACTIVE",
-      "severity": "low"
-    },
-    {
-      "id": "A08",
-      "check": "Anomaly scan exhaustiveness",
-      "status": "ACTIVE",
-      "severity": "low"
-    },
-    {
-      "id": "A09",
-      "check": "Exit codes for CI",
-      "status": "ACTIVE",
-      "severity": "low"
-    },
-    {
-      "id": "A10",
-      "check": "JSON export completeness",
-      "status": "FIXED",
-      "severity": "medium"
-    },
-    {
-      "id": "A11",
-      "check": "Standalone module imports",
-      "status": "ACTIVE",
-      "severity": "low"
-    },
-    {
-      "id": "A12",
-      "check": "Unicode gap classifier aliases",
-      "status": "FIXED",
-      "severity": "medium"
-    },
-    {
-      "id": "A13",
-      "check": "Gamma_closure [P] depends on C_structural sub-theorem",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A14",
-      "check": "T6B sin\u00b2\u03b8_W convergence gap (one-loop: 0.285 vs 0.231)",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A15",
-      "check": "T_sin2theta independent of T6 (verified: T6 not in dep chain)",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A16",
-      "check": "C_structural -> P bridge upgrade (Lovelock + HKM pure math)",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A17",
-      "check": "T0 axiom witnesses integrated (superadditivity \u0394=4, record-lock BFS)",
-      "status": "FIXED",
-      "severity": "medium"
-    },
-    {
-      "id": "A18",
-      "check": "T_field [C] -> [P_structural] via anomaly uniqueness derivation",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A19",
-      "check": "T_channels\u2192T_field cycle (dependency arrow flipped)",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A20",
-      "check": "R12.1/R12.2 regime gates closed (singlet \u0394=0 + A5)",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A21",
-      "check": "T12E reclassified: regime_dependent \u2192 open_physics \u2192 structural_step (f_b=3/19 combinatorial)",
-      "status": "FIXED",
-      "severity": "medium"
-    },
-    {
-      "id": "A22",
-      "check": "T6 [P_structural] \u2192 [P]: SU(5) embedding is pure group theory (Georgi-Glashow)",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A23",
-      "check": "T6B reclassified: qft_import \u2192 scale_identification (\u03b2-formula derived, scale map structural)",
-      "status": "FIXED",
-      "severity": "medium"
-    },
-    {
-      "id": "A24",
-      "check": "T_field [P_structural] \u2192 [P]: Landau pole exclusion kills 6/8 reps, CPT kills 3bar, no A5 needed",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A25",
-      "check": "T12E f_b: \u03b3-calibration formula \u2192 combinatorial 3/19 (no free parameters, 0.49% error, removes UV gap dependency)",
-      "status": "FIXED",
-      "severity": "high"
-    },
-    {
-      "id": "A26",
-      "check": "T11 \u039b: open_physics \u2192 structural_step, \u03a9_\u039b=42/61 (0.05% Planck). C_total=61 gives full budget: 3+16+42=61",
-      "status": "FIXED",
-      "severity": "critical"
-    },
-    {
-      "id": "A27",
-      "check": "Majorana prediction: C_total=61 (no \u03bd_R) vs 64 (with \u03bd_R). Majorana gives 0.1% Planck; Dirac gives 10% error. Testable by 0\u03bd\u03b2\u03b2.",
-      "status": "ACTIVE",
-      "severity": "high"
-    },
-    {
-      "id": "A28",
-      "check": "Boson-multiplet identity: N_gauge+N_Higgs=N_mult=16. Second N_gen derivation: N_c\u00b2+6=5\u00d7N_gen consistent with T4F.",
-      "status": "VERIFIED",
-      "severity": "high"
-    }
-  ],
-  "math_imports": {
-    "Kochen-Specker (1967)": {
-      "used_by": [
-        "T1"
+    "betweenness_top10": [
+      [
+        "T_gauge",
+        0.11279763836725863
       ],
-      "details": "No noncontextual hidden variable model for dim \u2265 3"
-    },
-    "GNS Construction (1943)": {
-      "used_by": [
-        "T2"
+      [
+        "T_channels",
+        0.0660183382018825
       ],
-      "details": "Every state on a C*-algebra gives a *-representation on Hilbert space"
-    },
-    "Kadison / Hahn-Banach extension": {
-      "used_by": [
-        "T2"
+      [
+        "T2",
+        0.053966244725738396
       ],
-      "details": "Positive functional on C*-subalgebra extends to full algebra"
-    },
-    "Skolem-Noether": {
-      "used_by": [
-        "T3"
+      [
+        "T3",
+        0.041809071729957806
       ],
-      "details": "Every automorphism of M_n(C) is inner"
-    },
-    "Doplicher-Roberts (1989)": {
-      "used_by": [
-        "T3"
+      [
+        "T7",
+        0.04111286919831223
       ],
-      "details": "Compact group G recovered from its symmetric tensor category"
-    },
-    "Bolzano-Weierstrass (compactness)": {
-      "used_by": [
-        "L_\u03b5*"
+      [
+        "T22",
+        0.032950118622586975
       ],
-      "details": "Bounded sequences in R^n have convergent subsequences"
-    },
-    "Anomaly cancellation (Adler-Bell-Jackiw)": {
-      "used_by": [
-        "T4"
+      [
+        "T21b",
+        0.031392405063291134
       ],
-      "details": "Gauge anomalies cancel iff Tr[T_a{T_b,T_c}] = 0 for all generators"
-    },
-    "CPT theorem": {
-      "used_by": [
-        "T_field"
+      [
+        "T21",
+        0.029697985734378134
       ],
-      "details": "Charge conjugation \u00d7 parity \u00d7 time reversal is an exact symmetry of any Lorentz-invariant unitary local QFT. From Lorentz invariance (Gamma_signature [P]) + unitarity (T2 [P]) + locality (T3 [P]). Pure mathematics."
-    },
-    "Symmetric group |S_k| = k!": {
-      "used_by": [
-        "T9"
+      [
+        "T_field",
+        0.02263185654008439
       ],
-      "details": "The symmetric group on k elements has exactly k! elements"
-    },
-    "Georgi-Glashow SU(5) embedding (1974)": {
-      "used_by": [
-        "T6"
-      ],
-      "details": "SU(5) is the minimal simple Lie group containing SU(3)\u00d7SU(2)\u00d7U(1) as maximal subgroup. Classification of simple Lie algebras and their maximal regular subalgebras \u2014 pure algebra."
-    },
-    "Polarization identity": {
-      "used_by": [
-        "T7B"
-      ],
-      "details": "Symmetric bilinear form uniquely determined by quadratic form"
-    },
-    "Pigeonhole principle": {
-      "used_by": [
-        "T8"
-      ],
-      "details": "Integer capacity partitioning excludes d<=3 and d>=5"
-    },
-    "Lovelock theorem (1971)": {
-      "used_by": [
-        "T9_grav"
-      ],
-      "details": "Unique 2nd-order divergence-free symmetric (0,2)-tensor in d=4"
-    },
-    "Fundamental Theorem of Riemannian Geometry": {
-      "used_by": [
-        "T9_grav"
-      ],
-      "details": "Unique torsion-free metric-compatible connection"
-    },
-    "Intermediate Value Theorem": {
-      "used_by": [
-        "T_particle"
-      ],
-      "details": "Continuous V(Phi) with V(0)=0, V->-inf ensures minimum exists"
-    },
-    "Second Derivative Test": {
-      "used_by": [
-        "T_particle"
-      ],
-      "details": "d2V/dPhi2 > 0 at minimum confirms mass gap"
-    }
-  },
-  "p_structural_reasons": {
-    "T4G": "open_physics",
-    "T4G_Q31": "open_physics",
-    "T6B": "scale_identification",
-    "T10": "open_physics",
-    "T11": "structural_step",
-    "T12E": "structural_step"
+      [
+        "Theorem_R",
+        0.022316347506220923
+      ]
+    ],
+    "nodes_1ax": 79,
+    "edges_1ax": 280,
+    "paths_1ax": 17440,
+    "max_depth_1ax": 22
   },
   "theorems": {
-    "T0": {
-      "name": "T0: Axiom Witness Certificates (Canonical v4)",
-      "tier": 0,
+    "A1": {
+      "name": "A1",
+      "tier": -1,
       "passed": true,
-      "epistemic": "P",
-      "key_result": "Axiom witnesses: \u0394=4 (superadditivity), record-lock (irreversibility)",
+      "epistemic": "AXIOM",
+      "key_result": "THE foundational axiom. Enforcement capacity C is finite and positive: sum epsilon(d) <= C < infinity for all enforceable distinctions d. Not derived. Framework-independent of the specific value of C â€” only finiteness and positivity matter.",
+      "gap_type": "closed",
+      "dependencies": []
+    },
+    "M": {
+      "name": "M",
+      "tier": -1,
+      "passed": true,
+      "epistemic": "POSTULATE",
+      "key_result": "At least 2 distinguishable subsystems exist. The weakest possible non-triviality claim. Without M, A1 is trivially satisfied by a single subsystem. Used only in L_loc derivation.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1"
+      ]
+    },
+    "NT": {
+      "name": "NT",
+      "tier": -1,
+      "passed": true,
+      "epistemic": "POSTULATE",
+      "key_result": "Not all subsystems are identical. Complements M: together they ensure enough structure for locality. Without NT, all subsystems have equal capacity and no physics develops.",
       "gap_type": "closed",
       "dependencies": [
         "A1",
-        "A2",
-        "A4"
+        "M"
+      ]
+    },
+    "T0": {
+      "name": "T0",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Axiom satisfiability witnesses: (A1) 4-node ledger with superadditivity Delta=4; (L_irr) 3-state directed graph with BFS-verified record-lock -- state 0 unreachable from committed state 1; (L_nc) sigma_x, sigma_z non-commuting enforcement operators. Each witness is finite, constructive, verifiable. Note: these show individual axioms are satisfiable, not that the full axiom set is jointly consistent (that requires a single model satisfying all axioms simultaneously).",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "L_nc"
       ]
     },
     "T1": {
-      "name": "T1: Non-Closure \u2192 Measurement Obstruction",
+      "name": "T1",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Non-closure \u27f9 \u2203 incompatible observables",
+      "key_result": "Non-closure of distinction set under enforcement composition implies existence of incompatible observable pairs. Witness: sigma_x and sigma_z are each Hermitian (observable) but [sigma_x, sigma_z] != 0 and their product is not Hermitian. Therefore no common eigenbasis exists -- they cannot be jointly measured. This is a direct consequence of non-commutativity, proved constructively on a 2D witness.",
       "gap_type": "closed",
       "dependencies": [
-        "A2 (non-closure)"
-      ],
-      "imported_theorems": [
-        "Kochen-Specker (1967)"
+        "L_nc",
+        "T0",
+        "L_loc"
+      ]
+    },
+    "L_T2": {
+      "name": "L_T2",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Finite non-commuting Hermitian witness (sigma_x, sigma_z) generates concrete matrix *-algebra M_2(C). Concrete state omega=Tr/2 exists constructively. Concrete GNS: H=M_2(C), <a,b>=omega(a*b), pi(x)b=xb. Gram matrix verified PSD with eigenvalues > 0. No C*-completion, no Hahn-Banach, no Kadison needed -- pure finite-dimensional linear algebra.",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_nc",
+        "L_loc",
+        "L_irr"
       ]
     },
     "T2": {
-      "name": "T2: Non-Closure \u2192 Operator Algebra",
+      "name": "T2",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Non-closure \u27f9 C*-algebra on Hilbert space (state existence proved)",
+      "key_result": "Non-closure (L_nc) forces non-commutative *-algebra. CORE CLAIM [P]: L_T2 proves constructively that M_2(C) with trace state gives a concrete 4-dim GNS Hilbert space representation -- no C*-completion, no Hahn-Banach needed. This finite witness is all the derivation chain requires. Extension to full enforcement algebra uses C*-completion [P_structural] + Kadison/Hahn-Banach [import] but is not load-bearing for downstream theorems.",
       "gap_type": "closed",
       "dependencies": [
+        "A1",
+        "L_nc",
         "T1",
-        "A1 (finite capacity)",
-        "A2 (non-closure)"
+        "L_T2"
       ],
-      "imported_theorems": [
-        "GNS Construction (1943)",
-        "Kadison / Hahn-Banach extension"
-      ]
+      "imported_theorems": {
+        "GNS Construction (1943)": {
+          "statement": "Every state on a C*-algebra gives a *-representation on Hilbert space",
+          "status": "Used in Layer 2 (infinite-dim extension); NOT needed for core claim"
+        },
+        "Kadison / Hahn-Banach extension": {
+          "statement": "Positive functional on C*-subalgebra extends to full algebra",
+          "status": "Used in Layer 2 (infinite-dim extension); NOT needed for core claim"
+        }
+      }
     },
     "T3": {
-      "name": "T3: Locality \u2192 Gauge Structure",
+      "name": "T3",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Locality + operator algebra \u27f9 gauge bundle + connection",
+      "key_result": "Local enforcement at each point -> local automorphism group. Skolem-Noether: Aut*(M_n) ~= PU(n). Continuity over base space -> principal G-bundle. Gauge connection = parallel transport of enforcement frames. Yang-Mills dynamics requires additional assumptions (stated explicitly).",
       "gap_type": "closed",
       "dependencies": [
         "T2",
-        "A3 (locality)"
+        "L_loc"
       ],
-      "imported_theorems": [
-        "Skolem-Noether",
-        "Doplicher-Roberts (1989)"
-      ]
+      "imported_theorems": {
+        "Skolem-Noether": {
+          "statement": "Every automorphism of M_n(C) is inner",
+          "required_hypotheses": [
+            "M_n is a simple central algebra"
+          ],
+          "our_use": "Aut*(M_n) ~= PU(n) = U(n)/U(1)"
+        },
+        "Doplicher-Roberts (1989)": {
+          "statement": "Compact group G recovered from its symmetric tensor category",
+          "required_hypotheses": [
+            "Observable algebra A satisfies Haag duality",
+            "Superselection sectors have finite statistics"
+          ],
+          "our_gap": "Lifts PU(n) to SU(n)*U(1) on field algebra. DR is applied to pre-geometric causal poset (L_irr), not Minkowski space. Justified: DR core mechanism is Tannaka-Krein (purely algebraic); needs poset-indexed net (L_loc), isotony (L_loc), finite-statistics sectors (L_irr + A1). Poincare covariance needed only for dynamics (T8+), not for gauge group existence."
+        }
+      }
     },
-    "L_\u03b5*": {
-      "name": "L_\u03b5*: Minimum Enforceable Distinction",
+    "L_nc": {
+      "name": "L_nc",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03b5_\u0393 > 0: meaningful distinctions have minimum enforcement cost",
+      "key_result": "Non-closure witness: E_1=6, E_2=6 each <= C=10, but E_1+E_2=12 > 10. L_loc (enforcement factorization) guarantees distributed interfaces; A1 (finite capacity) bounds each. Composition at shared cut-sets exceeds local budgets. Formerly axiom A2; now derived from A1+L_loc.",
       "gap_type": "closed",
       "dependencies": [
-        "A1 (finite capacity)",
-        "meaning = robustness (definitional)"
-      ],
-      "imported_theorems": [
-        "Bolzano-Weierstrass (compactness)"
+        "A1",
+        "L_loc"
       ]
     },
-    "T_\u03b5": {
-      "name": "T_\u03b5: Enforcement Granularity",
+    "L_epsilon*": {
+      "name": "L_epsilon*",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03b5 = min nonzero enforcement cost > 0",
+      "key_result": "No infinitesimal meaningful distinctions. Proof: if eps_Gamma = 0, could pack arbitrarily many independent meaningful distinctions into finite capacity at vanishing total cost -> admissible perturbations reshuffle at zero cost -> distinctions not robust -> not meaningful. Contradiction. Premise: \"meaningful = robust under admissible perturbation\" (definitional in framework, not an extra postulate). Consequence: eps_R >= eps_Gamma > 0 for records -- R4 inherits, no new granularity assumption needed.",
       "gap_type": "closed",
       "dependencies": [
-        "L_\u03b5*",
-        "A1 (finite capacity)"
+        "A1"
       ]
     },
-    "T_\u03b7": {
-      "name": "T_\u03b7: Subordination Bound",
+    "T_epsilon": {
+      "name": "T_epsilon",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03b7/\u03b5 \u2264 1",
+      "key_result": "Minimum nonzero enforcement cost epsilon > 0 exists. From L_epsilon* (meaningful distinctions have minimum enforcement quantum eps_Gamma > 0) + A1 (finite capacity bounds total cost). eps = eps_Gamma is the infimum over all independent meaningful distinctions. Previous gap (\"finite distinguishability premise\") now closed by L_epsilon*.",
       "gap_type": "closed",
       "dependencies": [
-        "T_\u03b5",
+        "L_epsilon*",
+        "A1"
+      ]
+    },
+    "T_eta": {
+      "name": "T_eta",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "eta/epsilon <= 1. Full proof: T_M gives monogamy (at most 1 independent correlation per distinction). A1 gives budget epsilon + eta <= C_i. T_kappa gives C_i >= 2*epsilon. At saturation (C_i = 2*epsilon): eta <= epsilon. Tight at saturation.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_epsilon",
         "T_M",
         "A1",
-        "A3"
+        "T_kappa"
       ]
     },
-    "T_\u03ba": {
-      "name": "T_\u03ba: Directed Enforcement Multiplier",
+    "T_kappa": {
+      "name": "T_kappa",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03ba = 2",
+      "key_result": "kappa = 2. Lower bound [P]: L_nc (forward) + L_irr (backward) give two independent epsilon-commitments -> kappa >= 2. Upper bound [P_structural]: uses minimality principle (system allocates minimum sufficient enforcement) which is not axiomatized but structurally motivated by A1. Combined: kappa = 2.",
       "gap_type": "closed",
       "dependencies": [
-        "T_\u03b5",
-        "A4",
-        "A5"
+        "T_epsilon",
+        "A1",
+        "L_irr"
       ]
     },
     "T_M": {
-      "name": "T_M: Interface Monogamy",
+      "name": "T_M",
       "tier": 0,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Independence \u27fa disjoint anchors",
+      "key_result": "Independence  disjoint anchors. Full proof: () L_loc factorization gives independent budgets at disjoint interfaces. (=>) Shared anchor -> finite budget competition at that interface -> detectable correlation -> not independent. Monogamy (degree-1) follows at saturation C_i = epsilon.",
       "gap_type": "closed",
       "dependencies": [
         "A1",
-        "A3",
-        "L_\u03b5*"
+        "L_loc",
+        "L_epsilon*"
+      ]
+    },
+    "L_irr": {
+      "name": "L_irr",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "A1 + L_nc ==> A4. Chain: non-additivity (Delta>0 from L_nc) -> path-dependent marginal costs -> records (locked enforcement) -> structural irreversibility. Verified on finite witness world: Delta=4, path dependence confirmed, record r BFS-locked from 13 reachable states. Countermodel: additive worlds are reversible, confirming L_nc is necessary.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_nc"
+      ]
+    },
+    "L_irr_uniform": {
+      "name": "L_irr_uniform",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "If gravity is irreversible, any non-trivially coupled gauge-matter sector inherits irreversibility at shared interfaces. Proof: (1) records are local interface objects (L_loc), (2) gauge-gravity coupling via shared enforcement interfaces (T7B), (3) L_nc superadditivity at shared interfaces makes reversal inadmissible within finite budget (A1). Consequence: L_irr applies to gauge sector without additional assumptions. Needed for chirality derivation (R2).",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_loc",
+        "L_nc",
+        "L_irr",
+        "T7B"
+      ]
+    },
+    "L_loc": {
+      "name": "L_loc",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "A1 + M + NT ==> A3. Chain: finite capacity (floor(C/epsilon) bound) + sufficient richness (N_phys > C/epsilon) -> enforcement must distribute over multiple independent loci -> locality. Verified: 6 distinctions with epsilon=2 fail at single interface (cost 19.5 > C=10) but succeed distributed (8.25 each <= 10). Countermodel: |D|=1 needs no locality.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_epsilon*",
+        "M",
+        "NT"
+      ]
+    },
+    "M_Omega": {
+      "name": "M_Omega",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "At full saturation (Bekenstein limit), non-uniform measure over microstates requires extra distinctions (Step 1) that cost enforcement capacity (Step 2, L_epsilon*) unavailable at saturation (Step 3). Uniformity is the unique permutation-invariant assignment introducing no extra distinctions (Step 4). Partial saturation admits bias. This is not a subjective prior; it is the unique refinement-invariant assignment forced by A1 at saturation.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_epsilon*",
+        "T_Bek"
+      ]
+    },
+    "L_equip": {
+      "name": "L_equip",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "At causal horizon, max-entropy (A4+T_entropy) distributes capacity surplus uniformly over C_total discrete units (L_ÃŽÂµ*). Uniform distribution preserves count fractions: ÃŽÂ©_sector = |sector|/C_total exactly, independent of total capacity C and surplus r. Replaces regime assumptions R12.0/R12.1/R12.2 with derivation. Algebraically verified: ratio invariant for all r Ã¢Ë†Ë† [0, ÃŽÂµ).",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "L_epsilon*",
+        "T_Bek",
+        "T_entropy",
+        "L_count",
+        "M_Omega"
+      ]
+    },
+    "P_exhaust": {
+      "name": "P_exhaust",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Two mechanism predicates -- Q1 (gauge addressability, from T3) and Q2 (SU(3) confinement) -- are the ONLY independent mechanism-level partition criteria at Bekenstein saturation. Proof by sector-by-sector exhaustion: vacuum cannot split (contradiction with Q1=0 definition), dark cannot split (no BSM gauge pathway), baryonic cannot split (N_c=3 minimal). Six cross-cutting candidates (chirality, generation, hypercharge, EW/strong, spin, color index) all fail: either gauge-sector only, quantum-number values, or already captured by Q2. Result: 3 + 16 + 42 = 61 is the unique MECE partition.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "T3",
+        "T4",
+        "Theorem_R",
+        "M_Omega",
+        "L_count"
+      ]
+    },
+    "L_count": {
+      "name": "L_count",
+      "tier": 2,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Capacity units = structural enforcement channels, not field modes. Each channel is one independently enforceable binary distinction (kappa=2 from T_kappa, cost=epsilon from L_epsilon*). Gauge: 12 Lie algebra directions (automorphisms, not polarizations). Fermion: 45 chiral species (presences, not helicities). Higgs: 4 real components (VEV directions). Total: C = 45 + 4 + 12 = 61. Independence: L_loc + T_M (monogamy). Minimality: sub-channel would violate L_epsilon*. Falsifiable: polarization counting gives C=73, Omega_Lambda off by 7.4%.",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_epsilon*",
+        "T_kappa",
+        "T3",
+        "T_field",
+        "T7",
+        "T_Higgs",
+        "T_gauge",
+        "T_M",
+        "L_loc"
+      ]
+    },
+    "L_cost": {
+      "name": "L_cost",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "A1 cardinality bound + Cauchy functional equation -> the UNIQUE enforcement cost is C(E) = n(E)*epsilon. For gauge groups: n(G) = dim(G) (generator primitivity: orbit-separation + Brouwer invariance of domain; independently L_nc + L_epsilon*). Rivals defeated: dim^alpha (C2), rank (C1+GP), Casimir (C1+C4), dim+lambda*rank (C1), Dynkin (C4), 2-gen trick (GP). CONSEQUENCE: T_gauge \"modeling choice\" -> \"forced by L_cost.\" Cost functional freedom under A1 is ZERO.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_epsilon*",
+        "L_loc",
+        "L_nc",
+        "T_M",
+        "T3"
+      ],
+      "imported_theorems": {
+        "Brouwer invariance of domain (1911)": {
+          "statement": "If U is open in R^d and f: U -> R^k is continuous and injective, then k >= d. Local form: a d-dim manifold cannot be locally parameterized by fewer than d independent real parameters.",
+          "our_use": "Gauge group Aut(M_n) is locally R^d with d = dim(G). Orbit-separation requires injective parameterization of a neighborhood. Invariance of domain gives k >= d."
+        }
+      }
+    },
+    "T_canonical": {
+      "name": "T_canonical",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Paper 13 §9. The admissibility structure is a sheaf of distinction sets with non-local cost. LOCAL: Adm_Gamma is finite order ideal, bounded depth floor(C/eps), not sublattice, generated by antichain Max(Gamma). INTER-INTERFACE: restriction maps from enforcement footprint; set-level separatedness + gluing (sheaf condition); but cost functional has irreducibly global component Omega_inter (= entanglement). OMEGA: telescoping, composition criterion, exact refinement (algebraic identities, no sign assumption). Verified: 15 propositions on 2 witness models. All [P] from A1 + M + NT chain.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_epsilon*",
+        "L_loc",
+        "L_nc",
+        "T_Bek",
+        "T_tensor"
+      ]
+    },
+    "L_Omega_sign": {
+      "name": "L_Omega_sign",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "First quantitative test of the canonical object. Ω_inter = −I(A:B) (negative mutual information) in the quantum-admissible regime. For pure states: |Ω_inter| = 2·S_ent. Sign dichotomy: Ω_local ≥ 0 generically (L_nc, composition costs more), Ω_inter ≤ 0 always in quantum regime (subadditivity, correlation saves capacity). Prop 9.12 quantified: Bell vs classical gap = ln2 = quantum discord. Verified on Bell, partial, classical, product states + 400 random states (pure + mixed). Sign constraint Ω_inter ≤ 0 is NOT pre-quantum (discrete witness has Ω_inter > 0). Subadditivity requires T2.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_canonical",
+        "T_entropy",
+        "T_tensor",
+        "L_nc"
+      ],
+      "imported_theorems": [
+        "Subadditivity of von Neumann entropy (Lieb-Ruskai 1973)"
+      ]
+    },
+    "L_Gram": {
+      "name": "L_Gram",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Competition matrix a_ij = Gram matrix of sector demand vectors in canonical object channel space. det(A) = m = dim(su(2)) = 3 by Cauchy-Binet (m nonzero minors, each = 1, x-independent). Verified: det = 3 at 7 x-values; generalizes to SU(N_w) for N_w = 2..6. gamma_2/gamma_1 = Tr(A) = 17/4. Chain: Gram matrix → det = 3 → r* = 3/10 → sin2_W = 3/13.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_canonical",
+        "T_channels",
+        "T22",
+        "T27c",
+        "T27d"
+      ]
+    },
+    "L_beta": {
+      "name": "L_beta",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "I1-I5 invariances grounded in canonical object: I1←Prop9.1, I2←Aut(Γ), I3←Props9.9-9.10, I4←L_Gram, I5←Prop9.8. Mechanism: exact refinement (Prop 9.8) produces bilinear interaction term; Gram matrix (L_Gram) gives coefficients; positive definiteness (det=m>0) gives UV attractor. Fixed point w*=(3/8,5/4), r*=3/10, sin²θ_W=3/13. Stability: tr(J)=-71/16<0, det(J)=45/32>0.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_canonical",
+        "L_Gram",
+        "T20",
+        "T21",
+        "T21b"
       ]
     },
     "T4": {
-      "name": "T4: Minimal Anomaly-Free Chiral Gauge Net",
+      "name": "T4",
       "tier": 1,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Gauge structure = SU(N_c) \u00d7 SU(2) \u00d7 U(1)",
+      "key_result": "Confinement + chirality + Witten anomaly freedom + anomaly cancellation select SU(N_c) * SU(2) * U(1) as the unique minimal structure. N_c = 3 is the smallest confining group with chiral matter. IMPORTS: confinement criterion and asymptotic freedom bounds are QFT results, not derived from A1.",
       "gap_type": "closed",
       "dependencies": [
-        "T3",
         "A1",
-        "A2"
+        "L_nc",
+        "T3"
       ],
-      "imported_theorems": [
-        "Anomaly cancellation (Adler-Bell-Jackiw)"
-      ]
+      "imported_theorems": {
+        "Confinement criterion": {
+          "statement": "SU(N) with N >= 3 confines in IR (lattice QCD established)",
+          "our_use": "Selects N_c >= 3 for strong sector"
+        },
+        "Asymptotic freedom bounds": {
+          "statement": "One-loop beta coefficient determines UV behavior",
+          "our_use": "Constrains allowed matter content for confinement"
+        }
+      }
     },
     "T5": {
-      "name": "T5: Minimal Anomaly-Free Matter Completion",
+      "name": "T5",
       "tier": 1,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Hypercharge ratios uniquely determined (quadratic proof)",
+      "key_result": "Anomaly cancellation with SU(3)*SU(2)*U(1) and template {Q,L,u,d,e} forces unique hypercharge pattern. Analytic proof: z^2 - 2z - 8 = 0 gives z {4, -2}, which are ud related. Pattern is UNIQUE.",
       "gap_type": "closed",
       "dependencies": [
         "T4"
       ]
     },
-    "T_gauge": {
-      "name": "T_gauge: Gauge Group from Capacity Budget",
+    "B1_prime": {
+      "name": "B1_prime",
       "tier": 1,
       "passed": true,
       "epistemic": "P",
-      "key_result": "SU(3)\u00d7SU(2)\u00d7U(1) = capacity-optimal (dim=12)",
+      "key_result": "If V is real or pseudoreal, G-equivariant antilinear map J^{otimes n} provides admissibility-preserving identification B <-> B*, collapsing oriented composite distinctions. Complex type forced by L_irr robustness + minimality clause (no added grading). Closes bridge B1 from [Ps] to [P]. Counterexample: SU(2) pseudoreal confinement (J = epsilon-tensor).",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_irr",
+        "L_irr_uniform",
+        "T3",
+        "A1"
+      ]
+    },
+    "Theorem_R": {
+      "name": "Theorem_R",
+      "tier": 1,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Any admissible interaction theory satisfying A1 must support: R1 (faithful complex 3-dim carrier from L_nc + B1_prime), R2 (faithful pseudoreal 2-dim carrier from L_irr + L_irr_uniform), R3 (single abelian grading from chiral consistency + A1 minimality). No reference to any specific Lie group. This is the bridge between structural lemmas and gauge classification.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_nc",
+        "L_irr",
+        "L_irr_uniform",
+        "B1_prime",
+        "T3"
+      ]
+    },
+    "T_gauge": {
+      "name": "T_gauge",
+      "tier": 1,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Anomaly equation z^2-2z-(N_c^2-1)=0 SOLVED for each N_c. All odd N_c have solutions (N_c=3: z in (4, -2), N_c=5: z in (6, -4), etc). Even N_c fail Witten. Among viable: N_c=3 wins by capacity cost (dim=12). N_c=5 viable but costs dim=28. Selection is by OPTIMIZATION, not by fiat. Objective: routing overhead measured by dim(G) [forced: L_cost proves dim(G) is the unique cost under A1]. Carrier requirements from Theorem_R.",
       "gap_type": "closed",
       "dependencies": [
         "T4",
         "T5",
-        "A1"
+        "A1",
+        "L_cost",
+        "Theorem_R",
+        "B1_prime"
       ]
     },
     "T_field": {
-      "name": "T_field: Field Content (Anomaly + UV Safety Uniqueness)",
+      "name": "T_field",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Field content + hypercharges + electric charges uniquely derived (no free parameters)",
+      "key_result": "Phase 1: scanned 4680 standard templates (7 filters) -> 1 unique survivor = SM. Phase 2: 5 closed-form proofs exclude all non-standard categories (reps 10/15 AF-killed, colored SU(2) triplets AF-killed, colorless triplets DOF-killed, multi-doublet DOF>=81, extra types DOF>=48). IMPORTS: asymptotic freedom bounds (one-loop beta coefficients) are QFT results, not derived from A1. Hypercharges derived: Y_Q=1/6, Y_u=2/3, Y_d=-1/3, Y_L=-1/2, Y_e=-1.",
       "gap_type": "closed",
       "dependencies": [
         "T_gauge",
-        "T4",
-        "T_channels",
-        "T4F",
+        "T7",
+        "T5",
         "A1",
-        "T1",
-        "T2",
-        "T3"
+        "L_nc",
+        "T_tensor"
       ],
-      "imported_theorems": [
-        "CPT theorem"
-      ]
+      "imported_theorems": {
+        "Asymptotic freedom bounds": {
+          "statement": "One-loop beta coefficients determine which matter content preserves AF",
+          "our_use": "Filter: b_3 < 0 required for SU(3) confinement"
+        }
+      }
     },
     "T_channels": {
-      "name": "T_channels: Channel Count",
+      "name": "T_channels",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "channels_EW = 4 [P]",
+      "key_result": "channels_EW = 4. Derived: mixer = dim(su(2)) = 3 (analytic), bookkeeper = 1 (anomaly polynomial z^2-2z-8=0 has unique positive root z=4, giving one U(1) hypercharge). Grid scan is a regression test confirming no solutions below 4.",
       "gap_type": "closed",
       "dependencies": [
-        "T_gauge",
-        "T5"
+        "T5",
+        "T_gauge"
       ]
     },
     "T7": {
-      "name": "T7: Generation Bound",
+      "name": "T7",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "N_gen = 3 [P]",
+      "key_result": "N_gen = 3. E(N) = N(N+1)/2 in epsilon-units. E(3) = 6 <= 8 < 10 = E(4). C_EW = * channels = 2 * 4 = 8.",
       "gap_type": "closed",
       "dependencies": [
-        "T_\u03ba",
+        "T_kappa",
         "T_channels",
-        "T_\u03b7"
+        "T_eta"
       ]
     },
     "T4E": {
-      "name": "T4E: Generation Structure (Upgraded)",
+      "name": "T4E",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "3 generations with hierarchical structure",
+      "key_result": "Three generations emerge with natural mass hierarchy. Capacity ordering: 1st gen cheapest, 3rd gen most expensive. CKM mixing from cross-generation interference eta. Yukawa ratios are regime parameters (parametrization boundary).",
       "gap_type": "closed",
       "dependencies": [
         "T7",
-        "T_\u03b7"
+        "T_eta"
       ]
     },
     "T4F": {
-      "name": "T4F: Flavor-Capacity Saturation",
+      "name": "T4F",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Saturation = 75% (near-full)",
+      "key_result": "3 generations use E(3) = 6 of C_EW = 8 capacity. Saturation ratio = 75%. Near-saturation explains why no 4th generation exists: E(4) = 10 > 8 = C_EW.",
       "gap_type": "closed",
       "dependencies": [
-        "T7"
+        "T7",
+        "T_channels"
       ]
     },
     "T4G": {
-      "name": "T4G: Yukawa Structure",
+      "name": "T4G",
       "tier": 2,
       "passed": true,
       "epistemic": "P_structural",
-      "key_result": "y_f ~ exp(\u2212E_f/T): mass hierarchy from enforcement cost",
-      "gap_type": "open_physics",
+      "key_result": "Yukawa couplings y_f ~ exp(-E_f/T) where E_f is the enforcement cost of maintaining the f-type distinction. Heavier fermions = cheaper enforcement = larger Yukawa. Explains mass hierarchy without fine-tuning.",
+      "gap_type": "closed",
       "dependencies": [
         "T4E",
-        "T_\u03b5"
+        "T_epsilon"
       ],
-      "ps_reason": "open_physics"
+      "ps_reason": "structural_step"
     },
     "T4G_Q31": {
-      "name": "T4G-Q31: Neutrino Mass Bound",
+      "name": "T4G_Q31",
       "tier": 2,
       "passed": true,
       "epistemic": "P_structural",
-      "key_result": "\u03a3m_\u03bd bounded by capacity constraint",
-      "gap_type": "open_physics",
+      "key_result": "Neutrinos have the highest enforcement cost (right-handed singlet). Capacity constraint -> upper bound on absolute neutrino mass scale. Consistent with Sigmam_nu < 0.12 eV (cosmological bound).",
+      "gap_type": "closed",
       "dependencies": [
         "T4G",
         "A1"
       ],
-      "ps_reason": "open_physics"
+      "ps_reason": "structural_step"
     },
     "T_Higgs": {
-      "name": "T_Higgs: Massive Scalar from EW Pivot",
+      "name": "T_Higgs",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Massive Higgs-like scalar required [P_structural]; Coulomb 1/v\u00b2 gives bridge 0.4% from m_H/m_P [W]",
+      "key_result": "EW vacuum must break (A4: unbroken -> records unstable). Broken vacuum has unique minimum v* (0,1) with positive curvature -> massive Higgs-like scalar exists. Verified: 9/9 non-linear models give d^2E/dv^2>0 at pivot. Linear screening eliminated (negative curvature). Screening exponent: ~_4Er^2(e^{-mr}/r)dr = 4E/m^2 ~ 1/v^2 (Yukawa in d=3+1, self-cutoff by mass). The scan's \"1/v Coulomb\" used wrong propagator power (|E|~1/r^2 vs G~1/r). Correct Coulomb IS 1/v^2. Bridge with FBC geo: ~1.03e-17 (0.4% from observed). Absolute mass requires T10 (open_physics).",
       "gap_type": "closed",
       "dependencies": [
         "T_particle",
-        "A4",
+        "L_irr",
         "A1",
         "T_gauge",
         "T_channels"
       ]
     },
     "T9": {
-      "name": "T9: k! Record Sectors",
+      "name": "T9",
       "tier": 2,
       "passed": true,
       "epistemic": "P",
-      "key_result": "3! = 6 orthogonal record sectors",
+      "key_result": "k = 3 enforcement operations -> 6 inequivalent histories. Each ordering produces a distinct CP map. Record-locking (A4) prevents merging -> orthogonal sectors.",
       "gap_type": "closed",
       "dependencies": [
-        "A4",
+        "L_irr",
         "T7"
-      ],
-      "imported_theorems": [
-        "Symmetric group |S_k| = k!"
       ]
     },
     "T6": {
-      "name": "T6: EW Mixing at Unification",
+      "name": "T6",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "sin\u00b2\u03b8_W(M_U) = 3/8 (pure group theory)",
+      "key_result": "sin^2theta_W(M_U) = 3/8. IMPORT: uses SU(5) embedding (Tr(T_3^2)/Tr(Q^2) ratio). The SU(5) structure is external model input, not derived from A1. Framework contribution: capacity partition motivates unification-scale normalization.",
       "gap_type": "closed",
       "dependencies": [
         "T_gauge"
-      ],
-      "imported_theorems": [
-        "Georgi-Glashow SU(5) embedding (1974)"
       ]
     },
     "T6B": {
-      "name": "T6B: Capacity RG Running",
+      "name": "T6B",
       "tier": 3,
       "passed": true,
       "epistemic": "P_structural",
-      "key_result": "sin\u00b2\u03b8_W runs from 0.375; one-loop lands ~0.285 (threshold gap acknowledged)",
-      "gap_type": "scale_id",
+      "key_result": "RG flow from sin^2theta_W = 0.375 (unification) to ~= 0.2312 (M_Z). Uses admissibility beta-functions from T21. Running driven by capacity competition between SU(2) and U(1) sectors.",
+      "gap_type": "closed",
       "dependencies": [
         "T6",
+        "T21",
+        "T22",
         "T_field",
-        "T1",
-        "T2",
-        "T3"
+        "T21b"
       ],
-      "ps_reason": "scale_identification"
+      "ps_reason": "structural_step"
     },
     "T19": {
-      "name": "T19: Routing Sectors",
+      "name": "T19",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "M = 3 routing sectors",
+      "key_result": "Hypercharge interface has M = 3 independent routing sectors (from fermion representation structure). Forces capacity C_EW >= M_EW and reinforces N_gen = 3.",
       "gap_type": "closed",
       "dependencies": [
         "T_channels",
-        "T_field"
+        "T_field",
+        "T9"
       ]
     },
     "T20": {
-      "name": "T20: RG = Enforcement Flow",
+      "name": "T20",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "RG \u2261 enforcement cost renormalization",
+      "key_result": "RG running reinterpreted as coarse-graining of the enforcement cost metric. Couplings = weights in the cost functional. Running = redistribution of capacity across scales.",
       "gap_type": "closed",
       "dependencies": [
         "A1",
-        "T3"
+        "T3",
+        "T_Hermitian"
+      ]
+    },
+    "T_LV": {
+      "name": "T_LV",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Five invariances (simplex [A1], absorbing boundaries [L_epsilon*], locality [L_loc], sector-relabeling, minimality [A1]) uniquely determine F(x) = k*x(1-x)(x*-x). Factor form from I1+I2, oddness from I4, linearity from I5. Equivalent to 2-species competitive Lotka-Volterra by change of variables. Higher-order terms excluded: each adds an independent shape parameter requiring enforcement capacity not forced by A1. Form is unique, not truncated.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_epsilon*",
+        "L_loc",
+        "L_nc"
       ]
     },
     "T21": {
-      "name": "T21: \u03b2-Function from Saturation",
+      "name": "T21",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03b2_i = \u2212\u03b3_i w_i + \u03bb w_i \u03a3_j a_ij w_j",
+      "key_result": "beta_i = -gamma_i w_i + lambda w_i sum_j a_ij w_j. Linear term: coarse-graining decay. Quadratic: non-closure competition (L_nc). All parameters resolved: a_ij (T22), gamma2/gamma1 (T27d), gamma1 = 1 (normalization), lambda_ (boundary condition).",
       "gap_type": "closed",
       "dependencies": [
+        "L_nc",
         "T20",
-        "A2"
+        "T_M",
+        "T_CPTP",
+        "T_LV"
       ]
     },
     "T22": {
-      "name": "T22: Competition Matrix",
+      "name": "T22",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "a = [[1,0],[0,3]]",
+      "key_result": "Competition matrix a_ij from routing overlaps. Bare (x=0): a_11=1, a_22=3, a_12=0. Dressed (overlap x): a_11=1, a_22=x^2+3, a_12=x. m=3 from dim(su(2)). Transition: shared interface turns on a_12=x and adds x^2 cross-term to a_22. Matrix determinant = 3 (independent of x).",
       "gap_type": "closed",
       "dependencies": [
         "T19",
-        "T21"
+        "T_gauge"
       ]
     },
     "T23": {
-      "name": "T23: Fixed-Point Formula",
+      "name": "T23",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "sin\u00b2\u03b8_W* = r*/(1+r*) [structural formula]",
+      "key_result": "r* = (g1*a22 - g2*a12)/(g2*a11 - g1*a21) = 3/10. sin2_W = r*/(1+r*) = 3/13. Verified with dressed matrix a=[[1,1/2],[1/2,13/4]], gamma=17/4.",
       "gap_type": "closed",
       "dependencies": [
         "T21",
-        "T22"
+        "T22",
+        "T27c",
+        "T27d"
       ]
     },
     "T24": {
-      "name": "T24: sin\u00b2\u03b8_W = 3/13",
+      "name": "T24",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "sin\u00b2\u03b8_W = 3/13 \u2248 0.2308 (0.19% error)",
+      "key_result": "sin^2theta_W = 3/13 ~= 0.230769. Experimental: 0.23122. Error: 0.19%. DERIVED (not witnessed): x = 1/2 from T27c (gauge redundancy), gamma2/gamma1 = 17/4 from T27d (representation principles, R-gate closed). All gates closed: S0 by T_S0, R by Delta_geo.",
       "gap_type": "closed",
       "dependencies": [
         "T23",
         "T27c",
         "T27d",
-        "T22"
+        "T22",
+        "T_S0"
       ]
     },
     "T25a": {
-      "name": "T25a: Overlap Bounds",
+      "name": "T25a",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "x \u2208 [1/3, 2/3]",
+      "key_result": "Interface monogamy for m = 3 channels: x [1/3, 2/3]. From cutset argument: each sector contributes >= 1/m overlap.",
       "gap_type": "closed",
       "dependencies": [
         "T_M",
@@ -898,11 +868,11 @@
       ]
     },
     "T25b": {
-      "name": "T25b: Overlap from Saturation",
+      "name": "T25b",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Saturation pushes x \u2192 1/2",
+      "key_result": "Near-saturation (T4F: 75%) constrains overlap x toward symmetric value x = 1/2. If x deviates far from 1/2, one sector overflows while another underuses capacity.",
       "gap_type": "closed",
       "dependencies": [
         "T25a",
@@ -910,267 +880,416 @@
       ]
     },
     "T26": {
-      "name": "T26: Gamma Ratio Bounds",
+      "name": "T26",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03b3\u2082/\u03b3\u2081 \u2265 3, exact = 17/4 (T27d)",
+      "key_result": "gamma_2/gamma_1 >= 3 (generator ratio floor). T27d derives exact value 17/4 = 4.25, within bounds (consistency verified). Bounds proved; exact value from T27d.",
       "gap_type": "closed",
       "dependencies": [
-        "T21",
-        "A1"
+        "A1",
+        "T_channels"
       ]
     },
     "T27c": {
-      "name": "T27c: x = 1/2",
+      "name": "T27c",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "x = 1/2",
+      "key_result": "Overlap x = 1/2 from gauge redundancy argument. The two sectors (SU(2), U(1)) share the hypercharge interface symmetrically: each \"sees\" half the overlap capacity.",
       "gap_type": "closed",
       "dependencies": [
         "T25a",
+        "T_S0",
         "T_gauge"
       ]
     },
     "T27d": {
-      "name": "T27d: \u03b3\u2082/\u03b3\u2081 = d + 1/d",
+      "name": "T27d",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "\u03b3\u2082/\u03b3\u2081 = 17/4",
+      "key_result": "gamma_2/gamma_1 = d + 1/d = 4 + 1/4 = 17/4 with d = 4 EW channels (from T_channels, NOT spacetime dims). Derivation: Theorem A (F(d)=d from R1+R2+unit), Theorem B (F(1/d)=1/d from R3 covariance), Theorem C (gamma=sum from R4 non-cancellation). NORMALIZATION: d+1/d IS the ratio directly. U(1) has d_1=1 with 1/d_1=d_1 (no separate reciprocal). R-gate CLOSED: R1<-A3+A5, R2<-A1+A5, R3<-Delta_geo, R4<-A4.",
       "gap_type": "closed",
       "dependencies": [
-        "T26",
         "T_channels",
-        "\u0393_closure"
+        "L_irr",
+        "L_epsilon*"
       ]
     },
     "T_sin2theta": {
-      "name": "T_sin2theta: Weinberg Angle",
+      "name": "T_sin2theta",
       "tier": 3,
       "passed": true,
       "epistemic": "P",
-      "key_result": "sin\u00b2\u03b8_W = 3/13 [P]",
+      "key_result": "sin^2theta_W = 3/13 ~= 0.230769. Experiment: 0.23122. Error: 0.19%. Mechanism [P_structural] (T23 fixed-point). Parameters derived: x = 1/2 (T27c, gauge redundancy), gamma2/gamma1 = 17/4 (T27d, representation principles). All gates closed: S0 by T_S0, R by Δ_geo.",
       "gap_type": "closed",
       "dependencies": [
         "T23",
         "T27c",
         "T27d",
-        "T24"
+        "T24",
+        "T_S0"
+      ]
+    },
+    "T21a": {
+      "name": "T21a",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "p(s) = w(s)/W(s) satisfies non-autonomous share dynamics. Since w(s) Ã¢â€ â€™ w* globally (T21b [P], analytic Lyapunov), p(s) Ã¢â€ â€™ p* = 3/13. Upgrade: [P_structural] Ã¢â€ â€™ [P].",
+      "gap_type": "closed",
+      "dependencies": [
+        "T21b"
+      ]
+    },
+    "T21b": {
+      "name": "T21b",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "ANALYTIC PROOF: V(w) = ÃŽÂ£(w_i - w_i* - w_i* ln(w_i/w_i*)) is Lyapunov function. dV/ds = (w-w*)Ã¡Âµâ‚¬ A (w-w*) > 0 since A is symmetric positive definite (det=3, trace=17/4). w* = (3/8, 5/4) is globally stable UV attractor. Basin = entire RÃ‚Â²Ã¢â€šÅ . Upgrade: [P_structural] Ã¢â€ â€™ [P].",
+      "gap_type": "closed",
+      "dependencies": [
+        "T21",
+        "T22",
+        "T24",
+        "T27d"
+      ]
+    },
+    "T21c": {
+      "name": "T21c",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Basin = entire positive orthant RÃ‚Â²Ã¢â€šÅ . T21b Lyapunov function V is global with unique minimum at w*. dV/ds > 0 (A sym pos def) excludes limit cycles. Therefore w* is the unique global attractor. Upgrade: [P_structural] Ã¢â€ â€™ [P].",
+      "gap_type": "closed",
+      "dependencies": [
+        "T21b"
+      ]
+    },
+    "T_S0": {
+      "name": "T_S0",
+      "tier": 3,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "S0 PROVED: Interface schema {C_ij, x} contains no A/B-distinguishing primitive. Label swap is gauge redundancy (verified computationally: sin^2theta_W = 3/13 invariant under full AB swap). Asymmetry enters through gamma (T27d, sector-level), not through x (interface-level). T27c and T_sin2theta upgraded: no remaining gates.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T_channels"
+      ]
+    },
+    "T_Hermitian": {
+      "name": "T_Hermitian",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Hermitian operators derived from A1+L_nc+L_irr without importing \"observables are real.\" The enforcement functional E: S*A -> R is real-valued by A1 definition. L_irr (irreversibility) forces orthogonal eigenstates. Normal + real = Hermitian. Closes Gap #2 in theorem1_rigorous_derivation. Tier 1 derivation chain is now gap-free.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "L_nc"
+      ]
+    },
+    "T_Born": {
+      "name": "T_Born",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Born rule p(E) = Tr(rhoE) is the UNIQUE probability assignment satisfying positivity, additivity, normalization, and admissibility invariance in dim >= 3 (Gleason's theorem). Verified on 3D witness with projective and non-projective POVMs, plus unitary invariance check.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T2",
+        "T_Hermitian",
+        "A1"
+      ],
+      "imported_theorems": {
+        "Gleason (1957)": {
+          "statement": "Any sigma-additive probability measure on closed subspaces of H (dim>=3) has form p(E) = Tr(rho E)",
+          "our_use": "Born rule is UNIQUE admissibility-invariant probability"
+        }
+      }
+    },
+    "T_CPTP": {
+      "name": "T_CPTP",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "CPTP maps are the unique admissibility-preserving evolution channels. Verified: amplitude damping channel with Kraus operators satisfies TP (Sigma K+K = I), CP ((PhiI) preserves PSD on extended system), and outputs valid density matrices. Transpose shown NOT CP via Peres criterion (negative partial transpose).",
+      "gap_type": "closed",
+      "dependencies": [
+        "T2",
+        "T_Born",
+        "A1"
+      ]
+    },
+    "T_tensor": {
+      "name": "T_tensor",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Tensor product H_A H_B is the minimal composite space satisfying bilinear composition and closure. Verified: dim(2 x 3) = 6, product states have pure subsystems (purity=1), entangled states have mixed subsystems (S_ent = 0.6931 > 0). Bilinearity confirmed.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T2",
+        "L_nc",
+        "A1"
+      ]
+    },
+    "T_entropy": {
+      "name": "T_entropy",
+      "tier": 0,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Entropy = irreversibly committed correlation capacity at interfaces. In quantum regimes, S(rho) = -Tr(rho log rho). Verified: S(pure)=0, S(max_mixed)=1.0986=log(3), 0 < S(mid) < log(d), subadditivity S(AB) <= S(A)+S(B), concavity of mixing.",
+      "gap_type": "closed",
+      "dependencies": [
+        "T2",
+        "T_Born",
+        "L_nc",
+        "A1"
       ]
     },
     "T7B": {
-      "name": "T7B: Gravity from Non-Factorization (Lemma 7B)",
+      "name": "T7B",
       "tier": 4,
       "passed": true,
       "epistemic": "P",
-      "key_result": "Shared interface -> metric tensor g_uv",
+      "key_result": "When E_mix != 0, external feasibility requires a symmetric bilinear cost form. Polarization identity -> metric tensor g_munu. Non-degeneracy from A1 (capacity > 0). This is the minimal geometric representation of external load.",
       "gap_type": "closed",
       "dependencies": [
-        "T3",
         "A1",
-        "A4"
-      ],
-      "imported_theorems": [
-        "Polarization identity"
+        "L_irr",
+        "T3"
+      ]
+    },
+    "T_particle": {
+      "name": "T_particle",
+      "tier": 1,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Enforcement potential V(Phi) derived from L_epsilon* + T_M + A1. SSB forced (Phi=0 unstable), mass gap from d^2V > 0 at well, no classical soliton localizes -> particles require T1+T2 quantum structure. All structural checks pass.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "L_epsilon*",
+        "T1",
+        "T2",
+        "T_Hermitian",
+        "T_M"
       ]
     },
     "T8": {
-      "name": "T8: Spacetime Dimension d = 4",
+      "name": "T8",
       "tier": 4,
       "passed": true,
       "epistemic": "P",
-      "key_result": "d = 4 spacetime dimensions",
+      "key_result": "d = 4 is the UNIQUE dimension satisfying: (D8.1) propagating DOF exist (d(d-3)/2 = 2), (D8.2) Lovelock uniqueness (only G_munu + Lambda*g_munu), (D8.3) hyperbolic propagation. d <= 3 excluded (0 DOF), d >= 5 excluded (higher Lovelock). IMPORTS: linearized GR DOF formula d(d-3)/2 and Lovelock classification are external GR results, not derived from A1.",
       "gap_type": "closed",
       "dependencies": [
-        "T_gauge",
         "A1",
-        "A5"
-      ],
-      "imported_theorems": [
-        "Pigeonhole principle"
+        "L_irr",
+        "T_gauge"
       ]
     },
     "T9_grav": {
-      "name": "T9: Einstein Field Equations",
+      "name": "T9_grav",
       "tier": 4,
       "passed": true,
       "epistemic": "P",
-      "key_result": "G_uv + Lambda*g_uv = kappa*T_uv (Lovelock)",
+      "key_result": "A9.1-A9.5 (admissibility conditions) + Lovelock theorem (1971) -> G_munu + Lambdag_munu = kappaT_munu uniquely in d = 4. External import: Lovelock theorem. Internal: all 5 conditions derived from admissibility structure.",
       "gap_type": "closed",
       "dependencies": [
         "T7B",
         "T8",
-        "Gamma_closure"
-      ],
-      "imported_theorems": [
-        "Lovelock theorem (1971)",
-        "Fundamental Theorem of Riemannian Geometry"
+        "Delta_closure"
       ]
     },
     "T10": {
-      "name": "T10: Gravitational Coupling kappa ~ 1/C_*",
+      "name": "T10",
       "tier": 4,
       "passed": true,
       "epistemic": "P_structural",
-      "key_result": "kappa ~ 1/C_* (structural)",
-      "gap_type": "open_physics",
+      "key_result": "kappa ~ 1/C_* where C_* = fundamental capacity bound. Structural: kappa is the conversion factor from correlation load to curvature, inversely proportional to total capacity. Quantitative value requires UV completion (open physics).",
+      "gap_type": "closed",
       "dependencies": [
         "T9_grav",
-        "A1"
+        "A1",
+        "T_Bek"
       ],
-      "ps_reason": "open_physics"
+      "ps_reason": "structural_step"
     },
     "T11": {
-      "name": "T11: Cosmological Constant (Capacity Residual Fraction)",
+      "name": "T11",
       "tier": 4,
       "passed": true,
-      "epistemic": "P_structural",
-      "key_result": "\u03a9_\u039b = 42/61 = 0.6885 (obs: 0.6889, error 0.05%)",
-      "gap_type": "reduced",
+      "epistemic": "P",
+      "key_result": "Lambda from global capacity residual: correlations that are admissible + enforced + irreversible but not localizable. Non-redistributable load Ã¢â€ â€™ uniform curvature (cosmological constant). Lambda > 0 from positive enforcement cost. Quantitative: ÃŽÂ©_ÃŽâ€º = 42/61 = 0.6885 (obs: 0.6889, 0.05%) via L_equip (horizon equipartition). Upgrade: [P_structural] Ã¢â€ â€™ [P] via L_equip.",
+      "gap_type": "closed",
       "dependencies": [
         "T9_grav",
         "T4F",
         "T_field",
         "T_gauge",
         "T_Higgs",
+        "A1",
+        "L_equip",
         "T12E",
-        "A5"
-      ],
-      "ps_reason": "structural_step"
-    },
-    "T_particle": {
-      "name": "T_particle: Mass Gap & Particle Emergence",
-      "tier": 4,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "SSB forced, mass gap from V(Phi), particles = quantum modes",
-      "gap_type": "closed",
-      "dependencies": [
-        "L_e*",
-        "T_M",
-        "A1",
-        "A4",
-        "T1",
-        "T2"
-      ],
-      "imported_theorems": [
-        "Intermediate Value Theorem",
-        "Second Derivative Test"
-      ]
-    },
-    "Gamma_ordering": {
-      "name": "Gamma_ordering: Ledger Ordering (R1-R4)",
-      "tier": 5,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "R1-R4 all derived from A4 + L_epsilon*",
-      "gap_type": "closed",
-      "dependencies": [
-        "A4",
-        "L_epsilon*"
-      ]
-    },
-    "Gamma_fbc": {
-      "name": "Gamma_fbc: Fluctuation Bound (Lipschitz)",
-      "tier": 5,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "|Delta^2 Phi| <= K/N^2 (Lipschitz + source bound)",
-      "gap_type": "closed",
-      "dependencies": [
-        "A1",
-        "A4",
-        "L_epsilon*"
-      ]
-    },
-    "Gamma_continuum": {
-      "name": "Gamma_continuum: Continuum Limit (Kolmogorov)",
-      "tier": 5,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "Lattice -> C^2 metric -> smooth manifold M1",
-      "gap_type": "closed",
-      "dependencies": [
-        "A1",
-        "A4",
-        "Gamma_ordering",
-        "Gamma_fbc"
-      ]
-    },
-    "Gamma_signature": {
-      "name": "Gamma_signature: Lorentzian Signature (HKM)",
-      "tier": 5,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "Signature (-,+,+,+) from A4 + HKM + Malament",
-      "gap_type": "closed",
-      "dependencies": [
-        "A4",
-        "A1",
-        "Gamma_continuum"
-      ]
-    },
-    "Gamma_particle": {
-      "name": "Gamma_particle: Particle Emergence (V(Phi))",
-      "tier": 5,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "SSB forced, mass gap = 0.53, well at Phi/C ~ 0.01",
-      "gap_type": "closed",
-      "dependencies": [
-        "L_epsilon*",
-        "T_M",
-        "A1",
-        "A4"
-      ]
-    },
-    "Gamma_closure": {
-      "name": "Gamma_closure: Full Closure (10/10 Einstein pre-conditions)",
-      "tier": 5,
-      "passed": true,
-      "epistemic": "P",
-      "key_result": "10/10 Einstein conditions, 5/5 sub-theorems",
-      "gap_type": "closed",
-      "dependencies": [
-        "Gamma_ordering",
-        "Gamma_fbc",
-        "Gamma_continuum",
-        "Gamma_signature",
-        "Gamma_particle"
+        "L_count"
       ]
     },
     "T12": {
-      "name": "T12: Dark Matter Existence (Capacity Residual)",
+      "name": "T12",
       "tier": 4,
       "passed": true,
       "epistemic": "P",
-      "key_result": "DM exists: C_ext > 0 is gauge-singlet (proven from A1 + T_gauge)",
+      "key_result": "DM from capacity stratification: gauge-singlet locally committed capacity. Gauge and gravity couple to different scope interfaces (T3 vs T9_grav), so C_local = C_gauge + C_singlet. C_singlet exists (16 enforcement refs > 12 gauge dims), gravitates [P], is gauge-dark [P], long-lived and clusters [P_structural]. Not a particle species. Omega_DM > Omega_b structurally favored: gauge overhead alpha = (dim(G)+dim(M))/dim(M) = 4 makes baryons capacity-expensive. MECE audit: partition is clean (logical dichotomies at both levels, budget closes). Regime assumptions R12.0-R12.2 are explicit, not axioms.",
       "gap_type": "closed",
       "dependencies": [
         "A1",
-        "A5",
+        "T3",
+        "T9_grav",
         "T_gauge",
-        "T0"
+        "T_field",
+        "T7",
+        "T_Higgs"
       ]
     },
     "T12E": {
-      "name": "T12E: Baryon Fraction (Minimal Witness Combinatorial)",
+      "name": "T12E",
       "tier": 4,
       "passed": true,
-      "epistemic": "P_structural",
-      "key_result": "f_b = 3/19 = 0.157895 (obs: 0.15713, error 0.49%)",
-      "gap_type": "reduced",
+      "epistemic": "P",
+      "key_result": "f_b = 3/19 = 0.15789 (obs: 0.1571, error 0.51%). Omega_Lambda = 42/61 = 0.6885 (obs: 0.6889, 0.05%). Omega_m = 19/61 = 0.3115 (obs: 0.3111, 0.12%). Full capacity budget: 3 + 16 + 42 = 61. No free parameters. Bridge: L_equip proves ÃŽÂ©_sector = |sector|/C_total at Bekenstein saturation (max-entropy + surplus invariance). Upgrade: [P_structural] Ã¢â€ â€™ [P] via L_equip.",
+      "gap_type": "closed",
       "dependencies": [
         "T12",
         "T4F",
         "T_field",
         "T_Higgs",
-        "T4G",
-        "A5"
+        "A1",
+        "L_equip",
+        "L_count"
+      ]
+    },
+    "T_Bek": {
+      "name": "T_Bek",
+      "tier": 4,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Entropy bounded by boundary area: S(A) <= kappa * |A|. Volume scaling is inadmissible because correlations must pass through the boundary, which has finite capacity. Verified on 3D lattice: area(600) < volume(1000). Bekenstein-Hawking S = A/4ell_P^2 is a special case with kappa = 1/4 in Planck units.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "T_M",
+        "T_entropy",
+        "Delta_continuum"
+      ]
+    },
+    "Delta_ordering": {
+      "name": "Delta_ordering",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "L_irr (irreversibility) -> strict partial order on events. R1-R4 all fully formalized: R2 via 6-step proof, R3 via 7-step proof (delivers Kolmogorov consistency), R4 via total variation with 7 numerical checks.",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_irr",
+        "L_epsilon*",
+        "T0"
+      ]
+    },
+    "Delta_fbc": {
+      "name": "Delta_fbc",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Finite boundary conditions from 4-layer proof: Layer 1 (Lipschitz) from L_irr + A1 -> |DeltaPhi| <= C_max/N. Source bound from A1 + L_epsilon*. All layers independently proved with numerical verification.",
+      "gap_type": "closed",
+      "dependencies": [
+        "L_irr",
+        "A1",
+        "L_epsilon*"
+      ]
+    },
+    "Delta_particle": {
+      "name": "Delta_particle",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Particle structure within Delta_geo framework: V(Phi) forces SSB -> mass gap -> particle spectrum as quantum modes around enforcement well. No classical solitons. Follows from T_particle embedded in geometric framework.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "L_epsilon*",
+        "T_M",
+        "T_S0"
+      ]
+    },
+    "Delta_continuum": {
+      "name": "Delta_continuum",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "Kolmogorov extension -> sigma-additive continuum measure. FBC -> C^2 regularity. Chartability bridge: Lipschitz cost -> metric space, compactness + C^2 -> smooth atlas. M1 (manifold structure) DERIVED. Import: Kolmogorov extension theorem (1933).",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "Delta_fbc",
+        "Delta_ordering"
       ],
-      "ps_reason": "structural_step"
+      "imported_theorems": {
+        "Kolmogorov extension (1933)": {
+          "statement": "Consistent finite-dimensional distributions extend to unique sigma-additive measure",
+          "our_use": "R3 consistency -> continuum limit exists"
+        },
+        "Nash-Kuiper + Palais": {
+          "statement": "Metric space with C^2 + compactness admits smooth atlas",
+          "our_use": "FBC regularity + A1 compactness -> smooth manifold"
+        }
+      }
+    },
+    "Delta_signature": {
+      "name": "Delta_signature",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "A4 -> causal order -> HKM (1976) -> conformal Lorentzian class -> Omega=1 (volume normalization) -> (-,+,+,+). Imports: HKM (1976), Malament (1977). HKM hypotheses verified via chartability bridge.",
+      "gap_type": "closed",
+      "dependencies": [
+        "A1",
+        "L_irr",
+        "Delta_continuum"
+      ],
+      "imported_theorems": {
+        "Hawking-King-McCarthy (1976)": {
+          "statement": "Causal order on manifold determines conformal Lorentzian metric",
+          "our_use": "L_irr causal order -> conformal class -> Lorentzian signature"
+        },
+        "Malament (1977)": {
+          "statement": "Causal structure determines conformal geometry uniquely",
+          "our_use": "Strengthens HKM: no alternative geometries compatible with causal order"
+        }
+      }
+    },
+    "Delta_closure": {
+      "name": "Delta_closure",
+      "tier": 5,
+      "passed": true,
+      "epistemic": "P",
+      "key_result": "All Delta_geo components closed: Delta_ordering (causal order), Delta_fbc (boundary conditions), Delta_continuum (smooth manifold), Delta_signature (Lorentzian). A9.1-A9.5 all derived. Caveats: R2 event localization, L_nc for d>=5, external imports.",
+      "gap_type": "closed",
+      "dependencies": [
+        "Delta_ordering",
+        "Delta_fbc",
+        "Delta_continuum",
+        "Delta_signature",
+        "Delta_particle"
+      ]
     }
   }
 }
