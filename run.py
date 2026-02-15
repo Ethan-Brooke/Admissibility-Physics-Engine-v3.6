@@ -25,6 +25,13 @@ def main():
         from Admissibility_Physics_Engine_V4_3 import run_master, export_json
         master = run_master()
         data = json.loads(export_json(master))
+        # Inject theorem_checker for dashboard badge
+        data['theorem_checker'] = {
+            'available': True,
+            'passed': data['all_pass'],
+            'n_pass': data['passed'],
+            'total': data['total_theorems'],
+        }
         with open('dashboard_data.json', 'w') as f:
             json.dump(data, f, indent=2)
         print(f"Wrote dashboard_data.json ({data['total_theorems']} theorems, "
