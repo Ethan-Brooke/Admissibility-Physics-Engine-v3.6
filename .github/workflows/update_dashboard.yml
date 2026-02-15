@@ -7,25 +7,24 @@ on:
       - 'Admissibility_Physics_Engine_*.py'
       - 'enforcement_crystal_v3.py'
       - 'run_dashboard_export.py'
-      - 'sync_dashboard.py'
   schedule:
-    - cron: '0 12 * * 0'
-  workflow_dispatch:
+    - cron: '0 12 * * 0'  # Weekly on Sunday at noon UTC
+  workflow_dispatch:  # Manual trigger
+
 jobs:
   update-dashboard:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run theorem bank
-        run: python3 Admissibility_Physics_Engine_V4_2.py
-      - name: Run crystal analysis
-        run: python3 enforcement_crystal_v3.py
+
       - name: Export dashboard data
         run: python3 run_dashboard_export.py
+
       - name: Verify output
         run: |
           python3 -c "
@@ -35,10 +34,11 @@ jobs:
           assert d['total_theorems'] >= 60, f'Expected >=60 theorems, got {d[\"total_theorems\"]}'
           assert d['all_pass'] == True, 'Not all theorems passing'
           assert d['crystal']['nodes_3ax'] >= 61, f'Expected >=61 crystal nodes'
-          print(f'✓ {d[\"total_theorems\"]} theorems, all pass')
-          print(f'✓ Crystal: {d[\"crystal\"][\"nodes_3ax\"]} nodes, {d[\"crystal\"][\"edges_3ax\"]} edges')
-          print(f'✓ Paths to sin²θ_W: {d[\"crystal\"][\"paths_3ax\"]}')
+          print(f'OK: {d[\"total_theorems\"]} theorems, all pass')
+          print(f'Crystal: {d[\"crystal\"][\"nodes_3ax\"]} nodes, {d[\"crystal\"][\"edges_3ax\"]} edges')
+          print(f'Paths to sin2theta: {d[\"crystal\"][\"paths_3ax\"]}')
           "
+
       - name: Commit updated data
         run: |
           git config --local user.email "action@github.com"
