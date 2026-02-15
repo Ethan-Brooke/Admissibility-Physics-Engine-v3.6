@@ -3,7 +3,7 @@
 run_dashboard_export.py — Generate dashboard_data.json from theorem bank + crystal.
 
 This is the single source of truth pipeline:
-  1. Run theorem bank → get all 60 theorem results
+  1. Run theorem bank → get all theorem results
   2. Run crystal v3 → get dependency graph metrics  
   3. Merge into dashboard_data.json for the HTML dashboard
 
@@ -17,13 +17,13 @@ from datetime import date
 # ── Step 1: Import and run the theorem bank ──────────────────────────────
 
 try:
-    from fcf_theorem_bank import THEOREM_REGISTRY, run_all
+    from FCF_Theorem_Bank_v4_2 import THEOREM_REGISTRY, run_all
 except ImportError:
-    # If the bank has a different name in the repo, try alternatives
     try:
-        from Admissibility_Physics_Theorems_V3_6_1 import THEOREM_REGISTRY, run_all
+        from FCF_Theorem_Bank_v4_0_THE_FOUNDATION import THEOREM_REGISTRY, run_all
     except ImportError:
-        print("ERROR: Cannot import theorem bank. Ensure fcf_theorem_bank.py is in the repo.")
+        print("ERROR: Cannot import theorem bank.")
+        print("  Expected: FCF_Theorem_Bank_v4_2.py or FCF_Theorem_Bank_v4_0_THE_FOUNDATION.py")
         sys.exit(1)
 
 print("  Running theorem bank...")
@@ -137,7 +137,7 @@ total_theorems = len(bank_results)
 all_pass = all(r.get('passed', True) for r in bank_results.values())
 
 dashboard_data = {
-    'version': 'v3.8',
+    'version': 'v4.2',
     'date': date.today().isoformat(),
     'total_theorems': total_theorems,
     'passed': sum(1 for r in bank_results.values() if r.get('passed', True)),
