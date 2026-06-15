@@ -4,16 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admissibility Physics — what a finite world permits</title>
-<meta name="description" content="A constraint-first reconstruction of physics. Take one limit seriously — that any region of the world can hold only finitely many distinctions — and the Standard Model, quantum structure, spacetime, and the cosmological budget follow as readings of a single finite ledger.">
+<meta name="description" content="A constraint-first reconstruction of physics: take one limit seriously — that any region of the world can hold only finitely many distinctions — and the Standard Model, spacetime, and the cosmological constant follow, with zero free parameters.">
 <link rel="canonical" href="https://admissibilityphysics.com/">
 <meta name="theme-color" content="#fbf8f0">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Admissibility Physics — what a finite world permits">
 <meta property="og:description" content="Physics measures a handful of numbers it has never explained. This program asks whether they follow from a single limit: that any region of the world can hold only finitely many distinctions.">
 <meta property="og:url" content="https://admissibilityphysics.com/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink-black:#001219; --dark-teal:#005f73; --dark-cyan:#0a9396; --pearl:#94d2bd;
@@ -23,7 +20,7 @@
     --head:#005f73; --head-strong:#012a35; --text:#44535a; --muted:#7c7a6c; --dim:#a89e85;
     --derived:#0a9396; --structural:#00697c; --measured:#ca6702; --link:#bb3e03; --highlight:#b9760a;
     --derived-soft:rgba(10,147,150,.10); --warm-soft:rgba(202,103,2,.10);
-    --serif:'Newsreader',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+    --serif:"Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif; --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif; --mono:ui-monospace,"Cascadia Code","Segoe UI Mono",Consolas,Menlo,monospace;
     --wrap:1120px;
   }
   *{box-sizing:border-box}
@@ -35,7 +32,7 @@
   .mono{font-family:var(--mono)}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--derived);display:inline-flex;align-items:center;gap:9px}
   .eyebrow::before{content:"";width:22px;height:1px;background:var(--derived);opacity:.7}
-  .sec-h{font-family:var(--serif);font-size:clamp(28px,4vw,40px);line-height:1.12;margin:18px 0 0;max-width:20ch;color:var(--head-strong)}
+  .sec-h{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.12;margin:18px 0 0;max-width:20ch;color:var(--head-strong)}
   .lede{font-size:18px;line-height:1.7;color:var(--text);max-width:62ch;margin:18px 0 0}
   .lede.serif{font-family:var(--serif);color:#3b4a51}
   .prose p{font-size:17px;line-height:1.72;color:var(--text);max-width:60ch;margin:0 0 18px}
@@ -58,7 +55,7 @@
   .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   .hero .glow{position:absolute;inset:0;background:radial-gradient(640px 420px at 80% -10%,var(--derived-soft),transparent 70%),radial-gradient(520px 380px at 6% 8%,var(--warm-soft),transparent 72%);pointer-events:none}
   .hero .wrap{position:relative;padding:74px 28px 66px}
-  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5.6vw,62px);line-height:1.06;color:var(--head-strong);margin:22px 0 0;max-width:17ch;letter-spacing:-.02em}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(36px,5.6vw,62px);line-height:1.06;color:var(--head-strong);margin:22px 0 0;max-width:17ch;letter-spacing:-.02em}
   .hero h1 em{font-style:italic;color:var(--dark-cyan)}
   .hsub{font-size:19px;line-height:1.64;color:var(--text);max-width:62ch;margin:26px 0 0}
   .hsub b{color:var(--head-strong);font-weight:500}
@@ -92,7 +89,7 @@
   .rcard{background:var(--surface);border:1px solid var(--line2);border-radius:13px;padding:22px 22px 20px;position:relative;transition:.16s}
   .rcard:hover{border-color:var(--dark-cyan);transform:translateY(-2px)}
   .rcard .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  .rcard .big{font-family:var(--serif);font-size:40px;line-height:1;color:var(--dark-cyan);margin:14px 0 0}
+  .rcard .big{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1;color:var(--dark-cyan);margin:14px 0 0}
   .rcard .nm{color:var(--head-strong);font-weight:500;margin-top:13px}
   .rcard .ms{font-size:14px;color:var(--muted);margin-top:5px;font-family:var(--mono)}
   .rcard .ms b{color:var(--measured);font-weight:500}
@@ -133,7 +130,7 @@
   .epileg b{width:10px;height:10px;border-radius:3px;display:inline-block}
   .engrid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
   @media(max-width:860px){.engrid{grid-template-columns:1fr;gap:30px}}
-  .engrid h3{font-family:var(--serif);font-size:24px;margin:0 0 12px;color:var(--head-strong)}
+  .engrid h3{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 12px;color:var(--head-strong)}
   .engrid p b{color:var(--head-strong)}
   .donut{position:relative;width:100%;max-width:300px;margin:0 auto;aspect-ratio:1}
   .donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -157,7 +154,7 @@
   .fcard{background:var(--surface);border:1px solid var(--line2);border-radius:13px;padding:24px;display:flex;flex-direction:column}
   .fcard.star{border-color:var(--dark-cyan);box-shadow:inset 0 0 0 1px rgba(10,147,150,.12)}
   .fcard .pk{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--derived)}
-  .fcard h3{margin:11px 0 0;font-size:21px;font-family:var(--serif);font-weight:500;line-height:1.2;color:var(--head-strong)}
+  .fcard h3{margin:11px 0 0;font-size:21px;font-family:var(--serif);font-weight:600;line-height:1.2;color:var(--head-strong)}
   .fcard p{font-size:14.5px;color:var(--muted);margin:12px 0 18px;line-height:1.6;flex:1}
   .fcard .go{font-family:var(--mono);font-size:13px;color:var(--link);display:inline-flex;align-items:center;gap:8px}
   .fcard .go:hover{color:#8f2f02}
@@ -176,8 +173,8 @@
   .gentry:first-child{border-top:0;padding-top:4px}
   @media(max-width:680px){.gentry{grid-template-columns:1fr;gap:12px}}
   .gnum{font-family:var(--mono);font-size:12px;color:var(--dark-cyan);letter-spacing:.06em}
-  .gnum .n{font-family:var(--serif);font-size:42px;color:var(--head-strong);line-height:.9;display:block;margin-bottom:8px}
-  .gentry h3{font-family:var(--serif);font-weight:500;font-size:22px;color:var(--head-strong);margin:0 0 5px;line-height:1.2}
+  .gnum .n{font-family:var(--serif);font-weight:600;font-size:42px;color:var(--head-strong);line-height:.9;display:block;margin-bottom:8px}
+  .gentry h3{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--head-strong);margin:0 0 5px;line-height:1.2}
   .gtag{font-family:var(--mono);font-size:12px;color:var(--measured);margin-bottom:14px;letter-spacing:.02em}
   .gentry .prose p{font-size:16px;line-height:1.68;max-width:64ch;margin:0 0 14px}
   .glinks{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap}
