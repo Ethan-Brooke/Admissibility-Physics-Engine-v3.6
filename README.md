@@ -1,6 +1,6 @@
-# Admissibility Physics Engine v4.3
+# Admissibility Physics Engine
 
-**Deriving the Standard Model from a single axiom — 89 theorems, 0 free parameters, 27 predictions.**
+**The executable theorem bank behind [admissibilityphysics.com](https://admissibilityphysics.com) — deriving the Standard Model, spacetime, and cosmology from a single finiteness axiom, with zero free parameters. 89 theorems, 27 predictions.**
 
 **New in v4.3: CKM quark mixing matrix predicted from zero free parameters. 6/6 magnitudes within 5%.**
 
@@ -15,10 +15,12 @@ python3 run.py --export-dashboard    # Write dashboard_data.json
 
 ## What This Is
 
-A computational verification engine for the Foundational Constraint Framework (FCF),
-which derives the Standard Model of particle physics and general relativity from
-a single information-theoretic axiom (A1: Finite Enforcement Capacity) with no free
-parameters. Every theorem is machine-verified with full dependency tracking.
+Admissibility Physics is a constraint-first reconstruction of physics: take one axiom — that any
+region of the world can hold only finitely many distinctions (A1: Finite Enforcement Capacity) —
+and the Standard Model of particle physics, the architecture of quantum mechanics, spacetime and
+gravity, and the large-scale budget of cosmology follow, with no free parameters. This repository
+is the executable engine that checks it: every theorem is machine-verified with full dependency
+tracking. The plain-language introduction lives at <https://admissibilityphysics.com>.
 
 ## Results
 
@@ -48,7 +50,7 @@ parameters. Every theorem is machine-verified with full dependency tracking.
 ### CKM Matrix (new v4.3 — zero free parameters)
 
 The Standard Model uses 4 free parameters to fit 4 CKM observables.
-FCF uses 0 free parameters and predicts 6+ observables.
+Admissibility Physics uses 0 free parameters and predicts 6+ observables.
 
 | Quantity | Predicted | Observed | Error |
 |---|---|---|---|
@@ -102,7 +104,8 @@ FCF_Theorem_Bank_v4_3.py               # All 89 entries (Tiers 0-5 + 3F)
 Admissibility_Physics_Engine_V4_3.py    # Master verification engine v11.0
 run.py                                  # Entry point (all CLI flags)
 VERSION_4_3.md                          # Changelog and full details
-index.html                              # GitHub Pages dashboard
+index.html                              # GitHub Pages site (admissibilityphysics.com)
+engine.html                             # Live engine dashboard
 dashboard_data.json                     # Auto-generated from --export-dashboard
 ```
 
