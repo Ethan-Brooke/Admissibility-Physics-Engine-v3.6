@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Admissibility Physics Reading Room</title>
+<meta name="description" content="A constraint-first reconstruction of physics: take one limit seriously — that any region of the world can hold only finitely many distinctions — and the Standard Model, spacetime, and the cosmological constant follow, with zero free parameters.">
+<link rel="canonical" href="https://admissibilityphysics.com/">
+<meta name="theme-color" content="#fbf8f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Admissibility Physics — what a finite world permits">
+<meta property="og:description" content="Physics measures a handful of numbers it has never explained. This program asks whether they follow from a single limit: that any region of the world can hold only finitely many distinctions.">
+<meta property="og:url" content="https://admissibilityphysics.com/">
+<meta name="google-site-verification" content="6KBIcwg6eXbbDcDEM0nbGjV3O8TIHdGMN2r_5wrJUMw">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5S7SQM5X1V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5S7SQM5X1V');
+</script>
+<style>
+  :root{
+    --ink-black:#001219; --dark-teal:#005f73; --dark-cyan:#0a9396; --pearl:#94d2bd;
+    --vanilla:#e9d8a6; --golden:#ee9b00; --caramel:#ca6702; --rusty:#bb3e03; --iron:#ae2012; --brown-red:#9b2226;
+    --bg:#fbf8f0; --bg-band:#f6efdd; --surface:#ffffff; --surface-2:#fbf6ea;
+    --line:#e9dfca; --line2:#dbcfae;
+    --head:#005f73; --head-strong:#012a35; --text:#44535a; --muted:#7c7a6c; --dim:#a89e85;
+    --derived:#0a9396; --structural:#00697c; --measured:#ca6702; --link:#bb3e03; --highlight:#b9760a;
+    --derived-soft:rgba(10,147,150,.10); --warm-soft:rgba(202,103,2,.10);
+    --serif:"Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif; --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif; --mono:ui-monospace,"Cascadia Code","Segoe UI Mono",Consolas,Menlo,monospace;
+    --wrap:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+  h1,h2,h3{color:var(--head);font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--derived);display:inline-flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--derived);opacity:.7}
+  .sec-h{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.12;margin:18px 0 0;max-width:20ch;color:var(--head-strong)}
+  .lede{font-size:18px;line-height:1.7;color:var(--text);max-width:62ch;margin:18px 0 0}
+  .lede.serif{font-family:var(--serif);color:#3b4a51}
+  .prose p{font-size:17px;line-height:1.72;color:var(--text);max-width:60ch;margin:0 0 18px}
+  .prose p:last-child{margin-bottom:0}
+  .prose b{color:var(--head-strong);font-weight:500}
+  .prose em{font-style:italic;color:#3b4a51}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(251,248,240,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .row{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:14px;letter-spacing:.02em;color:var(--head-strong)}
+  .brand .mk{width:22px;height:22px;flex:none}
+  .brand b{font-weight:500;color:var(--head-strong)}
+  .brand span{color:var(--dark-cyan)}
+  .nlinks{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+  .nlinks a:hover{color:var(--head-strong)}
+  .ncta{font-family:var(--mono);font-size:13px;color:var(--link);border:1px solid var(--line2);padding:8px 15px;border-radius:7px}
+  .ncta:hover{border-color:var(--link);background:var(--warm-soft)}
+  @media(max-width:820px){.nlinks{display:none}}
+
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:0;background:radial-gradient(640px 420px at 80% -10%,var(--derived-soft),transparent 70%),radial-gradient(520px 380px at 6% 8%,var(--warm-soft),transparent 72%);pointer-events:none}
+  .hero .wrap{position:relative;padding:74px 28px 66px}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(36px,5.6vw,62px);line-height:1.06;color:var(--head-strong);margin:22px 0 0;max-width:17ch;letter-spacing:-.02em}
+  .hero h1 em{font-style:italic;color:var(--dark-cyan)}
+  .hsub{font-size:19px;line-height:1.64;color:var(--text);max-width:62ch;margin:26px 0 0}
+  .hsub b{color:var(--head-strong);font-weight:500}
+  .hbtns{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px}
+  .btn{font-family:var(--mono);font-size:14px;padding:12px 20px;border-radius:8px;display:inline-flex;align-items:center;gap:9px;transition:.15s;cursor:pointer}
+  .btn.p{background:var(--link);color:#fff;font-weight:500}
+  .btn.p:hover{background:#a23503}
+  .btn.g{border:1px solid var(--line2);color:var(--head)}
+  .btn.g:hover{border-color:var(--derived);color:var(--derived);background:var(--derived-soft)}
+  .hchips{display:flex;flex-wrap:wrap;gap:0;margin-top:48px;border:1px solid var(--line2);border-radius:11px;overflow:hidden;background:var(--surface)}
+  .hchip{flex:1 1 0;min-width:150px;padding:18px 20px;border-right:1px solid var(--line)}
+  .hchip:last-child{border-right:0}
+  .hchip .v{font-family:var(--mono);font-size:25px;color:var(--head-strong);line-height:1}
+  .hchip .k{font-size:12.5px;color:var(--muted);margin-top:7px;letter-spacing:.02em}
+  @media(max-width:720px){.hchip{flex:1 1 45%;border-bottom:1px solid var(--line)}.hchip:nth-child(2n){border-right:0}}
+
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  section.band{background:var(--bg-band)}
+  .shead{margin-bottom:36px}
+
+  .twocol{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:start}
+  @media(max-width:860px){.twocol{grid-template-columns:1fr;gap:34px}}
+
+  .qq{border:1px solid var(--line2);border-radius:12px;background:var(--surface);overflow:hidden}
+  .qq .qrow{padding:15px 18px;border-bottom:1px solid var(--line)}
+  .qq .qrow:last-child{border-bottom:0}
+  .qq .qrow b{color:var(--head-strong);font-weight:500;font-size:15.5px;display:block}
+  .qq .qrow span{color:var(--muted);font-size:13px;font-family:var(--mono)}
+
+  .rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:16px}
+  .rcard{background:var(--surface);border:1px solid var(--line2);border-radius:13px;padding:22px 22px 20px;position:relative;transition:.16s}
+  .rcard:hover{border-color:var(--dark-cyan);transform:translateY(-2px)}
+  .rcard .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .rcard .big{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1;color:var(--dark-cyan);margin:14px 0 0}
+  .rcard .nm{color:var(--head-strong);font-weight:500;margin-top:13px}
+  .rcard .ms{font-size:14px;color:var(--muted);margin-top:5px;font-family:var(--mono)}
+  .rcard .ms b{color:var(--measured);font-weight:500}
+  .rcard .dev{position:absolute;top:20px;right:20px;font-family:var(--mono);font-size:12px;color:var(--dark-teal);background:var(--derived-soft);border:1px solid rgba(10,147,150,.28);padding:3px 8px;border-radius:20px}
+
+  .cqlist{display:flex;flex-direction:column;gap:11px}
+  .cq{border:1px solid var(--line2);border-radius:11px;background:var(--surface);overflow:hidden}
+  .cq button{all:unset;display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;cursor:pointer;box-sizing:border-box}
+  .cq button:hover{background:var(--surface-2)}
+  .cq .ix{font-family:var(--mono);font-size:13px;color:var(--dark-cyan);flex:none;width:18px}
+  .cq .lab{flex:1;color:var(--head-strong);font-size:15.5px;line-height:1.45}
+  .cq .tg{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line2);padding:3px 8px;border-radius:6px;flex:none}
+  .cq .cr{flex:none;color:var(--dim);transition:.2s}
+  .cq.open .cr{transform:rotate(90deg);color:var(--dark-cyan)}
+  .cq .body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .cq .body p{margin:0;padding:0 18px 17px 50px;font-size:14.5px;color:var(--text);line-height:1.6}
+  .cq .body p b{color:var(--head-strong);font-weight:500}
+
+  .chain{display:flex;flex-direction:column;gap:0;margin-top:8px}
+  .node{position:relative;padding:0 0 26px 30px;border-left:2px solid var(--line2)}
+  .node:last-child{border-left-color:transparent;padding-bottom:0}
+  .node::before{content:"";position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--dark-cyan)}
+  .node.axiom::before{background:var(--dark-cyan)}
+  .node .nt{font-family:var(--mono);font-size:12px;color:var(--dark-cyan);letter-spacing:.04em}
+  .node .nh{color:var(--head-strong);font-weight:500;margin:3px 0 4px;font-size:16px}
+  .node .nd{font-size:14.5px;color:var(--muted);line-height:1.55;max-width:54ch}
+  .node .nd code{font-family:var(--mono);color:var(--dark-teal);font-size:13px;background:var(--derived-soft);padding:1px 5px;border-radius:4px}
+
+  .estat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px;margin-bottom:30px}
+  .est{background:var(--surface);border:1px solid var(--line2);border-radius:11px;padding:17px 18px}
+  .est .v{font-family:var(--mono);font-size:27px;color:var(--head-strong);line-height:1}
+  .est .v.j{color:var(--dark-cyan)}
+  .est .k{font-size:12.5px;color:var(--muted);margin-top:8px}
+  .epi{display:flex;height:13px;border-radius:7px;overflow:hidden;border:1px solid var(--line2);margin:6px 0 12px}
+  .epi i{display:block;height:100%}
+  .epileg{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+  .epileg span{display:flex;align-items:center;gap:7px}
+  .epileg b{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .engrid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  @media(max-width:860px){.engrid{grid-template-columns:1fr;gap:30px}}
+  .engrid h3{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 12px;color:var(--head-strong)}
+  .engrid p b{color:var(--head-strong)}
+  .donut{position:relative;width:100%;max-width:300px;margin:0 auto;aspect-ratio:1}
+  .donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .donut .ctr .n{font-family:var(--mono);font-size:38px;color:var(--dark-cyan);line-height:1}
+  .donut .ctr .l{font-size:13px;color:var(--muted);margin-top:4px}
+
+  .ptable{width:100%;border-collapse:collapse;font-size:14px}
+  .ptable th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400;padding:10px 14px;border-bottom:1px solid var(--line2)}
+  .ptable td{padding:13px 14px;border-bottom:1px solid var(--line)}
+  .ptable tr:hover td{background:var(--surface-2)}
+  .ptable .q{color:var(--head-strong)}
+  .ptable .pred{font-family:var(--mono);color:var(--dark-cyan)}
+  .ptable .obs{font-family:var(--mono);color:var(--measured)}
+  .ptable .sig{font-family:var(--mono);color:var(--text)}
+  .ptable .tag{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .tscroll{overflow-x:auto;border:1px solid var(--line2);border-radius:12px;background:var(--surface)}
+  @media(max-width:720px){.ptable{min-width:560px}}
+
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:760px){.feat{grid-template-columns:1fr}}
+  .fcard{background:var(--surface);border:1px solid var(--line2);border-radius:13px;padding:24px;display:flex;flex-direction:column}
+  .fcard.star{border-color:var(--dark-cyan);box-shadow:inset 0 0 0 1px rgba(10,147,150,.12)}
+  .fcard .pk{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--derived)}
+  .fcard h3{margin:11px 0 0;font-size:21px;font-family:var(--serif);font-weight:600;line-height:1.2;color:var(--head-strong)}
+  .fcard p{font-size:14.5px;color:var(--muted);margin:12px 0 18px;line-height:1.6;flex:1}
+  .fcard .go{font-family:var(--mono);font-size:13px;color:var(--link);display:inline-flex;align-items:center;gap:8px}
+  .fcard .go:hover{color:#8f2f02}
+  .plist{border:1px solid var(--line2);border-radius:12px;overflow:hidden;background:var(--surface)}
+  .prow{display:flex;align-items:center;gap:16px;padding:15px 20px;border-bottom:1px solid var(--line)}
+  .prow:last-child{border-bottom:0}
+  .prow:hover{background:var(--surface-2)}
+  .prow .num{font-family:var(--mono);font-size:12px;color:var(--dim);flex:none;width:54px}
+  .prow .pt{flex:1;color:var(--head-strong);font-size:15px}
+  .prow .pt small{display:block;color:var(--muted);font-size:13px;margin-top:2px;font-family:var(--sans)}
+  .prow .lk{font-family:var(--mono);font-size:12px;color:var(--link);flex:none}
+  .prow .lk:hover{text-decoration:underline}
+
+  .guide{display:flex;flex-direction:column}
+  .gentry{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:34px 0;border-top:1px solid var(--line)}
+  .gentry:first-child{border-top:0;padding-top:4px}
+  @media(max-width:680px){.gentry{grid-template-columns:1fr;gap:12px}}
+  .gnum{font-family:var(--mono);font-size:12px;color:var(--dark-cyan);letter-spacing:.06em}
+  .gnum .n{font-family:var(--serif);font-weight:600;font-size:42px;color:var(--head-strong);line-height:.9;display:block;margin-bottom:8px}
+  .gentry h3{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--head-strong);margin:0 0 5px;line-height:1.2}
+  .gtag{font-family:var(--mono);font-size:12px;color:var(--measured);margin-bottom:14px;letter-spacing:.02em}
+  .gentry .prose p{font-size:16px;line-height:1.68;max-width:64ch;margin:0 0 14px}
+  .glinks{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap}
+  .glink{font-family:var(--mono);font-size:13px;color:var(--link);display:inline-flex;align-items:center;gap:7px}
+  .glink:hover{text-decoration:underline}
+  footer{padding:62px 0 48px;background:var(--head-strong);color:#cfe0e2}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px}
+  @media(max-width:760px){.fgrid{grid-template-columns:1fr;gap:26px}}
+  footer .brand,footer .brand b{color:#f3ecd8}
+  footer .brand span{color:var(--pearl)}
+  footer h4{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--pearl);margin:0 0 14px;font-weight:400}
+  footer a{display:block;color:#cfe0e2;font-size:14.5px;padding:5px 0}
+  footer a:hover{color:var(--golden)}
+  .fnote{font-size:13.5px;color:#a9c4c6;line-height:1.6;max-width:42ch}
+  .fbar{margin-top:42px;padding-top:22px;border-top:1px solid rgba(148,210,189,.22);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:#8fb0b2;font-family:var(--mono)}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  a.hchip{cursor:pointer;text-decoration:none}
+  a.hchip:hover{background:var(--surface-2)}
+  a.hchip:hover .v{color:var(--link)}
+  a.qrow{cursor:pointer;display:block}
+  a.qrow:hover{background:var(--surface-2)}
+  .qq .qrow{position:relative;padding-right:34px}
+  a.qrow::after{content:"\2192";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--dim);font-family:var(--mono);font-size:13px;opacity:0;transition:.15s}
+  a.qrow:hover::after{opacity:1;color:var(--link)}
+  .guards{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+  .guard{font-family:var(--mono);font-size:12.5px;color:var(--dark-teal);background:var(--derived-soft);border:1px solid rgba(10,147,150,.28);padding:6px 11px;border-radius:7px}
+  .ptable td a{font-family:var(--mono);color:var(--link)}
+  .ptable td a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap row">
+    <a class="brand" href="#top">
+      <svg class="mk" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="13" stroke="#0a9396" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="2.4" fill="#ca6702"/>
+        <path d="M16 3v9M16 20v9M3 16h9M20 16h9M7 7l6 6M19 19l6 6M25 7l-6 6M13 19l-6 6" stroke="#0a9396" stroke-width="1.1" opacity=".5"/>
+      </svg>
+      <b>Admissibility<span>Physics</span></b>
+    </a>
+    <div class="nlinks">
+      <a href="#puzzle">The puzzle</a>
+      <a href="#idea">The idea</a>
+      <a href="#inputs">The inputs</a>
+      <a href="#results">Results</a>
+      <a href="#engine">The engine</a>
+      <a href="#guide">Papers</a>
+      <a href="reading-room.html" style="color:var(--amber)">Reading Room</a>
+    </div>
+    <a class="ncta" href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest">Read the papers ↗</a>
+  </div>
+</nav>
+<header class="hero" style="padding-bottom:30px">
+  <div class="wrap">
+    <div class="eyebrow">The Admissibility Physics Reading Room</div>
+    <h1 style="max-width:20ch">Every paper in the program, with a way in to each.</h1>
+    <p class="lede" style="max-width:74ch">The whole corpus in one place — the ten-paper spine that builds the framework step by step, then the foundation texts and the extensions that carry it into the electroweak sector, the dark sector, lattice Yang–Mills, thermodynamics, and the horizon. Each entry says what the paper does in plain English, with a link to read it in full on Zenodo and, where one exists, the code behind it. Concept DOIs always resolve to the latest version.</p>
+    <p style="margin-top:18px"><a class="btn g" href="index.html">← Back to the overview</a> &nbsp; <a class="btn g" href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest">All papers on Zenodo ↗</a></p>
+  </div>
+</header>
+
+<section class="band"><div class="wrap">
+  <div style="max-width:80ch;border:1px solid var(--line2);border-radius:14px;background:var(--surface);padding:24px 28px">
+    <div class="eyebrow">How to read the corpus</div>
+    <h2 style="font-family:var(--serif);font-weight:600;font-size:22px;color:var(--head-strong);margin:14px 0 12px;max-width:none">Two documents per result: the paper and the Technical Supplement.</h2>
+    <p style="color:var(--text);line-height:1.65;margin:0 0 12px">Most results in the program are published twice. The <b style="color:var(--head-strong)">main paper</b> is the argument — it states the claim, walks the reasoning in plain prose, and gives proof sketches with pointers into the formal layer. It is meant to be read start to finish.</p>
+    <p style="color:var(--text);line-height:1.65;margin:0">The <b style="color:var(--head-strong)">Technical Supplement</b> is the proof — the proof-dense, canonical layer where each theorem is stated and discharged in full. It is the source of truth; formal corrections flow from the supplement back to the paper, never the other way. Read the paper to see what is claimed and why; open the supplement when you want to check that it holds. On Zenodo the two are deposited separately, the supplement linked to its paper via <code style="font-family:var(--mono);font-size:.92em;color:var(--dark-teal)">isSupplementTo</code>.</p>
+  </div>
+</div></section>
+
+
+<section id="guide">
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">The foundation, paper by paper</div>
+      <h2 class="sec-h">The first ten papers, in plain English.</h2>
+      <p class="lede">The spine of the program is ten short papers, each building on the one before. Here is the core of each in a few sentences — with a link to read it in full, and the code behind all of them on GitHub.</p>
+    </div>
+    <div class="guide">
+      <div class="gentry">
+        <div class="gnum"><span class="n">1</span>Paper 1</div>
+        <div>
+          <h3>The Enforceability of Distinction</h3>
+          <div class="gtag">where quantum behaviour begins</div>
+          <div class="prose">
+        <p>Start with a plain criterion: a physical difference is real only if the world can hold it in place against disturbance, and holding it costs something. Most differences can be defended one at a time. But some pairs cannot — defending both at once costs more than defending each alone, and the order you do it in changes what budget is left over.</p>
+        <p>That order-sensitivity is the crack quantum mechanics grows from. When the order of two operations changes the outcome, the accounting can no longer be ordinary commuting arithmetic; it has to be the non-commuting kind quantum theory uses. Paper 1 makes the link precise and shows where the familiar complex Hilbert space starts to appear.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439200">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-1-The-Enforceability-of-Distinction">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">2</span>Paper 2</div>
+        <div>
+          <h3>The Structure of Admissible Physics</h3>
+          <div class="gtag">why this gauge group, and this matter</div>
+          <div class="prose">
+        <p>Demands that are each affordable on their own can overspend when they meet at the same interface — the budget simply does not add up. Paper 2 calls this non-closure and shows it is the engine behind competition and structure throughout the framework.</p>
+        <p>Non-closure cannot be carried by simple additive symmetry; it forces the richer, non-abelian kind. Working through every compact simple Lie algebra leaves only SU(3) × SU(2) × U(1), and the cheapest version has three colours. A filtered scan of thousands of candidate matter contents leaves exactly one survivor: the Standard Model's 45 fermions. Counting the channels gives a fixed budget of 61 — which in turn sets the cosmic energy split, about 69% dark energy and the rest matter.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439274">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-2-The-Structure-of-Admissible-Physics">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">3</span>Paper 3</div>
+        <div>
+          <h3>Ledgers: Entropy, Time, and Cost</h3>
+          <div class="gtag">the arrow of time</div>
+          <div class="prose">
+        <p>Paper 2 gave the space its rooms; Paper 3 gives it a direction. Once a distinction is recorded by spreading into its surroundings, no local action can pull it back. That irreversibility is the arrow of time — derived here, not assumed as a boundary condition.</p>
+        <p>Along the way entropy gets a concrete meaning: it is the capacity currently tied up in the correlations an interface is holding. The familiar laws of thermodynamics follow as corollaries, and the rule that physical evolution must be “completely positive” — usually taken as an axiom — becomes a theorem.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439363">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-3-Ledgers-Entropy-Time-Cost">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">4</span>Paper 4</div>
+        <div>
+          <h3>Admissibility Constraints: Field Content</h3>
+          <div class="gtag">three generations, and the weak angle</div>
+          <div class="prose">
+        <p>Why three families of matter, and not two or four? Paper 4 turns it into a budget question: each generation costs a fixed amount of capacity, and three fit under the ceiling while a fourth would overflow it.</p>
+        <p>The same accounting pins the weak mixing angle at 3/13 — within 0.2% of the measured value — as the stable point of a competition between two sectors, fixes the full Standard-Model matter content as the one anomaly-free option that survives out of thousands, and reframes dark matter not as a missing particle but as a geometric correlation the ledger requires.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439397">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-4-Admissibility-Constraints-Field-Content">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">5</span>Paper 5</div>
+        <div>
+          <h3>Quantum Structure: Hilbert Space and the Born Rule</h3>
+          <div class="gtag">the architecture of quantum mechanics</div>
+          <div class="prose">
+        <p>Paper 1 showed why the accounting must be non-commuting; Paper 5 builds the rest of quantum mechanics on top of it. Hilbert space, the Born rule for probabilities, tensor products for combining systems, and the rules for how states evolve all come out as the cheapest consistent way to keep the books where joint distinctions cannot be separated.</p>
+        <p>Two payoffs stand out. The reason quantum theory uses complex numbers — rather than real or quaternionic ones — is derived, not chosen. And measurement stops being a mysterious “collapse”: it is simply a change in which bookkeeping scheme is in force.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439433">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-5-Quantum-Structure-Hilbert-Born">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">6</span>Paper 6</div>
+        <div>
+          <h3>Dynamics and Geometry: Spacetime and Gravity</h3>
+          <div class="gtag">where gravity comes from</div>
+          <div class="prose">
+        <p>Where do space, time, and gravity come from? Paper 6 treats geometry as bookkeeping: the distance between two things is the least cost of correlating them, and curvature is what appears where capacity varies from place to place. Run this in four dimensions and Einstein's equations emerge as the only consistent closure.</p>
+        <p>The picture also says where ordinary physics stops. Smooth equations of motion hold only in well-behaved regimes; at a horizon, at saturation, or the moment a record locks in, the equations give out — even though the underlying accounting still makes sense.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439445">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-6-Dynamics-Geometry-Spacetime-Gravity">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">7</span>Paper 7</div>
+        <div>
+          <h3>Action: Internalisation and the Lagrangian</h3>
+          <div class="gtag">the Lagrangian, read off not written</div>
+          <div class="prose">
+        <p>Physics is usually summarised by a Lagrangian — a single expression you write down and then take on faith. Paper 7 derives it instead. It first shows that any step leaving an irreversible record must cost at least a fixed minimum; identify that minimum with action and it is Planck's constant.</p>
+        <p>Then comes the central identity: the framework's partition function turns out to be the same object as Connes' spectral action from non-commutative geometry. Expanding it term by term hands back the cosmological constant, Einstein–Hilbert gravity, the gauge field terms, and the Higgs potential as separate coefficients. The Standard-Model Lagrangian is not postulated — it is read off.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439513">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-7-Action-Internalization-Lagrangian">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">8</span>Paper 8</div>
+        <div>
+          <h3>The Admissibility-Capacity Ledger</h3>
+          <div class="gtag">the cosmic budget</div>
+          <div class="prose">
+        <p>Paper 8 is where the single ledger ties the very small to the very large. The same budget of 61 channels that fixes the Standard Model also partitions the cosmos: ordinary matter, dark matter, and dark energy come out as 3, 16, and 42 parts of 61 — roughly 5%, 26%, and 69%.</p>
+        <p>From the same accounting it reads off a value for the dark-energy density, a Hubble constant near 70 (sitting between the two clashing measurements), and a formula for the temperature of the cosmic microwave background that matches to a third of a percent. One integer, two interfaces — the particle world and the universe at large.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.19721384">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-8-Admissibility-Capacity-Ledger">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">9</span>Paper 9</div>
+        <div>
+          <h3>The Geometric Substrate</h3>
+          <div class="gtag">toward gravity's weak field — a working paper</div>
+          <div class="prose">
+        <p>Paper 9 asks, carefully, what it would take to get general relativity's weak-field predictions out of the cost-of-comparison picture. It lays out a sequence of gates a derivation has to pass and shows that the “clock” part already recovers the gravitational redshift around a mass.</p>
+        <p>It is also candid about the gap: recovering the redshift alone does not yet fix the “ruler” part, and it names the exact remaining theorem that would close it. This is the framework showing its work — a real result paired with an explicit open target.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20041675">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-9-Geometric-Substrate">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">10</span>Paper 10</div>
+        <div>
+          <h3>The Calculus of Finite Continuability</h3>
+          <div class="gtag">the grammar of the whole program</div>
+          <div class="prose">
+        <p>Paper 10 is the grammar underneath everything else. Its single primitive is a continuation: in a given context, one distinction is allowed to continue as another within a capacity budget. Everything is then phrased in that language — a field is an equilibrium pattern of where the substrate carries a continuation, gauge symmetry is relabelling that preserves it, entropy is its irreversible blurring, and dynamics is the selection among allowed continuations.</p>
+        <p>It does not prove the downstream theorems by itself. It supplies the common vocabulary and the discipline by which every later branch has to be checked.</p>
+          </div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20041680">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-10-Calculus-of-Finite-Continuability">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:36px;display:flex;gap:13px;flex-wrap:wrap">
+      <a class="btn p" href="https://github.com/Ethan-Brooke?tab=repositories">Browse the code on GitHub ↗</a>
+      <a class="btn g" href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest">All papers on Zenodo ↗</a>
+    </p>
+  </div>
+</section>
+<section id="extensions" class="band">
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">The foundation, the engine, and the frontier</div>
+      <h2 class="sec-h">Beyond the spine.</h2>
+      <p class="lede">The overview and the self-contained core; the runnable engine; and the extension papers where the framework meets the electroweak and dark sectors, lattice Yang–Mills, thermodynamics, and the horizon.</p>
+    </div>
+    <div class="guide">
+      <div class="gentry">
+        <div class="gnum"><span class="n">0</span>Paper 0</div>
+        <div>
+          <h3>What Physics Permits</h3>
+          <div class="gtag">start here · the plain-language overview</div>
+          <div class="prose"><p>The narrative layer of the whole program. What the framework takes physics to be built on, what each commitment does, and what the technical papers derive from it — written for a reader who wants the picture before the proofs. The gentlest way in.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18439523">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-0-What-Physics-Permits">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">13</span>Paper 13</div>
+        <div>
+          <h3>The Minimal Admissibility Core</h3>
+          <div class="gtag">the foundation, compressed</div>
+          <div class="prose"><p>The shortest self-contained statement of the foundation — the framework reduced to its load-bearing core, for a reader who wants the spine without the scaffolding.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18361446">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Paper-13-The-Minimal-Admissibility-Core">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">11</span>Paper 11</div>
+        <div>
+          <h3>Forced Universality from Capacity-Bounded Admissibility</h3>
+          <div class="gtag">why different systems behave alike</div>
+          <div class="prose"><p>Why do utterly different systems fall into the same handful of behaviours? Paper 11 argues universality is forced: once admissibility is capacity-bounded, the available large-scale patterns collapse to a small set, almost independent of microscopic detail.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684198">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">16</span>Paper 16</div>
+        <div>
+          <h3>Markov Breakdown and the Hard Problems</h3>
+          <div class="gtag">where memorylessness gives out</div>
+          <div class="prose"><p>What happens when the memoryless assumption fails — when an interface's past can no longer be summarised by its present. Paper 16 locates that breakdown precisely and traces how the genuinely hard problems live exactly where the Markov property gives out.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684207">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">18</span>Paper 18</div>
+        <div>
+          <h3>The Electroweak Sector as a Capacity Equilibrium</h3>
+          <div class="gtag">the electroweak sector, in equilibrium</div>
+          <div class="prose"><p>The capacity-equilibrium treatment of the electroweak sector — the gauge-channel competition whose stable fixed point the weak angle sits at, and the forward strong-coupling prediction α_s(M_Z) = 0.1179 it implies.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684209">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">20</span>Paper 20</div>
+        <div>
+          <h3>The Enforcement Crystal</h3>
+          <div class="gtag">the shape of the theorem bank itself</div>
+          <div class="prose"><p>A study of the proof structure as an object in its own right — the dependency graph of every derived result, its load-bearing joints, and how strongly the whole edifice holds when any single piece is removed.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18531732">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">21</span>Paper 21</div>
+        <div>
+          <h3>The Executable Engine</h3>
+          <div class="gtag">run the whole thing yourself</div>
+          <div class="prose"><p>Not a manuscript but a program. Thousands of registered checks tie the one assumption to every derived constant, each tagged by how strongly it is established — and you can run the full verification suite yourself in under a minute.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.18529115">Read the paper ↗</a>
+            <a class="glink" href="https://github.com/Ethan-Brooke/APF-Engine">View the code ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">24</span>Paper 24</div>
+        <div>
+          <h3>The Recruitment-Radius Extension — Foundations</h3>
+          <div class="gtag">how far an interface can reach</div>
+          <div class="prose"><p>Foundations for the recruitment radius: how far an interface can reach to enlist capacity in holding a distinction in place, and what that range fixes for the structure built on top of it.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684211">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">28</span>Paper 28</div>
+        <div>
+          <h3>Absolute Mass Scales from Electroweak Capacity Saturation</h3>
+          <div class="gtag">where the size of masses comes from</div>
+          <div class="prose"><p>Where absolute mass scales come from. Paper 28 reads the electroweak scale off the point at which capacity saturates — fixing the size of masses, not only their ratios — up to the single dimensional anchor the framework takes from gravity.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684215">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">29</span>Paper 29</div>
+        <div>
+          <h3>Plaquette Representation Dominance and Confinement</h3>
+          <div class="gtag">the lattice Yang–Mills program (I)</div>
+          <div class="prose"><p>Part of the rigorous lattice Yang–Mills program: why the dominant contribution organises around a particular representation, and how quark confinement follows from it.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684218">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">30</span>Paper 30</div>
+        <div>
+          <h3>A Tube Mechanism for the Lattice Mass Gap</h3>
+          <div class="gtag">the lattice Yang–Mills program (II)</div>
+          <div class="prose"><p>A mechanism for the Yang–Mills mass gap on the lattice — the flux-tube picture that gives the gap its scale, a piece of one of the Clay Millennium problems approached from the capacity ledger.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684220">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">31</span>Paper 31</div>
+        <div>
+          <h3>Osterwalder–Schrader Structure of Lattice Yang–Mills</h3>
+          <div class="gtag">the lattice Yang–Mills program (III)</div>
+          <div class="prose"><p>The reflection-positivity and Osterwalder–Schrader structure that lets a lattice theory be continued to a sensible relativistic quantum field theory — the analytic backbone under the confinement and mass-gap results.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684222">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">33</span>Paper 33</div>
+        <div>
+          <h3>Trace-to-Scheme Export Architecture</h3>
+          <div class="gtag">from internal traces to measured masses</div>
+          <div class="prose"><p>The bridge from the framework's internal, trace-level quantities to the physical, scheme-dependent masses experimentalists actually report — built so that every export is auditable, route by route, rather than asserted.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684224">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">35</span>Paper 35</div>
+        <div>
+          <h3>The Dark Sector as a Two-Role Capacity Decomposition</h3>
+          <div class="gtag">dark matter and dark energy, reconsidered</div>
+          <div class="prose"><p>Dark matter and dark energy treated as two roles the same capacity budget plays, rather than two new substances — carrying a parameter-free equation-of-state prediction the program stakes itself on against current and coming surveys.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684228">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">40</span>Paper 40</div>
+        <div>
+          <h3>Between Symmetry and the Void</h3>
+          <div class="gtag">the thermodynamics of finite distinction</div>
+          <div class="prose"><p>Temperature, entropy, and the laws of thermodynamics for a system whose distinctions are finite and costly to maintain. The bounded-ledger thermodynamics that sits between perfect symmetry and the empty void — including the regime that admits negative temperature.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684235">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">41</span>Paper 41</div>
+        <div>
+          <h3>The Horizon as a Continuation Ledger</h3>
+          <div class="gtag">black-hole and cosmological horizons</div>
+          <div class="prose"><p>Black-hole and cosmological horizons read as ledgers of continuation — where horizon entropy, the Page-curve turnover, and the status of the interior all follow from how a finite horizon books what crosses it.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684241">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="gentry">
+        <div class="gnum"><span class="n">42</span>Paper 42</div>
+        <div>
+          <h3>The Weak Mixing Angle Is Not Free</h3>
+          <div class="gtag">the full derivation of 3/13</div>
+          <div class="prose"><p>The full, self-contained derivation that the weak mixing angle is not free: sin²θ_W = 3/13 from the capacity ledger — the sharpest standalone statement of the result and its ~0.2% match to measurement.</p></div>
+          <div class="glinks">
+            <a class="glink" href="https://doi.org/10.5281/zenodo.20684245">Read the paper ↗</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#top" style="margin-bottom:16px">
+          <svg class="mk" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#94d2bd" stroke-width="1.5"/><circle cx="16" cy="16" r="2.4" fill="#ee9b00"/><path d="M16 3v9M16 20v9M3 16h9M20 16h9M7 7l6 6M19 19l6 6M25 7l-6 6M13 19l-6 6" stroke="#94d2bd" stroke-width="1.1" opacity=".5"/></svg>
+          <b>Admissibility<span>Physics</span></b>
+        </a>
+        <p class="fnote">A constraint-first reconstruction: one limit on what a finite region can hold, carried through to the Standard Model and cosmology. Offered as a candidate, at stated levels of confidence, with named refutations.</p>
+      </div>
+      <div>
+        <h4>The program</h4>
+        <a href="#puzzle">The puzzle</a>
+        <a href="#idea">The idea</a>
+        <a href="#chain">Derivation chain</a>
+        <a href="#engine">The engine</a>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <a href="https://zenodo.org/communities/admissibility_physics/records?q=&l=list&p=1&s=10&sort=newest">Preprint archive ↗</a>
+        <a href="https://github.com/Ethan-Brooke/APF-Engine">GitHub repository ↗</a>
+        <a href="https://www.linkedin.com/in/ethanbrooke/">Ethan S. Brooke ↗</a>
+      </div>
+    </div>
+        <div class="fbar">
+      <span>© <span id="yr">2026</span> Ethan S. Brooke · Admissibility Physics</span>
+      <span>Predictions are outputs of constraint logic, compared with experiment — not fits.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
