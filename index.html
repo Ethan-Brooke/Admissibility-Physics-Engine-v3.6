@@ -200,6 +200,18 @@
   .fnote{font-size:13.5px;color:#a9c4c6;line-height:1.6;max-width:42ch}
   .fbar{margin-top:42px;padding-top:22px;border-top:1px solid rgba(148,210,189,.22);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:#8fb0b2;font-family:var(--mono)}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  a.hchip{cursor:pointer;text-decoration:none}
+  a.hchip:hover{background:var(--surface-2)}
+  a.hchip:hover .v{color:var(--link)}
+  a.qrow{cursor:pointer;display:block}
+  a.qrow:hover{background:var(--surface-2)}
+  .qq .qrow{position:relative;padding-right:34px}
+  a.qrow::after{content:"\2192";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--dim);font-family:var(--mono);font-size:13px;opacity:0;transition:.15s}
+  a.qrow:hover::after{opacity:1;color:var(--link)}
+  .guards{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+  .guard{font-family:var(--mono);font-size:12.5px;color:var(--dark-teal);background:var(--derived-soft);border:1px solid rgba(10,147,150,.28);padding:6px 11px;border-radius:7px}
+  .ptable td a{font-family:var(--mono);color:var(--link)}
+  .ptable td a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -218,6 +230,7 @@
     <div class="nlinks">
       <a href="#puzzle">The puzzle</a>
       <a href="#idea">The idea</a>
+      <a href="#inputs">The inputs</a>
       <a href="#results">Results</a>
       <a href="#engine">The engine</a>
       <a href="#guide">Papers</a>
@@ -238,10 +251,10 @@
       <a class="btn g" href="#results">See where it leads</a>
     </div>
     <div class="hchips">
-      <div class="hchip"><div class="v">1</div><div class="k">limit, taken seriously</div></div>
-      <div class="hchip"><div class="v">0</div><div class="k">free parameters</div></div>
-      <div class="hchip"><div class="v">3,745</div><div class="k">machine-checked theorems</div></div>
-      <div class="hchip"><div class="v">48</div><div class="k">quantitative predictions</div></div>
+      <a class="hchip" href="#inputs"><div class="v">1</div><div class="k">limit, taken seriously</div></a>
+      <a class="hchip" href="#nofit"><div class="v">0</div><div class="k">free parameters</div></a>
+      <a class="hchip" href="#engine"><div class="v">3,745</div><div class="k">machine-checked theorems</div></a>
+      <a class="hchip" href="#predictions"><div class="v">48</div><div class="k">quantitative predictions</div></a>
     </div>
   </div>
 </header>
@@ -260,11 +273,11 @@
     <div>
       <p class="mono" style="font-size:13px;color:var(--muted);margin:0 0 14px">Measured, not explained —</p>
       <div class="qq">
-        <div class="qrow"><b>Why SU(3) × SU(2) × U(1)?</b><span>the gauge group, taken as given</span></div>
-        <div class="qrow"><b>Why three generations of matter?</b><span>counted, never derived</span></div>
-        <div class="qrow"><b>Why this weak mixing angle?</b><span>measured to five decimals, unexplained</span></div>
-        <div class="qrow"><b>Why is the cosmological constant so small?</b><span>~120 orders below the naïve estimate</span></div>
-        <div class="qrow"><b>Why four-dimensional spacetime?</b><span>assumed, not selected</span></div>
+        <a class="qrow" href="#chain"><b>Why SU(3) × SU(2) × U(1)?</b><span>the gauge group, taken as given</span></a>
+        <a class="qrow" href="#results"><b>Why three generations of matter?</b><span>counted, never derived</span></a>
+        <a class="qrow" href="#predictions"><b>Why this weak mixing angle?</b><span>measured to five decimals, unexplained</span></a>
+        <a class="qrow" href="#chain"><b>Why is the cosmological constant so small?</b><span>~120 orders below the naïve estimate</span></a>
+        <a class="qrow" href="#predictions"><b>Why four-dimensional spacetime?</b><span>assumed, not selected</span></a>
       </div>
     </div>
   </div>
@@ -335,6 +348,60 @@
   </div>
 </section>
 
+<section id="inputs" class="band">
+  <div class="wrap twocol">
+    <div>
+      <div class="eyebrow">The inputs</div>
+      <h2 class="sec-h">One assumption, three coherence conditions, one scale.</h2>
+      <div class="prose" style="margin-top:22px">
+        <p>It is fair to ask what a program like this is allowed to assume. The honest answer is short. <b>One assumption</b>: at every causally connected region, only finitely many distinctions can be held at once. Everything structural is meant to follow from taking that seriously.</p>
+        <p>Three <b>coherence conditions</b> arrive with it, the moment a distinction is allowed to cost something — a positive floor, so nothing moves for free; a least-cost tie-break, so when several arrangements are admissible the cheapest is the one selected; and a non-degenerate cost spectrum, so the costs do not all collapse together. These are not extra physics. They are what it means for a cost to be a cost.</p>
+        <p>And <b>one scale</b>. The framework fixes every ratio it touches, but a ratio is not a size. Turning dimensionless structure into kilograms and metres takes exactly one external number — the Planck magnitude — and every mass rides it: the electroweak scale, the confinement scale, the cosmological constant, the mass of the top quark. That one number is not derived, and the program says so plainly. Assumptions that fix only dimensionless structure cannot hand you an absolute size.</p>
+        <p>One assumption, three coherence conditions, one scale. Nothing else is fed in — and the next section is how that is kept true.</p>
+      </div>
+    </div>
+    <div>
+      <p class="mono" style="font-size:13px;color:var(--muted);margin:0 0 14px">Everything that goes in &mdash;</p>
+      <div class="qq">
+        <div class="qrow"><b>A1 &mdash; finite capacity</b><span>the one assumption</span></div>
+        <div class="qrow"><b>A positive cost floor</b><span>no distinction moves for free</span></div>
+        <div class="qrow"><b>A least-cost tie-break</b><span>the cheapest admissible arrangement is selected</span></div>
+        <div class="qrow"><b>A non-degenerate cost spectrum</b><span>the costs do not all coincide</span></div>
+        <div class="qrow"><b>The Planck magnitude</b><span>one external scale &mdash; the only dimensional input</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nofit">
+  <div class="wrap twocol">
+    <div>
+      <div class="eyebrow">Zero free parameters</div>
+      <h2 class="sec-h">The numbers are not allowed to see the answer.</h2>
+      <div class="prose" style="margin-top:22px">
+        <p>A program that claims to derive measured constants faces one besetting temptation: to let the target value leak into the derivation, so that a &ldquo;prediction&rdquo; is really a fit in a derivation&rsquo;s clothes. The defense here is mechanical, not a promise.</p>
+        <p>A measured value enters only as a <b>comparator</b> &mdash; at the very end, after the number is already fixed &mdash; never as an input. Every registered check carries an explicit guard recording that no measured target was consumed, and the verification suite refuses any derivation caught reading its own answer. Before a derivation even begins, an audit-first pass checks whether the result already sits in the bank under another name, so the framework does not quietly re-fit what it has already earned.</p>
+        <p>That is what the <b>0</b> means. There are no dials. A result is either forced by the constraints or it is marked open and left open. When the framework is wrong it cannot be tuned back into agreement &mdash; which is precisely what lets a failed prediction count against it.</p>
+      </div>
+      <div class="guards">
+        <span class="guard">measured_target_consumed = 0</span>
+        <span class="guard">comparator, never input</span>
+        <span class="guard">audit-first, before v0.1</span>
+        <span class="guard">no tunable dial</span>
+      </div>
+    </div>
+    <div>
+      <p class="mono" style="font-size:13px;color:var(--muted);margin:0 0 14px">How a number could cheat &mdash; and what stops it &mdash;</p>
+      <div class="qq">
+        <div class="qrow"><b>Read its own target as an input</b><span>blocked &mdash; measured values enter only as comparators</span></div>
+        <div class="qrow"><b>Hide a fitted dial in a constant</b><span>blocked &mdash; every check declares its inputs; none is free</span></div>
+        <div class="qrow"><b>Re-derive what is already banked</b><span>blocked &mdash; audit-first grep before any new cycle</span></div>
+        <div class="qrow"><b>Quietly upgrade a shaky claim</b><span>blocked &mdash; a grade moves only when a check earns it</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="chain">
   <div class="wrap">
     <div class="shead">
@@ -382,6 +449,8 @@
       <span><b style="background:#cdbf9f"></b>open / conjectural</span>
     </div>
 
+    <p class="lede" style="max-width:74ch;margin-top:24px">Those four tags are not decoration &mdash; they are how the program stays honest over time. Every claim carries one, and a result moves up the ladder only when a registered check earns it. The same tags let the framework track what is genuinely forced, what still rests on a named identification, and what is honestly open &mdash; so progress is visible, and a quiet downgrade has nowhere to hide. The bank is the ledger of record; nothing here is asserted by hand.</p>
+
     <div class="engrid" style="margin-top:48px">
       <div>
         <h3>Built to be falsified.</h3>
@@ -410,15 +479,15 @@
     </div>
     <div class="tscroll">
       <table class="ptable">
-        <thead><tr><th>Quantity</th><th>Predicted</th><th>Measured</th><th>Deviation</th><th>Status</th></tr></thead>
+        <thead><tr><th>Quantity</th><th>Predicted</th><th>Measured</th><th>Deviation</th><th>Status</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td class="q">Weak mixing angle &nbsp;sin²θ<sub>W</sub></td><td class="pred">3/13 = 0.23077</td><td class="obs">0.23122</td><td class="sig">0.19%</td><td class="tag">[P_structural]</td></tr>
-          <tr><td class="q">Dark-energy fraction &nbsp;Ω<sub>Λ</sub></td><td class="pred">42/61 = 0.6885</td><td class="obs">0.6889</td><td class="sig">0.05%</td><td class="tag">[P]</td></tr>
-          <tr><td class="q">Gauge group</td><td class="pred">SU(3)×SU(2)×U(1)</td><td class="obs">SU(3)×SU(2)×U(1)</td><td class="sig">exact</td><td class="tag">[P]</td></tr>
-          <tr><td class="q">Fermion generations &nbsp;N<sub>gen</sub></td><td class="pred">3</td><td class="obs">3</td><td class="sig">exact</td><td class="tag">[P]</td></tr>
-          <tr><td class="q">Spacetime dimension &nbsp;d</td><td class="pred">4</td><td class="obs">4</td><td class="sig">exact</td><td class="tag">[P]</td></tr>
-          <tr><td class="q">Strong coupling &nbsp;α<sub>s</sub>(M<sub>Z</sub>)</td><td class="pred">0.1179</td><td class="obs">0.1179</td><td class="sig">0.0%</td><td class="tag">[P_structural]</td></tr>
-          <tr><td class="q">CKM mixing &nbsp;(6 elements)</td><td class="pred">capacity ratios</td><td class="obs">PDG values</td><td class="sig">6/6 &lt; 5%</td><td class="tag">[P_structural]</td></tr>
+          <tr><td class="q">Weak mixing angle &nbsp;sin²θ<sub>W</sub></td><td class="pred">3/13 = 0.23077</td><td class="obs">0.23122</td><td class="sig">0.19%</td><td class="tag">[P_structural]</td><td><a href="https://doi.org/10.5281/zenodo.20684209">P18 ↗</a></td></tr>
+          <tr><td class="q">Dark-energy fraction &nbsp;Ω<sub>Λ</sub></td><td class="pred">42/61 = 0.6885</td><td class="obs">0.6889</td><td class="sig">0.05%</td><td class="tag">[P]</td><td><a href="https://doi.org/10.5281/zenodo.19721384">P8 ↗</a></td></tr>
+          <tr><td class="q">Gauge group</td><td class="pred">SU(3)×SU(2)×U(1)</td><td class="obs">SU(3)×SU(2)×U(1)</td><td class="sig">exact</td><td class="tag">[P]</td><td><a href="https://doi.org/10.5281/zenodo.18439274">P2 ↗</a></td></tr>
+          <tr><td class="q">Fermion generations &nbsp;N<sub>gen</sub></td><td class="pred">3</td><td class="obs">3</td><td class="sig">exact</td><td class="tag">[P]</td><td><a href="https://doi.org/10.5281/zenodo.18439397">P4 ↗</a></td></tr>
+          <tr><td class="q">Spacetime dimension &nbsp;d</td><td class="pred">4</td><td class="obs">4</td><td class="sig">exact</td><td class="tag">[P]</td><td><a href="https://doi.org/10.5281/zenodo.18439445">P6 ↗</a></td></tr>
+          <tr><td class="q">Strong coupling &nbsp;α<sub>s</sub>(M<sub>Z</sub>)</td><td class="pred">0.1179</td><td class="obs">0.1179</td><td class="sig">0.0%</td><td class="tag">[P_structural]</td><td><a href="https://doi.org/10.5281/zenodo.20684209">P18 ↗</a></td></tr>
+          <tr><td class="q">CKM mixing &nbsp;(6 elements)</td><td class="pred">capacity ratios</td><td class="obs">PDG values</td><td class="sig">6/6 &lt; 5%</td><td class="tag">[P_structural]</td><td><a href="https://doi.org/10.5281/zenodo.18439397">P4 ↗</a></td></tr>
         </tbody>
       </table>
     </div>
